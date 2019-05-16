@@ -40,6 +40,7 @@ class HeaderParser(object):
         print(self.vars)
         for i in self.vars:
             print('Type: ' + i['type'] + '        Name: ' + i['name'] + '\n')
+        print('\n\n')
 
     def read_file(self, name=None, path=None):
         """

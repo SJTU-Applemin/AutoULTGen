@@ -41,6 +41,14 @@ namespace encode
 
             EXPECT_EQ(HevcVdencPktG12::Submit(commandBuffer), MOS_STATUS_NULL_POINTER);
 
+            // !tileEnabled
+//            tileEnabled = 0;
+            EXPECT_EQ(HevcVdencPktG12::Submit(commandBuffer), MOS_STATUS_NULL_POINTER);
+
+//            tileEnabled = 1;
+            EXPECT_EQ(HevcVdencPktG12::Submit(commandBuffer), MOS_STATUS_NULL_POINTER);
+
+
             return MOS_STATUS_SUCCESS;
         }
 
@@ -97,6 +105,126 @@ namespace encode
 
             EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
 
+            // m_hevcPicParams->tiles_enabled_flag
+//            m_hevcPicParams->tiles_enabled_flag = 0;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_hevcPicParams->tiles_enabled_flag = 1;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
+            // m_pipeline->IsFirstPass()
+//            m_pipeline->IsFirstPass() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFirstPass() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
+            // feature->IsACQPEnabled() || feature->IsBRCEnabled()
+//            feature->IsACQPEnabled() = false ;
+//            feature->IsBRCEnabled() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            feature->IsACQPEnabled() = true ;
+//            feature->IsBRCEnabled() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            feature->IsACQPEnabled() = false ;
+//            feature->IsBRCEnabled() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            feature->IsACQPEnabled() = true ;
+//            feature->IsBRCEnabled() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
+            // m_useBatchBufferForPakSlices
+//            m_useBatchBufferForPakSlices = 0;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_useBatchBufferForPakSlices = 1;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
+            // m_basicFeature->m_lastPicInSeq || m_basicFeature->m_lastPicInStream
+//            m_basicFeature->m_lastPicInSeq = 0;
+//            m_basicFeature->m_lastPicInStream = 0;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 1;
+//            m_basicFeature->m_lastPicInStream = 0;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 0;
+//            m_basicFeature->m_lastPicInStream = 1;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 1;
+//            m_basicFeature->m_lastPicInStream = 1;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
+            // m_pipeline->IsLastPass() && m_pipeline->IsFirstPipe()
+//            m_pipeline->IsLastPass() = false ;
+//            m_pipeline->IsFirstPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsLastPass() = true ;
+//            m_pipeline->IsFirstPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsLastPass() = false ;
+//            m_pipeline->IsFirstPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsLastPass() = true ;
+//            m_pipeline->IsFirstPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
+            // false == m_pipeline->IsFrameTrackingEnabled() && m_pipeline->IsLastPass() && m_pipeline->IsLastPipe()
+//            m_pipeline->IsFrameTrackingEnabled() = false ;
+//            m_pipeline->IsLastPass() = false ;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFrameTrackingEnabled() = true ;
+//            m_pipeline->IsLastPass() = false ;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFrameTrackingEnabled() = false ;
+//            m_pipeline->IsLastPass() = true ;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFrameTrackingEnabled() = true ;
+//            m_pipeline->IsLastPass() = true ;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFrameTrackingEnabled() = false ;
+//            m_pipeline->IsLastPass() = false ;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFrameTrackingEnabled() = true ;
+//            m_pipeline->IsLastPass() = false ;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFrameTrackingEnabled() = false ;
+//            m_pipeline->IsLastPass() = true ;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFrameTrackingEnabled() = true ;
+//            m_pipeline->IsLastPass() = true ;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchSliceLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
             return MOS_STATUS_SUCCESS;
         }
 
@@ -108,6 +236,56 @@ namespace encode
             uint8_t packetPhase = 0;
 
             EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+            // !m_hevcPicParams->tiles_enabled_flag
+//            m_hevcPicParams->tiles_enabled_flag = 0;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_hevcPicParams->tiles_enabled_flag = 1;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+
+            // (m_basicFeature->m_lastPicInSeq || m_basicFeature->m_lastPicInStream) && m_pipeline->IsLastPipe()
+//            m_basicFeature->m_lastPicInSeq = 0;
+//            m_basicFeature->m_lastPicInStream = 0;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 1;
+//            m_basicFeature->m_lastPicInStream = 0;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 0;
+//            m_basicFeature->m_lastPicInStream = 1;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 1;
+//            m_basicFeature->m_lastPicInStream = 1;
+//            m_pipeline->IsLastPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 0;
+//            m_basicFeature->m_lastPicInStream = 0;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 1;
+//            m_basicFeature->m_lastPicInStream = 0;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 0;
+//            m_basicFeature->m_lastPicInStream = 1;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
+//            m_basicFeature->m_lastPicInSeq = 1;
+//            m_basicFeature->m_lastPicInStream = 1;
+//            m_pipeline->IsLastPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchTileLevelCommands(cmdBuffer, packetPhase), MOS_STATUS_NULL_POINTER);
+
 
             return MOS_STATUS_SUCCESS;
         }
@@ -125,6 +303,64 @@ namespace encode
 
             EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
 
+            // (m_pipeline->GetPipeNum() > 1) && (tileCol != m_pipeline->GetCurrentPipe())
+//            m_pipeline->SetPipeNum(0);
+            tileCol = 0;
+//            m_pipeline->SetCurrentPipe(0);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetPipeNum(1);
+            tileCol = 0;
+//            m_pipeline->SetCurrentPipe(0);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetPipeNum(0);
+            tileCol = 1;
+//            m_pipeline->SetCurrentPipe(0);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetPipeNum(1);
+            tileCol = 1;
+//            m_pipeline->SetCurrentPipe(0);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetPipeNum(0);
+            tileCol = 0;
+//            m_pipeline->SetCurrentPipe(1);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetPipeNum(1);
+            tileCol = 0;
+//            m_pipeline->SetCurrentPipe(1);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetPipeNum(0);
+            tileCol = 1;
+//            m_pipeline->SetCurrentPipe(1);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetPipeNum(1);
+            tileCol = 1;
+//            m_pipeline->SetCurrentPipe(1);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+
+            // m_pipeline->GetNumPipes() > 1
+//            m_pipeline->SetNumPipes(0);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetNumPipes(1);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+
+            // m_pipeline->GetNumPipes() > 1
+//            m_pipeline->SetNumPipes(0);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->SetNumPipes(1);
+            EXPECT_EQ(HevcVdencPktG12::AddOneTileCommands(cmdBuffer, tileRow, tileCol, tileRowPass), MOS_STATUS_NULL_POINTER);
+
+
             return MOS_STATUS_SUCCESS;
         }
 
@@ -135,11 +371,31 @@ namespace encode
 
             EXPECT_EQ(HevcVdencPktG12::AddSlicesCommandsInTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
 
+            // !sliceInTile
+//            sliceInTile = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddSlicesCommandsInTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            sliceInTile = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddSlicesCommandsInTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+
+            // 0 == sliceNumInTile
+//            sliceNumInTile = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddSlicesCommandsInTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            sliceNumInTile = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddSlicesCommandsInTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+
             return MOS_STATUS_SUCCESS;
         }
 
         MOS_STATUS TestHevcVdencPktG12::UpdateParametersTest()
         {
+
+            // !m_pipeline->IsSingleTaskPhaseSupported()
+//            m_pipeline->IsSingleTaskPhaseSupported() = false ;
+//            m_pipeline->IsSingleTaskPhaseSupported() = true ;
 
             return MOS_STATUS_SUCCESS;
         }
@@ -151,6 +407,22 @@ namespace encode
 
             EXPECT_EQ(HevcVdencPktG12::AddPicStateWithNoTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
 
+            // tileEnabled
+//            tileEnabled = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithNoTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            tileEnabled = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithNoTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+
+            // brcFeature->IsBRCUpdateRequired()
+//            brcFeature->IsBRCUpdateRequired() = false ;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithNoTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            brcFeature->IsBRCUpdateRequired() = true ;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithNoTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+
             return MOS_STATUS_SUCCESS;
         }
 
@@ -160,6 +432,22 @@ namespace encode
             memset(&cmdBuffer, 0, sizeof(cmdBuffer));
 
             EXPECT_EQ(HevcVdencPktG12::AddPicStateWithTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+            // !tileEnabled
+//            tileEnabled = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            tileEnabled = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+
+            // brcFeature->IsBRCUpdateRequired()
+//            brcFeature->IsBRCUpdateRequired() = false ;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            brcFeature->IsBRCUpdateRequired() = true ;
+            EXPECT_EQ(HevcVdencPktG12::AddPicStateWithTile(cmdBuffer), MOS_STATUS_NULL_POINTER);
+
 
             return MOS_STATUS_SUCCESS;
         }
@@ -203,6 +491,24 @@ namespace encode
             memset(&pipeBufAddrParams, 0, sizeof(pipeBufAddrParams));
 
 
+            // m_pipeline->GetNumPipes() > 1
+//            m_pipeline->SetNumPipes(0);
+//            m_pipeline->SetNumPipes(1);
+
+            // m_basicFeature->m_pictureCodingType == I_TYPE
+//            m_basicFeature->m_pictureCodingType = 0;
+//            I_TYPE = 0;
+//            m_basicFeature->m_pictureCodingType = 1;
+//            I_TYPE = 0;
+//            m_basicFeature->m_pictureCodingType = 0;
+//            I_TYPE = 1;
+//            m_basicFeature->m_pictureCodingType = 1;
+//            I_TYPE = 1;
+
+            // pipeBufAddrParams.presReferences[i] == nullptr
+//            pipeBufAddrParams.presReferences[i] = 0;
+//            pipeBufAddrParams.presReferences[i] = 1;
+
             return MOS_STATUS_SUCCESS;
         }
 
@@ -223,6 +529,40 @@ namespace encode
 
             EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
 
+            // m_pictureCodingType == I_TYPE
+//            m_pictureCodingType = 0;
+//            I_TYPE = 0;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+//            m_pictureCodingType = 1;
+//            I_TYPE = 0;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+//            m_pictureCodingType = 0;
+//            I_TYPE = 1;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+//            m_pictureCodingType = 1;
+//            I_TYPE = 1;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+
+            // pipeBufAddrParams.presVdencReferences[i] == nullptr
+//            pipeBufAddrParams.presVdencReferences[i] = 0;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+//            pipeBufAddrParams.presVdencReferences[i] = 1;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+
+            // i != 0
+//            i = 0;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+//            i = 1;
+            EXPECT_EQ(HevcVdencPktG12::SetVdencPipeBufAddrParams(pipeBufAddrParams), MOS_STATUS_NULL_POINTER);
+
+
             return MOS_STATUS_SUCCESS;
         }
 
@@ -234,6 +574,32 @@ namespace encode
             memset(&cmdBuffer, 0, sizeof(cmdBuffer));
 
             EXPECT_EQ(HevcVdencPktG12::PatchPictureLevelCommands(packetPhase, cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+            // (m_pipeline->IsFirstPass() && !feature->IsACQPEnabled())
+//            m_pipeline->IsFirstPass() = false ;
+//            feature->IsACQPEnabled() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchPictureLevelCommands(packetPhase, cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFirstPass() = true ;
+//            feature->IsACQPEnabled() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchPictureLevelCommands(packetPhase, cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFirstPass() = false ;
+//            feature->IsACQPEnabled() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchPictureLevelCommands(packetPhase, cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFirstPass() = true ;
+//            feature->IsACQPEnabled() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchPictureLevelCommands(packetPhase, cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+
+            // m_pipeline->IsFirstPipe()
+//            m_pipeline->IsFirstPipe() = false ;
+            EXPECT_EQ(HevcVdencPktG12::PatchPictureLevelCommands(packetPhase, cmdBuffer), MOS_STATUS_NULL_POINTER);
+
+//            m_pipeline->IsFirstPipe() = true ;
+            EXPECT_EQ(HevcVdencPktG12::PatchPictureLevelCommands(packetPhase, cmdBuffer), MOS_STATUS_NULL_POINTER);
+
 
             return MOS_STATUS_SUCCESS;
         }
@@ -264,6 +630,28 @@ namespace encode
             memset(&vdboxPipeModeSelectParams, 0, sizeof(vdboxPipeModeSelectParams));
 
 
+            // m_pipeline->GetPipeNum() > 1
+//            m_pipeline->SetPipeNum(0);
+//            m_pipeline->SetPipeNum(1);
+
+            // m_pipeline->IsFirstPipe()
+//            m_pipeline->IsFirstPipe() = false ;
+//            m_pipeline->IsFirstPipe() = true ;
+
+            // m_hevcPicParams->tiles_enabled_flag
+//            m_hevcPicParams->tiles_enabled_flag = 0;
+//            m_hevcPicParams->tiles_enabled_flag = 1;
+
+            // m_hevcSeqParams->EnableStreamingBufferLLC || m_hevcSeqParams->EnableStreamingBufferDDR
+//            m_hevcSeqParams->EnableStreamingBufferLLC = 0;
+//            m_hevcSeqParams->EnableStreamingBufferDDR = 0;
+//            m_hevcSeqParams->EnableStreamingBufferLLC = 1;
+//            m_hevcSeqParams->EnableStreamingBufferDDR = 0;
+//            m_hevcSeqParams->EnableStreamingBufferLLC = 0;
+//            m_hevcSeqParams->EnableStreamingBufferDDR = 1;
+//            m_hevcSeqParams->EnableStreamingBufferLLC = 1;
+//            m_hevcSeqParams->EnableStreamingBufferDDR = 1;
+
             return MOS_STATUS_SUCCESS;
         }
 
@@ -279,6 +667,68 @@ namespace encode
             memset(&params, 0, sizeof(params));
 
             EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+            // cmdBuffer == nullptr && batchBuffer == nullptr
+            cmdBuffer = 0;
+            batchBuffer = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+            cmdBuffer = 1;
+            batchBuffer = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+            cmdBuffer = 0;
+            batchBuffer = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+            cmdBuffer = 1;
+            batchBuffer = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+
+            // hevcSlcParams->slice_type != encodeHevcISlice
+//            hevcSlcParams->slice_type = 0;
+//            encodeHevcISlice = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+//            hevcSlcParams->slice_type = 1;
+//            encodeHevcISlice = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+//            hevcSlcParams->slice_type = 0;
+//            encodeHevcISlice = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+//            hevcSlcParams->slice_type = 1;
+//            encodeHevcISlice = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+
+            // eStatus != MOS_STATUS_SUCCESS
+//            eStatus = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+//            eStatus = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+
+            // hevcSlcParams->slice_type == encodeHevcBSlice
+//            hevcSlcParams->slice_type = 0;
+//            encodeHevcBSlice = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+//            hevcSlcParams->slice_type = 1;
+//            encodeHevcBSlice = 0;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+//            hevcSlcParams->slice_type = 0;
+//            encodeHevcBSlice = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
+//            hevcSlcParams->slice_type = 1;
+//            encodeHevcBSlice = 1;
+            EXPECT_EQ(HevcVdencPktG12::AddHcpRefIdxCmd(cmdBuffer, batchBuffer, params), MOS_STATUS_SUCCESS);
+
 
             return MOS_STATUS_SUCCESS;
         }
@@ -308,6 +758,32 @@ namespace encode
             MHW_VDBOX_PIPE_MODE_SELECT_PARAMS vdboxPipeModeSelectParams;
             memset(&vdboxPipeModeSelectParams, 0, sizeof(vdboxPipeModeSelectParams));
 
+
+            // m_enableSCC && (m_hevcPicParams->pps_curr_pic_ref_enabled_flag || m_hevcSeqParams->palette_mode_enabled_flag)
+//            m_enableSCC = 0;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 0;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 0;
+//            m_enableSCC = 1;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 0;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 0;
+//            m_enableSCC = 0;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 1;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 0;
+//            m_enableSCC = 1;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 1;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 0;
+//            m_enableSCC = 0;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 0;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 1;
+//            m_enableSCC = 1;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 0;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 1;
+//            m_enableSCC = 0;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 1;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 1;
+//            m_enableSCC = 1;
+//            m_hevcPicParams->pps_curr_pic_ref_enabled_flag = 1;
+//            m_hevcSeqParams->palette_mode_enabled_flag = 1;
 
             return MOS_STATUS_SUCCESS;
         }
@@ -346,6 +822,30 @@ namespace encode
         MOS_STATUS TestHevcVdencPktG12::AllocateResourcesTest()
         {
             EXPECT_EQ(HevcVdencPktG12::AllocateResources(), MOS_STATUS_SUCCESS);
+
+            // eStatus != MOS_STATUS_SUCCESS
+//            eStatus = 0;
+            EXPECT_EQ(HevcVdencPktG12::AllocateResources(), MOS_STATUS_SUCCESS);
+
+//            eStatus = 1;
+            EXPECT_EQ(HevcVdencPktG12::AllocateResources(), MOS_STATUS_SUCCESS);
+
+
+            // eStatus != MOS_STATUS_SUCCESS
+//            eStatus = 0;
+            EXPECT_EQ(HevcVdencPktG12::AllocateResources(), MOS_STATUS_SUCCESS);
+
+//            eStatus = 1;
+            EXPECT_EQ(HevcVdencPktG12::AllocateResources(), MOS_STATUS_SUCCESS);
+
+
+            // eStatus != MOS_STATUS_SUCCESS
+//            eStatus = 0;
+            EXPECT_EQ(HevcVdencPktG12::AllocateResources(), MOS_STATUS_SUCCESS);
+
+//            eStatus = 1;
+            EXPECT_EQ(HevcVdencPktG12::AllocateResources(), MOS_STATUS_SUCCESS);
+
 
             return MOS_STATUS_SUCCESS;
         }
