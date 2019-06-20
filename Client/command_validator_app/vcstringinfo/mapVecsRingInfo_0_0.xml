@@ -1,0 +1,1547 @@
+<?xml version="1.0" ?>
+<TestName>
+    <Platform>
+        <CMD class="mhw_mi_g11_X" index="0" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="1" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="1108101d">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1d" max_value="0x1d" min_value="0x1d"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="00000244">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x91" max_value="0x91" min_value="0x91"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00090009">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x90009" max_value="0x90009" min_value="0x90009"/>
+            </dword>
+            <dword NO="3" unmappedstr="00000034"/>
+            <dword NO="4" unmappedstr="00000000"/>
+            <dword NO="5" unmappedstr="00000030"/>
+            <dword NO="6" unmappedstr="00000108"/>
+            <dword NO="7" unmappedstr="00000038"/>
+            <dword NO="8" unmappedstr="11df2000"/>
+            <dword NO="9" unmappedstr="0000003c"/>
+            <dword NO="10" unmappedstr="00003001"/>
+            <dword NO="11" unmappedstr="00000168"/>
+            <dword NO="12" unmappedstr="00000000"/>
+            <dword NO="13" unmappedstr="00000140"/>
+            <dword NO="14" unmappedstr="00000000"/>
+            <dword NO="15" unmappedstr="00000110"/>
+            <dword NO="16" unmappedstr="00000000"/>
+            <dword NO="17" unmappedstr="0000011c"/>
+            <dword NO="18" unmappedstr="00000000"/>
+            <dword NO="19" unmappedstr="00000114"/>
+            <dword NO="20" unmappedstr="00000000"/>
+            <dword NO="21" unmappedstr="00000118"/>
+            <dword NO="22" unmappedstr="00000000"/>
+            <dword NO="23" unmappedstr="000001c0"/>
+            <dword NO="24" unmappedstr="00000000"/>
+            <dword NO="25" unmappedstr="000001c4"/>
+            <dword NO="26" unmappedstr="00000000"/>
+            <dword NO="27" unmappedstr="000001c8"/>
+            <dword NO="28" unmappedstr="00000000"/>
+            <dword NO="29" unmappedstr="00000000"/>
+            <dword NO="30" unmappedstr="00000000"/>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="2" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="3" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11081011">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x11" max_value="0x11" min_value="0x11"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="000003a8">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0xea" max_value="0xea" min_value="0xea"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00000000">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="3" unmappedstr="0000028c"/>
+            <dword NO="4" unmappedstr="00000000"/>
+            <dword NO="5" unmappedstr="00000288"/>
+            <dword NO="6" unmappedstr="00000000"/>
+            <dword NO="7" unmappedstr="00000284"/>
+            <dword NO="8" unmappedstr="00000000"/>
+            <dword NO="9" unmappedstr="00000280"/>
+            <dword NO="10" unmappedstr="00000000"/>
+            <dword NO="11" unmappedstr="0000027c"/>
+            <dword NO="12" unmappedstr="00000000"/>
+            <dword NO="13" unmappedstr="00000278"/>
+            <dword NO="14" unmappedstr="00000000"/>
+            <dword NO="15" unmappedstr="00000274"/>
+            <dword NO="16" unmappedstr="00000000"/>
+            <dword NO="17" unmappedstr="00000270"/>
+            <dword NO="18" unmappedstr="0004b000"/>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="4" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="5" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="6" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="7" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="8" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="9" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="10" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="11" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="12" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="13" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="14" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="15" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="16" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="17" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="18" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="19" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="20" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="21" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="22" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="23" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="24" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="25" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="26" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="27" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="28" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="29" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="30" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="31" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="32" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11000001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="001c8244">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x72091" max_value="0x72091" min_value="0x72091"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00080000">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x80000" max_value="0x80000" min_value="0x80000"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="33" name="MI_SEMAPHORE_WAIT_CMD">
+            <dword NO="0" value="0e409002">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved8 Address="N" CHECK="N" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CompareOperation Address="N" CHECK="Y" bitfield_h="14" bitfield_l="12" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <WaitMode Address="N" CHECK="Y" bitfield_h="15" bitfield_l="15" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <RegisterPollMode Address="N" CHECK="Y" bitfield_h="16" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved17 Address="N" CHECK="N" bitfield_h="21" bitfield_l="17" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MemoryType Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x1c" max_value="0x1c" min_value="0x1c"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="00000000">
+                <SemaphoreDataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2_3" value="104d200000000000">
+                <Reserved64 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SemaphoreAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x413480000000000" max_value="0x413480000000000" min_value="0x413480000000000"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="34" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11000001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="001c8244">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x72091" max_value="0x72091" min_value="0x72091"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00080008">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x80008" max_value="0x80008" min_value="0x80008"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="35" name="MI_ARB_CHECK_CMD">
+            <dword NO="0" value="04000000">
+                <Reserved0 Address="N" CHECK="N" bitfield_h="22" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiInstructionOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                <MiInstructionType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="36" name="MI_NOOP_CMD">
+            <dword NO="0" value="00400029">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x29" max_value="0x29" min_value="0x29"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="37" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11000001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="001c817c">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x7205f" max_value="0x7205f" min_value="0x7205f"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00119400">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x119400" max_value="0x119400" min_value="0x119400"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="38" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11000001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="001c8178">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x7205e" max_value="0x7205e" min_value="0x7205e"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00000000">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="39" name="MI_BATCH_BUFFER_START_CMD">
+            <dword NO="0" value="18800101">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <AddressSpaceIndicator Address="Y" CHECK="N" bitfield_h="8" bitfield_l="8" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved9 Address="N" CHECK="N" bitfield_h="21" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SecondLevelBatchBuffer Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x31" max_value="0x31" min_value="0x31"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="002f80b800000001">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <BatchBufferStartAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0xbe02e00000000" max_value="0xbe02e00000000" min_value="0xbe02e00000000"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="40" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11080001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="00000178">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x5e" max_value="0x5e" min_value="0x5e"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00000001">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="41" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11080001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="0000017c">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x5f" max_value="0x5f" min_value="0x5f"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00119400">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x119400" max_value="0x119400" min_value="0x119400"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="42" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11080001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="00000178">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x5e" max_value="0x5e" min_value="0x5e"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00000000">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="43" name="MI_FLUSH_DW_CMD">
+            <dword NO="0" value="13000082">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VideoPipelineCacheInvalidate Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <NotifyEnable Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <FlushLlc Address="N" CHECK="Y" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="13" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PostSyncOperation Address="N" CHECK="Y" bitfield_h="15" bitfield_l="14" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved16 Address="N" CHECK="N" bitfield_h="17" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <TlbInvalidate Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved19 Address="N" CHECK="N" bitfield_h="20" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreDataIndex Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved22 Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x26" max_value="0x26" min_value="0x26"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="0000000000000000">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DestinationAddressType Address="Y" CHECK="N" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="47" bitfield_l="3" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved80 Address="N" CHECK="N" bitfield_h="63" bitfield_l="48" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="3_4" value="00000000">
+                <ImmediateData Address="N" CHECK="Y" bitfield_h="64" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="44" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_vebox_g11_X" index="45" name="VEBOX_STATE_CMD">
+            <dword NO="0" value="74020011">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x11" max_value="0x11" min_value="0x11"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SubopcodeB Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <SubopcodeA Address="N" CHECK="Y" bitfield_h="23" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandOpcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="24" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                <Pipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+            </dword>
+            <dword NO="1" value="00020204">
+                <ColorGamutExpansionEnable Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ColorGamutCompressionEnable Address="N" CHECK="Y" bitfield_h="1" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <GlobalIecpEnable Address="N" CHECK="Y" bitfield_h="2" bitfield_l="2" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <DnEnable Address="N" CHECK="Y" bitfield_h="3" bitfield_l="3" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DiEnable Address="N" CHECK="Y" bitfield_h="4" bitfield_l="4" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DnDiFirstFrame Address="N" CHECK="Y" bitfield_h="5" bitfield_l="5" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved38 Address="N" CHECK="N" bitfield_h="7" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DiOutputFrames Address="N" CHECK="Y" bitfield_h="9" bitfield_l="8" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <DemosaicEnable Address="N" CHECK="Y" bitfield_h="10" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VignetteEnable Address="N" CHECK="Y" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AlphaPlaneEnable Address="N" CHECK="Y" bitfield_h="12" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <HotPixelFilteringEnable Address="N" CHECK="Y" bitfield_h="13" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved46 Address="N" CHECK="N" bitfield_h="15" bitfield_l="14" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <LaceCorrectionEnable Address="N" CHECK="Y" bitfield_h="16" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DisableEncoderStatistics Address="N" CHECK="Y" bitfield_h="17" bitfield_l="17" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <DisableTemporalDenoiseFilter Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SinglePipeEnable Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ScalarMode Address="N" CHECK="Y" bitfield_h="20" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ForwardGammaCorrectionEnable Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <GamutExpansionPosition Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="24" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StateSurfaceControlBits Address="N" CHECK="Y" bitfield_h="31" bitfield_l="25" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00d64000">
+                <Reserved64 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DnDiStatePointerLow Address="N" CHECK="Y" bitfield_h="31" bitfield_l="12" default_value="0xd64" max_value="0xd64" min_value="0xd64"/>
+            </dword>
+            <dword NO="3" value="00000001">
+                <DnDiStatePointerHigh Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved112 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="4" value="00d65000">
+                <Reserved128 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IecpStatePointerLow Address="N" CHECK="Y" bitfield_h="31" bitfield_l="12" default_value="0xd65" max_value="0xd65" min_value="0xd65"/>
+            </dword>
+            <dword NO="5" value="00000001">
+                <IecpStatePointerHigh Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved176 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="6" value="00d66000">
+                <Reserved192 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <GamutStatePointerLow Address="N" CHECK="Y" bitfield_h="31" bitfield_l="12" default_value="0xd66" max_value="0xd66" min_value="0xd66"/>
+            </dword>
+            <dword NO="7" value="00000001">
+                <GamutStatePointerHigh Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved240 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="8" value="00d68000">
+                <Reserved256 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VertexTableStatePointerLow Address="N" CHECK="Y" bitfield_h="31" bitfield_l="12" default_value="0xd68" max_value="0xd68" min_value="0xd68"/>
+            </dword>
+            <dword NO="9" value="00000001">
+                <VertexTableStatePointerHigh Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved304 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="10" value="00d69000">
+                <Reserved320 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CapturePipeStatePointerLow Address="N" CHECK="Y" bitfield_h="31" bitfield_l="12" default_value="0xd69" max_value="0xd69" min_value="0xd69"/>
+            </dword>
+            <dword NO="11" value="00000001">
+                <CapturePipeStatePointerHigh Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved368 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="12" value="00000000">
+                <Reserved384 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <LaceLutTableStatePointerLow Address="N" CHECK="Y" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="13" value="00000000">
+                <LaceLutTableStatePointerHigh Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved432 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ArbitrationPriorityControlForLaceLut Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="14_15" value="00d6a00000000001">
+                <Reserved448 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <GammaCorrectionValuesAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="12" default_value="0xd6a00000000" max_value="0xd6a00000000" min_value="0xd6a00000000"/>
+            </dword>
+            <dword NO="16" value="00000000">
+                <Reserved512 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Lut3DStatePointerLow Address="N" CHECK="Y" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="17" value="00000000">
+                <Lut3DStatePointerHigh Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Lut3DMOCStable Address="N" CHECK="Y" bitfield_h="21" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved560 Address="N" CHECK="N" bitfield_h="29" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ArbitrationPriorityControlForLut3D Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="18" value="00000000">
+                <ChromaUpsamplingCoSitedHorizontalOffset Address="N" CHECK="Y" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ChromaUpsamplingCoSitedVerticalOffset Address="N" CHECK="Y" bitfield_h="4" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ChromaDownsamplingCoSitedHorizontalOffset Address="N" CHECK="Y" bitfield_h="6" bitfield_l="5" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ChromaDownsamplingCoSitedVerticalOffset Address="N" CHECK="Y" bitfield_h="9" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <BypassChromaUpsampling Address="N" CHECK="Y" bitfield_h="10" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <BypassChromaDownsampling Address="N" CHECK="Y" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <FrameStatisticsId Address="N" CHECK="Y" bitfield_h="13" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved590 Address="N" CHECK="N" bitfield_h="28" bitfield_l="14" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Lut3DSize Address="N" CHECK="Y" bitfield_h="30" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Lut3DEnable Address="N" CHECK="Y" bitfield_h="31" bitfield_l="31" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_vebox_g11_X" index="46" name="VEBOX_SURFACE_STATE_CMD">
+            <dword NO="0" value="74000007">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SubopcodeB Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SubopcodeA Address="N" CHECK="Y" bitfield_h="23" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MediaCommandOpcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="24" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                <MediaCommandPipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+            </dword>
+            <dword NO="1" value="00000000">
+                <SurfaceIdentification Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved33 Address="N" CHECK="N" bitfield_h="31" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="03fc0ff0">
+                <Reserved64 Address="N" CHECK="N" bitfield_h="3" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Width Address="N" CHECK="Y" bitfield_h="17" bitfield_l="4" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Height Address="N" CHECK="Y" bitfield_h="31" bitfield_l="18" default_value="0xff" max_value="0xff" min_value="0xff"/>
+            </dword>
+            <dword NO="3" value="80001ffb">
+                <TileWalk Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <TiledSurface Address="N" CHECK="Y" bitfield_h="1" bitfield_l="1" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <HalfPitchForChroma Address="N" CHECK="Y" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SurfacePitch Address="N" CHECK="Y" bitfield_h="19" bitfield_l="3" default_value="0x3ff" max_value="0x3ff" min_value="0x3ff"/>
+                <InterleaveChroma Address="N" CHECK="Y" bitfield_h="20" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved117 Address="N" CHECK="N" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <BayerInputAlignment Address="N" CHECK="Y" bitfield_h="23" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <BayerPatternFormat Address="N" CHECK="Y" bitfield_h="24" bitfield_l="24" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <BayerPatternOffset Address="N" CHECK="Y" bitfield_h="26" bitfield_l="25" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SurfaceFormat Address="N" CHECK="Y" bitfield_h="31" bitfield_l="27" default_value="0x10" max_value="0x10" min_value="0x10"/>
+            </dword>
+            <dword NO="4" value="00000000">
+                <YOffsetForU Address="N" CHECK="Y" bitfield_h="14" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved143 Address="N" CHECK="N" bitfield_h="15" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <XOffsetForU Address="N" CHECK="Y" bitfield_h="28" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved157 Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="5" value="00000000">
+                <YOffsetForV Address="N" CHECK="Y" bitfield_h="14" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved175 Address="N" CHECK="N" bitfield_h="15" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <XOffsetForV Address="N" CHECK="Y" bitfield_h="28" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved189 Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="6" value="00000000">
+                <YOffsetForFrame Address="N" CHECK="Y" bitfield_h="14" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved207 Address="N" CHECK="N" bitfield_h="15" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <XOffsetForFrame Address="N" CHECK="Y" bitfield_h="30" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved223 Address="N" CHECK="N" bitfield_h="31" bitfield_l="31" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="7" value="0001ffff">
+                <DerivedSurfacePitch Address="N" CHECK="Y" bitfield_h="16" bitfield_l="0" default_value="0x1ffff" max_value="0x1ffff" min_value="0x1ffff"/>
+                <Reserved241 Address="N" CHECK="N" bitfield_h="31" bitfield_l="17" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="8" value="00000000">
+                <SurfacePitchForSkinScoreOutputSurfaces Address="N" CHECK="Y" bitfield_h="16" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved273 Address="N" CHECK="N" bitfield_h="31" bitfield_l="17" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_sfc_g11_X" index="47" name="SFC_LOCK_CMD">
+            <dword NO="0" value="75000000">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Subopcodeb Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Subopcodea Address="N" CHECK="Y" bitfield_h="22" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MediaCommandOpcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="23" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                <Pipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+            </dword>
+            <dword NO="1" value="00000001">
+                <VeSfcPipeSelect Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <PreScaledOutputSurfaceOutputEnable Address="N" CHECK="Y" bitfield_h="1" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved34 Address="N" CHECK="N" bitfield_h="31" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_sfc_g11_X" index="48" name="SFC_STATE_CMD">
+            <dword NO="0" value="75010020">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Subopcodeb Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Subopcodea Address="N" CHECK="Y" bitfield_h="22" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MediaCommandOpcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="23" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                <Pipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+            </dword>
+            <dword NO="1" value="00000041">
+                <SfcPipeMode Address="N" CHECK="Y" bitfield_h="3" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <SfcInputChromaSubSampling Address="N" CHECK="Y" bitfield_h="7" bitfield_l="4" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                <VdVeInputOrderingMode Address="N" CHECK="Y" bitfield_h="10" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved43 Address="N" CHECK="N" bitfield_h="31" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00ff00ff">
+                <InputFrameResolutionWidth Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved76 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <InputFrameResolutionHeight Address="N" CHECK="Y" bitfield_h="27" bitfield_l="16" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved92 Address="N" CHECK="N" bitfield_h="31" bitfield_l="28" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="3" value="00000005">
+                <OutputSurfaceFormatType Address="N" CHECK="Y" bitfield_h="3" bitfield_l="0" default_value="0x5" max_value="0x5" min_value="0x5"/>
+                <Reserved100 Address="N" CHECK="N" bitfield_h="4" bitfield_l="4" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RgbaChannelSwapEnable Address="N" CHECK="Y" bitfield_h="5" bitfield_l="5" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved102 Address="N" CHECK="N" bitfield_h="7" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputChromaDownsamplingCoSitingPositionVerticalDirection Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputChromaDownsamplingCoSitingPositionHorizontalDirection Address="N" CHECK="Y" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved112 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="4" value="00080350">
+                <IefEnable Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinToneTunedIefEnable Address="N" CHECK="Y" bitfield_h="1" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Ief4SmoothEnable Address="N" CHECK="Y" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved131 Address="N" CHECK="N" bitfield_h="3" bitfield_l="3" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AvsFilterMode Address="N" CHECK="Y" bitfield_h="5" bitfield_l="4" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <AdaptiveFilterForAllChannels Address="N" CHECK="Y" bitfield_h="6" bitfield_l="6" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <AvsScalingEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <BypassYAdaptiveFiltering Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <BypassXAdaptiveFiltering Address="N" CHECK="Y" bitfield_h="9" bitfield_l="9" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved138 Address="N" CHECK="N" bitfield_h="11" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ChromaUpsamplingEnable Address="N" CHECK="Y" bitfield_h="12" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved141 Address="N" CHECK="N" bitfield_h="15" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RotationMode Address="N" CHECK="Y" bitfield_h="17" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ColorFillEnable Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CscEnable Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Bitdepth Address="N" CHECK="Y" bitfield_h="21" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved150 Address="N" CHECK="N" bitfield_h="31" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="5" value="00ff00ff">
+                <SourceRegionWidth Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved172 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SourceRegionHeight Address="N" CHECK="Y" bitfield_h="27" bitfield_l="16" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved188 Address="N" CHECK="N" bitfield_h="31" bitfield_l="28" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="6" value="00000000">
+                <SourceRegionHorizontalOffset Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved204 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SourceRegionVerticalOffset Address="N" CHECK="Y" bitfield_h="27" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved220 Address="N" CHECK="N" bitfield_h="31" bitfield_l="28" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="7" value="00ff00ff">
+                <OutputFrameWidth Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved236 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputFrameHeight Address="N" CHECK="Y" bitfield_h="27" bitfield_l="16" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved252 Address="N" CHECK="N" bitfield_h="31" bitfield_l="28" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="8" value="00ff00ff">
+                <ScaledRegionSizeWidth Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved268 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ScaledRegionSizeHeight Address="N" CHECK="Y" bitfield_h="27" bitfield_l="16" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved284 Address="N" CHECK="N" bitfield_h="31" bitfield_l="28" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="9" value="00000000">
+                <ScaledRegionHorizontalOffset Address="N" CHECK="Y" bitfield_h="12" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved301 Address="N" CHECK="N" bitfield_h="15" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <ScaledRegionVerticalOffset Address="N" CHECK="Y" bitfield_h="28" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved317 Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="10" value="00000000">
+                <GrayBarPixelUG Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved330 Address="N" CHECK="N" bitfield_h="15" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <GrayBarPixelYR Address="N" CHECK="Y" bitfield_h="25" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved346 Address="N" CHECK="N" bitfield_h="31" bitfield_l="26" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="11" value="00000000">
+                <GrayBarPixelA Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved362 Address="N" CHECK="N" bitfield_h="15" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <GrayBarPixelVB Address="N" CHECK="Y" bitfield_h="25" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved378 Address="N" CHECK="N" bitfield_h="31" bitfield_l="26" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="12" value="00000000">
+                <UvDefaultValueForUChannelForMonoInputSupport Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved394 Address="N" CHECK="N" bitfield_h="15" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <UvDefaultValueForVChannelForMonoInputSupport Address="N" CHECK="Y" bitfield_h="25" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved410 Address="N" CHECK="N" bitfield_h="31" bitfield_l="26" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="13" value="000003ff">
+                <AlphaDefaultValue Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x3ff" max_value="0x3ff" min_value="0x3ff"/>
+                <Reserved426 Address="N" CHECK="N" bitfield_h="31" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="14" value="00020000">
+                <ScalingFactorHeight Address="N" CHECK="Y" bitfield_h="20" bitfield_l="0" default_value="0x20000" max_value="0x20000" min_value="0x20000"/>
+                <Reserved469 Address="N" CHECK="N" bitfield_h="31" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="15" value="00020000">
+                <ScalingFactorWidth Address="N" CHECK="Y" bitfield_h="20" bitfield_l="0" default_value="0x20000" max_value="0x20000" min_value="0x20000"/>
+                <Reserved501 Address="N" CHECK="N" bitfield_h="31" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="16" value="00000000">
+                <Reserved512 Address="N" CHECK="N" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="17" value="00f10000">
+                <Reserved544 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0xf10" max_value="0xf10" min_value="0xf10"/>
+            </dword>
+            <dword NO="18" value="00000001">
+                <OutputFrameSurfaceBaseAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved592 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="19" value="00000000">
+                <Reserved608 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputFrameSurfaceBaseAddressIndexToMemoryObjectControlStateMocsTables Address="Y" CHECK="N" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputFrameSurfaceBaseAddressArbitrationPriorityControl Address="Y" CHECK="N" bitfield_h="8" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputFrameSurfaceBaseAddressMemoryCompressionEnable Address="Y" CHECK="N" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputFrameSurfaceBaseAddressMemoryCompressionMode Address="Y" CHECK="N" bitfield_h="10" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved619 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputFrameSurfaceBaseAddressRowStoreScratchBufferCacheSelect Address="Y" CHECK="N" bitfield_h="12" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputSurfaceTiledMode Address="N" CHECK="Y" bitfield_h="14" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved623 Address="N" CHECK="N" bitfield_h="31" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="20" value="00e6b000">
+                <Reserved640 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AvsLineBufferSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0xe6b" max_value="0xe6b" min_value="0xe6b"/>
+            </dword>
+            <dword NO="21" value="00000001">
+                <AvsLineBufferSurfaceBaseAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved688 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="22" value="0000000e">
+                <Reserved704 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AvsLineBufferBaseAddressIndexToMemoryObjectControlStateMocsTables Address="Y" CHECK="N" bitfield_h="6" bitfield_l="1" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                <AvsLineBufferBaseAddressArbitrationPriorityControl Address="Y" CHECK="N" bitfield_h="8" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AvsLineBufferBaseAddressMemoryCompressionEnable Address="Y" CHECK="N" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AvsLineBufferBaseAddressMemoryCompressionMode Address="Y" CHECK="N" bitfield_h="10" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved715 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AvsLineBufferBaseAddressRowStoreScratchBufferCacheSelect Address="Y" CHECK="N" bitfield_h="12" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AvsLineBufferTiledMode Address="N" CHECK="Y" bitfield_h="14" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved719 Address="N" CHECK="N" bitfield_h="31" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="23" value="001b5000">
+                <Reserved736 Address="N" CHECK="N" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IefLineBufferSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x1b5" max_value="0x1b5" min_value="0x1b5"/>
+            </dword>
+            <dword NO="24" value="00000001">
+                <IefLineBufferSurfaceBaseAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved784 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="25" value="0000000e">
+                <Reserved800 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IefLineBufferBaseAddressIndexToMemoryObjectControlStateMocsTables Address="Y" CHECK="N" bitfield_h="6" bitfield_l="1" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                <IefLineBufferBaseAddressArbitrationPriorityControl Address="Y" CHECK="N" bitfield_h="8" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IefLineBufferBaseAddressMemoryCompressionEnable Address="Y" CHECK="N" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IefLineBufferBaseAddressMemoryCompressionMode Address="Y" CHECK="N" bitfield_h="10" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved811 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IefLineBufferBaseAddressRowStoreScratchBufferCacheSelect Address="Y" CHECK="N" bitfield_h="12" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IefLineBufferTiledMode Address="N" CHECK="Y" bitfield_h="14" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved815 Address="N" CHECK="N" bitfield_h="31" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="26" value="00000000">
+                <Reserved832 Address="N" CHECK="N" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="27" value="00000000">
+                <Reserved864 Address="N" CHECK="N" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="28" value="00000000">
+                <Reserved896 Address="N" CHECK="N" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="29" value="50000ffb">
+                <OutputSurfaceTileWalk Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <OutputSurfaceTiled Address="N" CHECK="Y" bitfield_h="1" bitfield_l="1" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <OutputSurfaceHalfPitchForChroma Address="N" CHECK="Y" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputSurfacePitch Address="N" CHECK="Y" bitfield_h="19" bitfield_l="3" default_value="0x1ff" max_value="0x1ff" min_value="0x1ff"/>
+                <Reserved948 Address="N" CHECK="N" bitfield_h="26" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputSurfaceInterleaveChromaEnable Address="N" CHECK="Y" bitfield_h="27" bitfield_l="27" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputSurfaceFormat Address="N" CHECK="Y" bitfield_h="31" bitfield_l="28" default_value="0x5" max_value="0x5" min_value="0x5"/>
+            </dword>
+            <dword NO="30" value="00000000">
+                <OutputSurfaceYOffsetForU Address="N" CHECK="Y" bitfield_h="13" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved974 Address="N" CHECK="N" bitfield_h="15" bitfield_l="14" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputSurfaceXOffsetForU Address="N" CHECK="Y" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved990 Address="N" CHECK="N" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="31" value="00000000">
+                <OutputSurfaceYOffsetForV Address="N" CHECK="Y" bitfield_h="13" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved1006 Address="N" CHECK="N" bitfield_h="15" bitfield_l="14" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <OutputSurfaceXOffsetForV Address="N" CHECK="Y" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved1022 Address="N" CHECK="N" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="32" value="00000000">
+                <Reserved1024 Address="N" CHECK="N" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="33" value="00000000">
+                <Reserved1056 Address="N" CHECK="N" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_sfc_g11_X" index="49" name="SFC_IEF_STATE_CMD">
+            <dword NO="0" value="75030016">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x16" max_value="0x16" min_value="0x16"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Subopcodeb Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                <Subopcodea Address="N" CHECK="Y" bitfield_h="22" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MediaCommandOpcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="23" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                <Pipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+            </dword>
+            <dword NO="1" value="00008040">
+                <GainFactor Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <WeakEdgeThreshold Address="N" CHECK="Y" bitfield_h="11" bitfield_l="6" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <StrongEdgeThreshold Address="N" CHECK="Y" bitfield_h="17" bitfield_l="12" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                <R3XCoefficient Address="N" CHECK="Y" bitfield_h="22" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <R3CCoefficient Address="N" CHECK="Y" bitfield_h="27" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved60 Address="N" CHECK="N" bitfield_h="31" bitfield_l="28" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="0001d100">
+                <GlobalNoiseEstimation Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <NonEdgeWeight Address="N" CHECK="Y" bitfield_h="10" bitfield_l="8" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <RegularWeight Address="N" CHECK="Y" bitfield_h="13" bitfield_l="11" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <StrongEdgeWeight Address="N" CHECK="Y" bitfield_h="16" bitfield_l="14" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                <R5XCoefficient Address="N" CHECK="Y" bitfield_h="21" bitfield_l="17" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <R5CxCoefficient Address="N" CHECK="Y" bitfield_h="26" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <R5CCoefficient Address="N" CHECK="Y" bitfield_h="31" bitfield_l="27" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="3" value="039f4f65">
+                <StdSinAlpha Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x65" max_value="0x65" min_value="0x65"/>
+                <StdCosAlpha Address="N" CHECK="Y" bitfield_h="15" bitfield_l="8" default_value="0x4f" max_value="0x4f" min_value="0x4f"/>
+                <SatMax Address="N" CHECK="Y" bitfield_h="21" bitfield_l="16" default_value="0x1f" max_value="0x1f" min_value="0x1f"/>
+                <HueMax Address="N" CHECK="Y" bitfield_h="27" bitfield_l="22" default_value="0xe" max_value="0xe" min_value="0xe"/>
+                <Reserved124 Address="N" CHECK="N" bitfield_h="31" bitfield_l="28" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="4" value="9a6e4000">
+                <S3U Address="N" CHECK="Y" bitfield_h="10" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved139 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DiamondMargin Address="N" CHECK="Y" bitfield_h="14" bitfield_l="12" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                <VyStdEnable Address="N" CHECK="Y" bitfield_h="15" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <UMid Address="N" CHECK="Y" bitfield_h="23" bitfield_l="16" default_value="0x6e" max_value="0x6e" min_value="0x6e"/>
+                <VMid Address="N" CHECK="Y" bitfield_h="31" bitfield_l="24" default_value="0x9a" max_value="0x9a" min_value="0x9a"/>
+            </dword>
+            <dword NO="5" value="006c9180">
+                <DiamondDv Address="N" CHECK="Y" bitfield_h="6" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DiamondTh Address="N" CHECK="Y" bitfield_h="12" bitfield_l="7" default_value="0x23" max_value="0x23" min_value="0x23"/>
+                <DiamondAlpha Address="N" CHECK="Y" bitfield_h="20" bitfield_l="13" default_value="0x64" max_value="0x64" min_value="0x64"/>
+                <HsMargin Address="N" CHECK="Y" bitfield_h="23" bitfield_l="21" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                <DiamondDu Address="N" CHECK="Y" bitfield_h="30" bitfield_l="24" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinDetailFactor Address="N" CHECK="Y" bitfield_h="31" bitfield_l="31" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="6" value="fffe2f2e">
+                <YPoint1 Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2e" max_value="0x2e" min_value="0x2e"/>
+                <YPoint2 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="8" default_value="0x2f" max_value="0x2f" min_value="0x2f"/>
+                <YPoint3 Address="N" CHECK="Y" bitfield_h="23" bitfield_l="16" default_value="0xfe" max_value="0xfe" min_value="0xfe"/>
+                <YPoint4 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="24" default_value="0xff" max_value="0xff" min_value="0xff"/>
+            </dword>
+            <dword NO="7" value="00000ce4">
+                <InvMarginVyl Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xce4" max_value="0xce4" min_value="0xce4"/>
+                <Reserved240 Address="N" CHECK="N" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="8" value="d82e0640">
+                <InvMarginVyu Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x640" max_value="0x640" min_value="0x640"/>
+                <P0L Address="N" CHECK="Y" bitfield_h="23" bitfield_l="16" default_value="0x2e" max_value="0x2e" min_value="0x2e"/>
+                <P1L Address="N" CHECK="Y" bitfield_h="31" bitfield_l="24" default_value="0xd8" max_value="0xd8" min_value="0xd8"/>
+            </dword>
+            <dword NO="9" value="8285ecec">
+                <P2L Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0xec" max_value="0xec" min_value="0xec"/>
+                <P3L Address="N" CHECK="Y" bitfield_h="15" bitfield_l="8" default_value="0xec" max_value="0xec" min_value="0xec"/>
+                <B0L Address="N" CHECK="Y" bitfield_h="23" bitfield_l="16" default_value="0x85" max_value="0x85" min_value="0x85"/>
+                <B1L Address="N" CHECK="Y" bitfield_h="31" bitfield_l="24" default_value="0x82" max_value="0x82" min_value="0x82"/>
+            </dword>
+            <dword NO="10" value="fffb8282">
+                <B2L Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x82" max_value="0x82" min_value="0x82"/>
+                <B3L Address="N" CHECK="Y" bitfield_h="15" bitfield_l="8" default_value="0x82" max_value="0x82" min_value="0x82"/>
+                <S0L Address="N" CHECK="Y" bitfield_h="26" bitfield_l="16" default_value="0x7fb" max_value="0x7fb" min_value="0x7fb"/>
+                <YSlope2 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="27" default_value="0x1f" max_value="0x1f" min_value="0x1f"/>
+            </dword>
+            <dword NO="11" value="00000000">
+                <S1L Address="N" CHECK="Y" bitfield_h="10" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <S2L Address="N" CHECK="Y" bitfield_h="21" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved374 Address="N" CHECK="N" bitfield_h="31" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="12" value="fa117000">
+                <S3L Address="N" CHECK="Y" bitfield_h="10" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <P0U Address="N" CHECK="Y" bitfield_h="18" bitfield_l="11" default_value="0x2e" max_value="0x2e" min_value="0x2e"/>
+                <P1U Address="N" CHECK="Y" bitfield_h="26" bitfield_l="19" default_value="0x42" max_value="0x42" min_value="0x42"/>
+                <YSlope1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="27" default_value="0x1f" max_value="0x1f" min_value="0x1f"/>
+            </dword>
+            <dword NO="13" value="a38fec96">
+                <P2U Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x96" max_value="0x96" min_value="0x96"/>
+                <P3U Address="N" CHECK="Y" bitfield_h="15" bitfield_l="8" default_value="0xec" max_value="0xec" min_value="0xec"/>
+                <B0U Address="N" CHECK="Y" bitfield_h="23" bitfield_l="16" default_value="0x8f" max_value="0x8f" min_value="0x8f"/>
+                <B1U Address="N" CHECK="Y" bitfield_h="31" bitfield_l="24" default_value="0xa3" max_value="0xa3" min_value="0xa3"/>
+            </dword>
+            <dword NO="14" value="01008cc8">
+                <B2U Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0xc8" max_value="0xc8" min_value="0xc8"/>
+                <B3U Address="N" CHECK="Y" bitfield_h="15" bitfield_l="8" default_value="0x8c" max_value="0x8c" min_value="0x8c"/>
+                <S0U Address="N" CHECK="Y" bitfield_h="26" bitfield_l="16" default_value="0x100" max_value="0x100" min_value="0x100"/>
+                <Reserved475 Address="N" CHECK="N" bitfield_h="31" bitfield_l="27" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="15" value="003a6871">
+                <S1U Address="N" CHECK="Y" bitfield_h="10" bitfield_l="0" default_value="0x71" max_value="0x71" min_value="0x71"/>
+                <S2U Address="N" CHECK="Y" bitfield_h="21" bitfield_l="11" default_value="0x74d" max_value="0x74d" min_value="0x74d"/>
+                <Reserved502 Address="N" CHECK="N" bitfield_h="31" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="16" value="1f762541">
+                <TransformEnable Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <YuvChannelSwap Address="N" CHECK="Y" bitfield_h="1" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved514 Address="N" CHECK="N" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <C0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="3" default_value="0x4a8" max_value="0x4a8" min_value="0x4a8"/>
+                <C1 Address="N" CHECK="Y" bitfield_h="28" bitfield_l="16" default_value="0x1f76" max_value="0x1f76" min_value="0x1f76"/>
+                <Reserved541 Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="17" value="00001f08">
+                <C2 Address="N" CHECK="Y" bitfield_h="12" bitfield_l="0" default_value="0x1f08" max_value="0x1f08" min_value="0x1f08"/>
+                <C3 Address="N" CHECK="Y" bitfield_h="25" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved570 Address="N" CHECK="N" bitfield_h="31" bitfield_l="26" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="18" value="0010c4a3">
+                <C4 Address="N" CHECK="Y" bitfield_h="12" bitfield_l="0" default_value="0x4a3" max_value="0x4a3" min_value="0x4a3"/>
+                <C5 Address="N" CHECK="Y" bitfield_h="25" bitfield_l="13" default_value="0x86" max_value="0x86" min_value="0x86"/>
+                <Reserved602 Address="N" CHECK="N" bitfield_h="31" bitfield_l="26" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="19" value="000ae000">
+                <C6 Address="N" CHECK="Y" bitfield_h="12" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <C7 Address="N" CHECK="Y" bitfield_h="25" bitfield_l="13" default_value="0x57" max_value="0x57" min_value="0x57"/>
+                <Reserved634 Address="N" CHECK="N" bitfield_h="31" bitfield_l="26" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="20" value="000004ab">
+                <C8 Address="N" CHECK="Y" bitfield_h="12" bitfield_l="0" default_value="0x4ab" max_value="0x4ab" min_value="0x4ab"/>
+                <Reserved653 Address="N" CHECK="N" bitfield_h="31" bitfield_l="13" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="21" value="000007c0">
+                <OffsetIn1 Address="N" CHECK="Y" bitfield_h="10" bitfield_l="0" default_value="0x7c0" max_value="0x7c0" min_value="0x7c0"/>
+                <OffsetOut1 Address="N" CHECK="Y" bitfield_h="21" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved694 Address="N" CHECK="N" bitfield_h="31" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="22" value="00100600">
+                <OffsetIn2 Address="N" CHECK="Y" bitfield_h="10" bitfield_l="0" default_value="0x600" max_value="0x600" min_value="0x600"/>
+                <OffsetOut2 Address="N" CHECK="Y" bitfield_h="21" bitfield_l="11" default_value="0x200" max_value="0x200" min_value="0x200"/>
+                <Reserved726 Address="N" CHECK="N" bitfield_h="31" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="23" value="00100600">
+                <OffsetIn3 Address="N" CHECK="Y" bitfield_h="10" bitfield_l="0" default_value="0x600" max_value="0x600" min_value="0x600"/>
+                <OffsetOut3 Address="N" CHECK="Y" bitfield_h="21" bitfield_l="11" default_value="0x200" max_value="0x200" min_value="0x200"/>
+                <Reserved758 Address="N" CHECK="N" bitfield_h="31" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_sfc_g11_X" index="50" name="SFC_FRAME_START_CMD">
+            <dword NO="0" value="75040000">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Subopcodeb Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                <Subopcodea Address="N" CHECK="Y" bitfield_h="22" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MediaCommandOpcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="23" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                <Pipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+            </dword>
+            <dword NO="1" value="00000000">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_vebox_g11_X" index="51" name="VEB_DI_IECP_CMD">
+            <dword NO="0" value="74030016">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x16" max_value="0x16" min_value="0x16"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Subopb Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                <Subopa Address="N" CHECK="Y" bitfield_h="23" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Opcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="24" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                <Pipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+            </dword>
+            <dword NO="1" value="000000ff">
+                <EndingX Address="N" CHECK="Y" bitfield_h="13" bitfield_l="0" default_value="0xff" max_value="0xff" min_value="0xff"/>
+                <Reserved46 Address="N" CHECK="N" bitfield_h="15" bitfield_l="14" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StartingX Address="N" CHECK="Y" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved62 Address="N" CHECK="N" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00e70000">
+                <CurrentFrameSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved75 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameInputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0xe70" max_value="0xe70" min_value="0xe70"/>
+            </dword>
+            <dword NO="3" value="00000001">
+                <CurrentFrameInputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved112 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameInputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="4" value="00000000">
+                <PreviousFrameSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved139 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameInputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="5" value="00000000">
+                <PreviousFrameInputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved176 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameInputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="6" value="00000000">
+                <StmmInputSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmInputSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmInputSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmInputSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmInputSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved203 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmInputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="7" value="00000000">
+                <StmmInputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved240 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmInputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="8" value="00000000">
+                <StmmOutputSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmOutputSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmOutputSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmOutputSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmOutputSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved267 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmOutputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="9" value="00000000">
+                <StmmOutputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved304 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StmmOutputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="10" value="00000000">
+                <DenoisedCurrentOutputSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DenoisedCurrentOutputSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DenoisedCurrentOutputSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DenoisedCurrentOutputSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DenoisedCurrentOutputSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved331 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DenoisedCurrentFrameOutputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="11" value="00000000">
+                <DenoisedCurrentFrameOutputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved368 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DenoisedCurrentOutputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="12" value="00000000">
+                <CurrentFrameOutputSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameOutputSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameOutputSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameOutputSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameOutputSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved395 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameOutputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="13" value="00000000">
+                <CurrentFrameOutputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved432 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CurrentFrameOutputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="14" value="00000000">
+                <PreviousFrameOutputSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameOutputSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameOutputSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameOutputSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameOutputSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved459 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameOutputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="15" value="00000000">
+                <PreviousFrameOutputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved496 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PreviousFrameOutputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="16" value="00e66004">
+                <StatisticsOutputSurfaceControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StatisticsOutputSurfaceControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <StatisticsOutputSurfaceControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StatisticsOutputSurfaceControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StatisticsOutputSurfaceControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved523 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StatisticsOutputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0xe66" max_value="0xe66" min_value="0xe66"/>
+            </dword>
+            <dword NO="17" value="00000001">
+                <StatisticsOutputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved560 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StatisticsOutputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="18" value="00000000">
+                <AlphaVignetteControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AlphaVignetteControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AlphaVignetteControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AlphaVignetteControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AlphaVignetteControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved587 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AlphaVignetteCorrectionAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="19" value="00000000">
+                <AlphaVignetteCorrectionAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved624 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AlphaVignetteCorrectionSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="20" value="00338004">
+                <LaceAceRgbHistogramControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <LaceAceRgbHistogramControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <LaceAceRgbHistogramControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <LaceAceRgbHistogramControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <LaceAceRgbHistogramControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved651 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <LaceAceRgbHistogramOutputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x338" max_value="0x338" min_value="0x338"/>
+            </dword>
+            <dword NO="21" value="00000001">
+                <LaceAceRgbHistogramOutputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved688 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <LaceAceRgbHistogramSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="22" value="00000000">
+                <SkinScoreOutputControlBitsReserved0 Address="N" CHECK="N" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinScoreOutputControlBitsIndexToMemoryObjectControlStateMocsTables Address="N" CHECK="Y" bitfield_h="6" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinScoreOutputControlBitsMemoryCompressionEnable Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinScoreOutputControlBitsMemoryCompressionMode Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinScoreOutputControlBitsTiledResourceModeForOutputFrameSurfaceBaseAddress Address="Y" CHECK="N" bitfield_h="10" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved715 Address="N" CHECK="N" bitfield_h="11" bitfield_l="11" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinScoreOutputAddress Address="Y" CHECK="N" bitfield_h="31" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="23" value="00000000">
+                <SkinScoreOutputAddressHigh Address="Y" CHECK="N" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved752 Address="N" CHECK="N" bitfield_h="29" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SkinScoreOutputSurfaceArbitrationPriorityControl Address="N" CHECK="Y" bitfield_h="31" bitfield_l="30" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="52" name="MI_BATCH_BUFFER_END_CMD">
+            <dword NO="0" value="05000000">
+                <EndContext Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved1 Address="N" CHECK="N" bitfield_h="22" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="53" name="MI_ARB_CHECK_CMD">
+            <dword NO="0" value="04000000">
+                <Reserved0 Address="N" CHECK="N" bitfield_h="22" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiInstructionOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                <MiInstructionType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="54" name="MI_LOAD_REGISTER_IMM_CMD">
+            <dword NO="0" value="11000001">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <ByteWriteDisables Address="N" CHECK="Y" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved12 Address="N" CHECK="N" bitfield_h="18" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <AddCsMmioStartOffset Address="N" CHECK="Y" bitfield_h="19" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved20 Address="N" CHECK="N" bitfield_h="22" bitfield_l="20" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x22" max_value="0x22" min_value="0x22"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="001c8178">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <RegisterOffset Address="N" CHECK="Y" bitfield_h="22" bitfield_l="2" default_value="0x7205e" max_value="0x7205e" min_value="0x7205e"/>
+                <Reserved55 Address="N" CHECK="N" bitfield_h="31" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2" value="00000001">
+                <DataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="55" name="MI_SEMAPHORE_WAIT_CMD">
+            <dword NO="0" value="0e409002">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved8 Address="N" CHECK="N" bitfield_h="11" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CompareOperation Address="N" CHECK="Y" bitfield_h="14" bitfield_l="12" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <WaitMode Address="N" CHECK="Y" bitfield_h="15" bitfield_l="15" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <RegisterPollMode Address="N" CHECK="Y" bitfield_h="16" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved17 Address="N" CHECK="N" bitfield_h="21" bitfield_l="17" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MemoryType Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x1c" max_value="0x1c" min_value="0x1c"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1" value="00000000">
+                <SemaphoreDataDword Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="2_3" value="104b35c000000000">
+                <Reserved64 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <SemaphoreAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x412cd7000000000" max_value="0x412cd7000000000" min_value="0x412cd7000000000"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="56" name="MI_NOOP_CMD">
+            <dword NO="0" value="00400000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="57" name="MI_FLUSH_DW_CMD">
+            <dword NO="0" value="13000002">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VideoPipelineCacheInvalidate Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <NotifyEnable Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <FlushLlc Address="N" CHECK="Y" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="13" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PostSyncOperation Address="N" CHECK="Y" bitfield_h="15" bitfield_l="14" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved16 Address="N" CHECK="N" bitfield_h="17" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <TlbInvalidate Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved19 Address="N" CHECK="N" bitfield_h="20" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreDataIndex Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved22 Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x26" max_value="0x26" min_value="0x26"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="0000000000000000">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DestinationAddressType Address="Y" CHECK="N" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="47" bitfield_l="3" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved80 Address="N" CHECK="N" bitfield_h="63" bitfield_l="48" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="3_4" value="00000000">
+                <ImmediateData Address="N" CHECK="Y" bitfield_h="64" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="58" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="59" name="MI_STORE_DATA_IMM_CMD">
+            <dword NO="0" value="10000003">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="20" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreQword Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <UseGlobalGtt Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x20" max_value="0x20" min_value="0x20"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="0000010000000001">
+                <CoreModeEnable Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved33 Address="N" CHECK="N" bitfield_h="1" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x4000000000" max_value="0x4000000000" min_value="0x4000000000"/>
+            </dword>
+            <dword NO="3" value="00000001">
+                <DataDword0 Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+            </dword>
+            <dword NO="4" value="00000000">
+                <DataDword1 Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="60" name="MI_STORE_DATA_IMM_CMD">
+            <dword NO="0" value="10000002">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="20" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreQword Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <UseGlobalGtt Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x20" max_value="0x20" min_value="0x20"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="001b600000000001">
+                <CoreModeEnable Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved33 Address="N" CHECK="N" bitfield_h="1" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x6d80000000000" max_value="0x6d80000000000" min_value="0x6d80000000000"/>
+            </dword>
+            <dword NO="3" value="00000001">
+                <DataDword0 Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+            </dword>
+            <dword NO="4" value="">
+                <DataDword1 Address="N" CHECK="Y" bitfield_h="32" bitfield_l="0" default_value="000000x0" max_value="000000x0" min_value="000000x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="61" name="MI_FLUSH_DW_CMD">
+            <dword NO="0" value="13004002">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VideoPipelineCacheInvalidate Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <NotifyEnable Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <FlushLlc Address="N" CHECK="Y" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="13" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PostSyncOperation Address="N" CHECK="Y" bitfield_h="15" bitfield_l="14" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved16 Address="N" CHECK="N" bitfield_h="17" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <TlbInvalidate Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved19 Address="N" CHECK="N" bitfield_h="20" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreDataIndex Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved22 Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x26" max_value="0x26" min_value="0x26"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="104bba9400000000">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DestinationAddressType Address="Y" CHECK="N" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="47" bitfield_l="3" default_value="0x175280000000" max_value="0x175280000000" min_value="0x175280000000"/>
+                <Reserved80 Address="N" CHECK="N" bitfield_h="63" bitfield_l="48" default_value="0x104b" max_value="0x104b" min_value="0x104b"/>
+            </dword>
+            <dword NO="3_4" value="00000001">
+                <ImmediateData Address="N" CHECK="Y" bitfield_h="64" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="62" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="63" name="MI_FLUSH_DW_CMD">
+            <dword NO="0" value="13004002">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VideoPipelineCacheInvalidate Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <NotifyEnable Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <FlushLlc Address="N" CHECK="Y" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="13" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PostSyncOperation Address="N" CHECK="Y" bitfield_h="15" bitfield_l="14" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved16 Address="N" CHECK="N" bitfield_h="17" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <TlbInvalidate Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved19 Address="N" CHECK="N" bitfield_h="20" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreDataIndex Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved22 Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x26" max_value="0x26" min_value="0x26"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="104ba0fc00000000">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DestinationAddressType Address="Y" CHECK="N" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="47" bitfield_l="3" default_value="0x141f80000000" max_value="0x141f80000000" min_value="0x141f80000000"/>
+                <Reserved80 Address="N" CHECK="N" bitfield_h="63" bitfield_l="48" default_value="0x104b" max_value="0x104b" min_value="0x104b"/>
+            </dword>
+            <dword NO="3_4" value="00000001">
+                <ImmediateData Address="N" CHECK="Y" bitfield_h="64" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="64" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="65" name="MI_FLUSH_DW_CMD">
+            <dword NO="0" value="13004002">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VideoPipelineCacheInvalidate Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <NotifyEnable Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <FlushLlc Address="N" CHECK="Y" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="13" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PostSyncOperation Address="N" CHECK="Y" bitfield_h="15" bitfield_l="14" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved16 Address="N" CHECK="N" bitfield_h="17" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <TlbInvalidate Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved19 Address="N" CHECK="N" bitfield_h="20" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreDataIndex Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved22 Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x26" max_value="0x26" min_value="0x26"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="104b346c00000000">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DestinationAddressType Address="Y" CHECK="N" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="47" bitfield_l="3" default_value="0x68d80000000" max_value="0x68d80000000" min_value="0x68d80000000"/>
+                <Reserved80 Address="N" CHECK="N" bitfield_h="63" bitfield_l="48" default_value="0x104b" max_value="0x104b" min_value="0x104b"/>
+            </dword>
+            <dword NO="3_4" value="00000001">
+                <ImmediateData Address="N" CHECK="Y" bitfield_h="64" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="66" name="MI_NOOP_CMD">
+            <dword NO="0" value="00000000">
+                <IdentificationNumber Address="N" CHECK="Y" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <IdentificationNumberRegisterWriteEnable Address="N" CHECK="Y" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="67" name="MI_FLUSH_DW_CMD">
+            <dword NO="0" value="13004103">
+                <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <VideoPipelineCacheInvalidate Address="N" CHECK="Y" bitfield_h="7" bitfield_l="7" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <NotifyEnable Address="N" CHECK="Y" bitfield_h="8" bitfield_l="8" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <FlushLlc Address="N" CHECK="Y" bitfield_h="9" bitfield_l="9" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved10 Address="N" CHECK="N" bitfield_h="13" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <PostSyncOperation Address="N" CHECK="Y" bitfield_h="15" bitfield_l="14" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <Reserved16 Address="N" CHECK="N" bitfield_h="17" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <TlbInvalidate Address="N" CHECK="Y" bitfield_h="18" bitfield_l="18" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved19 Address="N" CHECK="N" bitfield_h="20" bitfield_l="19" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <StoreDataIndex Address="N" CHECK="Y" bitfield_h="21" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Reserved22 Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x26" max_value="0x26" min_value="0x26"/>
+                <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+            <dword NO="1_2" value="104d200400000000">
+                <Reserved32 Address="N" CHECK="N" bitfield_h="1" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <DestinationAddressType Address="Y" CHECK="N" bitfield_h="2" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                <Address Address="Y" CHECK="N" bitfield_h="47" bitfield_l="3" default_value="0x40080000000" max_value="0x40080000000" min_value="0x40080000000"/>
+                <Reserved80 Address="N" CHECK="N" bitfield_h="63" bitfield_l="48" default_value="0x104d" max_value="0x104d" min_value="0x104d"/>
+            </dword>
+            <dword NO="3_4" value="0000000100000000">
+                <ImmediateData Address="N" CHECK="Y" bitfield_h="64" bitfield_l="0" default_value="0x100000000" max_value="0x100000000" min_value="0x100000000"/>
+            </dword>
+        </CMD>
+        <CMD class="mhw_mi_g11_X" index="68" name="MI_ARB_CHECK_CMD">
+            <dword NO="0" value="04000001">
+                <Reserved0 Address="N" CHECK="N" bitfield_h="22" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                <MiInstructionOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                <MiInstructionType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            </dword>
+        </CMD>
+        <vcs class="not found" name="CMD_OPC_MI_ARB_CHECK"/>
+    </Platform>
+</TestName>

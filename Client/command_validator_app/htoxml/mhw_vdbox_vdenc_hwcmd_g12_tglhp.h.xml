@@ -1,0 +1,2189 @@
+<?xml version="1.0" ?>
+<content>
+    <class name="mhw_vdbox_vdenc_g12_tglhp">
+        <public>
+            <unparsedtext id="1">static uint32_t GetOpLength(uint32_t uiLength)</unparsedtext>
+            <return value="__CODEGEN_OP_LENGTH(uiLength); }"/>
+            <struct name="VDENC_64B_Aligned_Lower_Address_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0,  5" name="Reserved0"/>
+                        <uint32_t bitfield="6, 31" name="Address"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <constructor text="VDENC_64B_Aligned_Lower_Address_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="1"/>
+                <size_t name="byteSize" prefix="static const" value="4"/>
+            </struct>
+            <struct name="VDENC_64B_Aligned_Upper_Address_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="AddressUpperDword"/>
+                        <uint32_t bitfield="16, 31" name="Reserved16"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <constructor text="VDENC_64B_Aligned_Upper_Address_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="1"/>
+                <size_t name="byteSize" prefix="static const" value="4"/>
+            </struct>
+            <struct name="VDENC_Surface_Control_Bits_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0,  0" name="EncryptedData"/>
+                        <uint32_t bitfield="1,  6" name="MemoryObjectControlState"/>
+                        <uint32_t bitfield="7,  8" name="ArbitrationPriorityControl"/>
+                        <uint32_t bitfield="9,  9" name="MemoryCompressionEnable"/>
+                        <uint32_t bitfield="10, 10" name="CompressionType"/>
+                        <uint32_t bitfield="11, 11" name="Reserved11"/>
+                        <uint32_t bitfield="12, 12" name="CacheSelect"/>
+                        <uint32_t bitfield="13, 14" name="Reserved13"/>
+                        <uint32_t bitfield="15, 31" name="Reserved15"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="ARBITRATION_PRIORITY_CONTROL">
+                    <text id="0" name="ARBITRATION_PRIORITY_CONTROL_HIGHESTPRIORITY" value="0"/>
+                    <text id="1" name="ARBITRATION_PRIORITY_CONTROL_SECONDHIGHESTPRIORITY" value="1"/>
+                    <text id="2" name="ARBITRATION_PRIORITY_CONTROL_THIRDHIGHESTPRIORITY" value="2"/>
+                    <text id="3" name="ARBITRATION_PRIORITY_CONTROL_LOWESTPRIORITY" value="3"/>
+                </enum>
+                <enum name="MEMORY_COMPRESSION_ENABLE">
+                    <text id="0" name="MEMORY_COMPRESSION_ENABLE_DISABLE" value="0"/>
+                    <text id="1" name="MEMORY_COMPRESSION_ENABLE_ENABLE" value="1"/>
+                </enum>
+                <enum name="MEMORY_COMPRESSION_MODE">
+                    <text id="0" name="MEMORY_COMPRESSION_MODE_HORIZONTALCOMPRESSIONMODE" value="0"/>
+                    <text id="1" name="MEMORY_COMPRESSION_MODE_VERTICALCOMPRESSIONMODE" value="1"/>
+                </enum>
+                <enum name="CACHE_SELECT">
+                    <text id="0" name="CACHE_SELECT_UNNAMED0" value="0"/>
+                    <text id="1" name="CACHE_SELECT_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="TILED_RESOURCE_MODE">
+                    <text id="0" name="TILED_RESOURCE_MODE_TRMODENONE" value="0"/>
+                    <text id="1" name="TILED_RESOURCE_MODE_TRMODETILEYF" value="1"/>
+                    <text id="2" name="TILED_RESOURCE_MODE_TRMODETILEYS" value="2"/>
+                </enum>
+                <constructor text="VDENC_Surface_Control_Bits_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="1"/>
+                <size_t name="byteSize" prefix="static const" value="4"/>
+            </struct>
+            <struct name="VDENC_Sub_Mb_Pred_Mode_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint8_t bitfield="0,  1" name="Submbpredmode0"/>
+                        <uint8_t bitfield="2,  3" name="Submbpredmode1"/>
+                        <uint8_t bitfield="4,  5" name="Submbpredmode2"/>
+                        <uint8_t bitfield="6,  7" name="Submbpredmode3"/>
+                    </struct>
+                    <uint8_t name="Value"/>
+                </union>
+                <constructor text="VDENC_Sub_Mb_Pred_Mode_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="0"/>
+                <size_t name="byteSize" prefix="static const" value="1"/>
+            </struct>
+            <struct name="VDENC_Block_8x8_4_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint16_t bitfield="0,  3" name="Block8X80"/>
+                        <uint16_t bitfield="4,  7" name="Block8X81"/>
+                        <uint16_t bitfield="8, 11" name="Block8X82"/>
+                        <uint16_t bitfield="12, 15" name="Block8X83"/>
+                    </struct>
+                    <uint16_t name="Value"/>
+                </union>
+                <constructor text="VDENC_Block_8x8_4_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="0"/>
+                <size_t name="byteSize" prefix="static const" value="2"/>
+            </struct>
+            <struct name="VDENC_Delta_MV_XY_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="X0"/>
+                        <uint32_t bitfield="16, 31" name="Y0"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="X1"/>
+                        <uint32_t bitfield="16, 31" name="Y1"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="X2"/>
+                        <uint32_t bitfield="16, 31" name="Y2"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="X3"/>
+                        <uint32_t bitfield="16, 31" name="Y3"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="X0">
+                    <text id="0" name="X0_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="Y0">
+                    <text id="0" name="Y0_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="X1">
+                    <text id="0" name="X1_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="Y1">
+                    <text id="0" name="Y1_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="X2">
+                    <text id="0" name="X2_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="Y2">
+                    <text id="0" name="Y2_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="X3">
+                    <text id="0" name="X3_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="Y3">
+                    <text id="0" name="Y3_UNNAMED0" value="0"/>
+                </enum>
+                <constructor text="VDENC_Delta_MV_XY_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="4"/>
+                <size_t name="byteSize" prefix="static const" value="16"/>
+            </struct>
+            <struct name="VDENC_Colocated_MV_Picture_CMD">
+                <otherCMD name="LowerAddress" otherCMD="VDENC_64B_Aligned_Lower_Address_CMD"/>
+                <otherCMD name="UpperAddress" otherCMD="VDENC_64B_Aligned_Upper_Address_CMD"/>
+                <otherCMD name="PictureFields" otherCMD="VDENC_Surface_Control_Bits_CMD"/>
+                <constructor text="VDENC_Colocated_MV_Picture_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_Down_Scaled_Reference_Picture_CMD">
+                <otherCMD name="LowerAddress" otherCMD="VDENC_64B_Aligned_Lower_Address_CMD"/>
+                <otherCMD name="UpperAddress" otherCMD="VDENC_64B_Aligned_Upper_Address_CMD"/>
+                <otherCMD name="PictureFields" otherCMD="VDENC_Surface_Control_Bits_CMD"/>
+                <constructor text="VDENC_Down_Scaled_Reference_Picture_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_FRAME_BASED_STATISTICS_STREAMOUT_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t name="SumSadHaarForBestMbChoice"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="IntraIso16X16MbCount"/>
+                        <uint32_t bitfield="16, 31" name="IntraMbCount"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="IntraIso4X4MbCount"/>
+                        <uint32_t bitfield="16, 31" name="IntraIso8X8MbCount"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="SegmentMapCount0"/>
+                        <uint32_t bitfield="16, 31" name="SegmentMapCount1"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="SegmentMapCount2"/>
+                        <uint32_t bitfield="16, 31" name="SegmentMapCount3"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <uint32_t name="Reserved160[12]"/>
+                <union name="DW17">
+                    <struct>
+                        <uint32_t name="SumSadHaarForBestMbChoiceBottomHalfPopulation"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW18">
+                    <struct>
+                        <uint32_t name="SumSadHaarForBestMbChoiceTopHalfPopulation"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW19">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="SumTopHalfPopulationOccurrences"/>
+                        <uint32_t bitfield="16, 31" name="SumBottomHalfPopulationOccurrences"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <constructor text="VDENC_FRAME_BASED_STATISTICS_STREAMOUT_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="20"/>
+                <size_t name="byteSize" prefix="static const" value="80"/>
+            </struct>
+            <struct name="VDENC_Mode_StreamOut_Data_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="MbX"/>
+                        <uint32_t bitfield="8, 15" name="MbY"/>
+                        <uint32_t bitfield="16, 31" name="MinimalDistortion"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Skiprawdistortion"/>
+                        <uint32_t bitfield="16, 31" name="Interrawdistortion"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Bestintrarawdistortion"/>
+                        <uint32_t bitfield="16, 17" name="IntermbmodeChromaPredictionMode"/>
+                        <uint32_t bitfield="18, 19" name="Intrambmode"/>
+                        <uint32_t bitfield="20, 20" name="Intrambflag"/>
+                        <uint32_t bitfield="21, 21" name="Lastmbflag"/>
+                        <uint32_t bitfield="22, 22" name="CoefficientClampOccurred"/>
+                        <uint32_t bitfield="23, 23" name="ConformanceViolation"/>
+                        <uint32_t bitfield="24, 31" name="Submbpredmode"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Lumaintramode0"/>
+                        <uint32_t bitfield="16, 31" name="Lumaintramode1"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Lumaintramode2"/>
+                        <uint32_t bitfield="16, 31" name="Lumaintramode3"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <otherCMD name="DeltaMv0" otherCMD="VDENC_Delta_MV_XY_CMD"/>
+                <otherCMD name="DeltaMv1" otherCMD="VDENC_Delta_MV_XY_CMD"/>
+                <union name="DW13">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="FwdRefids"/>
+                        <uint32_t bitfield="16, 31" name="BwdRefids"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW14">
+                    <struct>
+                        <uint32_t bitfield="0,  5" name="QpY"/>
+                        <uint32_t bitfield="6, 18" name="MbBitCount"/>
+                        <uint32_t bitfield="19, 31" name="MbHeaderCount"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW15">
+                    <struct>
+                        <uint32_t bitfield="0,  4" name="MbType"/>
+                        <uint32_t bitfield="5, 30" name="BlockCbp"/>
+                        <uint32_t bitfield="31, 31" name="Skipmbflag"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="INTERMBMODECHROMA_PREDICTION_MODE">
+                    <text id="0" name="INTERMBMODECHROMA_PREDICTION_MODE_UNNAMED0" value="0"/>
+                    <text id="1" name="INTERMBMODECHROMA_PREDICTION_MODE_UNNAMED1" value="1"/>
+                    <text id="2" name="INTERMBMODECHROMA_PREDICTION_MODE_UNNAMED2" value="2"/>
+                    <text id="3" name="INTERMBMODECHROMA_PREDICTION_MODE_UNNAMED3" value="3"/>
+                </enum>
+                <enum name="INTRAMBMODE">
+                    <text id="0" name="INTRAMBMODE_UNNAMED0" value="0"/>
+                    <text id="1" name="INTRAMBMODE_UNNAMED1" value="1"/>
+                    <text id="2" name="INTRAMBMODE_UNNAMED2" value="2"/>
+                </enum>
+                <enum name="INTRAMBFLAG">
+                    <text id="0" name="INTRAMBFLAG_INTER" value="0"/>
+                    <text id="1" name="INTRAMBFLAG_INTRA" value="1"/>
+                </enum>
+                <enum name="LASTMBFLAG">
+                    <text id="0" name="LASTMBFLAG_NOTLAST" value="0"/>
+                    <text id="1" name="LASTMBFLAG_LAST" value="1"/>
+                </enum>
+                <constructor text="VDENC_Mode_StreamOut_Data_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="16"/>
+                <size_t name="byteSize" prefix="static const" value="64"/>
+            </struct>
+            <struct name="VDENC_Original_Uncompressed_Picture_CMD">
+                <otherCMD name="LowerAddress" otherCMD="VDENC_64B_Aligned_Lower_Address_CMD"/>
+                <otherCMD name="UpperAddress" otherCMD="VDENC_64B_Aligned_Upper_Address_CMD"/>
+                <otherCMD name="PictureFields" otherCMD="VDENC_Surface_Control_Bits_CMD"/>
+                <constructor text="VDENC_Original_Uncompressed_Picture_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_Reference_Picture_CMD">
+                <otherCMD name="LowerAddress" otherCMD="VDENC_64B_Aligned_Lower_Address_CMD"/>
+                <otherCMD name="UpperAddress" otherCMD="VDENC_64B_Aligned_Upper_Address_CMD"/>
+                <otherCMD name="PictureFields" otherCMD="VDENC_Surface_Control_Bits_CMD"/>
+                <constructor text="VDENC_Reference_Picture_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_Row_Store_Scratch_Buffer_Picture_CMD">
+                <otherCMD name="LowerAddress" otherCMD="VDENC_64B_Aligned_Lower_Address_CMD"/>
+                <otherCMD name="UpperAddress" otherCMD="VDENC_64B_Aligned_Upper_Address_CMD"/>
+                <otherCMD name="BufferPictureFields" otherCMD="VDENC_Surface_Control_Bits_CMD"/>
+                <constructor text="VDENC_Row_Store_Scratch_Buffer_Picture_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_Statistics_Streamout_CMD">
+                <otherCMD name="LowerAddress" otherCMD="VDENC_64B_Aligned_Lower_Address_CMD"/>
+                <otherCMD name="UpperAddress" otherCMD="VDENC_64B_Aligned_Upper_Address_CMD"/>
+                <otherCMD name="PictureFields" otherCMD="VDENC_Surface_Control_Bits_CMD"/>
+                <constructor text="VDENC_Statistics_Streamout_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_Streamin_Data_Picture_CMD">
+                <otherCMD name="LowerAddress" otherCMD="VDENC_64B_Aligned_Lower_Address_CMD"/>
+                <otherCMD name="UpperAddress" otherCMD="VDENC_64B_Aligned_Upper_Address_CMD"/>
+                <otherCMD name="PictureFields" otherCMD="VDENC_Surface_Control_Bits_CMD"/>
+                <constructor text="VDENC_Streamin_Data_Picture_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_STREAMIN_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="RegionOfInterestRoiSelection"/>
+                        <uint32_t bitfield="8,  8" name="Forceintra"/>
+                        <uint32_t bitfield="9,  9" name="Forceskip"/>
+                        <uint32_t bitfield="10, 31" name="Reserved10"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="Qpprimey"/>
+                        <uint32_t bitfield="8, 15" name="Targetsizeinword"/>
+                        <uint32_t bitfield="16, 23" name="Maxsizeinword"/>
+                        <uint32_t bitfield="24, 31" name="Reserved56"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="FwdPredictorX"/>
+                        <uint32_t bitfield="16, 31" name="FwdPredictorY"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="BwdPredictorX"/>
+                        <uint32_t bitfield="16, 31" name="BwdPredictorY"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="FwdRefid0"/>
+                        <uint32_t bitfield="4,  7" name="BwdRefid0"/>
+                        <uint32_t bitfield="8, 31" name="Reserved136"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <uint32_t name="Reserved160[11]"/>
+                <enum name="FORCEINTRA">
+                    <text id="0" name="FORCEINTRA_DISABLE" value="0"/>
+                    <text id="1" name="FORCEINTRA_ENABLE" value="1"/>
+                </enum>
+                <enum name="FORCESKIP">
+                    <text id="0" name="FORCESKIP_DISABLE" value="0"/>
+                    <text id="1" name="FORCESKIP_ENABLE" value="1"/>
+                </enum>
+                <enum name="QPPRIMEY">
+                    <text id="0" name="QPPRIMEY_UNNAMED0" value="0"/>
+                    <text id="1" name="QPPRIMEY_UNNAMED51" value="51"/>
+                </enum>
+                <constructor text="VDENC_STREAMIN_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="16"/>
+                <size_t name="byteSize" prefix="static const" value="64"/>
+            </struct>
+            <struct name="VDENC_HEVC_VP9_FRAME_BASED_STATISTICS_STREAMOUT_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t name="SumSadHaarForBestModeDecision"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="IntraCuCountNormalized"/>
+                        <uint32_t bitfield="20, 31" name="Reserved52"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="NonSkipInterCuCountNormalized"/>
+                        <uint32_t bitfield="20, 31" name="Reserved84"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="SegmentMapCount0"/>
+                        <uint32_t bitfield="20, 31" name="Reserved116"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="SegmentMapCount1"/>
+                        <uint32_t bitfield="20, 31" name="Reserved148"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW5">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="SegmentMapCount2"/>
+                        <uint32_t bitfield="20, 31" name="Reserved180"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW6">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="SegmentMapCount3"/>
+                        <uint32_t bitfield="20, 31" name="Reserved212"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW7">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample025X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample025X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW8">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample125X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample125X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW9">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample225X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample225X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW10">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample325X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample325X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW11">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample425X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample425X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW12">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample525X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample525X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW13">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample625X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample625X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW14">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample725X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample725X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW15">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MvXGlobalMeSample825X25X"/>
+                        <uint32_t bitfield="16, 31" name="MvYGlobalMeSample825X25X"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW16">
+                    <struct>
+                        <uint32_t bitfield="0,  1" name="RefidForGlobalmeSample0"/>
+                        <uint32_t bitfield="2, 17" name="RefidForGlobalmeSample18"/>
+                        <uint32_t bitfield="18, 31" name="Reserved530"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW17">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="PaletteCuCountNormalized"/>
+                        <uint32_t bitfield="20, 31" name="Reserved564"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW18">
+                    <struct>
+                        <uint32_t bitfield="0, 19" name="IbcCuCountNormalized"/>
+                        <uint32_t bitfield="20, 31" name="Reserved596"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW19">
+                    <struct>
+                        <uint32_t name="Reserved"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW20">
+                    <struct>
+                        <uint32_t name="Reserved656"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW21">
+                    <struct>
+                        <uint32_t name="Reserved672"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW22">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="PositionOfTimerExpiration"/>
+                        <uint32_t bitfield="16, 16" name="TimerExpireStatus"/>
+                        <uint32_t bitfield="17, 31" name="Reserved721"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW23">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="LocationOfPanic"/>
+                        <uint32_t bitfield="16, 16" name="PanicDetected"/>
+                        <uint32_t bitfield="17, 31" name="Reserved753"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <uint32_t name="Reserved768[5]"/>
+                <union name="DW29">
+                    <struct>
+                        <uint32_t name="SumSadHaarForBestModeDecisionBottomHalfPopulation"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW30">
+                    <struct>
+                        <uint32_t name="SumSadHaarForBestModeDecisionTopHalfPopulation"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW31">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="SumTopHalfPopulationOccurrences"/>
+                        <uint32_t bitfield="16, 31" name="SumBottomHalfPopulationOccurrences"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <constructor text="VDENC_HEVC_VP9_FRAME_BASED_STATISTICS_STREAMOUT_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="32"/>
+                <size_t name="byteSize" prefix="static const" value="128"/>
+            </struct>
+            <struct name="VDENC_HEVC_VP9_STREAMIN_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="Roi32X32016X1603"/>
+                        <uint32_t bitfield="8,  9" name="Maxtusize"/>
+                        <uint32_t bitfield="10, 11" name="Maxcusize"/>
+                        <uint32_t bitfield="12, 15" name="Numimepredictors"/>
+                        <uint32_t bitfield="16, 20" name="Reserved16"/>
+                        <uint32_t bitfield="21, 21" name="Reserved21"/>
+                        <uint32_t bitfield="22, 22" name="PaletteDisable"/>
+                        <uint32_t bitfield="23, 23" name="Reserved23"/>
+                        <uint32_t bitfield="24, 31" name="PuType32X32016X1603"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ForceMvX32X32016X160"/>
+                        <uint32_t bitfield="16, 31" name="ForceMvY32X32016X160"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ForceMvX32X32016X161"/>
+                        <uint32_t bitfield="16, 31" name="ForceMvY32X32016X161"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ForceMvX32X32016X162"/>
+                        <uint32_t bitfield="16, 31" name="ForceMvY32X32016X162"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ForceMvX32X32016X163"/>
+                        <uint32_t bitfield="16, 31" name="ForceMvY32X32016X163"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW5">
+                    <struct>
+                        <uint32_t name="Reserved160"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW6">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="ForceMvRefidx32X32016X160"/>
+                        <uint32_t bitfield="4, 15" name="ForceMvRefidx32X32016X1613"/>
+                        <uint32_t bitfield="16, 19" name="Nummergecandidatecu8X8"/>
+                        <uint32_t bitfield="20, 23" name="Nummergecandidatecu16X16"/>
+                        <uint32_t bitfield="24, 27" name="Nummergecandidatecu32X32"/>
+                        <uint32_t bitfield="28, 31" name="Nummergecandidatecu64X64"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW7">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Segid32X32016X1603Vp9Only"/>
+                        <uint32_t bitfield="16, 19" name="QpEn32X32016X1603"/>
+                        <uint32_t bitfield="20, 20" name="SegidEnable"/>
+                        <uint32_t bitfield="21, 22" name="Reserved245"/>
+                        <uint32_t bitfield="23, 23" name="ForceRefidEnable32X320"/>
+                        <uint32_t bitfield="24, 31" name="ImePredictorRefidSelect0332X320"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW8">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ImePredictor0X32X320"/>
+                        <uint32_t bitfield="16, 31" name="ImePredictor0Y32X320"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW9">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ImePredictor0X32X321"/>
+                        <uint32_t bitfield="16, 31" name="ImePredictor0Y32X321"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW10">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ImePredictor0X32X322"/>
+                        <uint32_t bitfield="16, 31" name="ImePredictor0Y32X322"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW11">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="ImePredictor0X32X323"/>
+                        <uint32_t bitfield="16, 31" name="ImePredictor0Y32X323"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW12">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="ImePredictor0Refidx32X320"/>
+                        <uint32_t bitfield="4, 15" name="ImePredictor13Refidx32X3213"/>
+                        <uint32_t bitfield="16, 31" name="Reserved400"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW13">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Panicmodelcuthreshold"/>
+                        <uint32_t bitfield="16, 31" name="Reserved432"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW14">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="ForceQpValue16X160"/>
+                        <uint32_t bitfield="8, 15" name="ForceQpValue16X161"/>
+                        <uint32_t bitfield="16, 23" name="ForceQpValue16X162"/>
+                        <uint32_t bitfield="24, 31" name="ForceQpValue16X163"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW15">
+                    <struct>
+                        <uint32_t name="Reserved480"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="NUMIMEPREDICTORS">
+                    <text id="0" name="NUMIMEPREDICTORS_UNNAMED0" value="0"/>
+                    <text id="1" name="NUMIMEPREDICTORS_UNNAMED4" value="4"/>
+                    <text id="2" name="NUMIMEPREDICTORS_UNNAMED8" value="8"/>
+                    <text id="3" name="NUMIMEPREDICTORS_UNNAMED12" value="12"/>
+                </enum>
+                <constructor text="VDENC_HEVC_VP9_STREAMIN_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="16"/>
+                <size_t name="byteSize" prefix="static const" value="64"/>
+            </struct>
+            <struct name="VDENC_Surface_State_Fields_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0,  1" name="CrVCbUPixelOffsetVDirection"/>
+                        <uint32_t bitfield="2,  2" name="SurfaceFormatByteSwizzle"/>
+                        <uint32_t bitfield="3,  3" name="ColorSpaceSelection"/>
+                        <uint32_t bitfield="4, 17" name="Width"/>
+                        <uint32_t bitfield="18, 31" name="Height"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  0" name="TileWalk"/>
+                        <uint32_t bitfield="1,  1" name="TiledSurface"/>
+                        <uint32_t bitfield="2,  2" name="HalfPitchForChroma"/>
+                        <uint32_t bitfield="3, 19" name="SurfacePitch"/>
+                        <uint32_t bitfield="20, 22" name="ChromaDownsampleFilterControl"/>
+                        <uint32_t bitfield="23, 26" name="Reserved55"/>
+                        <uint32_t bitfield="27, 31" name="SurfaceFormat"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0, 14" name="YOffsetForUCb"/>
+                        <uint32_t bitfield="15, 15" name="Reserved79"/>
+                        <uint32_t bitfield="16, 30" name="XOffsetForUCb"/>
+                        <uint32_t bitfield="31, 31" name="Reserved95"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="YOffsetForVCr"/>
+                        <uint32_t bitfield="16, 28" name="XOffsetForVCr"/>
+                        <uint32_t bitfield="29, 31" name="Reserved125"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="TILE_WALK">
+                    <text id="0" name="TILE_WALK_XMAJOR" value="0"/>
+                    <text id="1" name="TILE_WALK_YMAJOR" value="1"/>
+                </enum>
+                <enum name="TILED_SURFACE">
+                    <text id="0" name="TILED_SURFACE_FALSE" value="0"/>
+                    <text id="1" name="TILED_SURFACE_TRUE" value="1"/>
+                </enum>
+                <enum name="HALF_PITCH_FOR_CHROMA">
+                    <text id="0" name="HALF_PITCH_FOR_CHROMA_DISABLE" value="0"/>
+                    <text id="1" name="HALF_PITCH_FOR_CHROMA_ENABLE" value="1"/>
+                </enum>
+                <enum name="SURFACE_FORMAT">
+                    <text id="0" name="SURFACE_FORMAT_YUV422" value="0"/>
+                    <text id="1" name="SURFACE_FORMAT_RGBA4444" value="1"/>
+                    <text id="2" name="SURFACE_FORMAT_YUV444" value="2"/>
+                    <text id="3" name="SURFACE_FORMAT_Y8UNORM" value="3"/>
+                    <text id="4" name="SURFACE_FORMAT_PLANAR_420_8" value="4"/>
+                    <text id="5" name="SURFACE_FORMAT_YCRCB_SWAPY_422" value="5"/>
+                    <text id="6" name="SURFACE_FORMAT_YCRCB_SWAPUV_422" value="6"/>
+                    <text id="7" name="SURFACE_FORMAT_YCRCB_SWAPUVY_422" value="7"/>
+                    <text id="8" name="SURFACE_FORMAT_P010" value="8"/>
+                    <text id="9" name="SURFACE_FORMAT_RGBA_10_10_10_2" value="9"/>
+                    <text id="10" name="SURFACE_FORMAT_Y410" value="10"/>
+                    <text id="11" name="SURFACE_FORMAT_NV21" value="11"/>
+                    <text id="12" name="SURFACE_FORMAT_P010_VARIANT" value="12"/>
+                </enum>
+                <constructor text="VDENC_Surface_State_Fields_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="4"/>
+                <size_t name="byteSize" prefix="static const" value="16"/>
+            </struct>
+            <struct name="VD_PIPELINE_FLUSH_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordCountN"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopcodeb"/>
+                        <uint32_t bitfield="21, 22" name="Subopcodea"/>
+                        <uint32_t bitfield="23, 26" name="MediaCommandOpcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  0" name="HevcPipelineDone"/>
+                        <uint32_t bitfield="1,  1" name="VdencPipelineDone"/>
+                        <uint32_t bitfield="2,  2" name="MflPipelineDone"/>
+                        <uint32_t bitfield="3,  3" name="MfxPipelineDone"/>
+                        <uint32_t bitfield="4,  4" name="VdCommandMessageParserDone"/>
+                        <uint32_t bitfield="5,  5" name="AvpPipelineDone"/>
+                        <uint32_t bitfield="6, 15" name="Reserved37"/>
+                        <uint32_t bitfield="16, 16" name="HevcPipelineCommandFlush"/>
+                        <uint32_t bitfield="17, 17" name="VdencPipelineCommandFlush"/>
+                        <uint32_t bitfield="18, 18" name="MflPipelineCommandFlush"/>
+                        <uint32_t bitfield="19, 19" name="MfxPipelineCommandFlush"/>
+                        <uint32_t bitfield="20, 20" name="AvpPipelineCommandFlush"/>
+                        <uint32_t bitfield="21, 31" name="Reserved52"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="DWORD_COUNT_N">
+                    <text id="0" name="DWORD_COUNT_N_EXCLUDESDWORD_0" value="0"/>
+                </enum>
+                <enum name="SUBOPCODEB">
+                    <text id="0" name="SUBOPCODEB_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="SUBOPCODEA">
+                    <text id="0" name="SUBOPCODEA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="MEDIA_COMMAND_OPCODE">
+                    <text id="0" name="MEDIA_COMMAND_OPCODE_EXTENDEDCOMMAND" value="15"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MEDIA" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VD_PIPELINE_FLUSH_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="2"/>
+                <size_t name="byteSize" prefix="static const" value="8"/>
+            </struct>
+            <struct name="VDENC_WEIGHTSOFFSETS_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="WeightsForwardReference0"/>
+                        <uint32_t bitfield="8, 15" name="OffsetForwardReference0"/>
+                        <uint32_t bitfield="16, 23" name="WeightsForwardReference1"/>
+                        <uint32_t bitfield="24, 31" name="OffsetForwardReference1"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="WeightsForwardReference2"/>
+                        <uint32_t bitfield="8, 15" name="OffsetForwardReference2"/>
+                        <uint32_t bitfield="16, 23" name="WeightsBackwardReference0"/>
+                        <uint32_t bitfield="24, 31" name="OffsetBackwardReference0"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="DW_LENGTH">
+                    <text id="0" name="DW_LENGTH_DWORDCOUNTN" value="1"/>
+                </enum>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCAVCWEIGHTSOFFSETSTATE" value="8"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_WEIGHTSOFFSETS_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_DS_REF_SURFACE_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t name="Reserved32"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <otherCMD name="Dwords25" otherCMD="VDENC_Surface_State_Fields_CMD"/>
+                <otherCMD name="Dwords69" otherCMD="VDENC_Surface_State_Fields_CMD"/>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCDSREFSURFACESTATE" value="3"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_DS_REF_SURFACE_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="10"/>
+                <size_t name="byteSize" prefix="static const" value="40"/>
+            </struct>
+            <struct name="VDENC_AVC_IMG_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  1" name="LeftNeighborPixelMode"/>
+                        <uint32_t bitfield="2,  3" name="PictureType"/>
+                        <uint32_t bitfield="4,  4" name="Transform8X8Flag"/>
+                        <uint32_t bitfield="5,  5" name="BDirectWriteEnable"/>
+                        <uint32_t bitfield="6,  7" name="SubpelMode"/>
+                        <uint32_t bitfield="8, 15" name="ImePredictorOverlapThreshold"/>
+                        <uint32_t bitfield="16, 23" name="MacroblockSizeEstimatedScalingRatioForIntra"/>
+                        <uint32_t bitfield="24, 31" name="MacroblockSizeEstimatedScalingRatioForInter"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="NumImePredictors"/>
+                        <uint32_t bitfield="4,  5" name="HmeRefWindowSize"/>
+                        <uint32_t bitfield="6,  7" name="ImeLeftPredDep"/>
+                        <uint32_t bitfield="8, 11" name="NumberOfFractionalCandidatesChecked"/>
+                        <uint32_t bitfield="12, 12" name="ImePredictorLargeSearchWindow"/>
+                        <uint32_t bitfield="13, 13" name="BDirectReadEnable"/>
+                        <uint32_t bitfield="14, 15" name="InterSadAdjustment"/>
+                        <uint32_t bitfield="16, 17" name="IntraSadAdjustment"/>
+                        <uint32_t bitfield="18, 23" name="BidirectionalWeight"/>
+                        <uint32_t bitfield="24, 30" name="SubmacroblockPartitionMask"/>
+                        <uint32_t bitfield="31, 31" name="RdeChromaEnable"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="PictureHeightMinusOne"/>
+                        <uint32_t bitfield="16, 31" name="PictureWidth"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0,  8" name="AvcIntra4X4ModeMask"/>
+                        <uint32_t bitfield="9, 11" name="LumaIntraPartitionMask"/>
+                        <uint32_t bitfield="12, 15" name="IntraChromaMask"/>
+                        <uint32_t bitfield="16, 24" name="AvcIntra8X8ModeMask"/>
+                        <uint32_t bitfield="25, 25" name="RdeIntraChromaSearch"/>
+                        <uint32_t bitfield="26, 27" name="IntraComputeType"/>
+                        <uint32_t bitfield="28, 31" name="AvcIntra16X16ModeMask"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW5">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="FwdRefIdx0ReferencePicture"/>
+                        <uint32_t bitfield="4,  7" name="BwdRefIdx0ReferencePicture"/>
+                        <uint32_t bitfield="8, 11" name="FwdRefIdx1ReferencePicture"/>
+                        <uint32_t bitfield="12, 15" name="Reserved172"/>
+                        <uint32_t bitfield="16, 19" name="FwdRefIdx2ReferencePicture"/>
+                        <uint32_t bitfield="20, 23" name="NumberOfL0ReferencesMinusOne"/>
+                        <uint32_t bitfield="24, 27" name="NumberOfL1ReferencesMinusOne"/>
+                        <uint32_t bitfield="28, 28" name="TemporalBDirectMode"/>
+                        <uint32_t bitfield="29, 30" name="Reserved188"/>
+                        <uint32_t bitfield="31, 31" name="RefIdxToReferencePictureNonDefaultEnable"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW6">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="IntraRefreshMbPos"/>
+                        <uint32_t bitfield="8, 15" name="IntraRefreshMbSizeMinusOne"/>
+                        <uint32_t bitfield="16, 16" name="IntraRefreshEnableRollingIEnable"/>
+                        <uint32_t bitfield="17, 17" name="IntraRefreshMode"/>
+                        <uint32_t bitfield="18, 23" name="Reserved210"/>
+                        <uint32_t bitfield="24, 31" name="QpAdjustmentForRollingI"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW7">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="PanicModeMbThreshold"/>
+                        <uint32_t bitfield="16, 23" name="SmallMbSizeInWord"/>
+                        <uint32_t bitfield="24, 31" name="LargeMbSizeInWord"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW8">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="MaxHMvR"/>
+                        <uint32_t bitfield="16, 31" name="MaxVMvR"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW9">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="RoiQpAdjustmentForZone0"/>
+                        <uint32_t bitfield="4,  7" name="RoiQpAdjustmentForZone1"/>
+                        <uint32_t bitfield="8, 11" name="RoiQpAdjustmentForZone2"/>
+                        <uint32_t bitfield="12, 15" name="RoiQpAdjustmentForZone3"/>
+                        <uint32_t bitfield="16, 19" name="QpAdjustmentForShapeBestIntra4X4Winner"/>
+                        <uint32_t bitfield="20, 23" name="QpAdjustmentForShapeBestIntra8X8Winner"/>
+                        <uint32_t bitfield="24, 27" name="QpAdjustmentForShapeBestIntra16X16Winner"/>
+                        <uint32_t bitfield="28, 31" name="Reserved316"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW10">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="BestdistortionQpAdjustmentForZone0"/>
+                        <uint32_t bitfield="4,  7" name="BestdistortionQpAdjustmentForZone1"/>
+                        <uint32_t bitfield="8, 11" name="BestdistortionQpAdjustmentForZone2"/>
+                        <uint32_t bitfield="12, 15" name="BestdistortionQpAdjustmentForZone3"/>
+                        <uint32_t bitfield="16, 31" name="SadHaarThreshold0"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW11">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="SadHaarThreshold1"/>
+                        <uint32_t bitfield="16, 31" name="SadHaarThreshold2"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW12">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="MinQp"/>
+                        <uint32_t bitfield="8, 15" name="MaxQp"/>
+                        <uint32_t bitfield="16, 23" name="InitialMacroblockBudgetForTransform4X4"/>
+                        <uint32_t bitfield="24, 27" name="MaxDeltaQp"/>
+                        <uint32_t bitfield="28, 31" name="Reserved412"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW13">
+                    <struct>
+                        <uint32_t bitfield="0,  0" name="RoiEnable"/>
+                        <uint32_t bitfield="1,  1" name="FwdPredictor0MvEnable"/>
+                        <uint32_t bitfield="2,  2" name="BwdPredictor1MvEnable"/>
+                        <uint32_t bitfield="3,  3" name="MbLevelQpEnable"/>
+                        <uint32_t bitfield="4,  4" name="TargetSizeInWordsMbMaxSizeInWordsMbEnable"/>
+                        <uint32_t bitfield="5,  5" name="MbLevelDeltaQpEnable"/>
+                        <uint32_t bitfield="6,  6" name="ZeroCbfSkipCheckEn"/>
+                        <uint32_t bitfield="7,  7" name="ZeroCbfInterCheckEn"/>
+                        <uint32_t bitfield="8,  8" name="Reserved424"/>
+                        <uint32_t bitfield="9,  9" name="CoefficientClampEnable"/>
+                        <uint32_t bitfield="10, 10" name="LongtermReferenceFrameBwdRef0Indicator"/>
+                        <uint32_t bitfield="11, 12" name="Reserved427"/>
+                        <uint32_t bitfield="13, 13" name="ZMVPredictorDisable"/>
+                        <uint32_t bitfield="14, 14" name="ToPRightIMEPredictorDisable"/>
+                        <uint32_t bitfield="15, 15" name="ToPIMEPredictorDisable"/>
+                        <uint32_t bitfield="16, 31" name="MidpointSadHaar"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW14">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="QpPrimeY"/>
+                        <uint32_t bitfield="8, 15" name="ForceIpcmMinQp"/>
+                        <uint32_t bitfield="16, 17" name="TrellisTableSel"/>
+                        <uint32_t bitfield="18, 18" name="IpcmEnable"/>
+                        <uint32_t bitfield="19, 19" name="TrellisQuantEn"/>
+                        <uint32_t bitfield="20, 20" name="Reserved"/>
+                        <uint32_t bitfield="21, 21" name="CrePrefetchEnable"/>
+                        <uint32_t bitfield="22, 23" name="IntraTransform4X4Percentage"/>
+                        <uint32_t bitfield="24, 31" name="Targetsizeinword"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW15">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="IpcmZone0Qp"/>
+                        <uint32_t bitfield="8, 15" name="TemporalBDirectScaleFactor"/>
+                        <uint32_t bitfield="16, 31" name="IpcmZone0Thr"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW16">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="IpcmZone1Qp"/>
+                        <uint32_t bitfield="8, 15" name="Reserved520"/>
+                        <uint32_t bitfield="16, 31" name="IpcmZone1Thr"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW17">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="IpcmZone2Qp"/>
+                        <uint32_t bitfield="8, 15" name="Reserved552"/>
+                        <uint32_t bitfield="16, 31" name="IpcmZone2Thr"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW18">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="IpcmZone3Qp"/>
+                        <uint32_t bitfield="8, 15" name="Reserved584"/>
+                        <uint32_t bitfield="16, 31" name="IpcmZone3Thr"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW19">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="IpcmZone4Qp"/>
+                        <uint32_t bitfield="8, 15" name="Reserved616"/>
+                        <uint32_t bitfield="16, 31" name="IpcmZone4Thr"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCAVCIMGSTATE" value="5"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <enum name="PICTURE_TYPE">
+                    <text id="0" name="PICTURE_TYPE_I_FRAME" value="0"/>
+                    <text id="1" name="PICTURE_TYPE_P_FRAME" value="1"/>
+                    <text id="2" name="PICTURE_TYPE_B_FRAME" value="2"/>
+                </enum>
+                <enum name="LUMA_INTRA_PARTITION_MASK">
+                    <text id="0" name="LUMA_INTRA_PARTITION_MASK_UNNAMED1" value="1"/>
+                    <text id="1" name="LUMA_INTRA_PARTITION_MASK_UNNAMED2" value="2"/>
+                    <text id="2" name="LUMA_INTRA_PARTITION_MASK_UNNAMED4" value="4"/>
+                </enum>
+                <enum name="HMEREFWINDOWSIZE">
+                    <text id="0" name="HMEREFWINDOWSIZE_88X88" value="0"/>
+                    <text id="1" name="HMEREFWINDOWSIZE_88X56" value="1"/>
+                    <text id="2" name="HMEREFWINDOWSIZE_88X62" value="2"/>
+                    <text id="3" name="HMEREFWINDOWSIZE_120X68" value="3"/>
+                </enum>
+                <enum name="IMELEFTPREDDEP">
+                    <text id="0" name="IMELEFTPREDDEP_LEFTIME" value="0"/>
+                    <text id="1" name="IMELEFTPREDDEP_LEFT_LEFTIME" value="1"/>
+                    <text id="2" name="IMELEFTPREDDEP_LEFT_LEFTMB" value="2"/>
+                </enum>
+                <enum name="NUMBER_OF_FRACTIONAL_CANDIDATES_CHECKED">
+                    <text id="0" name="NUMBER_OF_FRACTIONAL_CANDIDATES_CHECKED_SPEEDMODE" value="2"/>
+                    <text id="1" name="NUMBER_OF_FRACTIONAL_CANDIDATES_CHECKED_NORMALMODE" value="4"/>
+                </enum>
+                <enum name="IME_PREDICTOR_LARGE_SEARCH_WINDOW">
+                    <text id="0" name="IME_PREDICTOR_LARGE_SEARCH_WINDOW_SMALL" value="0"/>
+                    <text id="1" name="IME_PREDICTOR_LARGE_SEARCH_WINDOW_BIG" value="1"/>
+                </enum>
+                <enum name="INTER_SAD_ADJUSTMENT">
+                    <text id="0" name="INTER_SAD_ADJUSTMENT_SADONLY" value="0"/>
+                    <text id="1" name="INTER_SAD_ADJUSTMENT_HAARTRANSFORM" value="2"/>
+                </enum>
+                <enum name="INTRA_SAD_ADJUSTMENT">
+                    <text id="0" name="INTRA_SAD_ADJUSTMENT_SADONLY" value="0"/>
+                    <text id="1" name="INTRA_SAD_ADJUSTMENT_HAARTRANSFORM" value="2"/>
+                </enum>
+                <enum name="BIDIRECTIONAL_WEIGHT">
+                    <text id="0" name="BIDIRECTIONAL_WEIGHT_QUARTERDISTANCE" value="16"/>
+                    <text id="1" name="BIDIRECTIONAL_WEIGHT_ONETHIRDDISTANCE" value="21"/>
+                    <text id="2" name="BIDIRECTIONAL_WEIGHT_HALFDISTANCE" value="32"/>
+                    <text id="3" name="BIDIRECTIONAL_WEIGHT_TWOTHIRDDISTANCE" value="43"/>
+                    <text id="4" name="BIDIRECTIONAL_WEIGHT_THREEQUARTERDISTANCE" value="48"/>
+                </enum>
+                <enum name="INTRA_COMPUTE_TYPE">
+                    <text id="0" name="INTRA_COMPUTE_TYPE_BOTHLUMAANDCHROMA" value="0"/>
+                    <text id="1" name="INTRA_COMPUTE_TYPE_LUMAONLY" value="1"/>
+                </enum>
+                <enum name="BWD_REFIDX0_REFERENCE_PICTURE">
+                    <text id="0" name="BWD_REFIDX0_REFERENCE_PICTURE_BWDREFIDX" value="0"/>
+                </enum>
+                <enum name="INTRAREFRESHENABLE_ROLLING_I_ENABLE">
+                    <text id="0" name="INTRAREFRESHENABLE_ROLLING_I_ENABLE_DISABLE" value="0"/>
+                    <text id="1" name="INTRAREFRESHENABLE_ROLLING_I_ENABLE_ENABLE" value="1"/>
+                </enum>
+                <enum name="INTRAREFRESHMODE">
+                    <text id="0" name="INTRAREFRESHMODE_ROWBASED" value="0"/>
+                    <text id="1" name="INTRAREFRESHMODE_COLUMNBASED" value="1"/>
+                </enum>
+                <enum name="MAXHMVR">
+                    <text id="0" name="MAXHMVR_UNNAMED256" value="256"/>
+                    <text id="1" name="MAXHMVR_UNNAMED512" value="512"/>
+                    <text id="2" name="MAXHMVR_UNNAMED1024" value="1024"/>
+                    <text id="3" name="MAXHMVR_UNNAMED2048" value="2048"/>
+                    <text id="4" name="MAXHMVR_UNNAMED4096" value="4096"/>
+                    <text id="5" name="MAXHMVR_UNNAMED8192" value="8192"/>
+                </enum>
+                <enum name="MAXVMVR">
+                    <text id="0" name="MAXVMVR_UNNAMED256" value="256"/>
+                    <text id="1" name="MAXVMVR_UNNAMED512" value="512"/>
+                    <text id="2" name="MAXVMVR_UNNAMED1024" value="1024"/>
+                    <text id="3" name="MAXVMVR_UNNAMED2048" value="2048"/>
+                </enum>
+                <enum name="LONGTERM_REFERENCE_FRAME_BWD_REF0_INDICATOR">
+                    <text id="0" name="LONGTERM_REFERENCE_FRAME_BWD_REF0_INDICATOR_SHORT_TERMREFERENCE" value="0"/>
+                    <text id="1" name="LONGTERM_REFERENCE_FRAME_BWD_REF0_INDICATOR_LONG_TERMREFERENCE" value="1"/>
+                </enum>
+                <constructor text="VDENC_AVC_IMG_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="20"/>
+                <size_t name="byteSize" prefix="static const" value="80"/>
+            </struct>
+            <struct name="VDENC_PIPE_BUF_ADDR_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <otherCMD name="DsFwdRef0" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="DsFwdRef1" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="DsBwdRef0" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="OriginalUncompressedPicture" otherCMD="VDENC_Original_Uncompressed_Picture_CMD"/>
+                <otherCMD name="StreaminDataPicture" otherCMD="VDENC_Streamin_Data_Picture_CMD"/>
+                <otherCMD name="RowStoreScratchBuffer" otherCMD="VDENC_Row_Store_Scratch_Buffer_Picture_CMD"/>
+                <otherCMD name="ColocatedMv" otherCMD="VDENC_Colocated_MV_Picture_CMD"/>
+                <otherCMD name="FwdRef0" otherCMD="VDENC_Reference_Picture_CMD"/>
+                <otherCMD name="FwdRef1" otherCMD="VDENC_Reference_Picture_CMD"/>
+                <otherCMD name="FwdRef2" otherCMD="VDENC_Reference_Picture_CMD"/>
+                <otherCMD name="BwdRef0" otherCMD="VDENC_Reference_Picture_CMD"/>
+                <otherCMD name="VdencStatisticsStreamout" otherCMD="VDENC_Statistics_Streamout_CMD"/>
+                <otherCMD name="DsFwdRef04X" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="DsFwdRef14X" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="DsBwdRef04X" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="VdencLcuPakObjCmdBuffer" otherCMD="VDENC_Colocated_MV_Picture_CMD"/>
+                <otherCMD name="ScaledReferenceSurfaceStage1" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="ScaledReferenceSurfaceStage2" otherCMD="VDENC_Down_Scaled_Reference_Picture_CMD"/>
+                <otherCMD name="Vp9SegmentationMapStreaminBuffer" otherCMD="VDENC_Colocated_MV_Picture_CMD"/>
+                <otherCMD name="Vp9SegmentationMapStreamoutBuffer" otherCMD="VDENC_Colocated_MV_Picture_CMD"/>
+                <union name="DW61">
+                    <struct>
+                        <uint32_t name="WeightsHistogramStreamoutOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <otherCMD name="VdencTileRowStoreBuffer" otherCMD="VDENC_Row_Store_Scratch_Buffer_Picture_CMD"/>
+                <otherCMD name="VdencCumulativeCuCountStreamoutSurface" otherCMD="VDENC_Statistics_Streamout_CMD"/>
+                <otherCMD name="VdencPaletteModeStreamoutSurface" otherCMD="VDENC_Statistics_Streamout_CMD"/>
+                <uint32_t name="GammaPredictor0Surface[3]"/>
+                <uint32_t name="GammaPredictor1Surface[3]"/>
+                <uint32_t name="IntraPredictionRowstoreBaseAddress[3]"/>
+                <uint32_t name="StreaminQpSurface[3]"/>
+                <otherCMD name="ColocatedMvAvcWriteBuffer" otherCMD="VDENC_Colocated_MV_Picture_CMD"/>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCPIPEBUFADDRSTATE" value="4"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_PIPE_BUF_ADDR_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="86"/>
+                <size_t name="byteSize" prefix="static const" value="344"/>
+            </struct>
+            <struct name="VDENC_PIPE_MODE_SELECT_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="StandardSelect"/>
+                        <uint32_t bitfield="4,  4" name="ScalabilityMode"/>
+                        <uint32_t bitfield="5,  5" name="FrameStatisticsStreamOutEnable"/>
+                        <uint32_t bitfield="6,  6" name="VdencPakObjCmdStreamOutEnable"/>
+                        <uint32_t bitfield="7,  7" name="TlbPrefetchEnable"/>
+                        <uint32_t bitfield="8,  8" name="PakThresholdCheckEnable"/>
+                        <uint32_t bitfield="9,  9" name="VdencStreamInEnable"/>
+                        <uint32_t bitfield="10, 10" name="Downscaled8XWriteDisable"/>
+                        <uint32_t bitfield="11, 11" name="Downscaled4XWriteDisable"/>
+                        <uint32_t bitfield="12, 14" name="BitDepth"/>
+                        <uint32_t bitfield="15, 16" name="PakChromaSubSamplingType"/>
+                        <uint32_t bitfield="17, 17" name="OutputRangeControlAfterColorSpaceConversion"/>
+                        <uint32_t bitfield="18, 18" name="IsRandomAccess"/>
+                        <uint32_t bitfield="19, 19" name="Reserved51"/>
+                        <uint32_t bitfield="20, 20" name="RgbEncodingEnable"/>
+                        <uint32_t bitfield="21, 22" name="PrimaryChannelSelectionForRgbEncoding"/>
+                        <uint32_t bitfield="23, 24" name="FirstSecondaryChannelSelectionForRgbEncoding"/>
+                        <uint32_t bitfield="25, 25" name="TileReplayEnable"/>
+                        <uint32_t bitfield="26, 27" name="StreamingBufferConfig"/>
+                        <uint32_t bitfield="28, 31" name="Reserved58"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0,  0" name="HmeRegionPreFetchenable"/>
+                        <uint32_t bitfield="1,  2" name="Topprefetchenablemode"/>
+                        <uint32_t bitfield="3,  3" name="LeftpreFetchatwraparound"/>
+                        <uint32_t bitfield="4,  7" name="Verticalshift32Minus1"/>
+                        <uint32_t bitfield="8, 11" name="Hzshift32Minus1"/>
+                        <uint32_t bitfield="12, 15" name="Reserved76"/>
+                        <uint32_t bitfield="16, 19" name="NumVerticalReqMinus1"/>
+                        <uint32_t bitfield="20, 23" name="Numhzreqminus1"/>
+                        <uint32_t bitfield="24, 27" name="PreFetchOffsetForReferenceIn16PixelIncrement"/>
+                        <uint32_t bitfield="28, 31" name="Reserved92"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0,  0" name="SourceLumaPackedDataTlbPreFetchenable"/>
+                        <uint32_t bitfield="1,  1" name="SourceChromaTlbPreFetchenable"/>
+                        <uint32_t bitfield="2,  3" name="Reserved98"/>
+                        <uint32_t bitfield="4,  7" name="Verticalshift32Minus1Src"/>
+                        <uint32_t bitfield="8, 11" name="Hzshift32Minus1Src"/>
+                        <uint32_t bitfield="12, 15" name="Reserved108"/>
+                        <uint32_t bitfield="16, 19" name="Numverticalreqminus1Src"/>
+                        <uint32_t bitfield="20, 23" name="Numhzreqminus1Src"/>
+                        <uint32_t bitfield="24, 27" name="PreFetchoffsetforsource"/>
+                        <uint32_t bitfield="28, 31" name="VerticalMotionVectoreLimit"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="Debugtilepassnum"/>
+                        <uint32_t bitfield="4, 11" name="Debugtilenum"/>
+                        <uint32_t bitfield="12, 14" name="PreEncpassIntraInterSADadjustmentbeforecompare"/>
+                        <uint32_t bitfield="15, 15" name="Reserved_143"/>
+                        <uint32_t bitfield="16, 17" name="GAMMAPredictorScaleFactor"/>
+                        <uint32_t bitfield="18, 19" name="PreENCpassBlockSize"/>
+                        <uint32_t bitfield="20, 20" name="AVCGammaPredictorMVreplication"/>
+                        <uint32_t bitfield="21, 21" name="StreaminQPSurfaceEnable"/>
+                        <uint32_t bitfield="22, 22" name="PreENCPassEnable"/>
+                        <uint32_t bitfield="23, 23" name="Reserved_151"/>
+                        <uint32_t bitfield="24, 25" name="GammaPredictor1RefIDX"/>
+                        <uint32_t bitfield="26, 26" name="GammaPredictor1Direction"/>
+                        <uint32_t bitfield="27, 27" name="GammaPredictor1Enable"/>
+                        <uint32_t bitfield="28, 29" name="GammaPredictor2RefIDX"/>
+                        <uint32_t bitfield="30, 30" name="GammaPredictor2Direction"/>
+                        <uint32_t bitfield="31, 31" name="GammaPredictor2Enable"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW5">
+                    <struct>
+                        <uint32_t bitfield="0,  3" name="FrameNumber"/>
+                        <uint32_t bitfield="4,  9" name="Reserved164"/>
+                        <uint32_t bitfield="10, 10" name="HeadPointerUpdateAuto"/>
+                        <uint32_t bitfield="11, 12" name="CaptureMode"/>
+                        <uint32_t bitfield="13, 15" name="ParallelCaptureAndEncodeSessionId"/>
+                        <uint32_t bitfield="16, 16" name="HeadPtrUpdateIOSFDirect"/>
+                        <uint32_t bitfield="17, 23" name="Reserved176"/>
+                        <uint32_t bitfield="24, 31" name="TailPointerReadFrequency"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCPIPEMODESELECT" value="0"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <enum name="STANDARD_SELECT">
+                    <text id="0" name="STANDARD_SELECT_AVC" value="2"/>
+                </enum>
+                <enum name="FRAME_STATISTICS_STREAM_OUT_ENABLE">
+                    <text id="0" name="FRAME_STATISTICS_STREAM_OUT_ENABLE_DISABLE" value="0"/>
+                    <text id="1" name="FRAME_STATISTICS_STREAM_OUT_ENABLE_ENABLE" value="1"/>
+                </enum>
+                <enum name="TLB_PREFETCH_ENABLE">
+                    <text id="0" name="TLB_PREFETCH_ENABLE_DISABLE" value="0"/>
+                    <text id="1" name="TLB_PREFETCH_ENABLE_ENABLE" value="1"/>
+                </enum>
+                <enum name="PAK_THRESHOLD_CHECK_ENABLE">
+                    <text id="0" name="PAK_THRESHOLD_CHECK_ENABLE_DISABLESTATICSLICEMODE" value="0"/>
+                    <text id="1" name="PAK_THRESHOLD_CHECK_ENABLE_ENABLEDYNAMICSLICEMODE" value="1"/>
+                </enum>
+                <enum name="VDENC_STREAM_IN_ENABLE">
+                    <text id="0" name="VDENC_STREAM_IN_ENABLE_DISABLE" value="0"/>
+                    <text id="1" name="VDENC_STREAM_IN_ENABLE_ENABLE" value="1"/>
+                </enum>
+                <enum name="BIT_DEPTH">
+                    <text id="0" name="BIT_DEPTH_8BIT" value="0"/>
+                    <text id="1" name="BIT_DEPTH_10BIT" value="2"/>
+                    <text id="2" name="BIT_DEPTH_12BIT" value="3"/>
+                </enum>
+                <enum name="PAK_CHROMA_SUB_SAMPLING_TYPE">
+                    <text id="0" name="PAK_CHROMA_SUB_SAMPLING_TYPE_420" value="1"/>
+                    <text id="1" name="PAK_CHROMA_SUB_SAMPLING_TYPE_4_4_4" value="3"/>
+                </enum>
+                <enum name="PRIMARY_CHANNEL_SELECTION_FOR_RGB_ENCODING">
+                    <text id="0" name="PRIMARY_CHANNEL_SELECTION_FOR_RGB_ENCODING_UNNAMED0" value="0"/>
+                    <text id="1" name="PRIMARY_CHANNEL_SELECTION_FOR_RGB_ENCODING_UNNAMED1" value="1"/>
+                    <text id="2" name="PRIMARY_CHANNEL_SELECTION_FOR_RGB_ENCODING_UNNAMED2" value="2"/>
+                </enum>
+                <enum name="FIRST_SECONDARY_CHANNEL_SELECTION_FOR_RGB_ENCODING">
+                    <text id="0" name="FIRST_SECONDARY_CHANNEL_SELECTION_FOR_RGB_ENCODING_UNNAMED0" value="0"/>
+                    <text id="1" name="FIRST_SECONDARY_CHANNEL_SELECTION_FOR_RGB_ENCODING_UNNAMED1" value="1"/>
+                    <text id="2" name="FIRST_SECONDARY_CHANNEL_SELECTION_FOR_RGB_ENCODING_UNNAMED2" value="2"/>
+                </enum>
+                <enum name="HME_REGION_PRE_FETCHENABLE">
+                    <text id="0" name="HME_REGION_PRE_FETCHENABLE_UNNAMED0" value="0"/>
+                    <text id="1" name="HME_REGION_PRE_FETCHENABLE_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="TOPPREFETCHENABLEMODE">
+                    <text id="0" name="TOPPREFETCHENABLEMODE_UNNAMED0" value="0"/>
+                    <text id="1" name="TOPPREFETCHENABLEMODE_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="LEFTPRE_FETCHATWRAPAROUND">
+                    <text id="0" name="LEFTPRE_FETCHATWRAPAROUND_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="VERTICALSHIFT32MINUS1">
+                    <text id="0" name="VERTICALSHIFT32MINUS1_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="HZSHIFT32MINUS1">
+                    <text id="0" name="HZSHIFT32MINUS1_UNNAMED3" value="3"/>
+                </enum>
+                <enum name="NUMVERTICALREQMINUS1">
+                    <text id="0" name="NUMVERTICALREQMINUS1_UNNAMED11" value="11"/>
+                </enum>
+                <enum name="NUMHZREQMINUS1">
+                    <text id="0" name="NUMHZREQMINUS1_UNNAMED2" value="2"/>
+                </enum>
+                <enum name="PRE_FETCH_OFFSET_FOR_REFERENCE_IN_16_PIXEL_INCREMENT">
+                    <text id="0" name="PRE_FETCH_OFFSET_FOR_REFERENCE_IN_16_PIXEL_INCREMENT_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="SOURCE_LUMAPACKED_DATA_TLB_PRE_FETCHENABLE">
+                    <text id="0" name="SOURCE_LUMAPACKED_DATA_TLB_PRE_FETCHENABLE_UNNAMED0" value="0"/>
+                    <text id="1" name="SOURCE_LUMAPACKED_DATA_TLB_PRE_FETCHENABLE_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="SOURCE_CHROMA_TLB_PRE_FETCHENABLE">
+                    <text id="0" name="SOURCE_CHROMA_TLB_PRE_FETCHENABLE_UNNAMED0" value="0"/>
+                    <text id="1" name="SOURCE_CHROMA_TLB_PRE_FETCHENABLE_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="VERTICALSHIFT32MINUS1SRC">
+                    <text id="0" name="VERTICALSHIFT32MINUS1SRC_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="HZSHIFT32MINUS1SRC">
+                    <text id="0" name="HZSHIFT32MINUS1SRC_UNNAMED0" value="0"/>
+                    <text id="1" name="HZSHIFT32MINUS1SRC_UNNAMED3" value="3"/>
+                </enum>
+                <enum name="NUMVERTICALREQMINUS1SRC">
+                    <text id="0" name="NUMVERTICALREQMINUS1SRC_UNNAMED0" value="0"/>
+                    <text id="1" name="NUMVERTICALREQMINUS1SRC_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="NUMHZREQMINUS1SRC">
+                    <text id="0" name="NUMHZREQMINUS1SRC_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="PRE_FETCHOFFSETFORSOURCE">
+                    <text id="0" name="PRE_FETCHOFFSETFORSOURCE_UNNAMED0" value="0"/>
+                    <text id="1" name="PRE_FETCHOFFSETFORSOURCE_UNNAMED_4" value="4"/>
+                    <text id="2" name="PRE_FETCHOFFSETFORSOURCE_UNNAMED7" value="7"/>
+                </enum>
+                <enum name="CAPTURE_MODE">
+                    <text id="0" name="CAPTURE_MODE_UNNAMED0" value="0"/>
+                    <text id="1" name="CAPTURE_MODE_UNNAMED1" value="1"/>
+                    <text id="2" name="CAPTURE_MODE_CAMERA" value="2"/>
+                    <text id="3" name="CAPTURE_MODE_UNNAMED3" value="3"/>
+                </enum>
+                <enum name="STREAMING_BUFFER_CONFIG">
+                    <text id="0" name="STREAMING_BUFFER_UNSUPPORTED" value="0"/>
+                    <text id="1" name="STREAMING_BUFFER_64" value="1"/>
+                    <text id="2" name="STREAMING_BUFFER_128" value="2"/>
+                    <text id="3" name="STREAMING_BUFFER_256" value="3"/>
+                </enum>
+                <enum name="PARALLEL_CAPTURE_AND_ENCODE_SESSION_ID">
+                    <text id="0" name="PARALLEL_CAPTURE_AND_ENCODE_SESSION_ID_UNNAMED0" value="0"/>
+                    <text id="1" name="PARALLEL_CAPTURE_AND_ENCODE_SESSION_ID_UNNAMED1" value="1"/>
+                    <text id="2" name="PARALLEL_CAPTURE_AND_ENCODE_SESSION_ID_UNNAMED2" value="2"/>
+                    <text id="3" name="PARALLEL_CAPTURE_AND_ENCODE_SESSION_ID_UNNAMED3" value="3"/>
+                </enum>
+                <constructor text="VDENC_PIPE_MODE_SELECT_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="6"/>
+                <size_t name="byteSize" prefix="static const" value="24"/>
+            </struct>
+            <struct name="VDENC_REF_SURFACE_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0, 2" name="SurfaceId"/>
+                        <uint32_t bitfield="3, 31" name="Reserved"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <otherCMD name="Dwords25" otherCMD="VDENC_Surface_State_Fields_CMD"/>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCREFSURFACESTATE" value="2"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_REF_SURFACE_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="6"/>
+                <size_t name="byteSize" prefix="static const" value="24"/>
+            </struct>
+            <struct name="VDENC_SRC_SURFACE_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t name="Reserved32"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <otherCMD name="Dwords25" otherCMD="VDENC_Surface_State_Fields_CMD"/>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCSRCSURFACESTATE" value="1"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_SRC_SURFACE_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="6"/>
+                <size_t name="byteSize" prefix="static const" value="24"/>
+            </struct>
+            <struct name="VDENC_WALKER_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="Length"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  8" name="MbLcuStartYPosition"/>
+                        <uint32_t bitfield="9, 15" name="Reserved41"/>
+                        <uint32_t bitfield="16, 24" name="MbLcuStartXPosition"/>
+                        <uint32_t bitfield="25, 27" name="Reserved57"/>
+                        <uint32_t bitfield="28, 28" name="FirstSuperSlice"/>
+                        <uint32_t bitfield="29, 31" name="Reserved61"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t bitfield="0,  9" name="NextsliceMbStartYPosition"/>
+                        <uint32_t bitfield="10, 15" name="Reserved74"/>
+                        <uint32_t bitfield="16, 25" name="NextsliceMbLcuStartXPosition"/>
+                        <uint32_t bitfield="26, 31" name="Reserved90"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="LENGTH">
+                    <text id="0" name="LENGTH_UNNAMED1" value="1"/>
+                </enum>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCWALKERSTATE" value="7"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_WALKER_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="3"/>
+                <size_t name="byteSize" prefix="static const" value="12"/>
+            </struct>
+            <struct name="VDENC_CONTROL_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 22" name="MediaInstructionCommand"/>
+                        <uint32_t bitfield="23, 26" name="MediaInstructionOpcode"/>
+                        <uint32_t bitfield="27, 28" name="PipelineType"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0,  0" name="Reserved32"/>
+                        <uint32_t bitfield="1,  1" name="VdencInitialization"/>
+                        <uint32_t bitfield="2, 31" name="Reserved34"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <constructor text="VDENC_CONTROL_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="2"/>
+                <size_t name="byteSize" prefix="static const" value="8"/>
+            </struct>
+            <struct name="VDENC_AVC_COSTS_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1_2">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="HmeMvCost0"/>
+                        <uint32_t bitfield="8, 15" name="HmeMvCost1"/>
+                        <uint32_t bitfield="16, 23" name="HmeMvCost2"/>
+                        <uint32_t bitfield="24, 31" name="HmeMvCost3"/>
+                        <uint32_t bitfield="0,  7" name="HmeMvCost4"/>
+                        <uint32_t bitfield="8, 15" name="HmeMvCost5"/>
+                        <uint32_t bitfield="16, 23" name="HmeMvCost6"/>
+                        <uint32_t bitfield="24, 31" name="HmeMvCost7"/>
+                    </struct>
+                    <uint32_t name="Value[2]"/>
+                </union>
+                <uint8_t name="SadMvCost011[12]"/>
+                <uint8_t name="RdMvCost011[12]"/>
+                <union name="DW9">
+                    <struct>
+                        <uint32_t name="Reserved288"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW10">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Reserved320"/>
+                        <uint32_t bitfield="16, 23" name="Skip16X16Cost"/>
+                        <uint32_t bitfield="24, 31" name="Merge16X16Cost"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW11">
+                    <struct>
+                        <uint32_t name="Reserved352"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW12">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="ModeInter8X4"/>
+                        <uint32_t bitfield="8, 15" name="ModeInter16X16"/>
+                        <uint32_t bitfield="16, 23" name="ModeInter16X8"/>
+                        <uint32_t bitfield="24, 31" name="ModeInter8X8"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW13">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="RdChromaIntraModeCost"/>
+                        <uint32_t bitfield="8, 15" name="ModeInterBidir"/>
+                        <uint32_t bitfield="16, 23" name="RefIdCost"/>
+                        <uint32_t bitfield="24, 31" name="SadChromaIntraModeCost"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW14">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="Reserved448"/>
+                        <uint32_t bitfield="8, 15" name="SadPenaltyForIntraNondc4X4PredMode"/>
+                        <uint32_t bitfield="16, 23" name="SadPenaltyForIntraNondc16X16PredMode"/>
+                        <uint32_t bitfield="24, 31" name="SadPenaltyForIntraNondc8X8PredMode"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW15">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="Reserved480"/>
+                        <uint32_t bitfield="8, 15" name="RdPenaltyForIntraDc4X4PredMode"/>
+                        <uint32_t bitfield="16, 23" name="RdPenaltyForIntraNondc16X16PredMode"/>
+                        <uint32_t bitfield="24, 31" name="RdPenaltyForIntraNondc8X8PredMode"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW16">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="Reserved512"/>
+                        <uint32_t bitfield="16, 23" name="SadIntraNonPredModeCost"/>
+                        <uint32_t bitfield="24, 31" name="Reserved536"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW17">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="RdModeIntraNonPred"/>
+                        <uint32_t bitfield="8, 15" name="ModeIntra4X4"/>
+                        <uint32_t bitfield="16, 23" name="ModeIntra16X16"/>
+                        <uint32_t bitfield="24, 31" name="ModeIntra8X8"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW18">
+                    <struct>
+                        <uint32_t name="Reserved576"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW19">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="Reserved608"/>
+                        <uint32_t bitfield="8, 15" name="TuDepthCost0"/>
+                        <uint32_t bitfield="16, 23" name="TuDepthCost1"/>
+                        <uint32_t bitfield="24, 31" name="TuDepthCost2"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW20">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="IntraTu4X4CbfCost"/>
+                        <uint32_t bitfield="8, 15" name="IntraTu8X8CbfCost"/>
+                        <uint32_t bitfield="16, 31" name="Reserved656"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW21">
+                    <struct>
+                        <uint32_t bitfield="0,  7" name="InterTu4X4CbfCost"/>
+                        <uint32_t bitfield="8, 15" name="InterTu8X8CbfCost"/>
+                        <uint32_t bitfield="16, 31" name="Reserved688"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW22">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="RdQpLambda"/>
+                        <uint32_t bitfield="16, 24" name="SadQpLambda"/>
+                        <uint32_t bitfield="25, 31" name="Reserved729"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCAVCCOSTSSTATE" value="10"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_AVC_COSTS_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="23"/>
+                <size_t name="byteSize" prefix="static const" value="92"/>
+            </struct>
+            <struct name="VDENC_AVC_SLICE_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t bitfield="0, 2" name="RoundIntra"/>
+                        <uint32_t bitfield="3, 3" name="RoundIntraEnable"/>
+                        <uint32_t bitfield="4, 6" name="RoundInter"/>
+                        <uint32_t bitfield="7, 7" name="RoundInterEnable"/>
+                        <uint32_t bitfield="8, 31" name="Reserved32"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t name="Reserved64"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0,  2" name="Log2WeightDenomLuma"/>
+                        <uint32_t bitfield="3, 31" name="Reserved99"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <enum name="SUBOPB">
+                    <text id="0" name="SUBOPB_VDENCAVCSLICESTATE" value="12"/>
+                </enum>
+                <enum name="SUBOPA">
+                    <text id="0" name="SUBOPA_UNNAMED0" value="0"/>
+                </enum>
+                <enum name="OPCODE">
+                    <text id="0" name="OPCODE_VDENCPIPE" value="1"/>
+                </enum>
+                <enum name="PIPELINE">
+                    <text id="0" name="PIPELINE_MFXCOMMON" value="2"/>
+                </enum>
+                <enum name="COMMAND_TYPE">
+                    <text id="0" name="COMMAND_TYPE_PARALLELVIDEOPIPE" value="3"/>
+                </enum>
+                <constructor text="VDENC_AVC_SLICE_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="4"/>
+                <size_t name="byteSize" prefix="static const" value="16"/>
+            </struct>
+            <struct name="VDENC_HEVC_VP9_TILE_SLICE_STATE_CMD">
+                <union name="DW0">
+                    <struct>
+                        <uint32_t bitfield="0, 11" name="DwordLength"/>
+                        <uint32_t bitfield="12, 15" name="Reserved12"/>
+                        <uint32_t bitfield="16, 20" name="Subopb"/>
+                        <uint32_t bitfield="21, 22" name="Subopa"/>
+                        <uint32_t bitfield="23, 26" name="Opcode"/>
+                        <uint32_t bitfield="27, 28" name="Pipeline"/>
+                        <uint32_t bitfield="29, 31" name="CommandType"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW1">
+                    <struct>
+                        <uint32_t name="Reserved32"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW2">
+                    <struct>
+                        <uint32_t name="Reserved64"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW3">
+                    <struct>
+                        <uint32_t bitfield="0, 2" name="Log2WeightDenomLuma"/>
+                        <uint32_t bitfield="3, 3" name="Reserved99"/>
+                        <uint32_t bitfield="4, 6" name="HevcVp9Log2WeightDenomLuma"/>
+                        <uint32_t bitfield="7, 8" name="Reserved103"/>
+                        <uint32_t bitfield="9, 10" name="NumParEngine"/>
+                        <uint32_t bitfield="11, 15" name="Reserved107"/>
+                        <uint32_t bitfield="16, 16" name="TileRowStoreSelect"/>
+                        <uint32_t bitfield="17, 23" name="Reserved113"/>
+                        <uint32_t bitfield="24, 31" name="TileNumber"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW4">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="TileStartCtbY"/>
+                        <uint32_t bitfield="16, 31" name="TileStartCtbX"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW5">
+                    <struct>
+                        <uint32_t bitfield="0, 15" name="TileWidth"/>
+                        <uint32_t bitfield="16, 31" name="TileHeight"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW6">
+                    <struct>
+                        <uint32_t bitfield="0, 0" name="StreaminOffsetEnable"/>
+                        <uint32_t bitfield="1, 5" name="Reserved193"/>
+                        <uint32_t bitfield="6, 31" name="TileStreaminOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW7">
+                    <struct>
+                        <uint32_t bitfield="0, 0" name="RowStoreOffsetEnable"/>
+                        <uint32_t bitfield="1, 5" name="Reserved225"/>
+                        <uint32_t bitfield="6, 31" name="TileRowstoreOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW8">
+                    <struct>
+                        <uint32_t bitfield="0, 0" name="TileStreamoutOffsetEnable"/>
+                        <uint32_t bitfield="1, 5" name="Reserved257"/>
+                        <uint32_t bitfield="6, 31" name="TileStreamoutOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW9">
+                    <struct>
+                        <uint32_t bitfield="0, 0" name="LcuStreamOutOffsetEnable"/>
+                        <uint32_t bitfield="1, 5" name="Reserved289"/>
+                        <uint32_t bitfield="6, 31" name="TileLcuStreamOutOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW10">
+                    <struct>
+                        <uint32_t name="Reserved320"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW11">
+                    <struct>
+                        <uint32_t bitfield="0, 7" name="DeltaQp"/>
+                        <uint32_t bitfield="8, 17" name="IntraFlatnessThresholdForIbc"/>
+                        <uint32_t bitfield="18, 31" name="Reserved370"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW12">
+                    <struct>
+                        <uint32_t bitfield="0, 2" name="Hashquant"/>
+                        <uint32_t bitfield="3, 7" name="Reserved387"/>
+                        <uint32_t bitfield="8, 15" name="PrimaryColorDifferenceThreshold"/>
+                        <uint32_t bitfield="16, 17" name="GrayscaleTest"/>
+                        <uint32_t bitfield="18, 22" name="GlobalCountMinus1"/>
+                        <uint32_t bitfield="23, 23" name="Reserved407"/>
+                        <uint32_t bitfield="24, 25" name="ColoredDistanceMetric"/>
+                        <uint32_t bitfield="26, 26" name="PaletteModeEnable"/>
+                        <uint32_t bitfield="27, 28" name="IbcControl"/>
+                        <uint32_t bitfield="29, 31" name="Reserved413"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW13">
+                    <struct>
+                        <uint32_t bitfield="0, 9" name="HashthresholdClass1Distance"/>
+                        <uint32_t bitfield="10, 15" name="Reserved426"/>
+                        <uint32_t bitfield="16, 25" name="HashthresholdClass0Distance"/>
+                        <uint32_t bitfield="26, 31" name="Reserved442"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW14">
+                    <struct>
+                        <uint32_t bitfield="0, 5" name="HashthresholdClass1Count"/>
+                        <uint32_t bitfield="6, 7" name="Reserved454"/>
+                        <uint32_t bitfield="8, 13" name="HashthresholdClass0Count"/>
+                        <uint32_t bitfield="14, 15" name="Reserved462"/>
+                        <uint32_t bitfield="16, 20" name="HashthresholdClass1Length"/>
+                        <uint32_t bitfield="21, 22" name="Hashguardband16X16"/>
+                        <uint32_t bitfield="23, 23" name="Reserved471"/>
+                        <uint32_t bitfield="24, 30" name="MaxEscapeBinsBy8"/>
+                        <uint32_t bitfield="31, 31" name="MaxEscapeBinsCheckEnable"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW15">
+                    <struct>
+                        <uint32_t bitfield="0, 9" name="IntraFlatnessCheckThresholdForPlt"/>
+                        <uint32_t bitfield="10, 15" name="Reserved490"/>
+                        <uint32_t bitfield="16, 31" name="EscapeThreshold"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW16">
+                    <struct>
+                        <uint32_t bitfield="0, 5" name="MaxRunComplexityMinus1Cu8X8"/>
+                        <uint32_t bitfield="6, 7" name="Reserved518"/>
+                        <uint32_t bitfield="8, 13" name="MaxRunComplexityMinus1Cu16X16"/>
+                        <uint32_t bitfield="14, 15" name="Reserved526"/>
+                        <uint32_t bitfield="16, 21" name="MaxRunComplexityMinus1Cu32X32"/>
+                        <uint32_t bitfield="22, 23" name="Reserved534"/>
+                        <uint32_t bitfield="24, 28" name="ReservedForAdaptiveChannelThreshold"/>
+                        <uint32_t bitfield="29, 29" name="StrictPalette8X8"/>
+                        <uint32_t bitfield="30, 30" name="StrictPalette16X16"/>
+                        <uint32_t bitfield="31, 31" name="StrictPalette32X32"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW17">
+                    <struct>
+                        <uint32_t bitfield="0, 0" name="CumulativeCuTileOffsetEnable"/>
+                        <uint32_t bitfield="1, 5" name="Reserved545"/>
+                        <uint32_t bitfield="6, 31" name="CumulativeCuTileOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW18">
+                    <struct>
+                        <uint32_t bitfield="0, 0" name="PaletteStreamoutTileOffsetEnable"/>
+                        <uint32_t bitfield="1, 5" name="Reserved577"/>
+                        <uint32_t bitfield="6, 31" name="PaletteStreamoutTileOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW19">
+                    <struct>
+                        <uint32_t name="RowEncodeControl310"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW20">
+                    <struct>
+                        <uint32_t name="RowEncodeControl6332"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW21">
+                    <struct>
+                        <uint32_t name="RowEncodeControl9564"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW22">
+                    <struct>
+                        <uint32_t name="RowEncodeControl12796"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW23">
+                    <struct>
+                        <uint32_t name="RowStaticInfo"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW24">
+                    <struct>
+                        <uint32_t name="RowStaticInfo"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW25">
+                    <struct>
+                        <uint32_t name="RowStaticInfo"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW26">
+                    <struct>
+                        <uint32_t name="RowStaticInfo"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <union name="DW27">
+                    <struct>
+                        <uint32_t bitfield="0, 0" name="StreaminQPOrQPdeltaOffsetEnable"/>
+                        <uint32_t bitfield="1, 5" name="Reserved15"/>
+                        <uint32_t bitfield="6, 31" name="StreaminQPOrQPdeltaOffset"/>
+                    </struct>
+                    <uint32_t name="Value"/>
+                </union>
+                <constructor text="VDENC_HEVC_VP9_TILE_SLICE_STATE_CMD()"/>
+                <size_t name="dwSize" prefix="static const" value="28"/>
+                <size_t name="byteSize" prefix="static const" value="112"/>
+            </struct>
+        </public>
+    </class>
+</content>
