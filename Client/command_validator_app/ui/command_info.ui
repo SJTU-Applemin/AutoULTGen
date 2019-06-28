@@ -10,181 +10,270 @@
     <height>741</height>
    </rect>
   </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTreeWidget" name="treeWidgetCmd">
+  <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>261</width>
-     <height>741</height>
+     <width>1451</width>
+     <height>751</height>
     </rect>
    </property>
-   <property name="wordWrap">
-    <bool>false</bool>
+   <property name="currentIndex">
+    <number>0</number>
    </property>
-   <property name="columnCount">
-    <number>1</number>
-   </property>
-   <attribute name="headerVisible">
-    <bool>false</bool>
-   </attribute>
-   <column>
-    <property name="text">
-     <string notr="true">1</string>
+   <widget class="QWidget" name="All">
+    <widget class="QTableWidget" name="tableWidgetCmd">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>0</y>
+       <width>1131</width>
+       <height>691</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>Command</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Dword</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Field</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Default</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Value</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Check</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Address</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Min</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Max</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Bitfield_low</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Bitfield_high</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QCheckBox" name="checkBoxBinary">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>710</y>
+       <width>70</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Binary</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBoxDec">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>710</y>
+       <width>71</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Decimal</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBoxHex">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>710</y>
+       <width>81</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Hexadecimal</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBoxReserved">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>710</y>
+       <width>161</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Hide reserved field</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonSave">
+     <property name="geometry">
+      <rect>
+       <x>1090</x>
+       <y>700</y>
+       <width>121</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonGen">
+     <property name="geometry">
+      <rect>
+       <x>1230</x>
+       <y>700</y>
+       <width>121</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Generate</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonSCL">
+     <property name="geometry">
+      <rect>
+       <x>962</x>
+       <y>700</y>
+       <width>111</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show CMD List</string>
+     </property>
+    </widget>
+    <widget class="QTreeWidget" name="treeWidgetCmd">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>241</width>
+       <height>741</height>
+      </rect>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="columnCount">
+      <number>1</number>
+     </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string notr="true">1</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="cmdlist">
+    <widget class="QTableWidget" name="tableWidgetCmdlist">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>0</y>
+       <width>381</width>
+       <height>691</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text">
+       <string>Command</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Original(ringinfo)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Error</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QPushButton" name="pushButtonSU">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>700</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save &amp;&amp; Update</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonGB">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>700</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Go Back</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_5">
+    <property name="acceptDrops">
+     <bool>true</bool>
     </property>
-   </column>
-  </widget>
-  <widget class="QTableWidget" name="tableWidgetCmd">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>0</y>
-     <width>1111</width>
-     <height>691</height>
-    </rect>
-   </property>
-   <column>
-    <property name="text">
-     <string>Command</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Dword</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Field</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Default</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Value</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Check</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Address</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Min</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Max</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Bitfield_low</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Bitfield_high</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QPushButton" name="pushButtonSave">
-   <property name="geometry">
-    <rect>
-     <x>880</x>
-     <y>700</y>
-     <width>121</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButtonGen">
-   <property name="geometry">
-    <rect>
-     <x>1020</x>
-     <y>700</y>
-     <width>121</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Generate</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBoxReserved">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>710</y>
-     <width>161</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Hide reserved field</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBoxHex">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>710</y>
-     <width>81</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Hexadecimal</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBoxDec">
-   <property name="geometry">
-    <rect>
-     <x>515</x>
-     <y>710</y>
-     <width>71</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Decimal</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBoxBinary">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>710</y>
-     <width>70</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Binary</string>
-   </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

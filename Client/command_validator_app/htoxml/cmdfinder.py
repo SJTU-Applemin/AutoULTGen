@@ -1,6 +1,6 @@
 import os
 import shutil
-from htoxml.ult_generator import header_parser
+from htoxml.Parser.header_parser import HeaderParser
 import pandas as pd
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import (
@@ -18,13 +18,19 @@ class CmdFinder(object):
         self.gen = gen
         self.ringpath = ringpath
         self.ringfilename = ''
+        self.ringfilelist = []
+        #
+        self.ringcmdset = set()
+        self.ringcmdmodify = {}
         self.df_dic = {}
-        self.full_ringinfo = []
-        self.same = [['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS'], ['CMD_HCP_VP9_RDOQ_STATE', 'HEVC_VP9_RDOQ_STATE_CMD']]
+        self.full_ringinfo = {}   # {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
+        #self.same = [['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS'], ['CMD_HCP_VP9_RDOQ_STATE', 'HEVC_VP9_RDOQ_STATE_CMD']]
+        self.same = [['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS']]
         self.ignored = ['CMD', 'COMMAND', 'OBJECT', 'MEDIA', 'STATE']
         self.classpath = ['ats', 'tglhp', 'x']
         self.TestName = Element('TestName')  #create TestName as result root node
         self.filter = ['mi', 'hcp']
+        self.Frame_Num = 0
         if Buf:
             self.Buf = Buf
         else:
@@ -50,37 +56,75 @@ class CmdFinder(object):
                             self.Buf.append(copy.deepcopy(root))
         #print(prettify(self.Buf))
 
-
-    def writexml(self, index = 0):
+    def writexml(self, output_path = '', index = 0):
         #output xml
-        for r,d,f in os.walk(self.ringpath):
-            os.chdir(r)
-            file_list = [file for file in f if re.search('\d-VcsRingInfo_0_0.txt', file)]
-            platform_group = SubElement(self.TestName, 'Platform', {'name': ''})
-            
-            for thing in file_list:
-                frame_no = re.search('^\d+', thing)[0]
-                frame_group = SubElement(platform_group, 'Frame', {'NO': frame_no})
-                self.ringfilename = thing   #could be ringcmd or vecs
-                self.txt2df()
-                self.extractdf()
-                for pair in self.full_ringinfo:
-                    #fullringcmd : [{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]
-                    for ringcmd, value_list in pair.items():
-                        
-                        if not self.memory(ringcmd, value_list, frame_group, index):
-                            # cal time
-                            start1 = time.clock()
-                            frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
-                            print("MAP Time used:", time.clock() - start1, ",  index = ", index)
-                        index += 1
-
-        #with open( os.path.join(self.ringpath ,  "map" + self.ringfilename.strip(r'.txt') +".xml") , "w") as f:
-        with open( os.path.join(self.ringpath , "mapvecstring.xml") , "w") as f:
-            f.write(prettify(self.TestName))
+        platform_group = SubElement(self.TestName, 'Platform', {'name': ''})
+        # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
+        for frame_no, ringinfo in self.full_ringinfo.items():
+            frame_group = SubElement(platform_group, 'Frame', {'NO': frame_no})
+            for pair in ringinfo:
+                for ringcmd, value_list in pair.items():
+                    if not self.memory(self.TestName, ringcmd, value_list, frame_group, index):
+                        # cal time
+                        start1 = time.clock()
+                        frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
+                        #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
+                    index += 1
+        if output_path :
+            with open( os.path.join(output_path ,  "mapringinfo.xml") , "w") as f:
+                f.write(prettify(self.TestName))
+        else:
+            with open( os.path.join(self.ringpath ,  "mapringinfo.xml") , "w") as f:
+                f.write(prettify(self.TestName))
         return prettify(self.TestName)
     
-    def setbitfield(self, current_group, fieldname, bit_value, bit_l, bit_h, dw_no):
+    def modifyringcmd(self, wrong, right):
+        #print(self.ringcmdset)
+        self.ringcmdset.remove(wrong)
+        self.ringcmdset.add(right)
+        self.ringcmdmodify[wrong] = right
+
+    def undate_full_ringinfo(self):
+        # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
+        new_full_ringinfo = {}
+        for frame_no, ringinfo in self.full_ringinfo.items():
+            new_ringinfo = []
+            for pair in ringinfo:
+                for ringcmd, value_list in pair.items():
+                    if ringcmd in self.ringcmdmodify:
+                        new_ringinfo.append({self.ringcmdmodify[ringcmd] : value_list})
+                    else:
+                        new_ringinfo.append(pair)
+            new_full_ringinfo[frame_no] = new_ringinfo
+
+        self.full_ringinfo = new_full_ringinfo
+        return new_full_ringinfo
+
+    def updatexml(self, index = 0):
+        TestName = self.TestName
+        self.TestName = Element('TestName') # clear
+        #output xml
+        platform_group = SubElement(self.TestName, 'Platform', {'name': ''})
+        # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
+        for frame_no, ringinfo in self.full_ringinfo.items():
+            frame_group = SubElement(platform_group, 'Frame', {'NO': frame_no})
+            for pair in ringinfo:
+                for ringcmd, value_list in pair.items():
+                    if not self.memory(TestName, ringcmd, value_list, frame_group, index):
+                        # cal time
+                        start1 = time.clock()
+                        frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
+                        #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
+                    index += 1
+
+        with open( os.path.join(self.ringpath ,  "mapringinfo.xml") , "w") as f:
+            f.write(prettify(self.TestName))
+        return prettify(self.TestName)
+
+
+
+    
+    def setbitfield(self, current_group, fieldname, bit_value, bit_l, bit_h, dw_no, check = ''):
         #set bitfield attributes
         bitfield_group = SubElement(current_group, fieldname, {'default_value': bit_value, 
                                                                         'min_value': bit_value,
@@ -91,18 +135,19 @@ class CmdFinder(object):
         if 'address' in fieldname.lower() and int(bit_h) - int(bit_l) > 16:
             bitfield_group.set('Address', 'Y')
             bitfield_group.set('CHECK', 'N')
-        elif 'Reserved' in fieldname:
+        elif 'Reserved' in fieldname :
             bitfield_group.set('Address', 'N')
             bitfield_group.set('CHECK', 'N')
-        elif dw_no == '0':
-            bitfield_group.set('CHECK', 'N')
+        #elif dw_no == '0':
+        #    bitfield_group.set('CHECK', 'Y')
         else:
             bitfield_group.set('Address', 'N')
             bitfield_group.set('CHECK', 'Y')
-
+        if check:
+            bitfield_group.set('CHECK', check)
         return current_group
 
-    def memory(self, ringcmd, value_list, node, index):
+    def memory(self, Element, ringcmd, value_list, node, index):
         #check if ringcmd exists in current testname
         #if so, copy directly to save search time
         binv_list = [ bin(int(i, 16))[2:].zfill(32) for i in value_list ]
@@ -113,16 +158,21 @@ class CmdFinder(object):
         #cmd = self.TestName.find(xpath)
         #cmd = self.TestName.find(".//CMD[@name='MI_FORCE_WAKEUP']")
         start2 = time.clock()
-        for cmd in self.TestName.findall(".//CMD"):
+        for cmd in Element.findall(".//CMD"):
             if self.searchkword(ringcmd, cmd.attrib['name']):
                 dupe = copy.deepcopy(cmd)
                 dupe.attrib['input_dwsize'] = str(input_dwsize)
                 dupe.attrib['index'] = str(index)
 
                 for dword_group in dupe.findall("dword"):
-                    dw_no = dword_group.attrib['NO']
-                    val_str = self.findval(value_list, dw_no)['val_str']
-                    dword_group.attrib['value'] = val_str
+                    if 'unmappedstr' not in dword_group.attrib:
+                        dw_no = dword_group.attrib['NO']
+                        val_str = self.findval(value_list, dw_no)['val_str']
+                        dword_group.attrib['value'] = val_str
+                    else:
+                        #delete previous unmapped str
+                        dupe.remove(dword_group)
+
                     for field in dword_group.findall(".//*[@bitfield_h]"):
                         fieldname, bit_l, bit_h = field.tag, field.attrib['bitfield_l'], field.attrib['bitfield_h']
                         bit_value = self.findbitval(binv_list, list((bit_l, bit_h)), dw_no)[0]
@@ -131,8 +181,7 @@ class CmdFinder(object):
                         field.attrib['min_value'] = bit_value
                 dupe= self.unmapdw( dupe, dw_no, value_list)
                 node.append(dupe) #insert the new node
-                #print(prettify(dupe))
-                print("Search saved xml Time used:", time.clock() - start2)
+                #print("Search saved xml Time used:", time.clock() - start2)
                 return True
         else:
             return False
@@ -196,7 +245,10 @@ class CmdFinder(object):
                                                                 else:
                                                                     bit_item = []
                                                                 bit_value, bit_l, bit_h = self.findbitval(binv_list, bit_item, dw_no)
-                                                                current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
+                                                                if structcmd_group.attrib['name'] == 'MI_NOOP_CMD':
+                                                                    current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
+                                                                else:
+                                                                    current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
 
                                                                 #complement undefined dword length, for unmapped buffer stream
                                                                 if fieldname == "DwordLength":
@@ -254,7 +306,9 @@ class CmdFinder(object):
 
         #cmd not found in local file
         ringcmd_group = SubElement(node, 'ringcmd', {'name' : ringcmd, 
-                                                     'class' : 'not found' })
+                                                     'class' : 'not found',
+                                                     'index' : str(index)})
+        print(ringcmd + ' not found')
         return node
 
     def checkdw(self, node, value_list):
@@ -366,7 +420,11 @@ class CmdFinder(object):
                                                                     else:
                                                                         bit_item = []
                                                                     bit_value, bit_l, bit_h = self.findbitval(binv_list, bit_item, dw_no)
-                                                                    current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
+                                                                    if structcmd.attrib['name'] == 'MI_NOOP_CMD':
+                                                                        current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
+                                                                    else:
+                                                                        current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
+
 
                                                                     #complement undefined dword length, for unmapped buffer stream
                                                             current_group = dword_group
@@ -380,21 +438,95 @@ class CmdFinder(object):
                                                  'class' : 'not found'})
         return node, base_dw_no
 
-    def extractdf(self, dfname = 'all'):
+    def extractfull(self):
+            # full_ringinfo : {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
+            # extract full info from ringinfo text files
+            for r,d,f in os.walk(self.ringpath):
+                os.chdir(r)
+                file_list = [file for file in f if re.search('VcsRingInfo_0_0.txt', file)]
+                if len(file_list) > 1:
+                    frame_no_list = [int(re.search('(\d)-VcsRingInfo_0_0.txt', file).group(1)) for file in file_list]
+                elif len(file_list) == 1:
+                    frame_no_list = [0]
+            self.ringfilelist = file_list
+            numset = set(frame_no_list)
+            self.Frame_Num = len(numset)
+            self.num_diff = min(numset)
+
+            for thing in self.ringfilelist:
+                if self.Frame_Num > 1:
+                    frame_no = str(int(re.search('(\d)-VcsRingInfo_0_0.txt', thing).group(1)) - self.num_diff)
+                elif self.Frame_Num == 1:
+                    frame_no = '0'
+                self.ringfilename = thing
+                self.txt2df()
+                self.extractdf(frame_no)
+            
+
+    def extractdf(self, frame_no, dfname = 'all'):
         #dfname options:
         #           'all': search in all the dfs
         #           'ContextRestore': search in ContextRestore portion
         #           'Workload': search in Workload portion
     
-        #fullringcmd : [{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]
+        #full_ringinfo : {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
     
         df = self.df_dic[dfname]
+        ringinfo = [] #stores single file ringinfo
         for i in df.index:
             #ringcmd = []
-            self.full_ringinfo.append({df.loc[i,"Description"]:[x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan']}) 
+            self.ringcmdset.add(df.loc[i,"Description"]) 
+            ringinfo.append({df.loc[i,"Description"]:[x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan']}) 
+        self.full_ringinfo[frame_no] = ringinfo
             #ringcmd.append([x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan'])
             #full_ringinfo.append(ringcmd)
-        return self.full_ringinfo
+        return self.full_ringinfo, self.ringcmdset
+
+    def txt2df(self):
+        #read ringcmdtringcmd text file into pd dataframe, which cmd stringcmd can be easily extracted
+        ## only start after cmd "MI_BATCH_BUFFER_START"
+        os.chdir(self.ringpath)
+        comment_char = ['<', '-']
+        with open(self.ringfilename, 'r') as f:
+            df = pd.DataFrame()         #initialize
+            start = 'MI_BATCH_BUFFER_START'
+
+            start_fg = False
+
+            for index, line in enumerate(f):
+
+                # find header:
+                if 'Count' in line:
+                    columns = line.strip('-').split()  
+                #elif '<ContextRestore' in line:
+                #    c_start = in
+
+                # skip the commented lines
+                
+                elif line[0] in comment_char:
+                    continue
+
+                elif start_fg: 
+                    df = pd.concat( [df, pd.DataFrame([tuple(line.strip().split())])], ignore_index=True )
+
+                elif not start_fg and start in line:
+                    start_fg = True
+                
+        # 
+        last_col = int(columns[-1]) #last dword num
+        tar_last_col = len(df.columns) - len(columns) + last_col
+        if tar_last_col > last_col:
+            columns.extend( [str(i) for i in range(last_col+1,  tar_last_col+1)])
+            df.columns = columns
+        
+        # df = df.iloc[0:0] #clear dataframe memory
+        # df.loc[2] #select one column
+        # df.loc[:,'Descriptiono'] #select one row
+
+        #print(df)
+        #df_dic = {'ContextRestore': df}
+        self.df_dic = {'all':df}
+        return self.df_dic
 
     def h2xml(self):
         #convert header to xml
@@ -411,10 +543,10 @@ class CmdFinder(object):
                 #if thing.startswith('mhw_') and re.search('g\d', thing) and thing.endswith('.h'):
                 if self.gen != 'all':
                     if thing.startswith('mhw_') and re.search(f'g{self.gen}', thing) and thing.endswith('.h'):
-                        parser_list.append(header_parser.HeaderParser(thing, r))
+                        parser_list.append(HeaderParser(thing, r))
                 else:
                     if thing.startswith('mhw_') and thing.endswith('.h'):
-                        parser_list.append(header_parser.HeaderParser(thing, r))
+                        parser_list.append(HeaderParser(thing, r))
 
         for item in parser_list:
             item.read_file()
@@ -423,52 +555,6 @@ class CmdFinder(object):
             root = ET.fromstring(item.parse_file_info())
             self.Buf.append(copy.deepcopy(root))
         return self.Buf
-
-    def txt2df(self):
-        #read ringcmdtringcmd text file into pd dataframe, which cmd stringcmd can be easily extracted
-        ## only start after cmd "MI_BATCH_BUFFER_START"
-        os.chdir(self.ringpath)
-        comment_char = ['<', '-']
-        with open(self.ringfilename, 'r') as f:
-            df = pd.DataFrame()         #initialize
-            start = 'MI_BATCH_BUFFER_START'
-            start_fg = False
-
-            for index, line in enumerate(f):
-                # find header:
-                if 'Count' in line:
-                    columns = line.strip('-').split()  
-                #elif '<ContextRestore' in line:
-                #    c_start = in
-
-                # skip the commented lines
-                
-                elif line[0] in comment_char:
-                    continue
-
-                elif not start_fg and start in line:
-                    start_fg = True
-
-                if start_fg: 
-                    df = pd.concat( [df, pd.DataFrame([tuple(line.strip().split())])], ignore_index=True )
-
-
-        # 
-        last_col = int(columns[-1]) #last dword num
-        tar_last_col = len(df.columns) - len(columns) + last_col
-        if tar_last_col > last_col:
-            columns.extend( [str(i) for i in range(last_col+1,  tar_last_col+1)])
-            df.columns = columns
-        
-
-        # df = df.iloc[0:0] #clear dataframe memory
-        # df.loc[2] #select one column
-        # df.loc[:,'Descriptiono'] #select one row
-
-        #print(df)
-        #df_dic = {'ContextRestore': df}
-        self.df_dic = {'all':df}
-        return self.df_dic
 
     def findbitval(self, binv_list, bit_item, dw_no, base_dw_no = ''):
         # for otherCMD inside struct cmd, has base_dw_no
@@ -564,35 +650,42 @@ class CmdFinder(object):
                 return False
         return True
 
-    
-def main(ringpath, xml_name, source, gen=12):
-    #----------------------------------------------------------------
-    # ringpath = r'C:\projects\github\AutoULTGen\cmd_validation\vcstringinfo\Hevc_vdenc'
-    # gen = 12
-    # source = r'C:\Users\jiny\gfx\gfx-driver\Source\media'
-    #----------------------------------------------------------------
 
-    #----------------------------------------------------------------
-    #init
-    start = time.clock()
-    obj = CmdFinder(source, gen, ringpath)
-    Buf = obj.h2xml()
-    obj.writexml()
-    elapsed = (time.clock() - start)
-    print("Total Time used:",elapsed)   #36s
-    #----------------------------------------------------------------
+#----------------------------------------------------------------
+#ringpath = r'C:\projects\github\AutoULTGen\cmd_validation\vcstringinfo\HEVC-VDENC-Grits001 - 1947\VcsRingInfo'
+#gen = 12
+#source = r'C:\Users\jiny\gfx\gfx-driver\Source\media'
+#----------------------------------------------------------------
 
-    #----------------------------------------------------------------
-    #after running once
-    start = time.clock()
-    obj = CmdFinder(source, gen, ringpath, Buf)
-    obj.writexml()
-    elapsed = (time.clock() - start)
-    print("Total Time used:", elapsed)   #30s
-    #----------------------------------------------------------------
+#----------------------------------------------------------------
+#init
+#start = time.clock()
+#obj = CmdFinder(source, gen, ringpath)
+#Buf = obj.h2xml()
+#obj.extractfull()
+#obj.writexml()
+#elapsed = (time.clock() - start)
+#print("Total Time used:",elapsed)   #25s 
+##----------------------------------------------------------------
 
-if __name__ == '__main__':
-    ringpath = r'C:\mqc_code\command_validator_yuqi\AutoULTGen\Client\cmd_validation\vcstringinfo\Hevc_vdenc'
-    xml_name = 'mapvecstring.xml'
-    source = r'C:\Users\qichenma\workspace-new\gfx\gfx-driver\Source\media'
-    main(ringpath, xml_name, source)
+##----------------------------------------------------------------
+## show ringcmd if user want to update cmd
+#print(obj.ringcmdset)  #show cmd list
+#start = time.clock()
+#obj.modifyringcmd('CMD_HCP_VP9_RDOQ_STATE', 'HEVC_VP9_RDOQ_STATE_CMD')
+#print(obj.ringcmdset)  #show cmd list
+#obj.undate_full_ringinfo()
+#obj.updatexml()
+#elapsed = (time.clock() - start)
+#print("Total Time used:",elapsed)   #13s 
+##----------------------------------------------------------------
+
+##----------------------------------------------------------------
+##after running once
+#start = time.clock()
+#obj = CmdFinder(source, gen, ringpath, Buf)
+#obj.extractfull()
+#obj.writexml()
+#elapsed = (time.clock() - start)
+#print("Total Time used:", elapsed)   #18s 
+#----------------------------------------------------------------

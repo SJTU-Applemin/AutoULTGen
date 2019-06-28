@@ -28,9 +28,9 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,1">
       <item>
-       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0">
+       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0,0,0">
         <property name="sizeConstraint">
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
@@ -46,31 +46,7 @@
         <property name="bottomMargin">
          <number>5</number>
         </property>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Input Cmd References File</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_4">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -94,7 +70,34 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="lineEditDDIInputPath"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Ringinfo path</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
          <widget class="QLabel" name="label_5">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -115,22 +118,6 @@
           </property>
           <property name="text">
            <string>Component</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEditMediaPath">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
           </property>
          </widget>
         </item>
@@ -158,63 +145,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QLineEdit" name="lineEditFrame">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>180</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Media Path</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEditTestName">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
+        <item row="4" column="2">
          <widget class="QComboBox" name="comboBoxPlatform">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -230,7 +161,97 @@
           </property>
           <item>
            <property name="text">
-            <string>IGFX_TIGER_LAKE_LP</string>
+            <string>IGFX_TIGER_LAKE_HP</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_UNKNOWN</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_GRANTSDALE_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_ALVISO_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_LAKEPORT_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_CALISTOGA_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_BROADWATER_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_CRESTLINE_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_BEARLAKE_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_CANTIGA_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_CEDARVIEW_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_EAGLELAKE_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_IRONLAKE_G</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_GT</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_IVYBRIDGE</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_HASWELL</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_VALLEYVIEW</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_BROADWELL</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_CHERRYVIEW</string>
            </property>
           </item>
           <item>
@@ -245,42 +266,92 @@
           </item>
           <item>
            <property name="text">
+            <string>IGFX_COFFEELAKE</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_WILLOWVIEW</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
             <string>IGFX_BROXTON</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>IGFX_CHERRYVIEW</string>
+            <string>IGFX_GEMINILAKE</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>IGFX_BROADWELL</string>
+            <string>IGFX_GLENVIEW</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>IGFX_VALLEYWELL</string>
+            <string>IGFX_GOLDWATERLAKE</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>IGFX_HASWELL</string>
+            <string>IGFX_CANNONLAKE</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>IGFX_IVYBRIDGE</string>
+            <string>IGFX_CNX_G</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>IGFX_GT</string>
+            <string>IGFX_ICELAKE</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_ICELAKE_LP</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_LAKEFIELD</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_JASPERLAKE</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_TIGERLAKE_LP</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_RYEFIELD</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_ROCKETLAKE</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_DG1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>IGFX_MAX_PRODUCT</string>
            </property>
           </item>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="5" column="2">
          <widget class="QComboBox" name="comboBoxComponent">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -336,7 +407,130 @@
           </item>
          </widget>
         </item>
-        <item row="5" column="0">
+        <item row="2" column="2">
+         <widget class="QPushButton" name="SelectRinginfoPath">
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="lineEditMediaPath">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="lineEditPlatform"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>DDI Input Path </string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLineEdit" name="lineEditComponent"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="SelectMediaPath">
+          <property name="text">
+           <string>Select Folder</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEditTestName">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>180</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Media Path</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="lineEditFrame">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="lineEditRinginfoPath">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
          <widget class="QLabel" name="label_8">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -360,27 +554,15 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="lineEditRefFile">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>25</height>
-           </size>
-          </property>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="SelectDDIInputPath">
           <property name="text">
-           <string>test.xml</string>
+           <string>Select Folder</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QPushButton" name="pushButtonRef">
+        <item row="7" column="1">
+         <widget class="QPushButton" name="pushButtonGAll">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -406,11 +588,14 @@
            </size>
           </property>
           <property name="text">
-           <string>Read File</string>
+           <string>Generate All</string>
           </property>
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2"/>
       </item>
       <item>
        <widget class="QTextBrowser" name="logBrowser">
@@ -431,6 +616,28 @@
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>805</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMain">
+    <property name="title">
+     <string>Main</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuInput">
+    <property name="title">
+     <string>Input</string>
+    </property>
+   </widget>
+   <addaction name="menuMain"/>
+   <addaction name="menuInput"/>
   </widget>
  </widget>
  <resources/>

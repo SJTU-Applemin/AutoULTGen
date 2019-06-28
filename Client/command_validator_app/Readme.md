@@ -2,14 +2,11 @@
 
 ### Requirements
 
-We haven't packaged the application yet so we need some requirements to run this tool.
+We need to install some requirements to run this tool. 
 
 Pyside2
-
 lxml
-
 bs4
-
 selenium
 
  
