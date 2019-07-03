@@ -3669,7 +3669,7 @@
                 <dword NO="19" unmappedstr="0x49e3c001"/>
                 <dword NO="20" unmappedstr="0x00241330"/>
             </CMD>
-            <CMD DW0_dwlen="19" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="57" input_dwsize="4" name="HCP_PAK_INSERT_OBJECT_CMD">
+            <CMD DW0_dwlen="2" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="57" input_dwsize="4" name="HCP_PAK_INSERT_OBJECT_CMD">
                 <dword NO="0" value="0x73a20002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>

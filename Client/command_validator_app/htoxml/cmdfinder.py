@@ -20,7 +20,11 @@ class CmdFinder(object):
         self.ringfilename = ''
         self.ringfilelist = []
         #
-        self.ringcmdset = set()
+        self.ringcmddic = {}  #count each cmd 
+        self.notfoundset = set()
+        self.size_error = set()
+        self.size_error_cmd = {}
+        self.size_right_cmd = {}
         self.ringcmdmodify = {}
         self.df_dic = {}
         self.full_ringinfo = {}   # {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
@@ -69,6 +73,7 @@ class CmdFinder(object):
                         start1 = time.clock()
                         frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
                         #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
+                    self.cmdsizecheck(ringcmd, index)
                     index += 1
         if output_path :
             with open( os.path.join(output_path ,  "mapringinfo.xml") , "w") as f:
@@ -78,21 +83,36 @@ class CmdFinder(object):
                 f.write(prettify(self.TestName))
         return prettify(self.TestName)
     
-    def modifyringcmd(self, wrong, right):
+    def modifyringcmd(self, wrong, right, index = 'all'):
+        # index == 'all' means changing all cmd
+        # index == [1,3] means changing specific index cmd
         #print(self.ringcmdset)
-        self.ringcmdset.remove(wrong)
-        self.ringcmdset.add(right)
-        self.ringcmdmodify[wrong] = right
+        self.ringcmdmodify[wrong] = (right, index)
+        if index == 'all':
+            self.ringcmddic[right] = self.ringcmddic.pop(wrong)
+        else:
+            self.ringcmddic[wrong] -= len(index)
+            if self.ringcmddic[wrong] == 0:
+                del self.ringcmddic[wrong]
+            if right in self.ringcmdmodify:
+                self.ringcmddic[right] += len(index)
+            else:
+                self.ringcmddic[right] = len(index)
 
     def undate_full_ringinfo(self):
         # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
         new_full_ringinfo = {}
+        dic = {}
         for frame_no, ringinfo in self.full_ringinfo.items():
             new_ringinfo = []
             for pair in ringinfo:
                 for ringcmd, value_list in pair.items():
-                    if ringcmd in self.ringcmdmodify:
-                        new_ringinfo.append({self.ringcmdmodify[ringcmd] : value_list})
+                    if ringcmd in dic:
+                        dic[ringcmd] += 1
+                    else:
+                        dic[ringcmd] = 1
+                    if ringcmd in self.ringcmdmodify and (self.ringcmdmodify[ringcmd][1] == 'all' or self.ringcmdmodify[ringcmd][1] != 'all' and dic[ringcmd] in self.ringcmdmodify[ringcmd][1]):
+                        new_ringinfo.append({self.ringcmdmodify[ringcmd][0] : value_list})
                     else:
                         new_ringinfo.append(pair)
             new_full_ringinfo[frame_no] = new_ringinfo
@@ -115,6 +135,7 @@ class CmdFinder(object):
                         start1 = time.clock()
                         frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
                         #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
+                        self.cmdsizecheck(ringcmd, index)
                     index += 1
 
         with open( os.path.join(self.ringpath ,  "mapringinfo.xml") , "w") as f:
@@ -122,7 +143,16 @@ class CmdFinder(object):
         return prettify(self.TestName)
 
 
-
+    def cmdsizecheck(self, ringcmd, index):
+        #add size_error cmd list
+        if ringcmd not in self.size_right_cmd:
+            self.size_right_cmd[ringcmd] = []
+        if ringcmd not in self.size_error_cmd:
+            self.size_error_cmd[ringcmd] = []
+        if index in self.size_error:
+            self.size_error_cmd[ringcmd].append(len(self.size_right_cmd[ringcmd]) + len(self.size_error_cmd[ringcmd]) + 1)
+        else:
+            self.size_right_cmd[ringcmd].append(len(self.size_right_cmd[ringcmd]) + len(self.size_error_cmd[ringcmd]) + 1)
     
     def setbitfield(self, current_group, fieldname, bit_value, bit_l, bit_h, dw_no, check = ''):
         #set bitfield attributes
@@ -161,6 +191,11 @@ class CmdFinder(object):
         for cmd in Element.findall(".//CMD"):
             if self.searchkword(ringcmd, cmd.attrib['name']):
                 dupe = copy.deepcopy(cmd)
+                
+                #check dwsize
+                if 'def_dwSize' in dupe.attrib and int(dupe.attrib['def_dwSize']) > input_dwsize:
+                    self.size_error.add(index)
+
                 dupe.attrib['input_dwsize'] = str(input_dwsize)
                 dupe.attrib['index'] = str(index)
 
@@ -179,6 +214,12 @@ class CmdFinder(object):
                         field.attrib['default_value'] = bit_value
                         field.attrib['max_value'] = bit_value
                         field.attrib['min_value'] = bit_value
+                        if fieldname == "DwordLength":
+                            dw_len = int(bit_value,16) 
+                            dupe.attrib['DW0_dwlen'] = str(dw_len)
+                            if not self.checkdwlen(dw_len, input_dwsize):
+                                self.size_error.add(index)
+                            
                 dupe= self.unmapdw( dupe, dw_no, value_list)
                 node.append(dupe) #insert the new node
                 #print("Search saved xml Time used:", time.clock() - start2)
@@ -186,6 +227,13 @@ class CmdFinder(object):
         else:
             return False
 
+    def checkdwlen(self, dw_len, input_dwsize):
+        if input_dwsize < 2 and dw_len ==0:
+            return True
+        if dw_len == input_dwsize-2:
+            return True
+        return False
+            
     def mapcmd(self, ringcmd, value_list, node, index):
         # map each ringcmd
         # para ringcmd: in ringcmdinfo cmd stringcmd, e.g.  "CMD_SFC_STATE_OBJECT"
@@ -254,6 +302,9 @@ class CmdFinder(object):
                                                                 if fieldname == "DwordLength":
                                                                     dw_len = int(bit_value,16) 
                                                                     structcmd_group.set('DW0_dwlen', str(dw_len))
+                                                                    # check dwsize
+                                                                    if not self.checkdwlen(dw_len, input_dwsize):
+                                                                        self.size_error.add(index)
 
                                                         current_group = dword_group
                                                 if unionorcmd.tag == 'otherCMD' and 'otherCMD' in unionorcmd.attrib:
@@ -286,6 +337,9 @@ class CmdFinder(object):
                                                 if 'name' in unionorcmd.attrib and unionorcmd.attrib['name'] == 'dwSize':
                                                     defined_dwSize = unionorcmd.attrib['value']
                                                     structcmd_group.set('def_dwSize', defined_dwSize)
+                                                    # check dwsize
+                                                    if int(defined_dwSize) > input_dwsize:
+                                                        self.size_error.add(index)
 
                                             #print(prettify(Result))
                                             #break
@@ -309,6 +363,7 @@ class CmdFinder(object):
                                                      'class' : 'not found',
                                                      'index' : str(index)})
         print(ringcmd + ' not found')
+        self.notfoundset.add(ringcmd)
         return node
 
     def checkdw(self, node, value_list):
@@ -448,19 +503,19 @@ class CmdFinder(object):
                     frame_no_list = [int(re.search('(\d)-VcsRingInfo_0_0.txt', file).group(1)) for file in file_list]
                 elif len(file_list) == 1:
                     frame_no_list = [0]
-            self.ringfilelist = file_list
-            numset = set(frame_no_list)
-            self.Frame_Num = len(numset)
-            self.num_diff = min(numset)
+                self.ringfilelist = file_list
+                numset = set(frame_no_list)
+                self.Frame_Num = len(numset)
+                self.num_diff = min(numset)
 
-            for thing in self.ringfilelist:
-                if self.Frame_Num > 1:
-                    frame_no = str(int(re.search('(\d)-VcsRingInfo_0_0.txt', thing).group(1)) - self.num_diff)
-                elif self.Frame_Num == 1:
-                    frame_no = '0'
-                self.ringfilename = thing
-                self.txt2df()
-                self.extractdf(frame_no)
+                for thing in self.ringfilelist:
+                    if self.Frame_Num > 1:
+                        frame_no = str(int(re.search('(\d)-VcsRingInfo_0_0.txt', thing).group(1)) - self.num_diff)
+                    elif self.Frame_Num == 1:
+                        frame_no = '0'
+                    self.ringfilename = thing
+                    self.txt2df()
+                    self.extractdf(frame_no)
             
 
     def extractdf(self, frame_no, dfname = 'all'):
@@ -475,12 +530,15 @@ class CmdFinder(object):
         ringinfo = [] #stores single file ringinfo
         for i in df.index:
             #ringcmd = []
-            self.ringcmdset.add(df.loc[i,"Description"]) 
+            if df.loc[i,"Description"] in self.ringcmddic:
+                self.ringcmddic[df.loc[i,"Description"]] += 1
+            else:
+                self.ringcmddic[df.loc[i,"Description"]] = 1
             ringinfo.append({df.loc[i,"Description"]:[x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan']}) 
         self.full_ringinfo[frame_no] = ringinfo
             #ringcmd.append([x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan'])
             #full_ringinfo.append(ringcmd)
-        return self.full_ringinfo, self.ringcmdset
+        return self.full_ringinfo, self.ringcmddic
 
     def txt2df(self):
         #read ringcmdtringcmd text file into pd dataframe, which cmd stringcmd can be easily extracted
@@ -670,10 +728,10 @@ class CmdFinder(object):
 
 ##----------------------------------------------------------------
 ## show ringcmd if user want to update cmd
-#print(obj.ringcmdset)  #show cmd list
+#print(obj.ringcmddic)  #show cmd list
 #start = time.clock()
 #obj.modifyringcmd('CMD_HCP_VP9_RDOQ_STATE', 'HEVC_VP9_RDOQ_STATE_CMD')
-#print(obj.ringcmdset)  #show cmd list
+#print(obj.ringcmddic)  #show cmd list
 #obj.undate_full_ringinfo()
 #obj.updatexml()
 #elapsed = (time.clock() - start)
