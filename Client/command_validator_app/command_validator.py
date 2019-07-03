@@ -9,7 +9,6 @@ from PySide2.QtGui import *
 from ui_mainwindow import Ui_mainWindow
 # from ui_form import Ui_Form
 from ui_command_info import Ui_FormCommandInfo
-from ui_inputwindow import Ui_InputWindow
 from lxml import etree
 from htoxml.cmdfinder import CmdFinder
 import webgenxml
@@ -48,8 +47,8 @@ class MainWindow(QMainWindow):
         self.ui.SelectDDIInputPath.clicked.connect(partial(self.selectpath,'DDIInput'))
 
         self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
-        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\command_validator_app2\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\DDI_Input')
-        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\command_validator_app2\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
+        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\DDI_Input')
+        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
 
     @Slot()
     def fillinput(self):
