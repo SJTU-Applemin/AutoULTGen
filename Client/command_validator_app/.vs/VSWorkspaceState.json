@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\command_validator_app",
+    "\\command_validator_app\\htoxml",
+    "\\command_validator_app\\htoxml\\Parser",
+    "\\command_validator_app\\ui",
+    "\\command_validator_app\\vcstringinfo",
+    "\\command_validator_app\\vcstringinfo\\HEVC-VDENC-grits-WP-2125",
+    "\\command_validator_app\\vcstringinfo\\HEVC-VDENC-grits-WP-2125\\DDI_Input",
+    "\\command_validator_app\\vcstringinfo\\HEVC-VDENC-grits-WP-2125\\VcsRingInfo",
+    "\\command_validator_app\\vcstringinfo\\HEVC-VDENC-Grits001-2125",
+    "\\command_validator_app\\vcstringinfo\\HEVC-VDENC-Grits001-2125\\VcsRingInfo"
+  ],
+  "SelectedNode": "\\command_validator_app\\htoxml\\cmdfinder.py",
+  "PreviewInSolutionExplorer": false
+}

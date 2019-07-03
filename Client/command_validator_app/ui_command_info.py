@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'command_info.ui',
 # licensing of 'command_info.ui' applies.
 #
-# Created: Fri Jun 28 10:02:48 2019
+# Created: Tue Jul  2 09:37:19 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -79,9 +79,12 @@ class Ui_FormCommandInfo(object):
         self.treeWidgetCmd.header().setVisible(False)
         self.stackedWidget.addWidget(self.All)
         self.cmdlist = QtWidgets.QWidget()
+        self.cmdlist.setMinimumSize(QtCore.QSize(1451, 0))
         self.cmdlist.setObjectName("cmdlist")
         self.tableWidgetCmdlist = QtWidgets.QTableWidget(self.cmdlist)
-        self.tableWidgetCmdlist.setGeometry(QtCore.QRect(330, 0, 381, 691))
+        self.tableWidgetCmdlist.setGeometry(QtCore.QRect(240, 0, 751, 691))
+        self.tableWidgetCmdlist.setMaximumSize(QtCore.QSize(751, 691))
+        self.tableWidgetCmdlist.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.tableWidgetCmdlist.setObjectName("tableWidgetCmdlist")
         self.tableWidgetCmdlist.setColumnCount(3)
         self.tableWidgetCmdlist.setRowCount(0)
@@ -92,11 +95,18 @@ class Ui_FormCommandInfo(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidgetCmdlist.setHorizontalHeaderItem(2, item)
         self.pushButtonSU = QtWidgets.QPushButton(self.cmdlist)
-        self.pushButtonSU.setGeometry(QtCore.QRect(460, 700, 93, 28))
+        self.pushButtonSU.setGeometry(QtCore.QRect(290, 700, 151, 28))
         self.pushButtonSU.setObjectName("pushButtonSU")
-        self.pushButtonGB = QtWidgets.QPushButton(self.cmdlist)
-        self.pushButtonGB.setGeometry(QtCore.QRect(590, 700, 93, 28))
-        self.pushButtonGB.setObjectName("pushButtonGB")
+        self.pushButtonSA = QtWidgets.QPushButton(self.cmdlist)
+        self.pushButtonSA.setGeometry(QtCore.QRect(470, 700, 93, 28))
+        self.pushButtonSA.setObjectName("pushButtonSA")
+        self.treeWidgetCmdlist = QtWidgets.QTreeWidget(self.cmdlist)
+        self.treeWidgetCmdlist.setGeometry(QtCore.QRect(0, 0, 241, 741))
+        self.treeWidgetCmdlist.setWordWrap(False)
+        self.treeWidgetCmdlist.setColumnCount(1)
+        self.treeWidgetCmdlist.setObjectName("treeWidgetCmdlist")
+        self.treeWidgetCmdlist.headerItem().setText(0, "1")
+        self.treeWidgetCmdlist.header().setVisible(False)
         self.stackedWidget.addWidget(self.cmdlist)
         self.page_5 = QtWidgets.QWidget()
         self.page_5.setAcceptDrops(True)
@@ -128,8 +138,8 @@ class Ui_FormCommandInfo(object):
         self.pushButtonGen.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Generate", None, -1))
         self.pushButtonSCL.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Show CMD List", None, -1))
         self.tableWidgetCmdlist.horizontalHeaderItem(0).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Command", None, -1))
-        self.tableWidgetCmdlist.horizontalHeaderItem(1).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Original(ringinfo)", None, -1))
+        self.tableWidgetCmdlist.horizontalHeaderItem(1).setText(QtWidgets.QApplication.translate("FormCommandInfo", "HitCount", None, -1))
         self.tableWidgetCmdlist.horizontalHeaderItem(2).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Error", None, -1))
-        self.pushButtonSU.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Save && Update", None, -1))
-        self.pushButtonGB.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Go Back", None, -1))
+        self.pushButtonSU.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Save Changes && Update", None, -1))
+        self.pushButtonSA.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Show All", None, -1))
 
