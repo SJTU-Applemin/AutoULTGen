@@ -85,7 +85,7 @@
                     <DataDword Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="4" input_dwsize="4" name="MI_FLUSH_DW_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="4" input_dwsize="5" name="MI_FLUSH_DW_CMD">
                 <dword NO="0" value="0x13000082">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -112,15 +112,7 @@
                     <ImmediateData Address="N" CHECK="Y" bitfield_h="63" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="5" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="6" input_dwsize="4" name="MI_STORE_DATA_IMM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="5" input_dwsize="5" name="MI_STORE_DATA_IMM_CMD">
                 <dword NO="0" value="0x10400002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved10 Address="N" CHECK="N" bitfield_h="12" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -139,19 +131,11 @@
                 <dword NO="3" value="0x00000001">
                     <DataDword0 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
                 </dword>
-                <dword NO="4" value="">
-                    <DataDword1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="" max_value="" min_value=""/>
+                <dword NO="4" value="0x0">
+                    <DataDword1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="7" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD DW0_dwlen="0" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="8" input_dwsize="2" name="VDENC_CONTROL_STATE_CMD">
+            <CMD DW0_dwlen="0" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="6" input_dwsize="2" name="VDENC_CONTROL_STATE_CMD">
                 <dword NO="0" value="0x708b0000">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -166,7 +150,7 @@
                     <Reserved34 Address="N" CHECK="N" bitfield_h="31" bitfield_l="2" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="1" class="mhw_mi_g12_X" def_dwSize="3" index="9" input_dwsize="3" name="VD_CONTROL_STATE_CMD">
+            <CMD DW0_dwlen="1" class="mhw_mi_g12_X" def_dwSize="3" index="7" input_dwsize="3" name="VD_CONTROL_STATE_CMD">
                 <dword NO="0" value="0x738a0001">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -186,7 +170,7 @@
                     <Reserved67 Address="N" CHECK="N" bitfield_h="31" bitfield_l="3" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="0" class="mhw_mi_g12_X" def_dwSize="1" index="10" input_dwsize="1" name="MFX_WAIT_CMD">
+            <CMD DW0_dwlen="0" class="mhw_mi_g12_X" def_dwSize="1" index="8" input_dwsize="1" name="MFX_WAIT_CMD">
                 <dword NO="0" value="0x68000100">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                     <Reserved6 Address="N" CHECK="N" bitfield_h="7" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -197,7 +181,7 @@
                     <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="5" class="mhw_vdbox_hcp_g12_ats" def_dwSize="7" index="11" input_dwsize="7" name="HCP_PIPE_MODE_SELECT_CMD">
+            <CMD DW0_dwlen="5" class="mhw_vdbox_hcp_g12_ats" def_dwSize="7" index="9" input_dwsize="7" name="HCP_PIPE_MODE_SELECT_CMD">
                 <dword NO="0" value="0x73800005">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x5" max_value="0x5" min_value="0x5"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -246,7 +230,7 @@
                     <Reserved196 Address="N" CHECK="N" bitfield_h="31" bitfield_l="4" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="0" class="mhw_mi_g12_X" def_dwSize="1" index="12" input_dwsize="1" name="MFX_WAIT_CMD">
+            <CMD DW0_dwlen="0" class="mhw_mi_g12_X" def_dwSize="1" index="10" input_dwsize="1" name="MFX_WAIT_CMD">
                 <dword NO="0" value="0x68000100">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                     <Reserved6 Address="N" CHECK="N" bitfield_h="7" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -257,7 +241,7 @@
                     <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="3" class="mhw_vdbox_hcp_g12_ats" def_dwSize="5" index="13" input_dwsize="5" name="HCP_SURFACE_STATE_CMD">
+            <CMD DW0_dwlen="3" class="mhw_vdbox_hcp_g12_ats" def_dwSize="5" index="11" input_dwsize="5" name="HCP_SURFACE_STATE_CMD">
                 <dword NO="0" value="0x73810003">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -287,7 +271,7 @@
                     <Reserved149 Address="N" CHECK="N" bitfield_h="31" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="3" class="mhw_vdbox_hcp_g12_ats" def_dwSize="5" index="14" input_dwsize="5" name="HCP_SURFACE_STATE_CMD">
+            <CMD DW0_dwlen="3" class="mhw_vdbox_hcp_g12_ats" def_dwSize="5" index="12" input_dwsize="5" name="HCP_SURFACE_STATE_CMD">
                 <dword NO="0" value="0x73810003">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -317,7 +301,7 @@
                     <Reserved149 Address="N" CHECK="N" bitfield_h="31" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="3" class="mhw_vdbox_hcp_g12_ats" def_dwSize="5" index="15" input_dwsize="5" name="HCP_SURFACE_STATE_CMD">
+            <CMD DW0_dwlen="3" class="mhw_vdbox_hcp_g12_ats" def_dwSize="5" index="13" input_dwsize="5" name="HCP_SURFACE_STATE_CMD">
                 <dword NO="0" value="0x73810003">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -347,7 +331,7 @@
                     <Reserved149 Address="N" CHECK="N" bitfield_h="31" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="119" class="mhw_vdbox_hcp_g12_ats" def_dwSize="121" index="16" input_dwsize="121" name="HCP_PIPE_BUF_ADDR_STATE_CMD">
+            <CMD DW0_dwlen="119" class="mhw_vdbox_hcp_g12_ats" def_dwSize="121" index="14" input_dwsize="121" name="HCP_PIPE_BUF_ADDR_STATE_CMD">
                 <dword NO="0" value="0x73820077">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x77" max_value="0x77" min_value="0x77"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -898,7 +882,7 @@
                     <Reserved48 Address="N" CHECK="N" bitfield_h="63" bitfield_l="48" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="27" class="mhw_vdbox_hcp_g12_ats" def_dwSize="29" index="17" input_dwsize="29" name="HCP_IND_OBJ_BASE_ADDR_STATE_CMD">
+            <CMD DW0_dwlen="27" class="mhw_vdbox_hcp_g12_ats" def_dwSize="29" index="15" input_dwsize="29" name="HCP_IND_OBJ_BASE_ADDR_STATE_CMD">
                 <dword NO="0" value="0x7383001b">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x1b" max_value="0x1b" min_value="0x1b"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1032,7 +1016,7 @@
                     <Reserved15 Address="N" CHECK="N" bitfield_h="31" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="18" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="16" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1081,7 +1065,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x0"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="19" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="17" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1130,7 +1114,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x0"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="20" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="18" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1179,7 +1163,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="21" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="19" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1228,7 +1212,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="22" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="20" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1277,7 +1261,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="23" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="21" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1326,7 +1310,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="24" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="22" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1375,7 +1359,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
             </CMD>
-            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="25" input_dwsize="34" name="HCP_FQM_STATE_CMD">
+            <CMD DW0_dwlen="32" class="mhw_vdbox_hcp_g12_ats" def_dwSize="34" index="23" input_dwsize="34" name="HCP_FQM_STATE_CMD">
                 <dword NO="0" value="0x73850020">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x20" max_value="0x20" min_value="0x20"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1424,7 +1408,7 @@
                 <dword NO="32" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
                 <dword NO="33" arrayname="Quantizermatrix[32]" dtype="uint32_t" value="0x10001000"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="26" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="24" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1457,7 +1441,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="27" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="25" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1490,7 +1474,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="28" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="26" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1523,7 +1507,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="29" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="27" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1556,7 +1540,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="30" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="28" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1589,7 +1573,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="31" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="29" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1622,7 +1606,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x0"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="32" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="30" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1655,7 +1639,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="33" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="31" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1688,7 +1672,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="34" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="32" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1721,7 +1705,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="35" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="33" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1754,7 +1738,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="36" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="34" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1787,7 +1771,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="37" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="35" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1820,7 +1804,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="38" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="36" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1853,7 +1837,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="39" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="37" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1886,7 +1870,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="40" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="38" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1919,7 +1903,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="41" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="39" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1952,7 +1936,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="42" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="40" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -1985,7 +1969,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="43" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="41" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2018,7 +2002,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="44" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="42" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2051,7 +2035,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="45" input_dwsize="18" name="HCP_QM_STATE_CMD">
+            <CMD DW0_dwlen="16" class="mhw_vdbox_hcp_g12_ats" def_dwSize="18" index="43" input_dwsize="18" name="HCP_QM_STATE_CMD">
                 <dword NO="0" value="0x73840010">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x10" max_value="0x10" min_value="0x10"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2084,7 +2068,7 @@
                 <dword NO="16" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
                 <dword NO="17" arrayname="Quantizermatrix[16]" dtype="uint32_t" value="0x10101010"/>
             </CMD>
-            <CMD DW0_dwlen="4" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="6" index="46" input_dwsize="6" name="VDENC_PIPE_MODE_SELECT_CMD">
+            <CMD DW0_dwlen="4" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="6" index="44" input_dwsize="6" name="VDENC_PIPE_MODE_SELECT_CMD">
                 <dword NO="0" value="0x70800004">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x4" max_value="0x4" min_value="0x4"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2169,7 +2153,7 @@
                     <TailPointerReadFrequency Address="N" CHECK="Y" bitfield_h="31" bitfield_l="24" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="4" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="6" index="47" input_dwsize="6" name="VDENC_SRC_SURFACE_STATE_CMD">
+            <CMD DW0_dwlen="4" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="6" index="45" input_dwsize="6" name="VDENC_SRC_SURFACE_STATE_CMD">
                 <dword NO="0" value="0x70810004">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x4" max_value="0x4" min_value="0x4"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2210,7 +2194,7 @@
                     <Reserved125 Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="4" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="6" index="48" input_dwsize="6" name="VDENC_REF_SURFACE_STATE_CMD">
+            <CMD DW0_dwlen="4" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="6" index="46" input_dwsize="6" name="VDENC_REF_SURFACE_STATE_CMD">
                 <dword NO="0" value="0x70820004">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x4" max_value="0x4" min_value="0x4"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2252,7 +2236,7 @@
                     <Reserved125 Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="8" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="10" index="49" input_dwsize="10" name="VDENC_DS_REF_SURFACE_STATE_CMD">
+            <CMD DW0_dwlen="8" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="10" index="47" input_dwsize="10" name="VDENC_DS_REF_SURFACE_STATE_CMD">
                 <dword NO="0" value="0x70830008">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x8" max_value="0x8" min_value="0x8"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2320,7 +2304,7 @@
                     <Reserved125 Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="84" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="86" index="50" input_dwsize="86" name="VDENC_PIPE_BUF_ADDR_STATE_CMD">
+            <CMD DW0_dwlen="84" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="86" index="48" input_dwsize="86" name="VDENC_PIPE_BUF_ADDR_STATE_CMD">
                 <dword NO="0" value="0x70840054">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x54" max_value="0x54" min_value="0x54"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2802,7 +2786,7 @@
                     <Reserved15 Address="N" CHECK="N" bitfield_h="31" bitfield_l="15" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="30" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="23" index="51" input_dwsize="32" name="VDENC_AVC_COSTS_STATE_CMD">
+            <CMD DW0_dwlen="30" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="23" index="49" input_dwsize="32" name="VDENC_AVC_COSTS_STATE_CMD">
                 <dword NO="0" value="0x708a001e">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x1e" max_value="0x1e" min_value="0x1e"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -2908,7 +2892,7 @@
                 <dword NO="30" unmappedstr="0x10101010"/>
                 <dword NO="31" unmappedstr="0x00101010"/>
             </CMD>
-            <CMD DW0_dwlen="39" class="mhw_vdbox_hcp_g12_ats" def_dwSize="41" index="52" input_dwsize="41" name="HCP_PIC_STATE_CMD">
+            <CMD DW0_dwlen="39" class="mhw_vdbox_hcp_g12_ats" def_dwSize="41" index="50" input_dwsize="41" name="HCP_PIC_STATE_CMD">
                 <dword NO="0" value="0x73900027">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x27" max_value="0x27" min_value="0x27"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3146,7 +3130,7 @@
                     <SsethresholdsForClass910 Address="N" CHECK="Y" bitfield_h="63" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="52" class="mhw_vdbox_vdenc_g12_tglhp_ext" def_dwSize="54" index="53" input_dwsize="54" name="VDENC_HEVC_VP9_IMG_STATE_CMD">
+            <CMD DW0_dwlen="52" class="mhw_vdbox_vdenc_g12_tglhp_ext" def_dwSize="54" index="51" input_dwsize="54" name="VDENC_HEVC_VP9_IMG_STATE_CMD">
                 <dword NO="0" value="0x70890034">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x34" max_value="0x34" min_value="0x34"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3521,8 +3505,8 @@
                     <SelectiveInterTapper16to8Enable Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xffff" max_value="0xffff" min_value="0xffff"/>
                 </dword>
             </CMD>
-            <ringcmd class="not found" index="54" name="CMD_HCP_VP9_RDOQ_STATE"/>
-            <CMD DW0_dwlen="11" class="mhw_vdbox_hcp_g12_ats" def_dwSize="13" index="55" input_dwsize="13" name="HCP_SLICE_STATE_CMD">
+            <ringcmd class="not found" index="52" name="CMD_HCP_VP9_RDOQ_STATE"/>
+            <CMD DW0_dwlen="11" class="mhw_vdbox_hcp_g12_ats" def_dwSize="13" index="53" input_dwsize="13" name="HCP_SLICE_STATE_CMD">
                 <dword NO="0" value="0x7394000b">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0xb" max_value="0xb" min_value="0xb"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3627,7 +3611,7 @@
                     <UseIntegerMvFlag Address="N" CHECK="Y" bitfield_h="31" bitfield_l="31" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="19" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="56" input_dwsize="21" name="HCP_PAK_INSERT_OBJECT_CMD">
+            <CMD DW0_dwlen="19" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="54" input_dwsize="21" name="HCP_PAK_INSERT_OBJECT_CMD">
                 <dword NO="0" value="0x73a20013">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x13" max_value="0x13" min_value="0x13"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3669,7 +3653,7 @@
                 <dword NO="19" unmappedstr="0x49e3c001"/>
                 <dword NO="20" unmappedstr="0x00241330"/>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="57" input_dwsize="4" name="HCP_PAK_INSERT_OBJECT_CMD">
+            <CMD DW0_dwlen="2" class="mhw_vdbox_hcp_g12_ats" def_dwSize="2" index="55" input_dwsize="4" name="HCP_PAK_INSERT_OBJECT_CMD">
                 <dword NO="0" value="0x73a20002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3694,7 +3678,7 @@
                 <dword NO="2" unmappedstr="0x26010000"/>
                 <dword NO="3" unmappedstr="0x0000af01"/>
             </CMD>
-            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="3" index="58" input_dwsize="3" name="VDENC_WEIGHTSOFFSETS_STATE_CMD">
+            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="3" index="56" input_dwsize="3" name="VDENC_WEIGHTSOFFSETS_STATE_CMD">
                 <dword NO="0" value="0x70880001">
                     <DwLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3717,7 +3701,7 @@
                     <OffsetBackwardReference0 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="24" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="25" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="28" index="59" input_dwsize="27" name="VDENC_HEVC_VP9_TILE_SLICE_STATE_CMD">
+            <CMD DW0_dwlen="25" class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="28" index="57" input_dwsize="27" name="VDENC_HEVC_VP9_TILE_SLICE_STATE_CMD">
                 <dword NO="0" value="0x708d0019">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x19" max_value="0x19" min_value="0x19"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3866,7 +3850,7 @@
                     <StreaminQPOrQPdeltaOffset Address="N" CHECK="Y" bitfield_h="31" bitfield_l="6" default_value="" max_value="" min_value=""/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="60" input_dwsize="1" name="MI_NOOP_CMD">
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="58" input_dwsize="1" name="MI_NOOP_CMD">
                 <dword NO="0" value="0x0">
                     <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                     <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3874,7 +3858,7 @@
                     <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="3" index="61" input_dwsize="3" name="VDENC_WALKER_STATE_CMD">
+            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="3" index="59" input_dwsize="3" name="VDENC_WALKER_STATE_CMD">
                 <dword NO="0" value="0x70870001">
                     <Length Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3899,7 +3883,7 @@
                     <Reserved90 Address="N" CHECK="N" bitfield_h="31" bitfield_l="26" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="2" index="62" input_dwsize="2" name="VD_PIPELINE_FLUSH_CMD">
+            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="2" index="60" input_dwsize="2" name="VD_PIPELINE_FLUSH_CMD">
                 <dword NO="0" value="0x77800000">
                     <DwordCountN Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3925,7 +3909,7 @@
                     <Reserved52 Address="N" CHECK="N" bitfield_h="31" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="63" input_dwsize="4" name="MI_FLUSH_DW_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="61" input_dwsize="5" name="MI_FLUSH_DW_CMD">
                 <dword NO="0" value="0x13000082">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3952,15 +3936,7 @@
                     <ImmediateData Address="N" CHECK="Y" bitfield_h="63" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="64" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="2" index="65" input_dwsize="2" name="VD_PIPELINE_FLUSH_CMD">
+            <CMD class="mhw_vdbox_vdenc_g12_tglhp" def_dwSize="2" index="62" input_dwsize="2" name="VD_PIPELINE_FLUSH_CMD">
                 <dword NO="0" value="0x77800000">
                     <DwordCountN Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                     <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -3986,7 +3962,7 @@
                     <Reserved52 Address="N" CHECK="N" bitfield_h="31" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="66" input_dwsize="4" name="MI_FLUSH_DW_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="63" input_dwsize="5" name="MI_FLUSH_DW_CMD">
                 <dword NO="0" value="0x13000082">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4013,15 +3989,7 @@
                     <ImmediateData Address="N" CHECK="Y" bitfield_h="63" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="67" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="68" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="64" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
                 <dword NO="0" value="0x12480002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved8 Address="N" CHECK="N" bitfield_h="18" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4041,7 +4009,7 @@
                     <MemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x41e6c0000000000" max_value="0x41e6c0000000000" min_value="0x41e6c0000000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="3" class="mhw_mi_g12_X" def_dwSize="5" index="69" input_dwsize="5" name="MI_COPY_MEM_MEM_CMD">
+            <CMD DW0_dwlen="3" class="mhw_mi_g12_X" def_dwSize="5" index="65" input_dwsize="5" name="MI_COPY_MEM_MEM_CMD">
                 <dword NO="0" value="0x17600003">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
                     <MocsIndexForRead Address="N" CHECK="Y" bitfield_h="13" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4061,7 +4029,7 @@
                     <SourceMemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x41ba02000000000" max_value="0x41ba02000000000" min_value="0x41ba02000000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="3" class="mhw_mi_g12_X" def_dwSize="5" index="70" input_dwsize="5" name="MI_COPY_MEM_MEM_CMD">
+            <CMD DW0_dwlen="3" class="mhw_mi_g12_X" def_dwSize="5" index="66" input_dwsize="5" name="MI_COPY_MEM_MEM_CMD">
                 <dword NO="0" value="0x17600003">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
                     <MocsIndexForRead Address="N" CHECK="Y" bitfield_h="13" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4081,7 +4049,7 @@
                     <SourceMemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x41ba02100000000" max_value="0x41ba02100000000" min_value="0x41ba02100000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="3" class="mhw_mi_g12_X" def_dwSize="5" index="71" input_dwsize="5" name="MI_COPY_MEM_MEM_CMD">
+            <CMD DW0_dwlen="3" class="mhw_mi_g12_X" def_dwSize="5" index="67" input_dwsize="5" name="MI_COPY_MEM_MEM_CMD">
                 <dword NO="0" value="0x17600003">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
                     <MocsIndexForRead Address="N" CHECK="Y" bitfield_h="13" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4101,7 +4069,7 @@
                     <SourceMemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x41ba02200000000" max_value="0x41ba02200000000" min_value="0x41ba02200000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="72" input_dwsize="4" name="MI_FLUSH_DW_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="68" input_dwsize="5" name="MI_FLUSH_DW_CMD">
                 <dword NO="0" value="0x13000002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4128,15 +4096,7 @@
                     <ImmediateData Address="N" CHECK="Y" bitfield_h="63" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="73" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="74" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="69" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
                 <dword NO="0" value="0x12480002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved8 Address="N" CHECK="N" bitfield_h="18" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4156,7 +4116,7 @@
                     <MemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x402480200000000" max_value="0x402480200000000" min_value="0x402480200000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="75" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="70" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
                 <dword NO="0" value="0x12480002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved8 Address="N" CHECK="N" bitfield_h="18" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4176,7 +4136,7 @@
                     <MemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x402480300000000" max_value="0x402480300000000" min_value="0x402480300000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="76" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="71" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
                 <dword NO="0" value="0x12480002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved8 Address="N" CHECK="N" bitfield_h="18" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4196,7 +4156,7 @@
                     <MemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x402481c00000000" max_value="0x402481c00000000" min_value="0x402481c00000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="77" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="72" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
                 <dword NO="0" value="0x12480002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved8 Address="N" CHECK="N" bitfield_h="18" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4216,7 +4176,7 @@
                     <MemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x402480400000000" max_value="0x402480400000000" min_value="0x402480400000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="78" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="4" index="73" input_dwsize="4" name="MI_STORE_REGISTER_MEM_CMD">
                 <dword NO="0" value="0x12480002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="7" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved8 Address="N" CHECK="N" bitfield_h="18" bitfield_l="8" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4236,7 +4196,7 @@
                     <MemoryAddress Address="Y" CHECK="N" bitfield_h="63" bitfield_l="2" default_value="0x402480500000000" max_value="0x402480500000000" min_value="0x402480500000000"/>
                 </dword>
             </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="79" input_dwsize="4" name="MI_FLUSH_DW_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="74" input_dwsize="5" name="MI_FLUSH_DW_CMD">
                 <dword NO="0" value="0x13000002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="5" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved6 Address="N" CHECK="N" bitfield_h="6" bitfield_l="6" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4263,15 +4223,7 @@
                     <ImmediateData Address="N" CHECK="Y" bitfield_h="63" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="80" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="81" input_dwsize="4" name="MI_STORE_DATA_IMM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="75" input_dwsize="5" name="MI_STORE_DATA_IMM_CMD">
                 <dword NO="0" value="0x10400002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved10 Address="N" CHECK="N" bitfield_h="12" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4290,19 +4242,11 @@
                 <dword NO="3" value="0x000000ff">
                     <DataDword0 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="0xff" max_value="0xff" min_value="0xff"/>
                 </dword>
-                <dword NO="4" value="">
-                    <DataDword1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="" max_value="" min_value=""/>
+                <dword NO="4" value="0x0">
+                    <DataDword1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="82" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="83" input_dwsize="4" name="MI_STORE_DATA_IMM_CMD">
+            <CMD DW0_dwlen="2" class="mhw_mi_g12_X" def_dwSize="5" index="76" input_dwsize="5" name="MI_STORE_DATA_IMM_CMD">
                 <dword NO="0" value="0x10400002">
                     <DwordLength Address="N" CHECK="Y" bitfield_h="9" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
                     <Reserved10 Address="N" CHECK="N" bitfield_h="12" bitfield_l="10" default_value="0x0" max_value="0x0" min_value="0x0"/>
@@ -4321,8 +4265,64 @@
                 <dword NO="3" value="0x00000001">
                     <DataDword0 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
                 </dword>
-                <dword NO="4" value="">
-                    <DataDword1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="" max_value="" min_value=""/>
+                <dword NO="4" value="0x0">
+                    <DataDword1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="77" input_dwsize="1" name="MI_BATCH_BUFFER_END_CMD">
+                <dword NO="0" value="0x05000000">
+                    <EndContext Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Reserved1 Address="N" CHECK="N" bitfield_h="22" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                    <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="78" input_dwsize="1" name="MI_NOOP_CMD">
+                <dword NO="0" value="0x0">
+                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="79" input_dwsize="1" name="MI_NOOP_CMD">
+                <dword NO="0" value="0x0">
+                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="80" input_dwsize="1" name="MI_NOOP_CMD">
+                <dword NO="0" value="0x0">
+                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="81" input_dwsize="1" name="MI_NOOP_CMD">
+                <dword NO="0" value="0x0">
+                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="82" input_dwsize="1" name="MI_NOOP_CMD">
+                <dword NO="0" value="0x0">
+                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="83" input_dwsize="1" name="MI_NOOP_CMD">
+                <dword NO="0" value="0x0">
+                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
             <CMD class="mhw_mi_g12_X" def_dwSize="1" index="84" input_dwsize="1" name="MI_NOOP_CMD">
@@ -4333,12 +4333,12 @@
                     <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="85" input_dwsize="1" name="MI_BATCH_BUFFER_END_CMD">
-                <dword NO="0" value="0x05000000">
-                    <EndContext Address="N" CHECK="Y" bitfield_h="0" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <Reserved1 Address="N" CHECK="N" bitfield_h="22" bitfield_l="1" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="Y" bitfield_h="28" bitfield_l="23" default_value="0xa" max_value="0xa" min_value="0xa"/>
-                    <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
+            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="85" input_dwsize="1" name="MI_NOOP_CMD">
+                <dword NO="0" value="0x0">
+                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
             <CMD class="mhw_mi_g12_X" def_dwSize="1" index="86" input_dwsize="1" name="MI_NOOP_CMD">
@@ -4414,70 +4414,6 @@
                 </dword>
             </CMD>
             <CMD class="mhw_mi_g12_X" def_dwSize="1" index="95" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="96" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="97" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="98" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="99" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="100" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="101" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="102" input_dwsize="1" name="MI_NOOP_CMD">
-                <dword NO="0" value="0x0">
-                    <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <MiCommandOpcode Address="N" CHECK="N" bitfield_h="28" bitfield_l="23" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                    <CommandType Address="N" CHECK="N" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
-                </dword>
-            </CMD>
-            <CMD class="mhw_mi_g12_X" def_dwSize="1" index="103" input_dwsize="1" name="MI_NOOP_CMD">
                 <dword NO="0" value="0x0">
                     <IdentificationNumber Address="N" CHECK="N" bitfield_h="21" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
                     <IdentificationNumberRegisterWriteEnable Address="N" CHECK="N" bitfield_h="22" bitfield_l="22" default_value="0x0" max_value="0x0" min_value="0x0"/>
