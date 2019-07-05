@@ -21,6 +21,7 @@ class CmdFinder(object):
         self.ringfilelist = []
         #
         self.ringcmddic = {}  #count each cmd 
+        self.ringcmdclass = {}  # record each cmd class
         self.notfoundset = set()
         self.size_error = set()
         self.size_error_cmd = {}
@@ -89,6 +90,7 @@ class CmdFinder(object):
         # index == [1,3] means changing specific index cmd
         #print(self.ringcmdset)
         self.ringcmdmodify[wrong] = (right, index)
+        self.ringcmdclass[right] = ''
         if index == 'all':
             self.ringcmddic[right] = self.ringcmddic.pop(wrong)
         else:
@@ -275,6 +277,8 @@ class CmdFinder(object):
                                                                                         'input_dwsize' : str(input_dwsize)})
                                             dw_len = 0
                                             dw_no = ''
+                                            if not self.ringcmdclass[ringcmd]:
+                                                self.ringcmdclass[ringcmd] = Class.attrib['name']
                                             for unionorcmd in structcmd.findall("./"):  #select all the direct children
 
                                                 if unionorcmd.tag == 'union' and 'name' in unionorcmd.attrib and 'DW' in unionorcmd.attrib['name']:
@@ -553,6 +557,7 @@ class CmdFinder(object):
                 self.ringcmddic[df.loc[i,"Description"]] += 1
             else:
                 self.ringcmddic[df.loc[i,"Description"]] = 1
+        self.ringcmdclass = dict.fromkeys(self.ringcmddic.keys(),'')
         self.full_ringinfo[frame_no] = ringinfo
             #ringcmd.append([x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan'])
             #full_ringinfo.append(ringcmd)

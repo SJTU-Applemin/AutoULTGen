@@ -23,9 +23,10 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.ui.pushButtonGAll.clicked.connect(self.fillinput)
         self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
-        
+        self.ui.pushButtonUpdate.clicked.connect(self.addHeader)
 
         self.media_path = ''
+        self.Buf = None 
         self.command_info = []
         self.command_tags = ('DW0_dwlen', 'class', 'def_dwSize', 'index', 'input_dwsize', 'name')
         self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD')
@@ -46,14 +47,14 @@ class MainWindow(QMainWindow):
         self.ui.SelectRinginfoPath.clicked.connect(partial(self.selectpath,'Ringinfo'))
         self.ui.SelectDDIInputPath.clicked.connect(partial(self.selectpath,'DDIInput'))
 
-        #self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
-        #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
-        #self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
+        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
+        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
+        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
 
     @Slot()
     def fillinput(self):
-        self.ui.buttonBox.accepted.connect(self.addHeader)
-        self.ui.buttonBox.rejected.connect(self.reject)
+        
+        #self.ui.buttonBox.rejected.connect(self.reject)
         self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
         self.ui.Component_input.setText(self.ui.lineEditComponent.text())
         self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
@@ -320,9 +321,10 @@ class MainWindow(QMainWindow):
         #init
         start = time.clock()
         #self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
-        Buf = self.obj.h2xml()
+        if not self.Buf:
+            self.Buf = self.obj.h2xml()
         self.obj.extractfull()
-        self.obj.writexml()
+        self.obj.writexml(self.output_path)
         elapsed = (time.clock() - start)
         print("Total Time used:",elapsed)
         #
@@ -351,7 +353,10 @@ class MainWindow(QMainWindow):
         self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
         self.test_name = self.ui.lineEditTestName.text()
         # build CMDFinder obj
-        self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
+        if self.Buf:
+            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf)
+        else:
+            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
         
 
     def read_command_info_from_xml(self):
@@ -608,6 +613,7 @@ class MainWindow(QMainWindow):
     def addHeader(self):
         # click OK, generate xml header
         self.read_info_from_ui()
+        
         self.Component = self.ui.Component_input.text()
         self.GUID = self.ui.GUID_input.text()
         self.Width = self.ui.Width_input.text()
@@ -620,6 +626,7 @@ class MainWindow(QMainWindow):
         self.EncFunc = self.ui.EncFunc_input.text()
         self.FrameNum = self.ui.FrameNum_input.text()
         # get real Frame Number according to input files
+        self.cpfiles()
         
         Frameset = set()
         for f in os.listdir(self.inputpath):
@@ -640,7 +647,7 @@ class MainWindow(QMainWindow):
         
         self.parse_command_file()
         self.read_command_info_from_xml()
-        self.ui.tabWidget.setCurrentIndex(0)
+        #self.ui.tabWidget.setCurrentIndex(0)
         if self.ui.lineEditFrame.text() != self.FrameNum:
             msgBox = QMessageBox()
             msgBox.setText("Inconsistent Frame number!")
@@ -648,6 +655,17 @@ class MainWindow(QMainWindow):
         self.form.showcmdlist()
         
     
+    @Slot()
+    def cpfiles(self):
+        l = [self.inputpath, self.ringinfo_path]
+        for i in l:
+            dstdir = os.path.join(self.output_path, os.path.basename(i))
+            if not os.path.exists(dstdir):
+                os.makedirs(dstdir) # create directories, raise an error if it already exists
+            for f in os.listdir(i):
+                full_f = os.path.join(i, f)
+                shutil.copy(full_f, dstdir)
+
     @Slot()
     def reject(self):
         # click cancel, exit
@@ -925,15 +943,16 @@ class FormCommandInfo(QWidget):
         for cmd, index in self.main_window.obj.ringcmddic.items():
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(cmd))
-            self.table.setItem(row, 1, QTableWidgetItem(str(index)))
+            self.table.setItem(row, 1, QTableWidgetItem(self.main_window.obj.ringcmdclass[cmd]))
+            self.table.setItem(row, 2, QTableWidgetItem(str(index)))
             if cmd in self.main_window.obj.notfoundset:
-                self.table.setItem(row, 2, QTableWidgetItem('Not Found'))
+                self.table.setItem(row, 3, QTableWidgetItem('Not Found'))
             if self.main_window.obj.size_error_cmd[cmd]:
                 warning = 'Size Error in position: '
                 for i in self.main_window.obj.size_error_cmd[cmd]:
                     warning += str(i) + ','
                 warning = warning.strip(',')
-                self.table.setItem(row, 2, QTableWidgetItem(warning))
+                self.table.setItem(row, 3, QTableWidgetItem(warning))
             row += 1
         self.cmdlistrow = row
         self.table.resizeColumnsToContents()
@@ -946,7 +965,7 @@ class FormCommandInfo(QWidget):
         cmdname = self.table.item(row, 0).text()
         ##print(item.text())
         minimum_value = 1
-        maximum_value = int(self.table.item(row, 1).text())
+        maximum_value = int(self.table.item(row, 2).text())
         index = ''
         new = ''
         #if column == 0:
@@ -959,7 +978,7 @@ class FormCommandInfo(QWidget):
         #if column == 1:
         new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, self.table.item(row, 0).text())
         if ok:
-            input_index, ok = QInputDialog.getText(self.table,  "Modify", "\tScope(1-%s)\ne.g. 1-4,6" %maximum_value, QLineEdit.Normal, 'Apply to All')
+            input_index, ok = QInputDialog.getText(self.table,  "Modify", "\tScope(1-%s)\n(e.g. 1-4,6)" %maximum_value, QLineEdit.Normal, 'Apply to All')
             if input_index != 'Apply to All':
                 index = []
                 list = input_index.strip().split(',')

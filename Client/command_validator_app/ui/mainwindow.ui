@@ -30,7 +30,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="Main">
        <attribute name="title">
@@ -466,7 +466,7 @@
          <item row="1" column="2">
           <widget class="QPushButton" name="SelectMediaPath">
            <property name="text">
-            <string>Select Folder</string>
+            <string>Add Folder</string>
            </property>
           </widget>
          </item>
@@ -847,17 +847,22 @@
          </item>
         </layout>
        </widget>
-       <widget class="QDialogButtonBox" name="buttonBox">
+       <widget class="QPushButton" name="pushButtonUpdate">
         <property name="geometry">
          <rect>
-          <x>150</x>
+          <x>200</x>
           <y>460</y>
-          <width>193</width>
-          <height>28</height>
+          <width>101</width>
+          <height>31</height>
          </rect>
         </property>
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Update</string>
         </property>
        </widget>
       </widget>
