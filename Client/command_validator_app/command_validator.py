@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_mainWindow()
         self.ui.setupUi(self)
         self.ui.pushButtonGAll.clicked.connect(self.fillinput)
-        self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
+        #self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
         self.ui.pushButtonUpdate.clicked.connect(self.addHeader)
 
         self.media_path = ''
@@ -46,28 +46,62 @@ class MainWindow(QMainWindow):
         self.ui.SelectMediaPath.clicked.connect(partial(self.selectpath,'Media'))
         self.ui.SelectRinginfoPath.clicked.connect(partial(self.selectpath,'Ringinfo'))
         self.ui.SelectDDIInputPath.clicked.connect(partial(self.selectpath,'DDIInput'))
+        self.ui.lineEditRinginfoPath.textChanged.connect(partial(self.changebg,'Ringinfo'))
+        self.ui.lineEditMediaPath.textChanged.connect(partial(self.changebg,'Media'))
+        self.ui.lineEditDDIInputPath.textChanged.connect(partial(self.changebg,'DDIInput'))
 
+        self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+        self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
         self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
         self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
 
+
+    @Slot()
+    def changebg(self, name, text):
+        #print(text)
+        if name == 'Media':
+            self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+        if name == 'DDIInput':
+            self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+        if name == 'Ringinfo':
+            self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+
     @Slot()
     def fillinput(self):
-        
         #self.ui.buttonBox.rejected.connect(self.reject)
-        self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
-        self.ui.Component_input.setText(self.ui.lineEditComponent.text())
-        self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
-        self.ui.Width_input.setText('256')
-        self.ui.Height_input.setText('192')
-        self.ui.RawTileType_input.setText('1')
-        self.ui.RawFormat_input.setText('25')
-        self.ui.ResTileType_input.setText('4')
-        self.ui.ResFormat_input.setText('62')
-        self.ui.EncFunc_input.setText('4')
-        self.ui.FrameNum_input.setReadOnly(True)
-        #self.ui.FrameNum_input.setText('1')
-        self.FrameNumdiff = 0
+        blank = []
+        if not self.ui.lineEditRinginfoPath.text():
+            self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
+            blank.append('Ringinfo')
+        if not self.ui.lineEditDDIInputPath.text():
+            self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
+            blank.append('DDIInput')
+        if not self.ui.lineEditMediaPath.text():
+            self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
+            blank.append('Media')
+
+        if blank:
+            msgBox = QMessageBox()
+            str = ', '.join(blank)
+            msgBox.setText("Please fill %s Path!"% str)
+            msgBox.exec_()
+
+        else:
+            self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
+            self.ui.Component_input.setText(self.ui.lineEditComponent.text())
+            self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
+            self.ui.Width_input.setText('256')
+            self.ui.Height_input.setText('192')
+            self.ui.RawTileType_input.setText('1')
+            self.ui.RawFormat_input.setText('25')
+            self.ui.ResTileType_input.setText('4')
+            self.ui.ResFormat_input.setText('62')
+            self.ui.EncFunc_input.setText('4')
+            self.ui.FrameNum_input.setReadOnly(True)
+            #self.ui.FrameNum_input.setText('1')
+            self.FrameNumdiff = 0
+            self.ui.tabWidget.setCurrentIndex(1)
 
     @Slot()
     def generate_from_bspec(self):
@@ -302,6 +336,7 @@ class MainWindow(QMainWindow):
         # table.resizeColumnsToContents()
         # table.resizeRowsToContents()
         self.form.show()
+        self.form.activateWindow()
 
 
     @Slot(int)
@@ -309,7 +344,7 @@ class MainWindow(QMainWindow):
         print(row_id)
 
     def parse_command_file(self):
-        print('begin parse command file')
+        #print('begin parse command file')
         self.ui.logBrowser.append('Begin parse vcs ring info\n')
         self.ui.logBrowser.append('It may take about 30 seconds to finish parsing.\n')
         QCoreApplication.processEvents()
@@ -324,11 +359,16 @@ class MainWindow(QMainWindow):
         if not self.Buf:
             self.Buf = self.obj.h2xml()
         self.obj.extractfull()
+        if not self.obj.Frame_Num:
+            msgBox = QMessageBox()
+            msgBox.setText("Ringinfo path doesn't contain target files!(e.g. 1-VcsRingInfo_0_0.txt)")
+            msgBox.exec_()
         self.obj.writexml(self.output_path)
         elapsed = (time.clock() - start)
         print("Total Time used:",elapsed)
         #
-        print('end parse command file')
+        #print('end parse command file')
+        self.ui.logBrowser.append("Total Time used:"+ str(elapsed) +'\n')
         self.ui.logBrowser.append('End parse vcs ring info\n')
         self.ui.logBrowser.append('Save xml in '+ self.ringinfo_path + '\n')
 
@@ -589,16 +629,15 @@ class MainWindow(QMainWindow):
     @Slot()
     def selectpath(self, name):
         #open file dialog and display directory in the text edit area
+        dialog = QFileDialog(self)
+        dialog.setFileMode(QFileDialog.AnyFile)
+        dialog.setOptions(QFileDialog.DontUseNativeDialog)
         if self.last_dir:
-            dir = QFileDialog.getExistingDirectory(self, "Open Directory",
-                                           self.last_dir,
-                                           QFileDialog.ShowDirsOnly
-                                           | QFileDialog.DontResolveSymlinks) 
+            dir = dialog.getExistingDirectory(self, "Select %s Directory" % name,
+                                           self.last_dir) 
         else:
-            dir = QFileDialog.getExistingDirectory(self, "Open Directory",
-                                           "/home",
-                                           QFileDialog.ShowDirsOnly
-                                           | QFileDialog.DontResolveSymlinks)
+            dir = dialog.getExistingDirectory(self, "Select %s Directory" % name,
+                                           "/home")
         self.last_dir = dir
         if name == 'Media':
             self.ui.lineEditMediaPath.setText(dir)
@@ -629,10 +668,15 @@ class MainWindow(QMainWindow):
         self.cpfiles()
         
         Frameset = set()
+
         for f in os.listdir(self.inputpath):
             pattern = re.search('^(\d)-0.*DDIEnc_(.*)Params_._Frame', f)
             if pattern:
                 Frameset.add(int(pattern.group(1)))
+        if not Frameset:
+            msgBox = QMessageBox()
+            msgBox.setText("Input path doesn't contain target files!(e.g. 0-0_1_DDIEnc_SlcParams_I_Frame.dat)")
+            msgBox.exec_()
         self.FrameNumdiff = min(Frameset) - 0
         self.FrameNum = str(len(Frameset))
         self.ui.FrameNum_input.setText(self.FrameNum)
@@ -647,7 +691,7 @@ class MainWindow(QMainWindow):
         
         self.parse_command_file()
         self.read_command_info_from_xml()
-        #self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.tabWidget.setCurrentIndex(0)
         if self.ui.lineEditFrame.text() != self.FrameNum:
             msgBox = QMessageBox()
             msgBox.setText("Inconsistent Frame number!")
@@ -732,12 +776,14 @@ class FormCommandInfo(QWidget):
         self.ui.checkBoxBinary.stateChanged.connect(self.update_data_mode_bin)
         self.ui.checkBoxReserved.stateChanged.connect(self.update_reserve_show)
         self.current_item = None
+        self.modifylist = []
         #
         self.ui.stackedWidget.setCurrentIndex(1)   #set the all infomation page as default page
         self.ui.pushButtonSCL.clicked.connect(lambda : self.ui.stackedWidget.setCurrentIndex(1))  #show cmd name list
         self.ui.pushButtonSCL.clicked.connect(self.showcmdlist)  #show cmd name list
         self.ui.pushButtonSA.clicked.connect(lambda : self.ui.stackedWidget.setCurrentIndex(0))  #show cmd name list
         self.ui.pushButtonSU.clicked.connect(self.updateinfo)
+        self.ui.tableWidgetCmdlist.cellDoubleClicked.connect(self.modifycmd)
         
 
     def show_message(self, inf, title):
@@ -937,7 +983,7 @@ class FormCommandInfo(QWidget):
         self.ui.tableWidgetCmdlist.clearContents()
         self.ui.tableWidgetCmdlist.setRowCount(0)
         self.table = self.ui.tableWidgetCmdlist
-        self.table.cellDoubleClicked.connect(self.modifycmd)
+        
         row = 0
         ##print(self.main_window.obj.ringcmddic)
         for cmd, index in self.main_window.obj.ringcmddic.items():
@@ -946,14 +992,23 @@ class FormCommandInfo(QWidget):
             self.table.setItem(row, 1, QTableWidgetItem(self.main_window.obj.ringcmdclass[cmd]))
             self.table.setItem(row, 2, QTableWidgetItem(str(index)))
             if cmd in self.main_window.obj.notfoundset:
+                self.table.setItem(row, 1, QTableWidgetItem('Not Found'))
                 self.table.setItem(row, 3, QTableWidgetItem('Not Found'))
-            if self.main_window.obj.size_error_cmd[cmd]:
+            if cmd in self.main_window.obj.bitfield_error_cmd:
+                self.table.setItem(row, 3, QTableWidgetItem('Bitfield Error'))
+            elif self.main_window.obj.size_error_cmd[cmd]:
+                print(self.main_window.obj.size_error)
                 warning = 'Size Error in position: '
                 for i in self.main_window.obj.size_error_cmd[cmd]:
                     warning += str(i) + ','
                 warning = warning.strip(',')
                 self.table.setItem(row, 3, QTableWidgetItem(warning))
+            #mark newly modified cmd
+            if [t for t in self.modifylist if t[1] == cmd]:
+                self.table.item(row, 0).setBackground(QColor(255, 242, 0))
             row += 1
+        
+
         self.cmdlistrow = row
         self.table.resizeColumnsToContents()
         self.table.resizeRowsToContents()
@@ -961,57 +1016,63 @@ class FormCommandInfo(QWidget):
     @Slot()
     def modifycmd(self, row, column):
         ##print("Row %d and Column %d was clicked" % (row, column))
-        item = self.table.item(row, column)
-        cmdname = self.table.item(row, 0).text()
-        ##print(item.text())
-        minimum_value = 1
-        maximum_value = int(self.table.item(row, 2).text())
-        index = ''
-        new = ''
-        #if column == 0:
-        #    new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, item.text())
-        #    if ok:
-        #        if new != cmdname:
-        #            self.table.setItem(row, 0, QTableWidgetItem(new))
-        #            self.table.item(row, 0).setTextColor(QColor(255,0,0))
-        #            index = 'all'
-        #if column == 1:
-        new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, self.table.item(row, 0).text())
-        if ok:
-            input_index, ok = QInputDialog.getText(self.table,  "Modify", "\tScope(1-%s)\n(e.g. 1-4,6)" %maximum_value, QLineEdit.Normal, 'Apply to All')
-            if input_index != 'Apply to All':
-                index = []
-                list = input_index.strip().split(',')
-                for i in list:
-                    if '-' in i:
-                        i = i.split('-')
-                        index = list(range(int(i[0]), int(i[1])+1))
-                    else:
-                        index.append(int(i))
-                length = len(index)
-                if int(maximum_value) > length:
-                    self.table.setItem(row, 1, QTableWidgetItem(str(maximum_value-length)))
-                    self.table.item(row, 1).setTextColor(QColor(255,0,0))
-                    self.table.insertRow(row+1)
-                    self.table.setItem(row+1, 1, QTableWidgetItem(str(length)))
-                    self.table.item(row+1, 1).setTextColor(QColor(255,0,0))
-                    self.table.setItem(row+1, 0, QTableWidgetItem(new))
-                    self.table.item(row+1, 0).setTextColor(QColor(255,0,0))
-                    self.cmdlistrow += 1
-                elif int(maximum_value) == length:
+        if column == 0 or column == 2:
+            item = self.table.item(row, column)
+            cmdname = self.table.item(row, 0).text()
+            ##print(item.text())
+            minimum_value = 1
+            maximum_value = int(self.table.item(row, 2).text())
+            index = ''
+            new = ''
+            #if column == 0:
+            #    new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, item.text())
+            #    if ok:
+            #        if new != cmdname:
+            #            self.table.setItem(row, 0, QTableWidgetItem(new))
+            #            self.table.item(row, 0).setTextColor(QColor(255,0,0))
+            #            index = 'all'
+            #if column == 1:
+            new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, self.table.item(row, 0).text())
+            if ok:
+                input_index, ok = QInputDialog.getText(self.table,  "Modify", "\tScope(1-%s)\n(e.g. 1-4,6)" %maximum_value, QLineEdit.Normal, 'Apply to All')
+                if input_index != 'Apply to All':
+                    index = []
+                    list = input_index.strip().split(',')
+                    for i in list:
+                        if '-' in i:
+                            i = i.split('-')
+                            index = list(range(int(i[0]), int(i[1])+1))
+                        else:
+                            index.append(int(i))
+                    length = len(index)
+                    if int(maximum_value) > length:
+                        self.table.setItem(row, 1, QTableWidgetItem(str(maximum_value-length)))
+                        self.table.item(row, 1).setTextColor(QColor(255,0,0))
+                        self.table.insertRow(row+1)
+                        self.table.setItem(row+1, 1, QTableWidgetItem(str(length)))
+                        self.table.item(row+1, 1).setTextColor(QColor(255,0,0))
+                        self.table.setItem(row+1, 0, QTableWidgetItem(new))
+                        self.table.item(row+1, 0).setTextColor(QColor(255,0,0))
+                        self.cmdlistrow += 1
+                    elif int(maximum_value) == length:
+                        index = 'all'
+                else:
                     index = 'all'
-            else:
-                index = 'all'
-            if new != cmdname and index == 'all':
-                self.table.setItem(row, 0, QTableWidgetItem(new))
-                self.table.item(row, 0).setTextColor(QColor(255,0,0))
-        if new and index:
-            #print(self.main_window.obj.ringcmddic)
-            self.main_window.obj.modifyringcmd(cmdname, new, index)
-            #print(self.main_window.obj.ringcmddic)
+                if new != cmdname and index == 'all':
+                    self.table.setItem(row, 0, QTableWidgetItem(new))
+                    self.table.item(row, 0).setTextColor(QColor(255,0,0))
+            
+            if new and index:
+
+                self.modifylist.append((cmdname, new, index))
+                #print(self.main_window.obj.ringcmddic)
+                #self.main_window.obj.modifyringcmd(cmdname, new, index)
+                #print(self.main_window.obj.ringcmddic)
 
     @Slot()
     def updateinfo(self):
+        for cmdname, new, index in self.modifylist:
+            self.main_window.obj.modifyringcmd(cmdname, new, index)
         self.main_window.obj.undate_full_ringinfo()
         self.main_window.obj.updatexml()
         self.main_window.ui.logBrowser.append('Update xml\n')
@@ -1024,6 +1085,7 @@ class FormCommandInfo(QWidget):
         msgBox.exec_()
         self.main_window.read_command_info_from_xml()
         self.showcmdlist()
+        self.modifylist = [] #clear
 
 
         
