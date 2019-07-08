@@ -21,6 +21,7 @@ class CmdFinder(object):
         self.ringfilelist = []
         #
         self.ringcmddic = {}  #count each cmd 
+        self.ringcmdclass = {}  # record each cmd class
         self.notfoundset = set()
         self.size_error = set()
         self.size_error_cmd = {}
@@ -35,6 +36,7 @@ class CmdFinder(object):
         self.TestName = Element('TestName')  #create TestName as result root node
         self.filter = ['mi', 'hcp']
         self.Frame_Num = 0
+        self.specialcmd = ['MI_STORE_DATA_IMM', 'MI_FLUSH_DW']
         if Buf:
             self.Buf = Buf
         else:
@@ -88,6 +90,7 @@ class CmdFinder(object):
         # index == [1,3] means changing specific index cmd
         #print(self.ringcmdset)
         self.ringcmdmodify[wrong] = (right, index)
+        self.ringcmdclass[right] = ''
         if index == 'all':
             self.ringcmddic[right] = self.ringcmddic.pop(wrong)
         else:
@@ -142,7 +145,6 @@ class CmdFinder(object):
             f.write(prettify(self.TestName))
         return prettify(self.TestName)
 
-
     def cmdsizecheck(self, ringcmd, index):
         #add size_error cmd list
         if ringcmd not in self.size_right_cmd:
@@ -193,8 +195,11 @@ class CmdFinder(object):
                 dupe = copy.deepcopy(cmd)
                 
                 #check dwsize
-                if 'def_dwSize' in dupe.attrib and int(dupe.attrib['def_dwSize']) > input_dwsize:
-                    self.size_error.add(index)
+                if 'def_dwSize' in dupe.attrib:
+                    diff = int(dupe.attrib['def_dwSize']) - input_dwsize
+                    if not (ringcmd in self.specialcmd and (diff == 0 or diff == 1)):
+                        if diff > 0:
+                            self.size_error.add(index)
 
                 dupe.attrib['input_dwsize'] = str(input_dwsize)
                 dupe.attrib['index'] = str(index)
@@ -217,7 +222,7 @@ class CmdFinder(object):
                         if fieldname == "DwordLength":
                             dw_len = int(bit_value,16) 
                             dupe.attrib['DW0_dwlen'] = str(dw_len)
-                            if not self.checkdwlen(dw_len, input_dwsize):
+                            if not self.checkdwlen(dw_len, input_dwsize) and ringcmd not in self.specialcmd:
                                 self.size_error.add(index)
                             
                 dupe= self.unmapdw( dupe, dw_no, value_list)
@@ -272,6 +277,8 @@ class CmdFinder(object):
                                                                                         'input_dwsize' : str(input_dwsize)})
                                             dw_len = 0
                                             dw_no = ''
+                                            if not self.ringcmdclass[ringcmd]:
+                                                self.ringcmdclass[ringcmd] = Class.attrib['name']
                                             for unionorcmd in structcmd.findall("./"):  #select all the direct children
 
                                                 if unionorcmd.tag == 'union' and 'name' in unionorcmd.attrib and 'DW' in unionorcmd.attrib['name']:
@@ -303,7 +310,7 @@ class CmdFinder(object):
                                                                     dw_len = int(bit_value,16) 
                                                                     structcmd_group.set('DW0_dwlen', str(dw_len))
                                                                     # check dwsize
-                                                                    if not self.checkdwlen(dw_len, input_dwsize):
+                                                                    if not self.checkdwlen(dw_len, input_dwsize) and ringcmd not in self.specialcmd:
                                                                         self.size_error.add(index)
 
                                                         current_group = dword_group
@@ -338,8 +345,11 @@ class CmdFinder(object):
                                                     defined_dwSize = unionorcmd.attrib['value']
                                                     structcmd_group.set('def_dwSize', defined_dwSize)
                                                     # check dwsize
-                                                    if int(defined_dwSize) > input_dwsize:
-                                                        self.size_error.add(index)
+                                                    diff = int(defined_dwSize) - input_dwsize
+
+                                                    if not (ringcmd in self.specialcmd and (diff == 0 or diff == 1)):
+                                                        if diff > 0:
+                                                            self.size_error.add(index)
 
                                             #print(prettify(Result))
                                             #break
@@ -528,13 +538,26 @@ class CmdFinder(object):
     
         df = self.df_dic[dfname]
         ringinfo = [] #stores single file ringinfo
+        skip_next = False
         for i in df.index:
             #ringcmd = []
+
+            if df.loc[i,"Description"] in self.specialcmd and i<len(df.index)-1 and df.loc[i+1,"Description"] == 'MI_NOOP':
+                #skip 'mi_noop' after special cmd
+                ringinfo.append({df.loc[i,"Description"]:[x for x in df.loc[i, "Header":].values.tolist() if str(x) != 'nan'] + 
+                                                         [x for x in df.loc[i+1, "Header":].values.tolist() if str(x) != 'nan']})
+                skip_next = True
+            elif not skip_next:
+                ringinfo.append({df.loc[i,"Description"]:[x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan']})
+            else:
+                #skip 'mi_noop' after special cmd
+                skip_next = False
+                continue
             if df.loc[i,"Description"] in self.ringcmddic:
                 self.ringcmddic[df.loc[i,"Description"]] += 1
             else:
                 self.ringcmddic[df.loc[i,"Description"]] = 1
-            ringinfo.append({df.loc[i,"Description"]:[x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan']}) 
+        self.ringcmdclass = dict.fromkeys(self.ringcmddic.keys(),'')
         self.full_ringinfo[frame_no] = ringinfo
             #ringcmd.append([x for x in df.loc[i,"Header":].values.tolist() if str(x) != 'nan'])
             #full_ringinfo.append(ringcmd)

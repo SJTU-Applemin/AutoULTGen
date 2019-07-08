@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1367</width>
-    <height>741</height>
+    <width>1447</width>
+    <height>759</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -29,10 +29,16 @@
     <number>1</number>
    </property>
    <widget class="QWidget" name="All">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <widget class="QTableWidget" name="tableWidgetCmd">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>321</x>
        <y>0</y>
        <width>1131</width>
        <height>691</height>
@@ -106,7 +112,7 @@
     <widget class="QCheckBox" name="checkBoxBinary">
      <property name="geometry">
       <rect>
-       <x>640</x>
+       <x>690</x>
        <y>710</y>
        <width>70</width>
        <height>17</height>
@@ -119,7 +125,7 @@
     <widget class="QCheckBox" name="checkBoxDec">
      <property name="geometry">
       <rect>
-       <x>560</x>
+       <x>610</x>
        <y>710</y>
        <width>71</width>
        <height>17</height>
@@ -132,7 +138,7 @@
     <widget class="QCheckBox" name="checkBoxHex">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>520</x>
        <y>710</y>
        <width>81</width>
        <height>17</height>
@@ -148,7 +154,7 @@
     <widget class="QCheckBox" name="checkBoxReserved">
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>380</x>
        <y>710</y>
        <width>161</width>
        <height>17</height>
@@ -205,7 +211,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>241</width>
+       <width>321</width>
        <height>741</height>
       </rect>
      </property>
@@ -232,6 +238,12 @@
     </widget>
    </widget>
    <widget class="QWidget" name="cmdlist">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="minimumSize">
      <size>
       <width>1451</width>
@@ -241,16 +253,16 @@
     <widget class="QTableWidget" name="tableWidgetCmdlist">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>321</x>
        <y>0</y>
-       <width>751</width>
-       <height>691</height>
+       <width>1001</width>
+       <height>681</height>
       </rect>
      </property>
      <property name="maximumSize">
       <size>
-       <width>751</width>
-       <height>691</height>
+       <width>2751</width>
+       <height>3691</height>
       </size>
      </property>
      <property name="sizeAdjustPolicy">
@@ -269,6 +281,11 @@
      </column>
      <column>
       <property name="text">
+       <string>Class</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>HitCount</string>
       </property>
      </column>
@@ -281,7 +298,7 @@
     <widget class="QPushButton" name="pushButtonSU">
      <property name="geometry">
       <rect>
-       <x>290</x>
+       <x>750</x>
        <y>700</y>
        <width>151</width>
        <height>28</height>
@@ -294,7 +311,7 @@
     <widget class="QPushButton" name="pushButtonSA">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>930</x>
        <y>700</y>
        <width>93</width>
        <height>28</height>
@@ -309,7 +326,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>241</width>
+       <width>321</width>
        <height>741</height>
       </rect>
      </property>

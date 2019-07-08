@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'mainwindow.ui',
 # licensing of 'mainwindow.ui' applies.
 #
-# Created: Tue Jul  2 13:11:27 2019
+# Created: Fri Jul  5 15:23:41 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -367,10 +367,12 @@ class Ui_mainWindow(object):
         self.Width_input = QtWidgets.QLineEdit(self.layoutWidget1)
         self.Width_input.setObjectName("Width_input")
         self.gridLayout_2.addWidget(self.Width_input, 5, 2, 1, 1)
-        self.buttonBox = QtWidgets.QDialogButtonBox(self.Input)
-        self.buttonBox.setGeometry(QtCore.QRect(150, 460, 193, 28))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
+        self.pushButtonUpdate = QtWidgets.QPushButton(self.Input)
+        self.pushButtonUpdate.setGeometry(QtCore.QRect(200, 460, 101, 31))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.pushButtonUpdate.setFont(font)
+        self.pushButtonUpdate.setObjectName("pushButtonUpdate")
         self.tabWidget.addTab(self.Input, "")
         self.horizontalLayout_2.addWidget(self.tabWidget)
         self.logBrowser = QtWidgets.QTextBrowser(self.centralwidget)
@@ -441,7 +443,7 @@ class Ui_mainWindow(object):
         self.comboBoxComponent.setItemText(7, QtWidgets.QApplication.translate("mainWindow", "MSDK", None, -1))
         self.SelectRinginfoPath.setText(QtWidgets.QApplication.translate("mainWindow", "Select Folder", None, -1))
         self.label_3.setText(QtWidgets.QApplication.translate("mainWindow", "DDI Input Path ", None, -1))
-        self.SelectMediaPath.setText(QtWidgets.QApplication.translate("mainWindow", "Select Folder", None, -1))
+        self.SelectMediaPath.setText(QtWidgets.QApplication.translate("mainWindow", "Add Folder", None, -1))
         self.label_2.setText(QtWidgets.QApplication.translate("mainWindow", "Media Path", None, -1))
         self.label_8.setText(QtWidgets.QApplication.translate("mainWindow", "Frame", None, -1))
         self.SelectDDIInputPath.setText(QtWidgets.QApplication.translate("mainWindow", "Select Folder", None, -1))
@@ -459,5 +461,6 @@ class Ui_mainWindow(object):
         self.RawTileType.setText(QtWidgets.QApplication.translate("mainWindow", "RawTileType", None, -1))
         self.FrameNum.setText(QtWidgets.QApplication.translate("mainWindow", "FrameNum", None, -1))
         self.Component.setText(QtWidgets.QApplication.translate("mainWindow", "Component", None, -1))
+        self.pushButtonUpdate.setText(QtWidgets.QApplication.translate("mainWindow", "Update", None, -1))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Input), QtWidgets.QApplication.translate("mainWindow", "Input", None, -1))
 
