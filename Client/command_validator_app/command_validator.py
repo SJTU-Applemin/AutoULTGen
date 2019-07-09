@@ -7,6 +7,7 @@ from PySide2.QtCore import *
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from ui_mainwindow import Ui_mainWindow
+from ui_Addpath import Ui_Addpath
 # from ui_form import Ui_Form
 from ui_command_info import Ui_FormCommandInfo
 from lxml import etree
@@ -40,22 +41,42 @@ class MainWindow(QMainWindow):
         self.row_num = 0
 
         self.form = FormCommandInfo(self)
-        
+        self.Addpath = Addpath(self)
         #
         self.last_dir = ''
-        self.ui.SelectMediaPath.clicked.connect(partial(self.selectpath,'Media'))
+        self.ui.SelectMediaPath.clicked.connect(self.showAddpath)
         self.ui.SelectRinginfoPath.clicked.connect(partial(self.selectpath,'Ringinfo'))
         self.ui.SelectDDIInputPath.clicked.connect(partial(self.selectpath,'DDIInput'))
         self.ui.lineEditRinginfoPath.textChanged.connect(partial(self.changebg,'Ringinfo'))
         self.ui.lineEditMediaPath.textChanged.connect(partial(self.changebg,'Media'))
         self.ui.lineEditDDIInputPath.textChanged.connect(partial(self.changebg,'DDIInput'))
-
-        self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
-        self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
+        self.ui.comboBoxPlatform.currentTextChanged.connect(partial(self.selectbox,'Platform'))
+        self.ui.comboBoxComponent.currentTextChanged.connect(partial(self.selectbox,'Component'))
+        
+        #self.ui.lineEditMediaPath.setText(r'C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12_tglhp/hw;C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12/hw')
         self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
         self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
         self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
+        self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
+        self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+        
 
+    @Slot()
+    def showAddpath(self):
+        self.Addpath.show()
+        self.Addpath.activateWindow()
+        self.pathlist = self.Addpath.ui.listWidget
+        self.pathlist.clear()
+        if self.ui.lineEditMediaPath.text():
+            self.pathlist.addItems(self.ui.lineEditMediaPath.text().split(';'))
+    
+    @Slot()
+    def selectbox(self, name, text):
+        #print(text)
+        if name == 'Platform':
+            self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+        if name == 'Component':
+            self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
 
     @Slot()
     def changebg(self, name, text):
@@ -382,14 +403,23 @@ class MainWindow(QMainWindow):
         else:
             self.platform = self.ui.comboBoxPlatform.currentText()
         self.test_name = self.ui.lineEditTestName.text()
-        self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+        #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+        self.media_path = self.ui.lineEditMediaPath.text().split(';')
+        path = os.path.normpath(self.media_path[0])
+        path_list = path.split(os.sep)
+        base_media = path_list[0]
+        for i in path_list[1:]:
+            base_media = os.path.join(base_media, i)
+            if i == 'Source':
+                break
+        base_media = base_media.replace(':', ':\\')
         if self.component in ('vp', 'VP'):
-            self.output_path = self.ui.lineEditMediaPath.text() + '\\media_embargo\\media_driver_next\\ult\\windows\\vp\\test\\test_data'
+            self.output_path = os.path.join(base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
         else:
-            self.output_path = self.ui.lineEditMediaPath.text() + '\\media_embargo\\media_driver_next\\ult\\windows\\codec\\test\\test_data'
+            self.output_path = os.path.join(base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
-        self.media_path = self.ui.lineEditMediaPath.text()
+        
         self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
         self.test_name = self.ui.lineEditTestName.text()
         # build CMDFinder obj
@@ -630,8 +660,8 @@ class MainWindow(QMainWindow):
     def selectpath(self, name):
         #open file dialog and display directory in the text edit area
         dialog = QFileDialog(self)
-        dialog.setFileMode(QFileDialog.AnyFile)
-        dialog.setOptions(QFileDialog.DontUseNativeDialog)
+        #dialog.setFileMode(QFileDialog.AnyFile)
+        #dialog.setOptions(QFileDialog.DontUseNativeDialog)
         if self.last_dir:
             dir = dialog.getExistingDirectory(self, "Select %s Directory" % name,
                                            self.last_dir) 
@@ -987,6 +1017,8 @@ class FormCommandInfo(QWidget):
         row = 0
         ##print(self.main_window.obj.ringcmddic)
         for cmd, index in self.main_window.obj.ringcmddic.items():
+            if cmd == 'MI_NOOP_CMD':
+                continue
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(cmd))
             self.table.setItem(row, 1, QTableWidgetItem(self.main_window.obj.ringcmdclass[cmd]))
@@ -1087,6 +1119,109 @@ class FormCommandInfo(QWidget):
         self.showcmdlist()
         self.modifylist = [] #clear
 
+class Addpath(QWidget):
+    def __init__(self, main_window):
+        super(Addpath, self).__init__()
+        self.ui = Ui_Addpath()
+        self.ui.setupUi(self)
+        self.main_window = main_window
+        self.list = self.ui.listWidget
+        self.list.itemSelectionChanged.connect(self.selectionChanged)
+        self.last_dir = ''
+        self.currentrow = None
+        self.selected = None
+
+        self.ui.pushButtonAF.clicked.connect(self.AddFolder)
+        self.ui.pushButtonRemove.clicked.connect(self.RemoveFolder)
+        self.ui.pushButtonMtoT.clicked.connect(self.MovetoTop)
+        self.ui.pushButtonMU.clicked.connect(self.MoveUp)
+        self.ui.pushButtonMD.clicked.connect(self.MoveDown)
+        self.ui.pushButtonMtoB.clicked.connect(self.MovetoBottom)
+        self.ui.pushButtonSave.clicked.connect(self.Save)
+        #self.ui.pushButtonClose.clicked.connect(self.Close)
+    
+
+    def closeEvent(self, event):
+        event.accept()
+        self.main_window.activateWindow()
+
+
+    def selectionChanged(self):
+        #print("Selected items: ", self.list.selectedItems())
+        self.selected = self.list.selectedItems()
+        #self.list.setCurrentItem(self.list.selectedItems())
+
+
+    @Slot()
+    def AddFolder(self):
+        dialog = QFileDialog(self)
+        if self.last_dir:
+            dir = dialog.getExistingDirectory(self, "Add Search Folder",
+                                           self.last_dir) 
+        elif self.main_window.ui.lineEditMediaPath.text():
+            dir = dialog.getExistingDirectory(self, "Add Search Folder",
+                                           self.main_window.ui.lineEditMediaPath.text().split(';')[-1]) 
+        else:
+            dir = dialog.getExistingDirectory(self, "Add Search Folder",
+                                           "/home")
+        self.last_dir = dir
+        self.list.addItem(dir)
+
+    @Slot()
+    def RemoveFolder(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+
+    @Slot()
+    def MovetoTop(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(0, currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def MoveUp(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(currentRow - 1, currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def MoveDown(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(currentRow + 1, currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def MovetoBottom(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(self.list.count(), currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def Save(self):
+        items = []
+        for i in range(self.list.count()):
+            items.append(self.list.item(i).text())
+        self.main_window.ui.lineEditMediaPath.setText(';'.join(items))
+
+    @Slot()
+    def Close(self):
+        pass
+
+
 
         
 
@@ -1098,4 +1233,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     main_window = MainWindow()
     main_window.show()
+    main_window.activateWindow()
     sys.exit(app.exec_())

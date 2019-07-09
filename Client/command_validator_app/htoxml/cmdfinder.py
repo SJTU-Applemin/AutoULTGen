@@ -641,28 +641,30 @@ class CmdFinder(object):
         #convert header to xml
         #use header_parser tool
         
-        parser_list = []
-        for r,d,f in os.walk(self.source):
-            #modify target file
-            #if r'\ult\agnostic\test' not in r:
-            if r'\ult\agnostic\test' in r:
-                continue
-            for thing in f:
-                # filter all mhw cmd header file
-                #if thing.startswith('mhw_') and re.search('g\d', thing) and thing.endswith('.h'):
-                if self.gen != 'all':
-                    if thing.startswith('mhw_') and re.search(f'g{self.gen}', thing) and thing.endswith('.h'):
-                        parser_list.append(HeaderParser(thing, r))
-                else:
-                    if thing.startswith('mhw_') and thing.endswith('.h'):
-                        parser_list.append(HeaderParser(thing, r))
+        
+        for source in self.source:
+            parser_list = []
+            for r,d,f in os.walk(source):
+                #modify target file
+                #if r'\ult\agnostic\test' not in r:
+                if r'\ult\agnostic\test' in r:
+                    continue
+                for thing in f:
+                    # filter all mhw cmd header file
+                    #if thing.startswith('mhw_') and re.search('g\d', thing) and thing.endswith('.h'):
+                    if self.gen != 'all':
+                        if thing.startswith('mhw_') and re.search(f'g{self.gen}', thing) and thing.endswith('.h'):
+                            parser_list.append(HeaderParser(thing, r))
+                    else:
+                        if thing.startswith('mhw_') and thing.endswith('.h'):
+                            parser_list.append(HeaderParser(thing, r))
 
-        for item in parser_list:
-            item.read_file()
-            #Do not create xml file for each h file, instead save in buf str
-            #item.write_xml()
-            root = ET.fromstring(item.parse_file_info())
-            self.Buf.append(copy.deepcopy(root))
+            for item in parser_list:
+                item.read_file()
+                #Do not create xml file for each h file, instead save in buf str
+                #item.write_xml()
+                root = ET.fromstring(item.parse_file_info())
+                self.Buf.append(copy.deepcopy(root))
         return self.Buf
 
     def findbitval(self, binv_list, bit_item, dw_no, base_dw_no = ''):
@@ -763,7 +765,7 @@ class CmdFinder(object):
 #----------------------------------------------------------------
 #ringpath = r'C:\projects\github\AutoULTGen\cmd_validation\vcstringinfo\HEVC-VDENC-Grits001 - 1947\VcsRingInfo'
 #gen = 12
-#source = r'C:\Users\jiny\gfx\gfx-driver\Source\media'
+#source = [r'C:\Users\jiny\gfx\gfx-driver\Source\media', ...]
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
