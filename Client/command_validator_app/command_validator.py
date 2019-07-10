@@ -8,6 +8,8 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from ui_mainwindow import Ui_mainWindow
 from ui_Addpath import Ui_Addpath
+from get_enum_member import GetEnumMember
+from extended_combobox import ExtendedComboBox
 # from ui_form import Ui_Form
 from ui_command_info import Ui_FormCommandInfo
 from lxml import etree
@@ -26,7 +28,8 @@ class MainWindow(QMainWindow):
         #self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
         self.ui.pushButtonUpdate.clicked.connect(self.addHeader)
 
-        self.media_path = ''
+        self.media_path = '' # split by ';'
+        self.base_media = '' # end in file /source 
         self.Buf = None 
         self.command_info = []
         self.command_tags = ('DW0_dwlen', 'class', 'def_dwSize', 'index', 'input_dwsize', 'name')
@@ -52,6 +55,8 @@ class MainWindow(QMainWindow):
         self.ui.lineEditDDIInputPath.textChanged.connect(partial(self.changebg,'DDIInput'))
         self.ui.comboBoxPlatform.currentTextChanged.connect(partial(self.selectbox,'Platform'))
         self.ui.comboBoxComponent.currentTextChanged.connect(partial(self.selectbox,'Component'))
+
+        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
         
         #self.ui.lineEditMediaPath.setText(r'C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12_tglhp/hw;C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12/hw')
         self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
@@ -109,20 +114,40 @@ class MainWindow(QMainWindow):
             msgBox.exec_()
 
         else:
+
+            #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+            self.media_path = self.ui.lineEditMediaPath.text().split(';')
+            path = os.path.normpath(self.media_path[0])
+            path_list = path.split(os.sep)
+            base_media = path_list[0]
+            for i in path_list[1:]:
+                base_media = os.path.join(base_media, i)
+                if i == 'Source':
+                    break
+            self.base_media = base_media.replace(':', ':\\')
+
+            self.fillcombobox()
+
+        
+            self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
+            self.test_name = self.ui.lineEditTestName.text()
+
             self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
             self.ui.Component_input.setText(self.ui.lineEditComponent.text())
             self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
             self.ui.Width_input.setText('256')
             self.ui.Height_input.setText('192')
-            self.ui.RawTileType_input.setText('1')
-            self.ui.RawFormat_input.setText('25')
-            self.ui.ResTileType_input.setText('4')
-            self.ui.ResFormat_input.setText('62')
-            self.ui.EncFunc_input.setText('4')
             self.ui.FrameNum_input.setReadOnly(True)
             #self.ui.FrameNum_input.setText('1')
             self.FrameNumdiff = 0
             self.ui.tabWidget.setCurrentIndex(1)
+    
+
+    def fillcombobox(self):
+        input_combo_obj = GetEnumMember(self.base_media)
+        input_combo_obj.read_files()
+        #self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+        self.ui.comboBoxEncFunc.addItems(list(input_combo_obj.output['tagENCODE_FUNC'].keys()))
 
     @Slot()
     def generate_from_bspec(self):
@@ -412,11 +437,11 @@ class MainWindow(QMainWindow):
             base_media = os.path.join(base_media, i)
             if i == 'Source':
                 break
-        base_media = base_media.replace(':', ':\\')
+        self.base_media = base_media.replace(':', ':\\')
         if self.component in ('vp', 'VP'):
-            self.output_path = os.path.join(base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
+            self.output_path = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
         else:
-            self.output_path = os.path.join(base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+            self.output_path = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
         
@@ -1017,7 +1042,7 @@ class FormCommandInfo(QWidget):
         row = 0
         ##print(self.main_window.obj.ringcmddic)
         for cmd, index in self.main_window.obj.ringcmddic.items():
-            if cmd == 'MI_NOOP_CMD':
+            if cmd == 'MI_NOOP':
                 continue
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(cmd))
@@ -1220,10 +1245,6 @@ class Addpath(QWidget):
     @Slot()
     def Close(self):
         pass
-
-
-
-        
 
 def item_text_to_dec(s):
     if s.startswith('0x'):
