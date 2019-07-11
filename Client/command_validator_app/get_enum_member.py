@@ -58,11 +58,12 @@ class GetEnumMember(object):
                 print('Not Found %s' %self.filename)
 
             start = False
-            enum_dic = OrderedDict()
+            
             for index, line in enumerate(self.lines):
                 line = line.strip()
                 if not start and [enum for enum in self.enumname[self.filename] if re.search('^typedef enum %s\s*{?$'% enum, line)]:
                     self.group = re.search('^typedef enum (.*)', line).group(1)
+                    enum_dic = OrderedDict()
                     start = True    #find target enum
                     pre_v = -1
                     continue

@@ -11,7 +11,7 @@ RawFormat = 25
 ResTileType = 4
 #Format_Buffer
 ResFormat = 62
-#ENCODE_ENC_PAK, 4
+#ENCODE_ENC_PAK
 EncFunc = 4
 FrameNum = 3
 <Frame No=0  Param=Slc >

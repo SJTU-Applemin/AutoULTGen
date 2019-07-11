@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
         self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD')
         self.command_filter = {'MI_NOOP_CMD', 'MI_NOOP'}
         self.ringinfo_path = ''
-        self.output_path = ''
+        self.workspace = ''
         self.command_xml = ''
         self.test_name = ''
         self.platform = ''
@@ -56,14 +56,17 @@ class MainWindow(QMainWindow):
         self.ui.comboBoxPlatform.currentTextChanged.connect(partial(self.selectbox,'Platform'))
         self.ui.comboBoxComponent.currentTextChanged.connect(partial(self.selectbox,'Component'))
 
-        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
         
+        self.ui.tabWidget.setCurrentIndex(0)
+
         #self.ui.lineEditMediaPath.setText(r'C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12_tglhp/hw;C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12/hw')
+        self.ui.lineEditTestName.setText('encodeHevcCQP')
         self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
         self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
         self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+        
         
 
     @Slot()
@@ -82,6 +85,31 @@ class MainWindow(QMainWindow):
             self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
         if name == 'Component':
             self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
+        if name == 'RawTileType':
+            if self.ui.comboBoxRawTT.currentText() in self.input_combo_obj.output['_MOS_TILE_TYPE']:
+                self.ui.RawTT_value.setText(str(self.input_combo_obj.output['_MOS_TILE_TYPE'][self.ui.comboBoxRawTT.currentText()]))
+            else:
+                self.ui.RawTT_value.setText('')
+        if name == 'ResTileType':
+            if self.ui.comboBoxResTT.currentText() in self.input_combo_obj.output['_MOS_TILE_TYPE']:
+                self.ui.ResTT_value.setText(str(self.input_combo_obj.output['_MOS_TILE_TYPE'][self.ui.comboBoxResTT.currentText()]))
+            else:
+                self.ui.ResTT_value.setText('')
+        if name == 'RawFormat':
+            if self.ui.comboBoxRawF.currentText() in self.input_combo_obj.output['_MOS_FORMAT']:
+                self.ui.RawF_value.setText(str(self.input_combo_obj.output['_MOS_FORMAT'][self.ui.comboBoxRawF.currentText()]))
+            else:
+                self.ui.RawF_value.setText('')
+        if name == 'ResFormat':
+            if self.ui.comboBoxResF.currentText() in self.input_combo_obj.output['_MOS_FORMAT']:
+                self.ui.ResF_value.setText(str(self.input_combo_obj.output['_MOS_FORMAT'][self.ui.comboBoxResF.currentText()]))
+            else:
+                self.ui.ResF_value.setText('')
+        if name == 'EncFunc':
+            if self.ui.comboBoxEncFunc.currentText() in self.input_combo_obj.output['tagENCODE_FUNC']:
+                self.ui.EncFunc_value.setText(str(self.input_combo_obj.output['tagENCODE_FUNC'][self.ui.comboBoxEncFunc.currentText()]))
+            else:
+                self.ui.EncFunc_value.setText('')
 
     @Slot()
     def changebg(self, name, text):
@@ -116,38 +144,91 @@ class MainWindow(QMainWindow):
         else:
 
             #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
-            self.media_path = self.ui.lineEditMediaPath.text().split(';')
-            path = os.path.normpath(self.media_path[0])
-            path_list = path.split(os.sep)
-            base_media = path_list[0]
-            for i in path_list[1:]:
-                base_media = os.path.join(base_media, i)
-                if i == 'Source':
-                    break
-            self.base_media = base_media.replace(':', ':\\')
-
+            #self.media_path = self.ui.lineEditMediaPath.text().split(';')
+            #path = os.path.normpath(self.media_path[0])
+            #path_list = path.split(os.sep)
+            #base_media = path_list[0]
+            #for i in path_list[1:]:
+            #    base_media = os.path.join(base_media, i)
+            #    if i == 'Source':
+            #        break
+            #self.base_media = base_media.replace(':', ':\\')
+            self.read_info_from_ui()
             self.fillcombobox()
-
+            self.checkinputexist()
         
-            self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
-            self.test_name = self.ui.lineEditTestName.text()
-
             self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
             self.ui.Component_input.setText(self.ui.lineEditComponent.text())
-            self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
-            self.ui.Width_input.setText('256')
-            self.ui.Height_input.setText('192')
+            #self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
+            #self.ui.Width_input.setText('256')
+            #self.ui.Height_input.setText('192')
             self.ui.FrameNum_input.setReadOnly(True)
             #self.ui.FrameNum_input.setText('1')
             self.FrameNumdiff = 0
             self.ui.tabWidget.setCurrentIndex(1)
     
+    def checkinputexist(self):
+        self.inputfilename = self.test_name+'Input.dat'
+        with open(os.path.join(self.output_path, self.inputfilename), 'r',  encoding="ISO-8859-1") as fin:
+            lines = fin.readlines()
+        if not lines:
+            print('Not Found %s' %self.filename)
+            self.ui.pushButtonUpdate.setText('Generate')
+        else:
+            pattern = re.search('''<Header>
+Component = ([a-zA-Z0-9_\-]*)
+GUID = ([a-zA-Z0-9_\-]*)
+Width = ([a-zA-Z0-9_\-]*)
+Height = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+RawTileType = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+RawFormat = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+ResTileType = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+ResFormat = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+EncFunc = ([a-zA-Z0-9_\-]*)
+FrameNum = ([a-zA-Z0-9_\-]*)
+''', ''.join(lines))
+            if pattern and len(pattern.groups()) == 15:
+                self.ui.Component_input.setText(pattern.group(1))
+                if pattern.group(1) != self.ui.lineEditComponent.text():
+                    self.ui.Component_input.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+                self.ui.GUID_input.setText(pattern.group(2))
+                self.ui.Width_input.setText(pattern.group(3))
+                self.ui.Height_input.setText(pattern.group(4))
+                self.ui.comboBoxRawTT.setCurrentText(pattern.group(5))
+                self.ui.comboBoxRawF.setCurrentText(pattern.group(7))
+                self.ui.comboBoxResTT.setCurrentText(pattern.group(9))
+                self.ui.comboBoxResF.setCurrentText(pattern.group(11))
+                self.ui.comboBoxEncFunc.setCurrentText(pattern.group(13))
+                self.ui.FrameNum_input.setText(pattern.group(15))
+            else:
+                self.ui.pushButtonUpdate.setText('Generate')
+
 
     def fillcombobox(self):
-        input_combo_obj = GetEnumMember(self.base_media)
-        input_combo_obj.read_files()
+        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+        self.ui.comboBoxResF = ExtendedComboBox(self.ui.comboBoxResF)
+        self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
+        self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
+        self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
+        self.ui.comboBoxEncFunc.currentTextChanged.connect(partial(self.selectbox,'EncFunc'))
+        self.ui.comboBoxResF.currentTextChanged.connect(partial(self.selectbox,'ResFormat'))
+        self.ui.comboBoxResTT.currentTextChanged.connect(partial(self.selectbox,'ResTileType'))
+        self.ui.comboBoxRawF.currentTextChanged.connect(partial(self.selectbox,'RawFormat'))
+        self.ui.comboBoxRawTT.currentTextChanged.connect(partial(self.selectbox,'RawTileType'))
+
+        self.input_combo_obj = GetEnumMember(self.base_media)
+        self.input_combo_obj.read_files()
         #self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
-        self.ui.comboBoxEncFunc.addItems(list(input_combo_obj.output['tagENCODE_FUNC'].keys()))
+        self.ui.comboBoxEncFunc.addItems([''] + list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()))
+        self.ui.comboBoxResF.addItems([''] + list(self.input_combo_obj.output['_MOS_FORMAT'].keys()))
+        self.ui.comboBoxResTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
+        self.ui.comboBoxRawF.addItems([''] + list(self.input_combo_obj.output['_MOS_FORMAT'].keys()))
+        self.ui.comboBoxRawTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
 
     @Slot()
     def generate_from_bspec(self):
@@ -411,12 +492,13 @@ class MainWindow(QMainWindow):
             msgBox.exec_()
         self.obj.writexml(self.output_path)
         elapsed = (time.clock() - start)
-        print("Total Time used:",elapsed)
+        #print("Total Time used:",elapsed)
         #
         #print('end parse command file')
-        self.ui.logBrowser.append("Total Time used:"+ str(elapsed) +'\n')
-        self.ui.logBrowser.append('End parse vcs ring info\n')
-        self.ui.logBrowser.append('Save xml in '+ self.ringinfo_path + '\n')
+        #self.ui.logBrowser.append("Total Time used:"+ str(elapsed) +'\n')
+        #self.ui.logBrowser.append('End parse vcs ring info\n')
+        #self.ui.logBrowser.append('Save xml in '+ self.ringinfo_path + '\n')
+        self.ui.logBrowser.append('Save original mapringinfo.xml\n')
 
     def read_info_from_ui(self):
         if self.ui.lineEditComponent.text():
@@ -439,19 +521,18 @@ class MainWindow(QMainWindow):
                 break
         self.base_media = base_media.replace(':', ':\\')
         if self.component in ('vp', 'VP'):
-            self.output_path = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
+            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
         else:
-            self.output_path = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+        
+        self.output_path = os.path.join(self.workspace, self.test_name)
+        # create single folder for each testname
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
+        self.ui.logBrowser.append('All the following output will be saved in workspace:\n%s\n'  %self.output_path)
         
         self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
-        self.test_name = self.ui.lineEditTestName.text()
-        # build CMDFinder obj
-        if self.Buf:
-            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf)
-        else:
-            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
+
         
 
     def read_command_info_from_xml(self):
@@ -539,7 +620,7 @@ class MainWindow(QMainWindow):
         self.dw_length_check()
         self.ui.lineEditFrame.setText(str(len(frames)))
 
-        self.ui.logBrowser.append('Read infomation from ' + self.command_xml + '\n')
+        self.ui.logBrowser.append('Read infomation from mapringinfo.xml\n')
         self.form.info = self.command_info
         ##print(self.command_info)
         self.show_command_info()
@@ -677,8 +758,8 @@ class MainWindow(QMainWindow):
         file_name = self.test_name + '.xml'
         with open(self.output_path + '\\' + file_name, 'w') as fout:
             fout.writelines(lines)
-        self.ui.logBrowser.append('Generating modified command xml' + self.output_path + '\\' + file_name + '\n')
-        self.show_message('Generating modified command xml' + self.output_path + '\\' + file_name + '\n', '')
+        self.ui.logBrowser.append('Generating modified command xml %s\n' %file_name )
+        self.show_message('Generating modified command xml %s\n' % file_name )
 
     #
     @Slot()
@@ -706,18 +787,18 @@ class MainWindow(QMainWindow):
     @Slot()
     def addHeader(self):
         # click OK, generate xml header
-        self.read_info_from_ui()
+        #self.read_info_from_ui()
         
         self.Component = self.ui.Component_input.text()
         self.GUID = self.ui.GUID_input.text()
         self.Width = self.ui.Width_input.text()
         self.Height = self.ui.Height_input.text()
         self.inputpath = self.ui.InputPathText.text()
-        self.RawTileType = self.ui.RawTileType_input.text()
-        self.RawFormat = self.ui.RawFormat_input.text()
-        self.ResTileType = self.ui.ResTileType_input.text()
-        self.ResFormat = self.ui.ResFormat_input.text()
-        self.EncFunc = self.ui.EncFunc_input.text()
+        self.RawTileType = self.ui.RawTT_value.text()
+        self.RawFormat = self.ui.RawF_value.text()
+        self.ResTileType = self.ui.ResTT_value.text()
+        self.ResFormat = self.ui.ResF_value.text()
+        self.EncFunc = self.ui.EncFunc_value.text()
         self.FrameNum = self.ui.FrameNum_input.text()
         # get real Frame Number according to input files
         self.cpfiles()
@@ -737,12 +818,18 @@ class MainWindow(QMainWindow):
         self.ui.FrameNum_input.setText(self.FrameNum)
         # combine input files and parameters
         self.combine()
-        self.ui.logBrowser.append("The input file has been generated in " + self.output_path +".\n")
+        self.ui.logBrowser.append("Generate input file: %s\n" %self.inputfilename)
         #pop out message box
         #msgBox = QMessageBox()
         #msgBox.setText("The input file has been generated.")
         #msgBox.exec_()
-        
+
+
+        # build CMDFinder obj
+        if self.Buf:
+            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf)
+        else:
+            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
         
         self.parse_command_file()
         self.read_command_info_from_xml()
@@ -774,33 +861,39 @@ class MainWindow(QMainWindow):
     def combine(self):
         #combine ddi_input text files and add header infomation
         
-        with open(os.path.join(self.output_path, 'encodeHevcCQPInput.dat'),'w') as wfd:
+        with open(os.path.join(self.output_path, self.inputfilename),'w') as wfd:
             #wfd.write('<Header Component=%s  GUID=%s Width=%s Height=%s OutputFormat=%s>\n' % (self.Component, self.GUID, self.Width, self.Height, self.OutputFormat))
             wfd.write(f'''<Header>
 Component = {self.Component}
 GUID = DXVA2_Intel_LowpowerEncode_HEVC_Main
 Width = {self.Width}
 Height = {self.Height}
-#MOS_TILE_Y
+#{self.ui.comboBoxRawTT.currentText()}
 RawTileType = {self.RawTileType}
-#Format_NV12
+#{self.ui.comboBoxRawF.currentText()}
 RawFormat = {self.RawFormat}
-#MOS_TILE_LINEAR
+#{self.ui.comboBoxResTT.currentText()}
 ResTileType = {self.ResTileType}
-#Format_Buffer
+#{self.ui.comboBoxResF.currentText()}
 ResFormat = {self.ResFormat}
-#ENCODE_ENC_PAK, 4
+#{self.ui.comboBoxEncFunc.currentText()}
 EncFunc = {self.EncFunc}
 FrameNum = {self.FrameNum}
 ''')
             #wfd.write('</Header>')
              
             for f in os.listdir(self.inputpath):
-                pattern = re.search('^(\d)-0.*DDIEnc_(.*)Params_._Frame', f)
+                pattern = re.search('^(\d)-0_(\d)?.*DDIEnc_(.*)Params_._Frame', f)
+                
                 if pattern:
+                    length = len(pattern.groups())
                     FrameNo = str(int(pattern.group(1))-self.FrameNumdiff)
-                    ParaGroup = pattern.group(2)
-                    wfd.write('<Frame No=%s  Param=%s >\n' % (FrameNo, ParaGroup))
+                    ParaGroup = pattern.group(length)
+                    if length == 3:
+                        slcindex = pattern.group(2)
+                        wfd.write('<Frame No=%s  Param=%s Index=%s>\n' % (FrameNo, ParaGroup, slcindex))
+                    else:
+                        wfd.write('<Frame No=%s  Param=%s >\n' % (FrameNo, ParaGroup))
                     with open(os.path.join(self.inputpath, f), 'r') as file:
                         content = file.readlines()
                         new_content = []
