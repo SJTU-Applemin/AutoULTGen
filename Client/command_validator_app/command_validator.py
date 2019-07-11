@@ -7,6 +7,9 @@ from PySide2.QtCore import *
 from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from ui_mainwindow import Ui_mainWindow
+from ui_Addpath import Ui_Addpath
+from get_enum_member import GetEnumMember
+from extended_combobox import ExtendedComboBox
 # from ui_form import Ui_Form
 from ui_command_info import Ui_FormCommandInfo
 from lxml import etree
@@ -22,17 +25,18 @@ class MainWindow(QMainWindow):
         self.ui = Ui_mainWindow()
         self.ui.setupUi(self)
         self.ui.pushButtonGAll.clicked.connect(self.fillinput)
-        self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
+        #self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
         self.ui.pushButtonUpdate.clicked.connect(self.addHeader)
 
-        self.media_path = ''
+        self.media_path = '' # split by ';'
+        self.base_media = '' # end in file /source 
         self.Buf = None 
         self.command_info = []
         self.command_tags = ('DW0_dwlen', 'class', 'def_dwSize', 'index', 'input_dwsize', 'name')
         self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD')
         self.command_filter = {'MI_NOOP_CMD', 'MI_NOOP'}
         self.ringinfo_path = ''
-        self.output_path = ''
+        self.workspace = ''
         self.command_xml = ''
         self.test_name = ''
         self.platform = ''
@@ -40,34 +44,191 @@ class MainWindow(QMainWindow):
         self.row_num = 0
 
         self.form = FormCommandInfo(self)
-        
+        self.Addpath = Addpath(self)
         #
         self.last_dir = ''
-        self.ui.SelectMediaPath.clicked.connect(partial(self.selectpath,'Media'))
+        self.ui.SelectMediaPath.clicked.connect(self.showAddpath)
         self.ui.SelectRinginfoPath.clicked.connect(partial(self.selectpath,'Ringinfo'))
         self.ui.SelectDDIInputPath.clicked.connect(partial(self.selectpath,'DDIInput'))
+        self.ui.lineEditRinginfoPath.textChanged.connect(partial(self.changebg,'Ringinfo'))
+        self.ui.lineEditMediaPath.textChanged.connect(partial(self.changebg,'Media'))
+        self.ui.lineEditDDIInputPath.textChanged.connect(partial(self.changebg,'DDIInput'))
+        self.ui.comboBoxPlatform.currentTextChanged.connect(partial(self.selectbox,'Platform'))
+        self.ui.comboBoxComponent.currentTextChanged.connect(partial(self.selectbox,'Component'))
 
+        
+        self.ui.tabWidget.setCurrentIndex(0)
+
+        #self.ui.lineEditMediaPath.setText(r'C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12_tglhp/hw;C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12/hw')
+        self.ui.lineEditTestName.setText('encodeHevcCQP')
         self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
         self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
         self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
+        self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
+        self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+        
+        
+
+    @Slot()
+    def showAddpath(self):
+        self.Addpath.show()
+        self.Addpath.activateWindow()
+        self.pathlist = self.Addpath.ui.listWidget
+        self.pathlist.clear()
+        if self.ui.lineEditMediaPath.text():
+            self.pathlist.addItems(self.ui.lineEditMediaPath.text().split(';'))
+    
+    @Slot()
+    def selectbox(self, name, text):
+        #print(text)
+        if name == 'Platform':
+            self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+        if name == 'Component':
+            self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
+        if name == 'RawTileType':
+            if self.ui.comboBoxRawTT.currentText() in self.input_combo_obj.output['_MOS_TILE_TYPE']:
+                self.ui.RawTT_value.setText(str(self.input_combo_obj.output['_MOS_TILE_TYPE'][self.ui.comboBoxRawTT.currentText()]))
+            else:
+                self.ui.RawTT_value.setText('')
+        if name == 'ResTileType':
+            if self.ui.comboBoxResTT.currentText() in self.input_combo_obj.output['_MOS_TILE_TYPE']:
+                self.ui.ResTT_value.setText(str(self.input_combo_obj.output['_MOS_TILE_TYPE'][self.ui.comboBoxResTT.currentText()]))
+            else:
+                self.ui.ResTT_value.setText('')
+        if name == 'RawFormat':
+            if self.ui.comboBoxRawF.currentText() in self.input_combo_obj.output['_MOS_FORMAT']:
+                self.ui.RawF_value.setText(str(self.input_combo_obj.output['_MOS_FORMAT'][self.ui.comboBoxRawF.currentText()]))
+            else:
+                self.ui.RawF_value.setText('')
+        if name == 'ResFormat':
+            if self.ui.comboBoxResF.currentText() in self.input_combo_obj.output['_MOS_FORMAT']:
+                self.ui.ResF_value.setText(str(self.input_combo_obj.output['_MOS_FORMAT'][self.ui.comboBoxResF.currentText()]))
+            else:
+                self.ui.ResF_value.setText('')
+        if name == 'EncFunc':
+            if self.ui.comboBoxEncFunc.currentText() in self.input_combo_obj.output['tagENCODE_FUNC']:
+                self.ui.EncFunc_value.setText(str(self.input_combo_obj.output['tagENCODE_FUNC'][self.ui.comboBoxEncFunc.currentText()]))
+            else:
+                self.ui.EncFunc_value.setText('')
+
+    @Slot()
+    def changebg(self, name, text):
+        #print(text)
+        if name == 'Media':
+            self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+        if name == 'DDIInput':
+            self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+        if name == 'Ringinfo':
+            self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
 
     @Slot()
     def fillinput(self):
-        
         #self.ui.buttonBox.rejected.connect(self.reject)
-        self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
-        self.ui.Component_input.setText(self.ui.lineEditComponent.text())
-        self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
-        self.ui.Width_input.setText('256')
-        self.ui.Height_input.setText('192')
-        self.ui.RawTileType_input.setText('1')
-        self.ui.RawFormat_input.setText('25')
-        self.ui.ResTileType_input.setText('4')
-        self.ui.ResFormat_input.setText('62')
-        self.ui.EncFunc_input.setText('4')
-        self.ui.FrameNum_input.setReadOnly(True)
-        #self.ui.FrameNum_input.setText('1')
-        self.FrameNumdiff = 0
+        blank = []
+        if not self.ui.lineEditRinginfoPath.text():
+            self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
+            blank.append('Ringinfo')
+        if not self.ui.lineEditDDIInputPath.text():
+            self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
+            blank.append('DDIInput')
+        if not self.ui.lineEditMediaPath.text():
+            self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
+            blank.append('Media')
+
+        if blank:
+            msgBox = QMessageBox()
+            str = ', '.join(blank)
+            msgBox.setText("Please fill %s Path!"% str)
+            msgBox.exec_()
+
+        else:
+
+            #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+            #self.media_path = self.ui.lineEditMediaPath.text().split(';')
+            #path = os.path.normpath(self.media_path[0])
+            #path_list = path.split(os.sep)
+            #base_media = path_list[0]
+            #for i in path_list[1:]:
+            #    base_media = os.path.join(base_media, i)
+            #    if i == 'Source':
+            #        break
+            #self.base_media = base_media.replace(':', ':\\')
+            self.read_info_from_ui()
+            self.fillcombobox()
+            self.checkinputexist()
+        
+            self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
+            self.ui.Component_input.setText(self.ui.lineEditComponent.text())
+            #self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
+            #self.ui.Width_input.setText('256')
+            #self.ui.Height_input.setText('192')
+            self.ui.FrameNum_input.setReadOnly(True)
+            #self.ui.FrameNum_input.setText('1')
+            self.FrameNumdiff = 0
+            self.ui.tabWidget.setCurrentIndex(1)
+    
+    def checkinputexist(self):
+        self.inputfilename = self.test_name+'Input.dat'
+        with open(os.path.join(self.output_path, self.inputfilename), 'r',  encoding="ISO-8859-1") as fin:
+            lines = fin.readlines()
+        if not lines:
+            print('Not Found %s' %self.filename)
+            self.ui.pushButtonUpdate.setText('Generate')
+        else:
+            pattern = re.search('''<Header>
+Component = ([a-zA-Z0-9_\-]*)
+GUID = ([a-zA-Z0-9_\-]*)
+Width = ([a-zA-Z0-9_\-]*)
+Height = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+RawTileType = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+RawFormat = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+ResTileType = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+ResFormat = ([a-zA-Z0-9_\-]*)
+#([a-zA-Z0-9_\-]*)
+EncFunc = ([a-zA-Z0-9_\-]*)
+FrameNum = ([a-zA-Z0-9_\-]*)
+''', ''.join(lines))
+            if pattern and len(pattern.groups()) == 15:
+                self.ui.Component_input.setText(pattern.group(1))
+                if pattern.group(1) != self.ui.lineEditComponent.text():
+                    self.ui.Component_input.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+                self.ui.GUID_input.setText(pattern.group(2))
+                self.ui.Width_input.setText(pattern.group(3))
+                self.ui.Height_input.setText(pattern.group(4))
+                self.ui.comboBoxRawTT.setCurrentText(pattern.group(5))
+                self.ui.comboBoxRawF.setCurrentText(pattern.group(7))
+                self.ui.comboBoxResTT.setCurrentText(pattern.group(9))
+                self.ui.comboBoxResF.setCurrentText(pattern.group(11))
+                self.ui.comboBoxEncFunc.setCurrentText(pattern.group(13))
+                self.ui.FrameNum_input.setText(pattern.group(15))
+            else:
+                self.ui.pushButtonUpdate.setText('Generate')
+
+
+    def fillcombobox(self):
+        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+        self.ui.comboBoxResF = ExtendedComboBox(self.ui.comboBoxResF)
+        self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
+        self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
+        self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
+        self.ui.comboBoxEncFunc.currentTextChanged.connect(partial(self.selectbox,'EncFunc'))
+        self.ui.comboBoxResF.currentTextChanged.connect(partial(self.selectbox,'ResFormat'))
+        self.ui.comboBoxResTT.currentTextChanged.connect(partial(self.selectbox,'ResTileType'))
+        self.ui.comboBoxRawF.currentTextChanged.connect(partial(self.selectbox,'RawFormat'))
+        self.ui.comboBoxRawTT.currentTextChanged.connect(partial(self.selectbox,'RawTileType'))
+
+        self.input_combo_obj = GetEnumMember(self.base_media)
+        self.input_combo_obj.read_files()
+        #self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+        self.ui.comboBoxEncFunc.addItems([''] + list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()))
+        self.ui.comboBoxResF.addItems([''] + list(self.input_combo_obj.output['_MOS_FORMAT'].keys()))
+        self.ui.comboBoxResTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
+        self.ui.comboBoxRawF.addItems([''] + list(self.input_combo_obj.output['_MOS_FORMAT'].keys()))
+        self.ui.comboBoxRawTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
 
     @Slot()
     def generate_from_bspec(self):
@@ -302,6 +463,7 @@ class MainWindow(QMainWindow):
         # table.resizeColumnsToContents()
         # table.resizeRowsToContents()
         self.form.show()
+        self.form.activateWindow()
 
 
     @Slot(int)
@@ -309,7 +471,7 @@ class MainWindow(QMainWindow):
         print(row_id)
 
     def parse_command_file(self):
-        print('begin parse command file')
+        #print('begin parse command file')
         self.ui.logBrowser.append('Begin parse vcs ring info\n')
         self.ui.logBrowser.append('It may take about 30 seconds to finish parsing.\n')
         QCoreApplication.processEvents()
@@ -324,13 +486,19 @@ class MainWindow(QMainWindow):
         if not self.Buf:
             self.Buf = self.obj.h2xml()
         self.obj.extractfull()
+        if not self.obj.Frame_Num:
+            msgBox = QMessageBox()
+            msgBox.setText("Ringinfo path doesn't contain target files!(e.g. 1-VcsRingInfo_0_0.txt)")
+            msgBox.exec_()
         self.obj.writexml(self.output_path)
         elapsed = (time.clock() - start)
-        print("Total Time used:",elapsed)
+        #print("Total Time used:",elapsed)
         #
-        print('end parse command file')
-        self.ui.logBrowser.append('End parse vcs ring info\n')
-        self.ui.logBrowser.append('Save xml in '+ self.ringinfo_path + '\n')
+        #print('end parse command file')
+        #self.ui.logBrowser.append("Total Time used:"+ str(elapsed) +'\n')
+        #self.ui.logBrowser.append('End parse vcs ring info\n')
+        #self.ui.logBrowser.append('Save xml in '+ self.ringinfo_path + '\n')
+        self.ui.logBrowser.append('Save original mapringinfo.xml\n')
 
     def read_info_from_ui(self):
         if self.ui.lineEditComponent.text():
@@ -342,21 +510,29 @@ class MainWindow(QMainWindow):
         else:
             self.platform = self.ui.comboBoxPlatform.currentText()
         self.test_name = self.ui.lineEditTestName.text()
-        self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+        #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+        self.media_path = self.ui.lineEditMediaPath.text().split(';')
+        path = os.path.normpath(self.media_path[0])
+        path_list = path.split(os.sep)
+        base_media = path_list[0]
+        for i in path_list[1:]:
+            base_media = os.path.join(base_media, i)
+            if i == 'Source':
+                break
+        self.base_media = base_media.replace(':', ':\\')
         if self.component in ('vp', 'VP'):
-            self.output_path = self.ui.lineEditMediaPath.text() + '\\media_embargo\\media_driver_next\\ult\\windows\\vp\\test\\test_data'
+            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
         else:
-            self.output_path = self.ui.lineEditMediaPath.text() + '\\media_embargo\\media_driver_next\\ult\\windows\\codec\\test\\test_data'
+            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+        
+        self.output_path = os.path.join(self.workspace, self.test_name)
+        # create single folder for each testname
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
-        self.media_path = self.ui.lineEditMediaPath.text()
+        self.ui.logBrowser.append('All the following output will be saved in workspace:\n%s\n'  %self.output_path)
+        
         self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
-        self.test_name = self.ui.lineEditTestName.text()
-        # build CMDFinder obj
-        if self.Buf:
-            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf)
-        else:
-            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
+
         
 
     def read_command_info_from_xml(self):
@@ -444,7 +620,7 @@ class MainWindow(QMainWindow):
         self.dw_length_check()
         self.ui.lineEditFrame.setText(str(len(frames)))
 
-        self.ui.logBrowser.append('Read infomation from ' + self.command_xml + '\n')
+        self.ui.logBrowser.append('Read infomation from mapringinfo.xml\n')
         self.form.info = self.command_info
         ##print(self.command_info)
         self.show_command_info()
@@ -582,23 +758,22 @@ class MainWindow(QMainWindow):
         file_name = self.test_name + '.xml'
         with open(self.output_path + '\\' + file_name, 'w') as fout:
             fout.writelines(lines)
-        self.ui.logBrowser.append('Generating modified command xml' + self.output_path + '\\' + file_name + '\n')
-        self.show_message('Generating modified command xml' + self.output_path + '\\' + file_name + '\n', '')
+        self.ui.logBrowser.append('Generating modified command xml %s\n' %file_name )
+        self.show_message('Generating modified command xml %s\n' % file_name )
 
     #
     @Slot()
     def selectpath(self, name):
         #open file dialog and display directory in the text edit area
+        dialog = QFileDialog(self)
+        #dialog.setFileMode(QFileDialog.AnyFile)
+        #dialog.setOptions(QFileDialog.DontUseNativeDialog)
         if self.last_dir:
-            dir = QFileDialog.getExistingDirectory(self, "Open Directory",
-                                           self.last_dir,
-                                           QFileDialog.ShowDirsOnly
-                                           | QFileDialog.DontResolveSymlinks) 
+            dir = dialog.getExistingDirectory(self, "Select %s Directory" % name,
+                                           self.last_dir) 
         else:
-            dir = QFileDialog.getExistingDirectory(self, "Open Directory",
-                                           "/home",
-                                           QFileDialog.ShowDirsOnly
-                                           | QFileDialog.DontResolveSymlinks)
+            dir = dialog.getExistingDirectory(self, "Select %s Directory" % name,
+                                           "/home")
         self.last_dir = dir
         if name == 'Media':
             self.ui.lineEditMediaPath.setText(dir)
@@ -612,42 +787,53 @@ class MainWindow(QMainWindow):
     @Slot()
     def addHeader(self):
         # click OK, generate xml header
-        self.read_info_from_ui()
+        #self.read_info_from_ui()
         
         self.Component = self.ui.Component_input.text()
         self.GUID = self.ui.GUID_input.text()
         self.Width = self.ui.Width_input.text()
         self.Height = self.ui.Height_input.text()
         self.inputpath = self.ui.InputPathText.text()
-        self.RawTileType = self.ui.RawTileType_input.text()
-        self.RawFormat = self.ui.RawFormat_input.text()
-        self.ResTileType = self.ui.ResTileType_input.text()
-        self.ResFormat = self.ui.ResFormat_input.text()
-        self.EncFunc = self.ui.EncFunc_input.text()
+        self.RawTileType = self.ui.RawTT_value.text()
+        self.RawFormat = self.ui.RawF_value.text()
+        self.ResTileType = self.ui.ResTT_value.text()
+        self.ResFormat = self.ui.ResF_value.text()
+        self.EncFunc = self.ui.EncFunc_value.text()
         self.FrameNum = self.ui.FrameNum_input.text()
         # get real Frame Number according to input files
         self.cpfiles()
         
         Frameset = set()
+
         for f in os.listdir(self.inputpath):
             pattern = re.search('^(\d)-0.*DDIEnc_(.*)Params_._Frame', f)
             if pattern:
                 Frameset.add(int(pattern.group(1)))
+        if not Frameset:
+            msgBox = QMessageBox()
+            msgBox.setText("Input path doesn't contain target files!(e.g. 0-0_1_DDIEnc_SlcParams_I_Frame.dat)")
+            msgBox.exec_()
         self.FrameNumdiff = min(Frameset) - 0
         self.FrameNum = str(len(Frameset))
         self.ui.FrameNum_input.setText(self.FrameNum)
         # combine input files and parameters
         self.combine()
-        self.ui.logBrowser.append("The input file has been generated in " + self.output_path +".\n")
+        self.ui.logBrowser.append("Generate input file: %s\n" %self.inputfilename)
         #pop out message box
         #msgBox = QMessageBox()
         #msgBox.setText("The input file has been generated.")
         #msgBox.exec_()
-        
+
+
+        # build CMDFinder obj
+        if self.Buf:
+            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf)
+        else:
+            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
         
         self.parse_command_file()
         self.read_command_info_from_xml()
-        #self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.tabWidget.setCurrentIndex(0)
         if self.ui.lineEditFrame.text() != self.FrameNum:
             msgBox = QMessageBox()
             msgBox.setText("Inconsistent Frame number!")
@@ -675,33 +861,39 @@ class MainWindow(QMainWindow):
     def combine(self):
         #combine ddi_input text files and add header infomation
         
-        with open(os.path.join(self.output_path, 'encodeHevcCQPInput.dat'),'w') as wfd:
+        with open(os.path.join(self.output_path, self.inputfilename),'w') as wfd:
             #wfd.write('<Header Component=%s  GUID=%s Width=%s Height=%s OutputFormat=%s>\n' % (self.Component, self.GUID, self.Width, self.Height, self.OutputFormat))
             wfd.write(f'''<Header>
 Component = {self.Component}
 GUID = DXVA2_Intel_LowpowerEncode_HEVC_Main
 Width = {self.Width}
 Height = {self.Height}
-#MOS_TILE_Y
+#{self.ui.comboBoxRawTT.currentText()}
 RawTileType = {self.RawTileType}
-#Format_NV12
+#{self.ui.comboBoxRawF.currentText()}
 RawFormat = {self.RawFormat}
-#MOS_TILE_LINEAR
+#{self.ui.comboBoxResTT.currentText()}
 ResTileType = {self.ResTileType}
-#Format_Buffer
+#{self.ui.comboBoxResF.currentText()}
 ResFormat = {self.ResFormat}
-#ENCODE_ENC_PAK, 4
+#{self.ui.comboBoxEncFunc.currentText()}
 EncFunc = {self.EncFunc}
 FrameNum = {self.FrameNum}
 ''')
             #wfd.write('</Header>')
              
             for f in os.listdir(self.inputpath):
-                pattern = re.search('^(\d)-0.*DDIEnc_(.*)Params_._Frame', f)
+                pattern = re.search('^(\d)-0_(\d)?.*DDIEnc_(.*)Params_._Frame', f)
+                
                 if pattern:
+                    length = len(pattern.groups())
                     FrameNo = str(int(pattern.group(1))-self.FrameNumdiff)
-                    ParaGroup = pattern.group(2)
-                    wfd.write('<Frame No=%s  Param=%s >\n' % (FrameNo, ParaGroup))
+                    ParaGroup = pattern.group(length)
+                    if length == 3:
+                        slcindex = pattern.group(2)
+                        wfd.write('<Frame No=%s  Param=%s Index=%s>\n' % (FrameNo, ParaGroup, slcindex))
+                    else:
+                        wfd.write('<Frame No=%s  Param=%s >\n' % (FrameNo, ParaGroup))
                     with open(os.path.join(self.inputpath, f), 'r') as file:
                         content = file.readlines()
                         new_content = []
@@ -732,12 +924,14 @@ class FormCommandInfo(QWidget):
         self.ui.checkBoxBinary.stateChanged.connect(self.update_data_mode_bin)
         self.ui.checkBoxReserved.stateChanged.connect(self.update_reserve_show)
         self.current_item = None
+        self.modifylist = []
         #
         self.ui.stackedWidget.setCurrentIndex(1)   #set the all infomation page as default page
         self.ui.pushButtonSCL.clicked.connect(lambda : self.ui.stackedWidget.setCurrentIndex(1))  #show cmd name list
         self.ui.pushButtonSCL.clicked.connect(self.showcmdlist)  #show cmd name list
         self.ui.pushButtonSA.clicked.connect(lambda : self.ui.stackedWidget.setCurrentIndex(0))  #show cmd name list
         self.ui.pushButtonSU.clicked.connect(self.updateinfo)
+        self.ui.tableWidgetCmdlist.cellDoubleClicked.connect(self.modifycmd)
         
 
     def show_message(self, inf, title):
@@ -937,23 +1131,34 @@ class FormCommandInfo(QWidget):
         self.ui.tableWidgetCmdlist.clearContents()
         self.ui.tableWidgetCmdlist.setRowCount(0)
         self.table = self.ui.tableWidgetCmdlist
-        self.table.cellDoubleClicked.connect(self.modifycmd)
+        
         row = 0
         ##print(self.main_window.obj.ringcmddic)
         for cmd, index in self.main_window.obj.ringcmddic.items():
+            if cmd == 'MI_NOOP':
+                continue
             self.table.insertRow(row)
             self.table.setItem(row, 0, QTableWidgetItem(cmd))
             self.table.setItem(row, 1, QTableWidgetItem(self.main_window.obj.ringcmdclass[cmd]))
             self.table.setItem(row, 2, QTableWidgetItem(str(index)))
             if cmd in self.main_window.obj.notfoundset:
+                self.table.setItem(row, 1, QTableWidgetItem('Not Found'))
                 self.table.setItem(row, 3, QTableWidgetItem('Not Found'))
-            if self.main_window.obj.size_error_cmd[cmd]:
+            if cmd in self.main_window.obj.bitfield_error_cmd:
+                self.table.setItem(row, 3, QTableWidgetItem('Bitfield Error'))
+            elif self.main_window.obj.size_error_cmd[cmd]:
+                print(self.main_window.obj.size_error)
                 warning = 'Size Error in position: '
                 for i in self.main_window.obj.size_error_cmd[cmd]:
                     warning += str(i) + ','
                 warning = warning.strip(',')
                 self.table.setItem(row, 3, QTableWidgetItem(warning))
+            #mark newly modified cmd
+            if [t for t in self.modifylist if t[1] == cmd]:
+                self.table.item(row, 0).setBackground(QColor(255, 242, 0))
             row += 1
+        
+
         self.cmdlistrow = row
         self.table.resizeColumnsToContents()
         self.table.resizeRowsToContents()
@@ -961,57 +1166,63 @@ class FormCommandInfo(QWidget):
     @Slot()
     def modifycmd(self, row, column):
         ##print("Row %d and Column %d was clicked" % (row, column))
-        item = self.table.item(row, column)
-        cmdname = self.table.item(row, 0).text()
-        ##print(item.text())
-        minimum_value = 1
-        maximum_value = int(self.table.item(row, 2).text())
-        index = ''
-        new = ''
-        #if column == 0:
-        #    new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, item.text())
-        #    if ok:
-        #        if new != cmdname:
-        #            self.table.setItem(row, 0, QTableWidgetItem(new))
-        #            self.table.item(row, 0).setTextColor(QColor(255,0,0))
-        #            index = 'all'
-        #if column == 1:
-        new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, self.table.item(row, 0).text())
-        if ok:
-            input_index, ok = QInputDialog.getText(self.table,  "Modify", "\tScope(1-%s)\n(e.g. 1-4,6)" %maximum_value, QLineEdit.Normal, 'Apply to All')
-            if input_index != 'Apply to All':
-                index = []
-                list = input_index.strip().split(',')
-                for i in list:
-                    if '-' in i:
-                        i = i.split('-')
-                        index = list(range(int(i[0]), int(i[1])+1))
-                    else:
-                        index.append(int(i))
-                length = len(index)
-                if int(maximum_value) > length:
-                    self.table.setItem(row, 1, QTableWidgetItem(str(maximum_value-length)))
-                    self.table.item(row, 1).setTextColor(QColor(255,0,0))
-                    self.table.insertRow(row+1)
-                    self.table.setItem(row+1, 1, QTableWidgetItem(str(length)))
-                    self.table.item(row+1, 1).setTextColor(QColor(255,0,0))
-                    self.table.setItem(row+1, 0, QTableWidgetItem(new))
-                    self.table.item(row+1, 0).setTextColor(QColor(255,0,0))
-                    self.cmdlistrow += 1
-                elif int(maximum_value) == length:
+        if column == 0 or column == 2:
+            item = self.table.item(row, column)
+            cmdname = self.table.item(row, 0).text()
+            ##print(item.text())
+            minimum_value = 1
+            maximum_value = int(self.table.item(row, 2).text())
+            index = ''
+            new = ''
+            #if column == 0:
+            #    new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, item.text())
+            #    if ok:
+            #        if new != cmdname:
+            #            self.table.setItem(row, 0, QTableWidgetItem(new))
+            #            self.table.item(row, 0).setTextColor(QColor(255,0,0))
+            #            index = 'all'
+            #if column == 1:
+            new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, self.table.item(row, 0).text())
+            if ok:
+                input_index, ok = QInputDialog.getText(self.table,  "Modify", "\tScope(1-%s)\n(e.g. 1-4,6)" %maximum_value, QLineEdit.Normal, 'Apply to All')
+                if input_index != 'Apply to All':
+                    index = []
+                    list = input_index.strip().split(',')
+                    for i in list:
+                        if '-' in i:
+                            i = i.split('-')
+                            index = list(range(int(i[0]), int(i[1])+1))
+                        else:
+                            index.append(int(i))
+                    length = len(index)
+                    if int(maximum_value) > length:
+                        self.table.setItem(row, 1, QTableWidgetItem(str(maximum_value-length)))
+                        self.table.item(row, 1).setTextColor(QColor(255,0,0))
+                        self.table.insertRow(row+1)
+                        self.table.setItem(row+1, 1, QTableWidgetItem(str(length)))
+                        self.table.item(row+1, 1).setTextColor(QColor(255,0,0))
+                        self.table.setItem(row+1, 0, QTableWidgetItem(new))
+                        self.table.item(row+1, 0).setTextColor(QColor(255,0,0))
+                        self.cmdlistrow += 1
+                    elif int(maximum_value) == length:
+                        index = 'all'
+                else:
                     index = 'all'
-            else:
-                index = 'all'
-            if new != cmdname and index == 'all':
-                self.table.setItem(row, 0, QTableWidgetItem(new))
-                self.table.item(row, 0).setTextColor(QColor(255,0,0))
-        if new and index:
-            #print(self.main_window.obj.ringcmddic)
-            self.main_window.obj.modifyringcmd(cmdname, new, index)
-            #print(self.main_window.obj.ringcmddic)
+                if new != cmdname and index == 'all':
+                    self.table.setItem(row, 0, QTableWidgetItem(new))
+                    self.table.item(row, 0).setTextColor(QColor(255,0,0))
+            
+            if new and index:
+
+                self.modifylist.append((cmdname, new, index))
+                #print(self.main_window.obj.ringcmddic)
+                #self.main_window.obj.modifyringcmd(cmdname, new, index)
+                #print(self.main_window.obj.ringcmddic)
 
     @Slot()
     def updateinfo(self):
+        for cmdname, new, index in self.modifylist:
+            self.main_window.obj.modifyringcmd(cmdname, new, index)
         self.main_window.obj.undate_full_ringinfo()
         self.main_window.obj.updatexml()
         self.main_window.ui.logBrowser.append('Update xml\n')
@@ -1024,9 +1235,109 @@ class FormCommandInfo(QWidget):
         msgBox.exec_()
         self.main_window.read_command_info_from_xml()
         self.showcmdlist()
+        self.modifylist = [] #clear
+
+class Addpath(QWidget):
+    def __init__(self, main_window):
+        super(Addpath, self).__init__()
+        self.ui = Ui_Addpath()
+        self.ui.setupUi(self)
+        self.main_window = main_window
+        self.list = self.ui.listWidget
+        self.list.itemSelectionChanged.connect(self.selectionChanged)
+        self.last_dir = ''
+        self.currentrow = None
+        self.selected = None
+
+        self.ui.pushButtonAF.clicked.connect(self.AddFolder)
+        self.ui.pushButtonRemove.clicked.connect(self.RemoveFolder)
+        self.ui.pushButtonMtoT.clicked.connect(self.MovetoTop)
+        self.ui.pushButtonMU.clicked.connect(self.MoveUp)
+        self.ui.pushButtonMD.clicked.connect(self.MoveDown)
+        self.ui.pushButtonMtoB.clicked.connect(self.MovetoBottom)
+        self.ui.pushButtonSave.clicked.connect(self.Save)
+        #self.ui.pushButtonClose.clicked.connect(self.Close)
+    
+
+    def closeEvent(self, event):
+        event.accept()
+        self.main_window.activateWindow()
 
 
-        
+    def selectionChanged(self):
+        #print("Selected items: ", self.list.selectedItems())
+        self.selected = self.list.selectedItems()
+        #self.list.setCurrentItem(self.list.selectedItems())
+
+
+    @Slot()
+    def AddFolder(self):
+        dialog = QFileDialog(self)
+        if self.last_dir:
+            dir = dialog.getExistingDirectory(self, "Add Search Folder",
+                                           self.last_dir) 
+        elif self.main_window.ui.lineEditMediaPath.text():
+            dir = dialog.getExistingDirectory(self, "Add Search Folder",
+                                           self.main_window.ui.lineEditMediaPath.text().split(';')[-1]) 
+        else:
+            dir = dialog.getExistingDirectory(self, "Add Search Folder",
+                                           "/home")
+        self.last_dir = dir
+        self.list.addItem(dir)
+
+    @Slot()
+    def RemoveFolder(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+
+    @Slot()
+    def MovetoTop(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(0, currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def MoveUp(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(currentRow - 1, currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def MoveDown(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(currentRow + 1, currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def MovetoBottom(self):
+        if self.selected:
+            self.list.setCurrentItem(self.selected[0])
+            currentRow = self.list.currentRow()
+            currentItem = self.list.takeItem(currentRow)
+            self.list.insertItem(self.list.count(), currentItem)
+            currentItem.setSelected(True)
+
+    @Slot()
+    def Save(self):
+        items = []
+        for i in range(self.list.count()):
+            items.append(self.list.item(i).text())
+        self.main_window.ui.lineEditMediaPath.setText(';'.join(items))
+
+    @Slot()
+    def Close(self):
+        pass
 
 def item_text_to_dec(s):
     if s.startswith('0x'):
@@ -1036,4 +1347,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     main_window = MainWindow()
     main_window.show()
+    main_window.activateWindow()
     sys.exit(app.exec_())

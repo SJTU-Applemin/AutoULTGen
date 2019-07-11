@@ -25,6 +25,7 @@ class CmdFinder(object):
         self.notfoundset = set()
         self.size_error = set()
         self.size_error_cmd = {}
+        self.bitfield_error_cmd = set()
         self.size_right_cmd = {}
         self.ringcmdmodify = {}
         self.df_dic = {}
@@ -91,6 +92,10 @@ class CmdFinder(object):
         #print(self.ringcmdset)
         self.ringcmdmodify[wrong] = (right, index)
         self.ringcmdclass[right] = ''
+
+        #           self.size_right_cmd[ringcmd] = []
+        #if ringcmd not in self.size_error_cmd:
+        #    self.size_error_cmd[ringcmd] = []
         if index == 'all':
             self.ringcmddic[right] = self.ringcmddic.pop(wrong)
         else:
@@ -125,7 +130,12 @@ class CmdFinder(object):
 
     def updatexml(self, index = 0):
         TestName = self.TestName
-        self.TestName = Element('TestName') # clear
+        # clear
+        self.TestName = Element('TestName') 
+        self.size_error = set()
+        self.size_error_cmd = {}
+        self.size_right_cmd = {}
+
         #output xml
         platform_group = SubElement(self.TestName, 'Platform', {'name': ''})
         # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
@@ -138,7 +148,7 @@ class CmdFinder(object):
                         start1 = time.clock()
                         frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
                         #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
-                        self.cmdsizecheck(ringcmd, index)
+                    self.cmdsizecheck(ringcmd, index)
                     index += 1
 
         with open( os.path.join(self.ringpath ,  "mapringinfo.xml") , "w") as f:
@@ -292,7 +302,18 @@ class CmdFinder(object):
                                                         if 'name' in s.attrib:
                                                             obj_group = SubElement(current_group, s.attrib['name'], {'value': val_str})
                                                             current_group = obj_group
+
+                                                        last_bit_h = -1 #used to check bitfield
                                                         for elem in s.findall("./"):
+
+                                                            #check bitfield---
+                                                            if last_bit_h>0 and not int(last_bit_h) % 32:
+                                                                #check if last bit field end with 32/64
+                                                                print(ringcmd+' bitfield_h =%s error!\n' % bit_h)
+                                                                self.bitfield_error_cmd.add(ringcmd)
+                                                            last_bit_h = -1 #used to check bitfield
+                                                            #check bitfield end---
+
                                                             if 'name' in elem.attrib:
                                                                 fieldname = elem.attrib['name']
                                                                 if 'bitfield' in elem.attrib :
@@ -300,6 +321,13 @@ class CmdFinder(object):
                                                                 else:
                                                                     bit_item = []
                                                                 bit_value, bit_l, bit_h = self.findbitval(binv_list, bit_item, dw_no)
+
+                                                                #check bitfield---
+                                                                if last_bit_h == int(bit_l):
+                                                                    self.bitfield_error_cmd.add(ringcmd)
+                                                                last_bit_h = int(bit_h)
+                                                                #check bitfield end---
+
                                                                 if structcmd_group.attrib['name'] == 'MI_NOOP_CMD':
                                                                     current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
                                                                 else:
@@ -613,28 +641,30 @@ class CmdFinder(object):
         #convert header to xml
         #use header_parser tool
         
-        parser_list = []
-        for r,d,f in os.walk(self.source):
-            #modify target file
-            #if r'\ult\agnostic\test' not in r:
-            if r'\ult\agnostic\test' in r:
-                continue
-            for thing in f:
-                # filter all mhw cmd header file
-                #if thing.startswith('mhw_') and re.search('g\d', thing) and thing.endswith('.h'):
-                if self.gen != 'all':
-                    if thing.startswith('mhw_') and re.search(f'g{self.gen}', thing) and thing.endswith('.h'):
-                        parser_list.append(HeaderParser(thing, r))
-                else:
-                    if thing.startswith('mhw_') and thing.endswith('.h'):
-                        parser_list.append(HeaderParser(thing, r))
+        
+        for source in self.source:
+            parser_list = []
+            for r,d,f in os.walk(source):
+                #modify target file
+                #if r'\ult\agnostic\test' not in r:
+                if r'\ult\agnostic\test' in r:
+                    continue
+                for thing in f:
+                    # filter all mhw cmd header file
+                    #if thing.startswith('mhw_') and re.search('g\d', thing) and thing.endswith('.h'):
+                    if self.gen != 'all':
+                        if thing.startswith('mhw_') and re.search(f'g{self.gen}', thing) and thing.endswith('.h'):
+                            parser_list.append(HeaderParser(thing, r))
+                    else:
+                        if thing.startswith('mhw_') and thing.endswith('.h'):
+                            parser_list.append(HeaderParser(thing, r))
 
-        for item in parser_list:
-            item.read_file()
-            #Do not create xml file for each h file, instead save in buf str
-            #item.write_xml()
-            root = ET.fromstring(item.parse_file_info())
-            self.Buf.append(copy.deepcopy(root))
+            for item in parser_list:
+                item.read_file()
+                #Do not create xml file for each h file, instead save in buf str
+                #item.write_xml()
+                root = ET.fromstring(item.parse_file_info())
+                self.Buf.append(copy.deepcopy(root))
         return self.Buf
 
     def findbitval(self, binv_list, bit_item, dw_no, base_dw_no = ''):
@@ -735,7 +765,7 @@ class CmdFinder(object):
 #----------------------------------------------------------------
 #ringpath = r'C:\projects\github\AutoULTGen\cmd_validation\vcstringinfo\HEVC-VDENC-Grits001 - 1947\VcsRingInfo'
 #gen = 12
-#source = r'C:\Users\jiny\gfx\gfx-driver\Source\media'
+#source = [r'C:\Users\jiny\gfx\gfx-driver\Source\media', ...]
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------

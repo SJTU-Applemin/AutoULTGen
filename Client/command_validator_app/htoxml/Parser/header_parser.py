@@ -24,7 +24,7 @@ class HeaderParser(object):
         self.constructor = []
         self.destructor = []
         self.includes = set()
-        self.elpredef = set()       #added by Jyq
+        self.elpredef = set()       
         self.basic_type = {'int', 'bool', 'double', 'float', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'size_t','char'}
         self.datastructure = {'class', 'struct', 'union', 'enum' , 'namespace' }
         self.prefixset = {'static', 'constexpr', 'const', 'unsigned', '*', '&'}
@@ -253,8 +253,8 @@ class HeaderParser(object):
             #parse pre-defined parts
             if line_clr.startswith('#include'):
                 self.includes.add(line_clr[10:-1])
-                continue #Jyq
-            ##J
+                continue 
+
             elif line_clr.startswith('#'): 
                 self.elpredef.add(line_clr[1:])
                 continue
