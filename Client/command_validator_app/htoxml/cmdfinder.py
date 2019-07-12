@@ -12,8 +12,52 @@ import copy
 import time
 
 
+    #IGFX_UNKNOWN        = 0,
+    #IGFX_GRANTSDALE_G,
+    #IGFX_ALVISO_G,
+    #IGFX_LAKEPORT_G,
+    #IGFX_CALISTOGA_G,
+    #IGFX_BROADWATER_G,
+    #IGFX_CRESTLINE_G,
+    #IGFX_BEARLAKE_G,
+    #IGFX_CANTIGA_G,
+    #IGFX_CEDARVIEW_G,
+    #IGFX_EAGLELAKE_G,
+    #IGFX_IRONLAKE_G,
+    #IGFX_GT,
+    #IGFX_IVYBRIDGE,
+    #IGFX_HASWELL,
+    #IGFX_VALLEYVIEW,
+    #IGFX_BROADWELL,
+    #IGFX_CHERRYVIEW,
+    #IGFX_SKYLAKE,
+    #IGFX_KABYLAKE,
+    #IGFX_COFFEELAKE,
+    #IGFX_WILLOWVIEW,
+    #IGFX_BROXTON,
+    #IGFX_GEMINILAKE,
+    #IGFX_GLENVIEW,
+    #IGFX_GOLDWATERLAKE,
+    #IGFX_CANNONLAKE,
+    #IGFX_CNX_G,
+    #IGFX_ICELAKE,
+    #IGFX_ICELAKE_LP,
+    #IGFX_LAKEFIELD,
+    #IGFX_JASPERLAKE,
+    #IGFX_LAKEFIELD_R,
+    #IGFX_TIGERLAKE_LP,
+    #IGFX_RYEFIELD,
+    #IGFX_ROCKETLAKE,
+    #IGFX_DG1             = 1210,
+    #IGFX_TIGERLAKE_HP    = 1250,
+    #//Place Gen12.5+ products here
+    #IGFX_DG2             = 1270,
+    #IGFX_PVC             = 1271,
+    #IGFX_MAX_PRODUCT,
+    #IGFX_GENNEXT               = 0x7ffffffe,
+
 class CmdFinder(object):
-    def __init__(self, source, gen, ringpath, Buf = None):
+    def __init__(self, source, gen, ringpath, Buf = None, output_path = ''):
         self.source = source
         self.gen = gen
         self.ringpath = ringpath
@@ -545,6 +589,11 @@ class CmdFinder(object):
                 numset = set(frame_no_list)
                 self.Frame_Num = len(numset)
                 self.num_diff = min(numset)
+                # if self.ringfilelist:
+                #     idx = self.ringfilelist[0].find('-')
+                #     if idx != -1:
+                #         self.test_name = self.ringfilelist[0][:idx]
+
 
                 for thing in self.ringfilelist:
                     if self.Frame_Num > 1:
@@ -596,6 +645,7 @@ class CmdFinder(object):
         ## only start after cmd "MI_BATCH_BUFFER_START"
         os.chdir(self.ringpath)
         comment_char = ['<', '-']
+        # shutil.copy(self.ringfilename, self.output_path)
         with open(self.ringfilename, 'r') as f:
             df = pd.DataFrame()         #initialize
             start = 'MI_BATCH_BUFFER_START'
