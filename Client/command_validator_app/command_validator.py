@@ -46,6 +46,7 @@ class MainWindow(QMainWindow):
         self.workspace = ''
         self.form = FormCommandInfo(self)
         self.Addpath = Addpath(self)
+        self.pathlist = self.Addpath.ui.listWidget
         #
         self.last_dir = ''
         self.ui.SelectMediaPath.clicked.connect(self.showAddpath)
@@ -72,7 +73,7 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
+        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw')
         self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
         self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
@@ -130,9 +131,9 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def showAddpath(self):
+        
         self.Addpath.show()
         self.Addpath.activateWindow()
-        self.pathlist = self.Addpath.ui.listWidget
         self.pathlist.clear()
         if self.ui.lineEditMediaPath.text():
             self.pathlist.addItems(self.ui.lineEditMediaPath.text().split(';'))
@@ -191,8 +192,7 @@ class MainWindow(QMainWindow):
                 msgBox.setText("Input path doesn't contain target files!(e.g. 0-0_1_DDIEnc_SlcParams_I_Frame.dat)")
                 msgBox.exec_()
             self.FrameNumdiff = min(Frameset) - 0
-            self.FrameNum = str(len(Frameset))
-            self.ui.FrameNum_input.setText(self.FrameNum)
+            self.ui.FrameNum_input.setText(str(len(Frameset)))
         if name == 'Main' and self.ui.lineEditRinginfoPath.text():
             file_list = [file for file in os.listdir(self.ui.lineEditRinginfoPath.text()) if re.search('VcsRingInfo_0_0.txt', file)]
             if len(file_list) > 1:
@@ -251,9 +251,13 @@ class MainWindow(QMainWindow):
         if not self.ui.lineEditRinginfoPath.text():
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Ringinfo')
+        else:
+            self.fillframenum('Main')
         if not self.ui.lineEditDDIInputPath.text():
             self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('DDIInput')
+        else:
+            self.fillframenum('Input')
         if not self.ui.lineEditMediaPath.text():
             self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Media')
@@ -595,6 +599,15 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
         
         self.output_path = os.path.join(self.workspace, self.test_name)
+        # in case user left this folder, with '_x.h' header file
+        base_folder = os.path.join(self.base_media, r'media\media_embargo\agnostic\gen12\hw')
+        self.pathlist.clear()
+        if self.ui.lineEditMediaPath.text():
+            self.pathlist.addItems(self.ui.lineEditMediaPath.text().split(';'))
+        if not self.pathlist.findItems(base_folder, Qt.MatchExactly):
+            self.pathlist.addItem(base_folder)
+            self.ui.lineEditMediaPath.setText(self.ui.lineEditMediaPath.text() + ';' + base_folder)
+
         # create single folder for each testname
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
@@ -856,6 +869,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.GUID = self.ui.GUID_input.text().strip()
         self.Width = self.ui.Width_input.text().strip()
         self.Height = self.ui.Height_input.text().strip()
+        self.FrameNum = self.ui.FrameNum_input.text().strip()
         self.inputpath = self.ui.InputPathText.text().strip()
         self.RawTileType = self.ui.RawTT_value.text().strip()
         self.RawFormat = self.ui.RawF_value.text().strip()
@@ -1361,6 +1375,7 @@ class Addpath(QWidget):
         self.ui.pushButtonMtoB.clicked.connect(self.MovetoBottom)
         self.ui.pushButtonSave.clicked.connect(self.Save)
         #self.ui.pushButtonClose.clicked.connect(self.Close)
+        
     
 
     def closeEvent(self, event):
@@ -1377,6 +1392,7 @@ class Addpath(QWidget):
     @Slot()
     def AddFolder(self):
         dialog = QFileDialog(self)
+        
         if self.last_dir:
             dir = dialog.getExistingDirectory(self, "Add Search Folder",
                                            self.last_dir) 
@@ -1387,7 +1403,12 @@ class Addpath(QWidget):
             dir = dialog.getExistingDirectory(self, "Add Search Folder",
                                            "/home")
         self.last_dir = dir
-        self.list.addItem(dir)
+        if self.list.count() > 1 and os.path.basename(dir) != 'hw':
+            msgBox = QMessageBox()
+            msgBox.setText("Path should End in hw!")
+            msgBox.exec_()
+        else:
+            self.list.insertItem(0, dir)
 
     @Slot()
     def RemoveFolder(self):

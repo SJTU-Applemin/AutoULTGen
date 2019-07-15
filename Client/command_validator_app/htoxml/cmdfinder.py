@@ -12,50 +12,6 @@ import copy
 import time
 
 
-    #IGFX_UNKNOWN        = 0,
-    #IGFX_GRANTSDALE_G,
-    #IGFX_ALVISO_G,
-    #IGFX_LAKEPORT_G,
-    #IGFX_CALISTOGA_G,
-    #IGFX_BROADWATER_G,
-    #IGFX_CRESTLINE_G,
-    #IGFX_BEARLAKE_G,
-    #IGFX_CANTIGA_G,
-    #IGFX_CEDARVIEW_G,
-    #IGFX_EAGLELAKE_G,
-    #IGFX_IRONLAKE_G,
-    #IGFX_GT,
-    #IGFX_IVYBRIDGE,
-    #IGFX_HASWELL,
-    #IGFX_VALLEYVIEW,
-    #IGFX_BROADWELL,
-    #IGFX_CHERRYVIEW,
-    #IGFX_SKYLAKE,
-    #IGFX_KABYLAKE,
-    #IGFX_COFFEELAKE,
-    #IGFX_WILLOWVIEW,
-    #IGFX_BROXTON,
-    #IGFX_GEMINILAKE,
-    #IGFX_GLENVIEW,
-    #IGFX_GOLDWATERLAKE,
-    #IGFX_CANNONLAKE,
-    #IGFX_CNX_G,
-    #IGFX_ICELAKE,
-    #IGFX_ICELAKE_LP,
-    #IGFX_LAKEFIELD,
-    #IGFX_JASPERLAKE,
-    #IGFX_LAKEFIELD_R,
-    #IGFX_TIGERLAKE_LP,
-    #IGFX_RYEFIELD,
-    #IGFX_ROCKETLAKE,
-    #IGFX_DG1             = 1210,
-    #IGFX_TIGERLAKE_HP    = 1250,
-    #//Place Gen12.5+ products here
-    #IGFX_DG2             = 1270,
-    #IGFX_PVC             = 1271,
-    #IGFX_MAX_PRODUCT,
-    #IGFX_GENNEXT               = 0x7ffffffe,
-
 class CmdFinder(object):
     def __init__(self, source, gen, ringpath, Buf = None, output_path = ''):
         self.source = source
@@ -77,7 +33,8 @@ class CmdFinder(object):
         #self.same = [['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS'], ['CMD_HCP_VP9_RDOQ_STATE', 'HEVC_VP9_RDOQ_STATE_CMD']]
         self.same = [['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS']]
         self.ignored = ['CMD', 'COMMAND', 'OBJECT', 'MEDIA', 'STATE']
-        self.classpath = ['ats', 'tglhp', 'x']
+
+        self.searchpattern = [r'^((?!_x).)*$', 'x'] #first search in class without x, then class with x
         self.TestName = Element('TestName')  #create TestName as result root node
         self.filter = ['mi', 'hcp']
         self.Frame_Num = 0
@@ -99,7 +56,6 @@ class CmdFinder(object):
             os.chdir(r)
             for thing in f:
                 # find required cmd in xml file
-                if [i for i in self.classpath if i in thing] :
                     if thing.startswith('mhw_') and thing.endswith('.h.xml'):
                         if  self.gen == 'all' or self.gen != 'all' and str(self.gen) in thing:
                             tree = ET.parse(thing)
@@ -316,9 +272,9 @@ class CmdFinder(object):
         #                    if  self.gen == 'all' or self.gen != 'all' and str(self.gen) in thing:
                                 #tree = ET.parse(thing)
                                 #root = tree.getroot()
-        for platform in self.classpath:
+        for pattern in self.searchpattern:
             for Class in self.Buf.findall('./content/class'):
-                if 'name' in Class.attrib and platform in Class.attrib['name'].lower() and [i for i in self.filter if i not in ringcmd.lower() or i in ringcmd.lower() and i in Class.attrib['name'].lower()]:
+                if 'name' in Class.attrib and re.search(pattern, Class.attrib['name'].lower()) and [i for i in self.filter if i not in ringcmd.lower() or i in ringcmd.lower() and i in Class.attrib['name'].lower()]:
                                 #for Class in root.findall('class'):
                                     for structcmd in Class.iter('struct'):
                                         # search cmd in all the local files
@@ -512,9 +468,9 @@ class CmdFinder(object):
         #                        tree = ET.parse(thing)
         #                        root = tree.getroot()
         #                        for Class in root.findall('class'):
-        for platform in self.classpath:
+        for pattern in self.searchpattern:
             for Class in self.Buf.findall('./content/class'):
-                if 'name' in Class.attrib and platform in Class.attrib['name'].lower() and [i for i in self.filter if i not in cmd.lower() or i in cmd.lower() and i in Class.attrib['name'].lower()]:
+                if 'name' in Class.attrib and re.search(pattern, Class.attrib['name'].lower()) and [i for i in self.filter if i not in cmd.lower() or i in cmd.lower() and i in Class.attrib['name'].lower()]:
                                     for structcmd in Class.iter('struct'):
                                         # search cmd in all the local files
                                         if 'name' in structcmd.attrib and structcmd.attrib['name'] == cmd:
