@@ -2,22 +2,23 @@ import sys
 import os
 import re
 import shutil
-from PySide2.QtUiTools import *
-from PySide2.QtCore import *
+import copy
+from functools import partial
+import time
+#from PySide2.QtUiTools import *
+from PySide2.QtCore import QCoreApplication, Slot, Qt
 from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+from PySide2.QtGui import QColor
+from lxml import etree
+#----------
+from ui_command_info import Ui_FormCommandInfo
 from ui_mainwindow import Ui_mainWindow
 from ui_Addpath import Ui_Addpath
 from get_enum_member import GetEnumMember
 from extended_combobox import ExtendedComboBox
-# from ui_form import Ui_Form
-from ui_command_info import Ui_FormCommandInfo
-from lxml import etree
 from htoxml.cmdfinder import CmdFinder
-import webgenxml
-import copy
-from functools import partial
-import time
+import webgenxml   #not used
+
 
 class MainWindow(QMainWindow):
     def __init__(self):

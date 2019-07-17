@@ -34,7 +34,7 @@ class HeaderParser(object):
     
     def read_file(self, name=None, path=None):
         """
-
+        read file from given name and path
         """
         if name:
             self.name = name
@@ -44,6 +44,9 @@ class HeaderParser(object):
             self.lines = fin.readlines()
 
     def write_xml(self, name=None, path=None ):
+        #write xml for given header file
+        #final step of the usage
+        #This function could also be used if you would like to see clearly whether the final output xml string is as expected 
         if name:
             self.name = name
         if path:
@@ -51,8 +54,7 @@ class HeaderParser(object):
         with open(os.path.join(self.path, self.name) + '.xml', 'w') as fout:
             fout.write(self.parse_file_info())
 
-    @staticmethod
-    def get_datastructure(line):
+    def get_datastructure(self, line):
         #datastructure = {'class', 'struct', 'union', 'enum' }
         #parse 3 conditions:
         #1: 'struct xxx'
@@ -90,8 +92,7 @@ class HeaderParser(object):
 
         return structure_type , structure_name , super_structure_type , super_structure_name
 
-    @staticmethod
-    def parse_basictype(line):
+    def parse_basictype(self, line):
         #parse basic type, maybe with prefix
         #prefix = {'static', 'constexpr', 'const', 'unsigned', '*', '&'}
         #basic_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'size_t', 'char'}
@@ -179,10 +180,8 @@ class HeaderParser(object):
         return type, name, arraysize, address, prefix, value, para_name, para_type
     
     def parse_file_info(self):
-        """
-
-        :return:
-        """
+        # parse mhw header file to xml, ignore comment, predefined part...
+        # need to modified if mhw header file code structure changes
         if not self.lines:
             print('Please read file first\n')
             return
@@ -198,7 +197,7 @@ class HeaderParser(object):
 
         #init
         unparsed_index = 0
-        unparsed_text_id = 0
+        unparsed_text_id = 0 
         nest_layer=[]    # save current layer
         nest_layer_num = 0  # count nest layer num
         saved_enum_name = ''
@@ -260,19 +259,6 @@ class HeaderParser(object):
                 continue
             #-----------------------------------------------------
             
-            
-            #-----------------------------------------------------
-            # save as xml data, easy to parse nested structures
-            #if (current_group is None 
-            #    or group_name != current_group.text):
-            #    # Start a new group
-            #    current_group = SubElement(
-            #    content, 'outline',
-            #    {'text': group_name},
-            #)
-            #---------------------------------------------------
-
-
             #--------------------------------------------
             # manage nest layer
             if line_clr.find('{') != -1:
@@ -327,6 +313,7 @@ class HeaderParser(object):
                     if self.para_name:
 
                         ### Problems!!!!
+                        # function definition is not related to current command validator requirement, so this part is unfinished
                         for i, para_name in enumerate(self.para_name):
                             new_func_group = SubElement(current_group, 'FUNCTION', {'para_name': para_name,
                                                                                     'para_type': self.para_type[i]})

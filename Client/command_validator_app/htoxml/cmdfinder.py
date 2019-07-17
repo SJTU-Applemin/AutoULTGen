@@ -22,8 +22,8 @@ class CmdFinder(object):
         #
         self.ringcmddic = {}  #count each cmd 
         self.ringcmdclass = {}  # record each cmd class
-        self.notfoundset = set()
-        self.size_error = set()
+        self.notfoundset = set() #record not found cmd
+        self.size_error = set() 
         self.size_error_cmd = {}
         self.bitfield_error_cmd = set()
         self.size_right_cmd = {}
@@ -38,7 +38,9 @@ class CmdFinder(object):
         self.TestName = Element('TestName')  #create TestName as result root node
         self.filter = ['mi', 'hcp']
         self.Frame_Num = 0
-        self.specialcmd = ['MI_STORE_DATA_IMM', 'MI_FLUSH_DW']
+        self.specialcmd = ['MI_STORE_DATA_IMM', 'MI_FLUSH_DW'] #specialcmd has different dwsize rules
+        #general dwsize rules:
+        # 
         if Buf:
             self.Buf = Buf
         else:
@@ -71,14 +73,16 @@ class CmdFinder(object):
             frame_group = SubElement(platform_group, 'Frame', {'NO': frame_no})
             for pair in ringinfo:
                 for ringcmd, value_list in pair.items():
+                    # Initially search in past search memory 
                     if not self.memory(self.TestName, ringcmd, value_list, frame_group, index):
                         # cal time
                         start1 = time.clock()
+                        #if not found cmd in past memory, try to search in the entire context
                         frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
                         #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
-                    self.cmdsizecheck(ringcmd, index)
+                    self.cmdsizecheck(ringcmd, index) 
                     index += 1
-        if output_path :
+        if output_path:
             with open( os.path.join(output_path ,  "mapringinfo.xml") , "w") as f:
                 f.write(prettify(self.TestName))
         else:
@@ -87,6 +91,7 @@ class CmdFinder(object):
         return prettify(self.TestName)
     
     def modifyringcmd(self, wrong, right, index = 'all'):
+        # record modifycmd operation in UI
         # index == 'all' means changing all cmd
         # index == [1,3] means changing specific index cmd
         #print(self.ringcmdset)
@@ -108,6 +113,7 @@ class CmdFinder(object):
                 self.ringcmddic[right] = len(index)
 
     def undate_full_ringinfo(self):
+        # after modify cmd in UI, update full_ringinfo so the entire mapcmd table could also be updated
         # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
         new_full_ringinfo = {}
         dic = {}
@@ -129,6 +135,7 @@ class CmdFinder(object):
         return new_full_ringinfo
 
     def updatexml(self, index = 0):
+        # after modify cmd in UI, update xml according to the new full_ringinf
         TestName = self.TestName
         # clear
         self.TestName = Element('TestName') 
@@ -156,14 +163,16 @@ class CmdFinder(object):
         return prettify(self.TestName)
 
     def cmdsizecheck(self, ringcmd, index):
-        #add size_error cmd list
+        #create size_error and size_right cmd index list
         if ringcmd not in self.size_right_cmd:
             self.size_right_cmd[ringcmd] = []
         if ringcmd not in self.size_error_cmd:
             self.size_error_cmd[ringcmd] = []
-        if index in self.size_error:
+        if index in self.size_error: #self.size_error records position(index) size_error happens
+            #{ringcmd:[size error position index]}
             self.size_error_cmd[ringcmd].append(len(self.size_right_cmd[ringcmd]) + len(self.size_error_cmd[ringcmd]) + 1)
         else:
+            #{ringcmd:[size right  position index]}
             self.size_right_cmd[ringcmd].append(len(self.size_right_cmd[ringcmd]) + len(self.size_error_cmd[ringcmd]) + 1)
     
     def setbitfield(self, current_group, fieldname, bit_value, bit_l, bit_h, dw_no, check = ''):
