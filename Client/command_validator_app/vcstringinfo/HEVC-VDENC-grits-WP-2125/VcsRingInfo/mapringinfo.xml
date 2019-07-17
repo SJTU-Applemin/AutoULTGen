@@ -4452,7 +4452,630 @@
                     <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x0" max_value="0x0" min_value="0x0"/>
                 </dword>
             </CMD>
-            <ringcmd class="not found" index="75" name="CMD_HCP_VP9_RDOQ_STATE"/>
+            <CMD DW0_dwlen="152" class="mhw_vdbox_hcp_g12_ats" def_dwSize="154" index="75" input_dwsize="154" name="HEVC_VP9_RDOQ_STATE_CMD">
+                <dword NO="0" value="0x73880098">
+                    <DwordLength Address="N" CHECK="Y" bitfield_h="11" bitfield_l="0" default_value="0x98" max_value="0x98" min_value="0x98"/>
+                    <Reserved12 Address="N" CHECK="N" bitfield_h="15" bitfield_l="12" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Subopb Address="N" CHECK="Y" bitfield_h="20" bitfield_l="16" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                    <Subopa Address="N" CHECK="Y" bitfield_h="22" bitfield_l="21" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Opcode Address="N" CHECK="Y" bitfield_h="26" bitfield_l="23" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                    <Pipeline Address="N" CHECK="Y" bitfield_h="28" bitfield_l="27" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                    <CommandType Address="N" CHECK="Y" bitfield_h="31" bitfield_l="29" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                </dword>
+                <dword NO="1" value="0xc0000000">
+                    <Reserved32 Address="N" CHECK="N" bitfield_h="29" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <DisableHtqPerformanceFix1 Address="N" CHECK="Y" bitfield_h="30" bitfield_l="30" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <DisableHtqPerformanceFix0 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="31" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="2" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="3" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="4" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010000">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="5" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="6" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="7" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00020002">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                </dword>
+                <dword NO="8" arrayNO="6" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00030003">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                </dword>
+                <dword NO="9" arrayNO="7" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00050004">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x5" max_value="0x5" min_value="0x5"/>
+                </dword>
+                <dword NO="10" arrayNO="8" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00080007">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                </dword>
+                <dword NO="11" arrayNO="9" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x000d000a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd" max_value="0xd" min_value="0xd"/>
+                </dword>
+                <dword NO="12" arrayNO="10" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00150011">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x11" max_value="0x11" min_value="0x11"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x15" max_value="0x15" min_value="0x15"/>
+                </dword>
+                <dword NO="13" arrayNO="11" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0021001a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1a" max_value="0x1a" min_value="0x1a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x21" max_value="0x21" min_value="0x21"/>
+                </dword>
+                <dword NO="14" arrayNO="12" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0034002a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x2a" max_value="0x2a" min_value="0x2a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x34" max_value="0x34" min_value="0x34"/>
+                </dword>
+                <dword NO="15" arrayNO="13" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00530042">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x42" max_value="0x42" min_value="0x42"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x53" max_value="0x53" min_value="0x53"/>
+                </dword>
+                <dword NO="16" arrayNO="14" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00840069">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x69" max_value="0x69" min_value="0x69"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x84" max_value="0x84" min_value="0x84"/>
+                </dword>
+                <dword NO="17" arrayNO="15" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00d200a6">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa6" max_value="0xa6" min_value="0xa6"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd2" max_value="0xd2" min_value="0xd2"/>
+                </dword>
+                <dword NO="18" arrayNO="16" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x014d0108">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x108" max_value="0x108" min_value="0x108"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x14d" max_value="0x14d" min_value="0x14d"/>
+                </dword>
+                <dword NO="19" arrayNO="17" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x021001a3">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1a3" max_value="0x1a3" min_value="0x1a3"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x210" max_value="0x210" min_value="0x210"/>
+                </dword>
+                <dword NO="20" arrayNO="18" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0347029a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x29a" max_value="0x29a" min_value="0x29a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x347" max_value="0x347" min_value="0x347"/>
+                </dword>
+                <dword NO="21" arrayNO="19" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x05330421">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x421" max_value="0x421" min_value="0x421"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x533" max_value="0x533" min_value="0x533"/>
+                </dword>
+                <dword NO="22" arrayNO="20" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0841068d">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x68d" max_value="0x68d" min_value="0x68d"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x841" max_value="0x841" min_value="0x841"/>
+                </dword>
+                <dword NO="23" arrayNO="21" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0d1a0a66">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa66" max_value="0xa66" min_value="0xa66"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd1a" max_value="0xd1a" min_value="0xd1a"/>
+                </dword>
+                <dword NO="24" arrayNO="22" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x14cd1082">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1082" max_value="0x1082" min_value="0x1082"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x14cd" max_value="0x14cd" min_value="0x14cd"/>
+                </dword>
+                <dword NO="25" arrayNO="23" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x21051a35">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1a35" max_value="0x1a35" min_value="0x1a35"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2105" max_value="0x2105" min_value="0x2105"/>
+                </dword>
+                <dword NO="26" arrayNO="24" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x346a299a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x299a" max_value="0x299a" min_value="0x299a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x346a" max_value="0x346a" min_value="0x346a"/>
+                </dword>
+                <dword NO="27" arrayNO="25" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x53334209">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x4209" max_value="0x4209" min_value="0x4209"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x5333" max_value="0x5333" min_value="0x5333"/>
+                </dword>
+                <dword NO="28" arrayNO="26" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="29" arrayNO="27" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="30" arrayNO="28" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="31" arrayNO="29" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="32" arrayNO="30" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="33" arrayNO="31" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="34" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="35" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="36" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010000">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="37" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="38" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="39" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00020002">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                </dword>
+                <dword NO="40" arrayNO="6" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00030003">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                </dword>
+                <dword NO="41" arrayNO="7" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00050004">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x5" max_value="0x5" min_value="0x5"/>
+                </dword>
+                <dword NO="42" arrayNO="8" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00080007">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                </dword>
+                <dword NO="43" arrayNO="9" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x000d000a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa" max_value="0xa" min_value="0xa"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd" max_value="0xd" min_value="0xd"/>
+                </dword>
+                <dword NO="44" arrayNO="10" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00150011">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x11" max_value="0x11" min_value="0x11"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x15" max_value="0x15" min_value="0x15"/>
+                </dword>
+                <dword NO="45" arrayNO="11" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0021001a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1a" max_value="0x1a" min_value="0x1a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x21" max_value="0x21" min_value="0x21"/>
+                </dword>
+                <dword NO="46" arrayNO="12" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0034002a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x2a" max_value="0x2a" min_value="0x2a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x34" max_value="0x34" min_value="0x34"/>
+                </dword>
+                <dword NO="47" arrayNO="13" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00530042">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x42" max_value="0x42" min_value="0x42"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x53" max_value="0x53" min_value="0x53"/>
+                </dword>
+                <dword NO="48" arrayNO="14" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00840069">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x69" max_value="0x69" min_value="0x69"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x84" max_value="0x84" min_value="0x84"/>
+                </dword>
+                <dword NO="49" arrayNO="15" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00d200a6">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa6" max_value="0xa6" min_value="0xa6"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd2" max_value="0xd2" min_value="0xd2"/>
+                </dword>
+                <dword NO="50" arrayNO="16" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x014d0108">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x108" max_value="0x108" min_value="0x108"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x14d" max_value="0x14d" min_value="0x14d"/>
+                </dword>
+                <dword NO="51" arrayNO="17" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x021001a3">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1a3" max_value="0x1a3" min_value="0x1a3"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x210" max_value="0x210" min_value="0x210"/>
+                </dword>
+                <dword NO="52" arrayNO="18" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0347029a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x29a" max_value="0x29a" min_value="0x29a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x347" max_value="0x347" min_value="0x347"/>
+                </dword>
+                <dword NO="53" arrayNO="19" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x05330421">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x421" max_value="0x421" min_value="0x421"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x533" max_value="0x533" min_value="0x533"/>
+                </dword>
+                <dword NO="54" arrayNO="20" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0841068d">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x68d" max_value="0x68d" min_value="0x68d"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x841" max_value="0x841" min_value="0x841"/>
+                </dword>
+                <dword NO="55" arrayNO="21" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0d1a0a66">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa66" max_value="0xa66" min_value="0xa66"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd1a" max_value="0xd1a" min_value="0xd1a"/>
+                </dword>
+                <dword NO="56" arrayNO="22" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x14cd1082">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1082" max_value="0x1082" min_value="0x1082"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x14cd" max_value="0x14cd" min_value="0x14cd"/>
+                </dword>
+                <dword NO="57" arrayNO="23" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x21051a35">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1a35" max_value="0x1a35" min_value="0x1a35"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2105" max_value="0x2105" min_value="0x2105"/>
+                </dword>
+                <dword NO="58" arrayNO="24" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x346a299a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x299a" max_value="0x299a" min_value="0x299a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x346a" max_value="0x346a" min_value="0x346a"/>
+                </dword>
+                <dword NO="59" arrayNO="25" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x53334209">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x4209" max_value="0x4209" min_value="0x4209"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x5333" max_value="0x5333" min_value="0x5333"/>
+                </dword>
+                <dword NO="60" arrayNO="26" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="61" arrayNO="27" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="62" arrayNO="28" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="63" arrayNO="29" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="64" arrayNO="30" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="65" arrayNO="31" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="66" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="67" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="68" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00020001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                </dword>
+                <dword NO="69" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00030002">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                </dword>
+                <dword NO="70" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00040003">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                </dword>
+                <dword NO="71" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00070006">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x6" max_value="0x6" min_value="0x6"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                </dword>
+                <dword NO="72" arrayNO="6" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x000b0009">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x9" max_value="0x9" min_value="0x9"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xb" max_value="0xb" min_value="0xb"/>
+                </dword>
+                <dword NO="73" arrayNO="7" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0012000e">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xe" max_value="0xe" min_value="0xe"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x12" max_value="0x12" min_value="0x12"/>
+                </dword>
+                <dword NO="74" arrayNO="8" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x001c0016">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x16" max_value="0x16" min_value="0x16"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1c" max_value="0x1c" min_value="0x1c"/>
+                </dword>
+                <dword NO="75" arrayNO="9" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x002c0023">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x23" max_value="0x23" min_value="0x23"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2c" max_value="0x2c" min_value="0x2c"/>
+                </dword>
+                <dword NO="76" arrayNO="10" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00460038">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x38" max_value="0x38" min_value="0x38"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x46" max_value="0x46" min_value="0x46"/>
+                </dword>
+                <dword NO="77" arrayNO="11" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00750059">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x59" max_value="0x59" min_value="0x59"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x75" max_value="0x75" min_value="0x75"/>
+                </dword>
+                <dword NO="78" arrayNO="12" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00cc009b">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x9b" max_value="0x9b" min_value="0x9b"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xcc" max_value="0xcc" min_value="0xcc"/>
+                </dword>
+                <dword NO="79" arrayNO="13" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0160010c">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x10c" max_value="0x10c" min_value="0x10c"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x160" max_value="0x160" min_value="0x160"/>
+                </dword>
+                <dword NO="80" arrayNO="14" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x025b01cd">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1cd" max_value="0x1cd" min_value="0x1cd"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x25b" max_value="0x25b" min_value="0x25b"/>
+                </dword>
+                <dword NO="81" arrayNO="15" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x04050314">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x314" max_value="0x314" min_value="0x314"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x405" max_value="0x405" min_value="0x405"/>
+                </dword>
+                <dword NO="82" arrayNO="16" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x06d2053d">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x53d" max_value="0x53d" min_value="0x53d"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x6d2" max_value="0x6d2" min_value="0x6d2"/>
+                </dword>
+                <dword NO="83" arrayNO="17" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0b2d08df">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x8df" max_value="0x8df" min_value="0x8df"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xb2d" max_value="0xb2d" min_value="0xb2d"/>
+                </dword>
+                <dword NO="84" arrayNO="18" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x11bd0e14">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xe14" max_value="0xe14" min_value="0xe14"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x11bd" max_value="0x11bd" min_value="0x11bd"/>
+                </dword>
+                <dword NO="85" arrayNO="19" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x1c29165a">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x165a" max_value="0x165a" min_value="0x165a"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1c29" max_value="0x1c29" min_value="0x1c29"/>
+                </dword>
+                <dword NO="86" arrayNO="20" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x2cb4237b">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x237b" max_value="0x237b" min_value="0x237b"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2cb4" max_value="0x2cb4" min_value="0x2cb4"/>
+                </dword>
+                <dword NO="87" arrayNO="21" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x46f53852">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x3852" max_value="0x3852" min_value="0x3852"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x46f5" max_value="0x46f5" min_value="0x46f5"/>
+                </dword>
+                <dword NO="88" arrayNO="22" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x70a45967">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x5967" max_value="0x5967" min_value="0x5967"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x70a4" max_value="0x70a4" min_value="0x70a4"/>
+                </dword>
+                <dword NO="89" arrayNO="23" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0xb2ce8deb">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x8deb" max_value="0x8deb" min_value="0x8deb"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xb2ce" max_value="0xb2ce" min_value="0xb2ce"/>
+                </dword>
+                <dword NO="90" arrayNO="24" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0xffffe148">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xe148" max_value="0xe148" min_value="0xe148"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xffff" max_value="0xffff" min_value="0xffff"/>
+                </dword>
+                <dword NO="91" arrayNO="25" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0xffffffff">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xffff" max_value="0xffff" min_value="0xffff"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xffff" max_value="0xffff" min_value="0xffff"/>
+                </dword>
+                <dword NO="92" arrayNO="26" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="93" arrayNO="27" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="94" arrayNO="28" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="95" arrayNO="29" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="96" arrayNO="30" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="97" arrayNO="31" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="98" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="99" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00010001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                </dword>
+                <dword NO="100" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00020001">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1" max_value="0x1" min_value="0x1"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                </dword>
+                <dword NO="101" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00030002">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x2" max_value="0x2" min_value="0x2"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                </dword>
+                <dword NO="102" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00040003">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x3" max_value="0x3" min_value="0x3"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x4" max_value="0x4" min_value="0x4"/>
+                </dword>
+                <dword NO="103" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00070005">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x5" max_value="0x5" min_value="0x5"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x7" max_value="0x7" min_value="0x7"/>
+                </dword>
+                <dword NO="104" arrayNO="6" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x000b0008">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x8" max_value="0x8" min_value="0x8"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xb" max_value="0xb" min_value="0xb"/>
+                </dword>
+                <dword NO="105" arrayNO="7" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0011000d">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xd" max_value="0xd" min_value="0xd"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x11" max_value="0x11" min_value="0x11"/>
+                </dword>
+                <dword NO="106" arrayNO="8" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x001b0015">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x15" max_value="0x15" min_value="0x15"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1b" max_value="0x1b" min_value="0x1b"/>
+                </dword>
+                <dword NO="107" arrayNO="9" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x002a0021">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x21" max_value="0x21" min_value="0x21"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2a" max_value="0x2a" min_value="0x2a"/>
+                </dword>
+                <dword NO="108" arrayNO="10" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00430035">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x35" max_value="0x35" min_value="0x35"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x43" max_value="0x43" min_value="0x43"/>
+                </dword>
+                <dword NO="109" arrayNO="11" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x006c0054">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x54" max_value="0x54" min_value="0x54"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x6c" max_value="0x6c" min_value="0x6c"/>
+                </dword>
+                <dword NO="110" arrayNO="12" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x00b4008c">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x8c" max_value="0x8c" min_value="0x8c"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xb4" max_value="0xb4" min_value="0xb4"/>
+                </dword>
+                <dword NO="111" arrayNO="13" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x012900e7">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xe7" max_value="0xe7" min_value="0xe7"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x129" max_value="0x129" min_value="0x129"/>
+                </dword>
+                <dword NO="112" arrayNO="14" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x01ea017d">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x17d" max_value="0x17d" min_value="0x17d"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x1ea" max_value="0x1ea" min_value="0x1ea"/>
+                </dword>
+                <dword NO="113" arrayNO="15" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x03270275">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x275" max_value="0x275" min_value="0x275"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x327" max_value="0x327" min_value="0x327"/>
+                </dword>
+                <dword NO="114" arrayNO="16" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0530040c">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x40c" max_value="0x40c" min_value="0x40c"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x530" max_value="0x530" min_value="0x530"/>
+                </dword>
+                <dword NO="115" arrayNO="17" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x086206a7">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x6a7" max_value="0x6a7" min_value="0x6a7"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x862" max_value="0x862" min_value="0x862"/>
+                </dword>
+                <dword NO="116" arrayNO="18" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0d4e0a8f">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa8f" max_value="0xa8f" min_value="0xa8f"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd4e" max_value="0xd4e" min_value="0xd4e"/>
+                </dword>
+                <dword NO="117" arrayNO="19" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x151f10c3">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x10c3" max_value="0x10c3" min_value="0x10c3"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x151f" max_value="0x151f" min_value="0x151f"/>
+                </dword>
+                <dword NO="118" arrayNO="20" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x21871a9c">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x1a9c" max_value="0x1a9c" min_value="0x1a9c"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x2187" max_value="0x2187" min_value="0x2187"/>
+                </dword>
+                <dword NO="119" arrayNO="21" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x35382a3d">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x2a3d" max_value="0x2a3d" min_value="0x2a3d"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x3538" max_value="0x3538" min_value="0x3538"/>
+                </dword>
+                <dword NO="120" arrayNO="22" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x547b430d">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x430d" max_value="0x430d" min_value="0x430d"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x547b" max_value="0x547b" min_value="0x547b"/>
+                </dword>
+                <dword NO="121" arrayNO="23" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x861b6a70">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x6a70" max_value="0x6a70" min_value="0x6a70"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x861b" max_value="0x861b" min_value="0x861b"/>
+                </dword>
+                <dword NO="122" arrayNO="24" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0xd4e0a8f6">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xa8f6" max_value="0xa8f6" min_value="0xa8f6"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xd4e0" max_value="0xd4e0" min_value="0xd4e0"/>
+                </dword>
+                <dword NO="123" arrayNO="25" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0xffffffff">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0xffff" max_value="0xffff" min_value="0xffff"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0xffff" max_value="0xffff" min_value="0xffff"/>
+                </dword>
+                <dword NO="124" arrayNO="26" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="125" arrayNO="27" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="126" arrayNO="28" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="127" arrayNO="29" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="128" arrayNO="30" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="129" arrayNO="31" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="32" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="130" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="131" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="132" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="133" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="134" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="135" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="136" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="137" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="138" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="139" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="140" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="141" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="142" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="143" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="144" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="145" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="146" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="147" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="148" arrayNO="0" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="149" arrayNO="1" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="150" arrayNO="2" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="151" arrayNO="3" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="152" arrayNO="4" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+                <dword NO="153" arrayNO="5" class="mhw_vdbox_hcp_g12_ats" cmdarraysize="6" otherCMD="HEVC_VP9_RDOQ_LAMBDA_FIELDS_CMD" value="0x0">
+                    <Lambdavalue0 Address="N" CHECK="Y" bitfield_h="15" bitfield_l="0" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                    <Lambdavalue1 Address="N" CHECK="Y" bitfield_h="31" bitfield_l="16" default_value="0x0" max_value="0x0" min_value="0x0"/>
+                </dword>
+            </CMD>
             <CMD DW0_dwlen="1" class="mhw_mi_g12_X" def_dwSize="3" index="76" input_dwsize="3" name="MI_BATCH_BUFFER_START_CMD">
                 <dword NO="0" value="0x18c00001">
                     <Obj0 value="0x18c00001">

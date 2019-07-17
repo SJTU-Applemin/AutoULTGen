@@ -13,7 +13,7 @@ import time
 
 
 class CmdFinder(object):
-    def __init__(self, source, gen, ringpath, Buf = None):
+    def __init__(self, source, gen, ringpath, Buf = None, output_path = ''):
         self.source = source
         self.gen = gen
         self.ringpath = ringpath
@@ -22,8 +22,8 @@ class CmdFinder(object):
         #
         self.ringcmddic = {}  #count each cmd 
         self.ringcmdclass = {}  # record each cmd class
-        self.notfoundset = set()
-        self.size_error = set()
+        self.notfoundset = set() #record not found cmd
+        self.size_error = set() 
         self.size_error_cmd = {}
         self.bitfield_error_cmd = set()
         self.size_right_cmd = {}
@@ -33,11 +33,14 @@ class CmdFinder(object):
         #self.same = [['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS'], ['CMD_HCP_VP9_RDOQ_STATE', 'HEVC_VP9_RDOQ_STATE_CMD']]
         self.same = [['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS']]
         self.ignored = ['CMD', 'COMMAND', 'OBJECT', 'MEDIA', 'STATE']
-        self.classpath = ['ats', 'tglhp', 'x']
+
+        self.searchpattern = [r'^((?!_x).)*$', 'x'] #first search in class without x, then class with x
         self.TestName = Element('TestName')  #create TestName as result root node
         self.filter = ['mi', 'hcp']
         self.Frame_Num = 0
-        self.specialcmd = ['MI_STORE_DATA_IMM', 'MI_FLUSH_DW']
+        self.specialcmd = ['MI_STORE_DATA_IMM', 'MI_FLUSH_DW'] #specialcmd has different dwsize rules
+        #general dwsize rules:
+        # 
         if Buf:
             self.Buf = Buf
         else:
@@ -55,7 +58,6 @@ class CmdFinder(object):
             os.chdir(r)
             for thing in f:
                 # find required cmd in xml file
-                if [i for i in self.classpath if i in thing] :
                     if thing.startswith('mhw_') and thing.endswith('.h.xml'):
                         if  self.gen == 'all' or self.gen != 'all' and str(self.gen) in thing:
                             tree = ET.parse(thing)
@@ -71,14 +73,16 @@ class CmdFinder(object):
             frame_group = SubElement(platform_group, 'Frame', {'NO': frame_no})
             for pair in ringinfo:
                 for ringcmd, value_list in pair.items():
+                    # Initially search in past search memory 
                     if not self.memory(self.TestName, ringcmd, value_list, frame_group, index):
                         # cal time
                         start1 = time.clock()
+                        #if not found cmd in past memory, try to search in the entire context
                         frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
                         #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
-                    self.cmdsizecheck(ringcmd, index)
+                    self.cmdsizecheck(ringcmd, index) 
                     index += 1
-        if output_path :
+        if output_path:
             with open( os.path.join(output_path ,  "mapringinfo.xml") , "w") as f:
                 f.write(prettify(self.TestName))
         else:
@@ -87,6 +91,7 @@ class CmdFinder(object):
         return prettify(self.TestName)
     
     def modifyringcmd(self, wrong, right, index = 'all'):
+        # record modifycmd operation in UI
         # index == 'all' means changing all cmd
         # index == [1,3] means changing specific index cmd
         #print(self.ringcmdset)
@@ -108,6 +113,7 @@ class CmdFinder(object):
                 self.ringcmddic[right] = len(index)
 
     def undate_full_ringinfo(self):
+        # after modify cmd in UI, update full_ringinfo so the entire mapcmd table could also be updated
         # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
         new_full_ringinfo = {}
         dic = {}
@@ -129,6 +135,7 @@ class CmdFinder(object):
         return new_full_ringinfo
 
     def updatexml(self, index = 0):
+        # after modify cmd in UI, update xml according to the new full_ringinf
         TestName = self.TestName
         # clear
         self.TestName = Element('TestName') 
@@ -156,14 +163,16 @@ class CmdFinder(object):
         return prettify(self.TestName)
 
     def cmdsizecheck(self, ringcmd, index):
-        #add size_error cmd list
+        #create size_error and size_right cmd index list
         if ringcmd not in self.size_right_cmd:
             self.size_right_cmd[ringcmd] = []
         if ringcmd not in self.size_error_cmd:
             self.size_error_cmd[ringcmd] = []
-        if index in self.size_error:
+        if index in self.size_error: #self.size_error records position(index) size_error happens
+            #{ringcmd:[size error position index]}
             self.size_error_cmd[ringcmd].append(len(self.size_right_cmd[ringcmd]) + len(self.size_error_cmd[ringcmd]) + 1)
         else:
+            #{ringcmd:[size right  position index]}
             self.size_right_cmd[ringcmd].append(len(self.size_right_cmd[ringcmd]) + len(self.size_error_cmd[ringcmd]) + 1)
     
     def setbitfield(self, current_group, fieldname, bit_value, bit_l, bit_h, dw_no, check = ''):
@@ -272,9 +281,9 @@ class CmdFinder(object):
         #                    if  self.gen == 'all' or self.gen != 'all' and str(self.gen) in thing:
                                 #tree = ET.parse(thing)
                                 #root = tree.getroot()
-        for platform in self.classpath:
+        for pattern in self.searchpattern:
             for Class in self.Buf.findall('./content/class'):
-                if 'name' in Class.attrib and platform in Class.attrib['name'].lower() and [i for i in self.filter if i not in ringcmd.lower() or i in ringcmd.lower() and i in Class.attrib['name'].lower()]:
+                if 'name' in Class.attrib and re.search(pattern, Class.attrib['name'].lower()) and [i for i in self.filter if i not in ringcmd.lower() or i in ringcmd.lower() and i in Class.attrib['name'].lower()]:
                                 #for Class in root.findall('class'):
                                     for structcmd in Class.iter('struct'):
                                         # search cmd in all the local files
@@ -468,9 +477,9 @@ class CmdFinder(object):
         #                        tree = ET.parse(thing)
         #                        root = tree.getroot()
         #                        for Class in root.findall('class'):
-        for platform in self.classpath:
+        for pattern in self.searchpattern:
             for Class in self.Buf.findall('./content/class'):
-                if 'name' in Class.attrib and platform in Class.attrib['name'].lower() and [i for i in self.filter if i not in cmd.lower() or i in cmd.lower() and i in Class.attrib['name'].lower()]:
+                if 'name' in Class.attrib and re.search(pattern, Class.attrib['name'].lower()) and [i for i in self.filter if i not in cmd.lower() or i in cmd.lower() and i in Class.attrib['name'].lower()]:
                                     for structcmd in Class.iter('struct'):
                                         # search cmd in all the local files
                                         if 'name' in structcmd.attrib and structcmd.attrib['name'] == cmd:
@@ -545,6 +554,11 @@ class CmdFinder(object):
                 numset = set(frame_no_list)
                 self.Frame_Num = len(numset)
                 self.num_diff = min(numset)
+                # if self.ringfilelist:
+                #     idx = self.ringfilelist[0].find('-')
+                #     if idx != -1:
+                #         self.test_name = self.ringfilelist[0][:idx]
+
 
                 for thing in self.ringfilelist:
                     if self.Frame_Num > 1:
@@ -596,6 +610,7 @@ class CmdFinder(object):
         ## only start after cmd "MI_BATCH_BUFFER_START"
         os.chdir(self.ringpath)
         comment_char = ['<', '-']
+        # shutil.copy(self.ringfilename, self.output_path)
         with open(self.ringfilename, 'r') as f:
             df = pd.DataFrame()         #initialize
             start = 'MI_BATCH_BUFFER_START'

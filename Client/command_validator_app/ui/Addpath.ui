@@ -20,9 +20,9 @@
    <property name="geometry">
     <rect>
      <x>190</x>
-     <y>70</y>
+     <y>90</y>
      <width>561</width>
-     <height>381</height>
+     <height>361</height>
     </rect>
    </property>
   </widget>
@@ -46,7 +46,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Notice: Search Priority is defined by Folder Order!</string>
+    <string>Notice: 1.Search Priority is defined by Path Order!</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
@@ -93,7 +93,7 @@
     <string>Media Path</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -149,6 +149,29 @@
    </property>
    <property name="text">
     <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>70</y>
+     <width>531</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+     <underline>false</underline>
+     <strikeout>false</strikeout>
+    </font>
+   </property>
+   <property name="text">
+    <string>          2. Path should End in hw</string>
    </property>
   </widget>
  </widget>

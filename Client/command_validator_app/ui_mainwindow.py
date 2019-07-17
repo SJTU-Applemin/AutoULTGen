@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'mainwindow.ui',
 # licensing of 'mainwindow.ui' applies.
 #
-# Created: Thu Jul 11 10:52:23 2019
+# Created: Fri Jul 12 14:41:32 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -406,7 +406,7 @@ class Ui_mainWindow(object):
         mainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(mainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
     def retranslateUi(self, mainWindow):
@@ -464,7 +464,7 @@ class Ui_mainWindow(object):
         self.SelectRinginfoPath.setText(QtWidgets.QApplication.translate("mainWindow", "Select Folder", None, -1))
         self.label_3.setText(QtWidgets.QApplication.translate("mainWindow", "DDI Input Path ", None, -1))
         self.SelectMediaPath.setText(QtWidgets.QApplication.translate("mainWindow", "Add Folder", None, -1))
-        self.label_2.setText(QtWidgets.QApplication.translate("mainWindow", "Media Path", None, -1))
+        self.label_2.setText(QtWidgets.QApplication.translate("mainWindow", "Command Path", None, -1))
         self.label_8.setText(QtWidgets.QApplication.translate("mainWindow", "Frame", None, -1))
         self.SelectDDIInputPath.setText(QtWidgets.QApplication.translate("mainWindow", "Select Folder", None, -1))
         self.pushButtonGAll.setText(QtWidgets.QApplication.translate("mainWindow", "Generate All", None, -1))

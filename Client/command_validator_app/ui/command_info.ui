@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="All">
     <property name="sizePolicy">
@@ -212,29 +212,9 @@
        <x>0</x>
        <y>0</y>
        <width>321</width>
-       <height>741</height>
+       <height>691</height>
       </rect>
      </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
-     </property>
-     <property name="wordWrap">
-      <bool>false</bool>
-     </property>
-     <property name="columnCount">
-      <number>1</number>
-     </property>
-     <attribute name="headerVisible">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="headerCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string notr="true">1</string>
-      </property>
-     </column>
     </widget>
    </widget>
    <widget class="QWidget" name="cmdlist">
@@ -321,38 +301,15 @@
       <string>Show All</string>
      </property>
     </widget>
-    <widget class="QTreeWidget" name="treeWidgetCmdlist">
+    <widget class="QTreeView" name="treeView">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
        <width>321</width>
-       <height>741</height>
+       <height>681</height>
       </rect>
      </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
-     </property>
-     <property name="wordWrap">
-      <bool>false</bool>
-     </property>
-     <property name="columnCount">
-      <number>1</number>
-     </property>
-     <attribute name="headerVisible">
-      <bool>false</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string notr="true">1</string>
-      </property>
-     </column>
     </widget>
    </widget>
    <widget class="QWidget" name="page_5">

@@ -506,7 +506,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Media Path</string>
+            <string>Command Path</string>
            </property>
           </widget>
          </item>

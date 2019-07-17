@@ -2,22 +2,23 @@ import sys
 import os
 import re
 import shutil
-from PySide2.QtUiTools import *
-from PySide2.QtCore import *
+import copy
+from functools import partial
+import time
+#from PySide2.QtUiTools import *
+from PySide2.QtCore import QCoreApplication, Slot, Qt
 from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+from PySide2.QtGui import QColor
+from lxml import etree
+#----------
+from ui_command_info import Ui_FormCommandInfo
 from ui_mainwindow import Ui_mainWindow
 from ui_Addpath import Ui_Addpath
 from get_enum_member import GetEnumMember
 from extended_combobox import ExtendedComboBox
-# from ui_form import Ui_Form
-from ui_command_info import Ui_FormCommandInfo
-from lxml import etree
 from htoxml.cmdfinder import CmdFinder
-import webgenxml
-import copy
-from functools import partial
-import time
+import webgenxml   #not used
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -33,18 +34,20 @@ class MainWindow(QMainWindow):
         self.Buf = None 
         self.command_info = []
         self.command_tags = ('DW0_dwlen', 'class', 'def_dwSize', 'index', 'input_dwsize', 'name')
-        self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD')
+        self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD', 'arrayname')
         self.command_filter = {'MI_NOOP_CMD', 'MI_NOOP'}
+        self.platform_list = []
         self.ringinfo_path = ''
-        self.workspace = ''
+        self.output_path = ''
         self.command_xml = ''
         self.test_name = ''
         self.platform = ''
         self.frame_num = 0
         self.row_num = 0
-
+        self.workspace = ''
         self.form = FormCommandInfo(self)
         self.Addpath = Addpath(self)
+        self.pathlist = self.Addpath.ui.listWidget
         #
         self.last_dir = ''
         self.ui.SelectMediaPath.clicked.connect(self.showAddpath)
@@ -56,31 +59,88 @@ class MainWindow(QMainWindow):
         self.ui.comboBoxPlatform.currentTextChanged.connect(partial(self.selectbox,'Platform'))
         self.ui.comboBoxComponent.currentTextChanged.connect(partial(self.selectbox,'Component'))
 
-        
-        self.ui.tabWidget.setCurrentIndex(0)
 
-        #self.ui.lineEditMediaPath.setText(r'C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12_tglhp/hw;C:/Users/jiny/gfx/gfx-driver/Source/media/media_embargo/agnostic/gen12/hw')
-        self.ui.lineEditTestName.setText('encodeHevcCQP')
-        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media')
+        self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.FrameNum_input.setReadOnly(True)
+        self.ui.lineEditFrame.setReadOnly(True)
+        self.ui.lineEditMediaPath.textChanged.connect(self.update_platform_list)
+        self.ui.lineEditRinginfoPath.textChanged.connect(self.read_test_name)
+        self.ui.comboBoxPlatform.currentIndexChanged.connect(self.fillinput_platform)
+        self.ui.comboBoxComponent.currentIndexChanged.connect(self.fillinput_component)
+
+        self.ui.lineEditRinginfoPath.editingFinished.connect(partial(self.fillframenum,'Main'))
+        self.ui.lineEditDDIInputPath.editingFinished.connect(partial(self.fillframenum,'Input'))
+        self.ui.Height_input.editingFinished.connect(partial(self.checkhw, 'Height'))
+        self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
+
+        #self.ui.lineEditTestName.setText('encodeHevcCQP')
+        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw')
         self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
-        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
+        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+
+    @Slot()
+    def checkhw(self, name):
         
-        
+        if name == 'Height':
+            try:
+                text = self.ui.Height_input.text()
+                if '0x' in text:
+                    self.Height = int(text, 16)
+                else:
+                    self.Height = int(text)
+            except ValueError:
+                msgBox = QMessageBox()
+                msgBox.setText("%s should be int!" %name)
+                msgBox.exec_()
+                self.ui.Height_input.clear()
+        if name == 'Width':
+            try:
+                text = self.ui.Width_input.text()
+                if '0x' in text:
+                    self.Width = int(text, 16)
+                else:
+                    self.Width = int(text)
+            except ValueError:
+                msgBox = QMessageBox()
+                msgBox.setText("%s should be int!" %name)
+                msgBox.exec_()
+
+
+
+    @Slot()
+    def read_test_name(self):
+        try:
+            # print('read_test_name')
+            self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
+            cur_dir = os.getcwd()
+            for r,d,f in os.walk(self.ringinfo_path):
+                os.chdir(r)
+                file_list = [file for file in f if re.search('-VcsRingInfo_0_0.txt', file)]
+                # print(file_list)
+                if file_list:
+                    idx = file_list[0].find('-')
+                    if idx != -1:
+                        self.test_name = file_list[0][:idx]
+                        self.ui.lineEditTestName.setText(self.test_name)
+                        # print(self.test_name)
+            os.chdir(cur_dir)
+        except:
+            pass
+
 
     @Slot()
     def showAddpath(self):
+        
         self.Addpath.show()
         self.Addpath.activateWindow()
-        self.pathlist = self.Addpath.ui.listWidget
         self.pathlist.clear()
         if self.ui.lineEditMediaPath.text():
             self.pathlist.addItems(self.ui.lineEditMediaPath.text().split(';'))
     
     @Slot()
     def selectbox(self, name, text):
-        #print(text)
         if name == 'Platform':
             self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
         if name == 'Component':
@@ -113,7 +173,6 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def changebg(self, name, text):
-        #print(text)
         if name == 'Media':
             self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
         if name == 'DDIInput':
@@ -122,59 +181,118 @@ class MainWindow(QMainWindow):
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
 
     @Slot()
+    def fillframenum(self, name):
+        if name == 'Input' and self.ui.lineEditDDIInputPath.text():
+            Frameset = set()
+            for f in os.listdir(self.ui.lineEditDDIInputPath.text()):
+                pattern = re.search('^(\d)-0.*DDIEnc_(.*)Params_._Frame', f)
+                if pattern:
+                    Frameset.add(int(pattern.group(1)))
+            if not Frameset:
+                msgBox = QMessageBox()
+                msgBox.setText("Input path doesn't contain target files!(e.g. 0-0_1_DDIEnc_SlcParams_I_Frame.dat)")
+                msgBox.exec_()
+            self.FrameNumdiff = min(Frameset) - 0
+            self.ui.FrameNum_input.setText(str(len(Frameset)))
+        if name == 'Main' and self.ui.lineEditRinginfoPath.text():
+            file_list = [file for file in os.listdir(self.ui.lineEditRinginfoPath.text()) if re.search('VcsRingInfo_0_0.txt', file)]
+            if len(file_list) > 1:
+                frame_no_list = [int(re.search('(\d)-VcsRingInfo_0_0.txt', file).group(1)) for file in file_list]
+            elif len(file_list) == 1:
+                frame_no_list = [0]
+            else:
+                msgBox = QMessageBox()
+                msgBox.setText("Ringinfo path doesn't contain target files!(e.g. 1-VcsRingInfo_0_0.txt)")
+                msgBox.exec_()
+            self.ringfilelist = file_list
+            numset = set(frame_no_list)
+            self.ui.lineEditFrame.setText(str(len(numset)))
+
+        if self.ui.lineEditFrame.text().strip() and self.ui.FrameNum_input.text().strip() and self.ui.lineEditFrame.text() != self.ui.FrameNum_input.text():
+            print(self.ui.lineEditFrame.text())
+            print(self.ui.FrameNum_input.text())
+            msgBox = QMessageBox()
+            msgBox.setText("Inconsistent Frame number!")
+            msgBox.exec_()
+
+
+    @Slot()
+    def update_platform_list(self):
+        self.media_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+        dir = os.getcwd()
+        try:
+            os.chdir(self.media_path)
+            os.chdir('..\\inc\\common')
+            with open('igfxfmid.h', 'r') as fin:
+                lines = fin.readlines()
+            idx1 = 0
+            idx2 = 0
+            for idx, line in enumerate(lines):
+                if line.strip().find('typedef enum {') != -1:
+                    idx1 = idx
+                if line.strip().find(' PRODUCT_FAMILY;') != -1:
+                    idx2 = idx
+                    break
+            for idx in range(idx1+1, idx2):
+                line = lines[idx]
+                if line.find('=') != -1:
+                    platform_name = line[:line.find('=')].strip()
+                elif line.find(',') != -1:
+                    platform_name = line[:line.find(',')].strip()
+                self.platform_list.append(platform_name)
+            self.ui.comboBoxPlatform.clear()
+            self.ui.comboBoxPlatform.addItems(self.platform_list)
+            print('update platform list according to igfxfmid.h\n')
+        except:
+            pass
+
+    @Slot()
     def fillinput(self):
-        #self.ui.buttonBox.rejected.connect(self.reject)
         blank = []
         if not self.ui.lineEditRinginfoPath.text():
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Ringinfo')
+        else:
+            self.fillframenum('Main')
         if not self.ui.lineEditDDIInputPath.text():
             self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('DDIInput')
+        else:
+            self.fillframenum('Input')
         if not self.ui.lineEditMediaPath.text():
             self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Media')
-
         if blank:
             msgBox = QMessageBox()
             str = ', '.join(blank)
             msgBox.setText("Please fill %s Path!"% str)
             msgBox.exec_()
-
         else:
-
-            #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
-            #self.media_path = self.ui.lineEditMediaPath.text().split(';')
-            #path = os.path.normpath(self.media_path[0])
-            #path_list = path.split(os.sep)
-            #base_media = path_list[0]
-            #for i in path_list[1:]:
-            #    base_media = os.path.join(base_media, i)
-            #    if i == 'Source':
-            #        break
-            #self.base_media = base_media.replace(':', ':\\')
             self.read_info_from_ui()
             self.fillcombobox()
             self.checkinputexist()
-        
+
             self.ui.InputPathText.setText(self.ui.lineEditDDIInputPath.text())
             self.ui.Component_input.setText(self.ui.lineEditComponent.text())
             #self.ui.GUID_input.setText('DXVA2_Intel_LowpowerEncode_HEVC_Main')
             #self.ui.Width_input.setText('256')
             #self.ui.Height_input.setText('192')
-            self.ui.FrameNum_input.setReadOnly(True)
+
             #self.ui.FrameNum_input.setText('1')
-            self.FrameNumdiff = 0
             self.ui.tabWidget.setCurrentIndex(1)
     
     def checkinputexist(self):
         self.inputfilename = self.test_name+'Input.dat'
-        with open(os.path.join(self.output_path, self.inputfilename), 'r',  encoding="ISO-8859-1") as fin:
-            lines = fin.readlines()
-        if not lines:
-            print('Not Found %s' %self.filename)
+        lines = []
+        try:
+            with open(os.path.join(self.output_path, self.inputfilename), 'r',  encoding="ISO-8859-1") as fin:
+                lines = fin.readlines()
+        except FileNotFoundError:
+            print('Not Found %s' %self.inputfilename)
             self.ui.pushButtonUpdate.setText('Generate')
-        else:
+            # Keep preset values
+
+        if lines:
             pattern = re.search('''<Header>
 Component = ([a-zA-Z0-9_\-]*)
 GUID = ([a-zA-Z0-9_\-]*)
@@ -207,6 +325,13 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 self.ui.FrameNum_input.setText(pattern.group(15))
             else:
                 self.ui.pushButtonUpdate.setText('Generate')
+    @Slot()
+    def fillinput_platform(self):
+        self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
+
+    @Slot()
+    def fillinput_component(self):
+        self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
 
 
     def fillcombobox(self):
@@ -229,16 +354,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.ui.comboBoxResTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
         self.ui.comboBoxRawF.addItems([''] + list(self.input_combo_obj.output['_MOS_FORMAT'].keys()))
         self.ui.comboBoxRawTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
-
-    @Slot()
-    def generate_from_bspec(self):
-        url = self.ui.lineEditURL.text()
-        webgenxml.webgen(url)
-        self.ui.logBrowser.append('Get infomation from ' + url + '\n')
-
-    def load_vesc_ring_info(self):
-        vesc_ring_info = {}
-        pass
 
     @Slot()
     def show_command_table(self, item, column = 0):
@@ -277,7 +392,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 table.setItem(i_row, 0, QTableWidgetItem(command['name']))
                 for dword_idx, dword in enumerate(command['dwords']):
                     ##print('dword ' + str(dword_idx) + '\n')
-                    QCoreApplication.processEvents()
                     if 'unmappedstr' in dword and dword['unmappedstr']:
                         continue
                     if i_row >= table.rowCount():
@@ -286,6 +400,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     if not dword['fields']:
                         if dword['value']:
                             table.setItem(i_row, 3, QTableWidgetItem(dword['value']))
+                        if dword['arrayname']:
+                            table.setItem(i_row, 2, QTableWidgetItem(dword['arrayname']))
                         self.form.row_command_map.append(
                             {'frame_idx': idx['frame_idx'], 'command_idx': command['index'], 'dword_idx': dword_idx})
                         i_row += 1
@@ -293,7 +409,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     dword_item = command_item.child(dword_idx)
 
                     for field in dword['fields']:
-                        QCoreApplication.processEvents()
                         if field['field_name'].startswith('Obj'):
                             if i_row >= table.rowCount():
                                 table.insertRow(i_row)
@@ -305,9 +420,9 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                     table.insertRow(i_row)
                                 table.setItem(i_row, 2, QTableWidgetItem(obj_field['obj_field_name']))
                                 checkBox = QCheckBox()
-                                if (not obj_field['obj_field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field['CHECK'] == 'Y':
+                                if (not obj_field['obj_field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
                                     checkBox.setCheckState(Qt.CheckState.Checked)
-                                checkBox.stateChanged.connect(self.check_box_change)
+                                # checkBox.stateChanged.connect(self.check_box_change)
                                 table.setCellWidget(i_row, 5, checkBox)
                                 if self.form.mode == 'bin':
                                     table.setItem(i_row, 3, QTableWidgetItem(bin(int(obj_field['default_value'], 16))))
@@ -348,7 +463,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                         checkBox = QCheckBox()
                         if (not field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field['CHECK'] == 'Y':
                             checkBox.setCheckState(Qt.CheckState.Checked)
-                        checkBox.stateChanged.connect(self.check_box_change)
+                        # checkBox.stateChanged.connect(self.check_box_change)
                         table.setCellWidget(i_row, 5, checkBox)
                         if self.form.mode == 'bin':
                             table.setItem(i_row, 3, QTableWidgetItem(bin(int(field['default_value'], 16))))
@@ -371,15 +486,14 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                         else:
                             table.setItem(i_row, 6, QTableWidgetItem('N'))
                         table.setItem(i_row, 9, QTableWidgetItem(field['bitfield_l']))
-                        table.item(i_row, 3).setFlags(Qt.NoItemFlags)
+                        table.item(i_row, 9).setFlags(Qt.NoItemFlags)
                         table.setItem(i_row, 10, QTableWidgetItem(field['bitfield_h']))
-                        table.item(i_row, 3).setFlags(Qt.NoItemFlags)
+                        table.item(i_row, 10).setFlags(Qt.NoItemFlags)
                         self.form.row_command_map.append({'frame_idx': idx['frame_idx'],'command_idx': command['index'], 'dword_idx': dword_idx})
                         i_row += 1
 
             table.resizeColumnsToContents()
             table.resizeRowsToContents()
-
 
     @Slot()
     def show_command_info(self):
@@ -427,48 +541,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                         if 'field_name' in field_obj:
                             field = QTreeWidgetItem(dword)
                             field.setText(0, field_obj['field_name'])
-
-
-        # for command in self.command_info:
-        #     fields_num = 0
-        #     for dword in command['dwords']:
-        #         for key in dword:
-        #             if key != 'value' and key != 'unmappedstr':
-        #                 fields_num += 1
-        #     # #print(command)
-        #     # #print(fields_num)
-        #     # #print(i_row)
-        #     if i_row >= self.form.ui.cmdTable.rowCount():
-        #         self.form.ui.cmdTable.insertRow(i_row)
-        #
-        #     table.setItem(i_row, 0, QTableWidgetItem(command['name']))
-        #     for dword in command['dwords']:
-        #         for key, value in dword.items():
-        #             if key == 'value' or key == 'unmappedstr':
-        #                 continue
-        #             # #print(i_row)
-        #             if i_row >= self.form.ui.cmdTable.rowCount():
-        #                 self.form.ui.cmdTable.insertRow(i_row)
-        #             table.setItem(i_row, 1, QTableWidgetItem(key))
-        #             checkBox = QCheckBox()
-        #
-        #             checkBox.setCheckState(Qt.CheckState.Checked)
-        #             checkBox.stateChanged.connect(self.check_box_change)
-        #             table.setCellWidget(i_row, 3, checkBox)
-        #             table.setItem(i_row, 2, QTableWidgetItem(value['default_value']))
-        #             table.setItem(i_row, 4, QTableWidgetItem(value['Address']))
-        #             table.setItem(i_row, 5, QTableWidgetItem(value['min_value']))
-        #             table.setItem(i_row, 6, QTableWidgetItem(value['max_value']))
-        #             i_row += 1
-        # table.resizeColumnsToContents()
-        # table.resizeRowsToContents()
         self.form.show()
         self.form.activateWindow()
-
-
-    @Slot(int)
-    def check_box_change(self, row_id):
-        print(row_id)
 
     def parse_command_file(self):
         #print('begin parse command file')
@@ -526,23 +600,24 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
         
         self.output_path = os.path.join(self.workspace, self.test_name)
+        # in case user left this folder, with '_x.h' header file
+        base_folder = os.path.join(self.base_media, r'media\media_embargo\agnostic\gen12\hw')
+        self.pathlist.clear()
+        if self.ui.lineEditMediaPath.text():
+            self.pathlist.addItems(self.ui.lineEditMediaPath.text().split(';'))
+        if not self.pathlist.findItems(base_folder, Qt.MatchExactly):
+            self.pathlist.addItem(base_folder)
+            self.ui.lineEditMediaPath.setText(self.ui.lineEditMediaPath.text() + ';' + base_folder)
+
         # create single folder for each testname
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
         self.ui.logBrowser.append('All the following output will be saved in workspace:\n%s\n'  %self.output_path)
-        
         self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
 
         
 
     def read_command_info_from_xml(self):
-        #self.read_info_from_ui()
-        #self.parse_command_file()
-        # if self.ui.lineEditFrame.text():
-        #     self.frame_num = int(self.ui.lineEditFrame.text())
-        # else:
-        #     self.ui.logBrowser.append('Please input frame count\n')
-        #     return
         tree = etree.parse(self.command_xml)
         root = tree.getroot()[0]
         frames = []
@@ -618,7 +693,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             frames.append(commands)
         self.command_info = frames
         self.dw_length_check()
-        self.ui.lineEditFrame.setText(str(len(frames)))
+        #self.ui.lineEditFrame.setText(str(len(frames)))
 
         self.ui.logBrowser.append('Read infomation from mapringinfo.xml\n')
         self.form.info = self.command_info
@@ -705,7 +780,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                 next_dword['fields'][0]['max_value'] = next_dword['fields'][0]['default_value']
                         cmd['dwords'].insert(dword_idx+1, next_dword)
 
-
     @Slot()
     def generate_xml(self):
         if not self.command_info:
@@ -716,7 +790,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         lines.append('  <Platform name="' + self.platform + '">\n')
         for frame_idx, frame in enumerate(self.command_info):
             # #print('frame' + str(frame_idx))
-            lines.append('    <Frame NO="' + str(frame_idx + 1) + '">\n')
+            lines.append('    <Frame NO="' + str(frame_idx) + '">\n')
             for cmd_idx, cmd in enumerate(frame):
                 # #print('cmd' + str(cmd_idx))
                 s_cmd = '      <CMD'
@@ -733,19 +807,23 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                             s_dword = s_dword + ' ' + key + '="' + str(value) + '"'
                     s_dword = s_dword + '>\n'
                     lines.append(s_dword)
-                    # if 'unmappedstr' in dword:
-                    #     continue
-                    # if dword['value']:
-                    #     lines.append('        <dword index="' + dword['NO'] + '" value="' + dword['value'] + '">\n')
-                    # elif dword['unmappedstr']:
-                    #     lines.append('        <dword index="' + dword['NO'] + '" unmappedstr="' + dword['unmappedstr'] + '">\n')
+
                     for field in dword['fields']:
+                        if field['field_name'].startswith('Obj'):
+                            for obj_field in field['obj_fields']:
+                                if field['obj_fields'].startswith('Reserve'):
+                                    continue
+                                s_field = '          <' + obj_field['obj_field_name']
+                                for key, value in obj_field.items():
+                                    if key != 'obj_field_name':
+                                        s_field = s_field + ' ' + key + '="' + str(value) + '"'
+                                s_field = s_field + '/>\n'
+                                lines.append(s_field)
+                            break
                         # if 'CHECK' in field and field['CHECK'] == 'Y':
                         if not field['field_name'].startswith('Reserve'):
                             s_field = '          <' + field['field_name']
                             for key, value in field.items():
-                             #   if key == 'have_precursor':
-                             #        #print('have_precursor')
                                 if key != 'field_name':
                                     s_field = s_field + ' ' + key + '="' + str(value) + '"'
                             s_field = s_field + '/>\n'
@@ -755,13 +833,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             lines.append('    </Frame>\n')
         lines.append('  </Platform>\n')
         lines.append('</' + self.test_name + '>\n')
-        file_name = self.test_name + '.xml'
+        file_name = self.test_name + '_reference.xml'
         with open(self.output_path + '\\' + file_name, 'w') as fout:
             fout.writelines(lines)
-        self.ui.logBrowser.append('Generating modified command xml %s\n' %file_name )
-        self.show_message('Generating modified command xml %s\n' % file_name )
+        self.ui.logBrowser.append('Generating modified command xml' + self.output_path + '\\' + file_name + '\n')
+        self.show_message('Generating modified command xml' + self.output_path + '\\' + file_name + '\n', '')
 
-    #
     @Slot()
     def selectpath(self, name):
         #open file dialog and display directory in the text edit area
@@ -779,66 +856,55 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.ui.lineEditMediaPath.setText(dir)
         if name == 'DDIInput':
             self.ui.lineEditDDIInputPath.setText(dir)
-            self.ddiinputpath = self.ui.lineEditDDIInputPath.text()
+            self.fillframenum('Input')
         if name == 'Ringinfo':
             self.ui.lineEditRinginfoPath.setText(dir)
+            self.fillframenum('Main')
 
-        
     @Slot()
     def addHeader(self):
         # click OK, generate xml header
         #self.read_info_from_ui()
         
-        self.Component = self.ui.Component_input.text()
-        self.GUID = self.ui.GUID_input.text()
-        self.Width = self.ui.Width_input.text()
-        self.Height = self.ui.Height_input.text()
-        self.inputpath = self.ui.InputPathText.text()
-        self.RawTileType = self.ui.RawTT_value.text()
-        self.RawFormat = self.ui.RawF_value.text()
-        self.ResTileType = self.ui.ResTT_value.text()
-        self.ResFormat = self.ui.ResF_value.text()
-        self.EncFunc = self.ui.EncFunc_value.text()
-        self.FrameNum = self.ui.FrameNum_input.text()
+        self.Component = self.ui.Component_input.text().strip()
+        self.GUID = self.ui.GUID_input.text().strip()
+        self.Width = self.ui.Width_input.text().strip()
+        self.Height = self.ui.Height_input.text().strip()
+        self.FrameNum = self.ui.FrameNum_input.text().strip()
+        self.inputpath = self.ui.InputPathText.text().strip()
+        self.RawTileType = self.ui.RawTT_value.text().strip()
+        self.RawFormat = self.ui.RawF_value.text().strip()
+        self.ResTileType = self.ui.ResTT_value.text().strip()
+        self.ResFormat = self.ui.ResF_value.text().strip()
+        self.EncFunc = self.ui.EncFunc_value.text().strip()
         # get real Frame Number according to input files
         self.cpfiles()
         
-        Frameset = set()
-
-        for f in os.listdir(self.inputpath):
-            pattern = re.search('^(\d)-0.*DDIEnc_(.*)Params_._Frame', f)
-            if pattern:
-                Frameset.add(int(pattern.group(1)))
-        if not Frameset:
+        if not (self.Component and self.GUID and self.Width and self.Height and self.inputpath and self.RawTileType and self.RawFormat and self.ResTileType and 
+                self.ResFormat and self.EncFunc):
             msgBox = QMessageBox()
-            msgBox.setText("Input path doesn't contain target files!(e.g. 0-0_1_DDIEnc_SlcParams_I_Frame.dat)")
+            msgBox.setText("Please don't leave blank!")
             msgBox.exec_()
-        self.FrameNumdiff = min(Frameset) - 0
-        self.FrameNum = str(len(Frameset))
-        self.ui.FrameNum_input.setText(self.FrameNum)
-        # combine input files and parameters
-        self.combine()
-        self.ui.logBrowser.append("Generate input file: %s\n" %self.inputfilename)
-        #pop out message box
-        #msgBox = QMessageBox()
-        #msgBox.setText("The input file has been generated.")
-        #msgBox.exec_()
-
-
-        # build CMDFinder obj
-        if self.Buf:
-            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf)
         else:
-            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
-        
-        self.parse_command_file()
-        self.read_command_info_from_xml()
-        self.ui.tabWidget.setCurrentIndex(0)
-        if self.ui.lineEditFrame.text() != self.FrameNum:
-            msgBox = QMessageBox()
-            msgBox.setText("Inconsistent Frame number!")
-            msgBox.exec_()
-        self.form.showcmdlist()
+            # combine input files and parameters
+            self.combine()
+            self.ui.logBrowser.append("Generate input file: %s\n" %self.inputfilename)
+            #pop out message box
+            #msgBox = QMessageBox()
+            #msgBox.setText("The input file has been generated.")
+            #msgBox.exec_()
+
+
+            # build CMDFinder obj
+            if self.Buf:
+                self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf, self.output_path)
+            else:
+                self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf, self.output_path)
+            self.update_test_code()
+            self.parse_command_file()
+            self.read_command_info_from_xml()
+            self.ui.tabWidget.setCurrentIndex(0)
+            self.form.showcmdlist()
         
     
     @Slot()
@@ -902,8 +968,122 @@ FrameNum = {self.FrameNum}
                             new_content.append(clean_line)
                     wfd.writelines(new_content)
                     #wfd.write('</Frame>\n')
-        
 
+    def update_test_code(self):
+        self.update_integrated_test_cpp()
+        self.update_integrated_test_cfg_cpp()
+        self.update_ult_rc()
+        self.update_resource_h()
+
+    def update_integrated_test_cpp(self, component='encode'):
+        try:
+            if component == 'encode':
+                f_integrated_cpp = self.workspace[:-9] + 'encode_integrated_test.cpp'
+                with open(f_integrated_cpp, 'r') as fin:
+                    lines = fin.readlines()
+
+                f_find = False
+                new_line = 'TEST_CASE_DEFINE(MediaEncodeItTest, ' + self.capitalize_word(self.test_name) + ')\n'
+                for line in lines:
+                    if line.find(new_line) != -1:
+                        return
+                for idx, line in enumerate(lines):
+                    if line.strip().startswith('TEST_CASE_DEFINE'):
+                        f_find = True
+                    elif f_find and not line.strip():
+                        lines.insert(idx, new_line)
+                        break
+                if not f_find:
+                    lines.append(new_line)
+
+                with open(f_integrated_cpp, 'w') as fout:
+                    fout.writelines(lines)
+        except:
+            self.show_message('update encode_integrated_test.cpp error', 'error')
+
+    def update_integrated_test_cfg_cpp(self, component='encode'):
+        try:
+            if component == 'encode':
+                f_integrated_cfg_cpp = self.workspace[:-9] + 'encode_integrated_test_cfg.cpp'
+                with open(f_integrated_cfg_cpp, 'r') as fin:
+                    lines = fin.readlines()
+                s0 = '    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n'
+                for line in lines:
+                    if line.find(s0) != -1:
+                        return
+                newlines = []
+                newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
+                newlines.append('                                IDR_' + self.test_name.upper() + '_INPUT,\n')
+                newlines.append('                                {"' + self.platform + '"},\n')
+                newlines.append('                            }\n')
+                newlines.append('    }\n')
+                newlines.append('};\n')
+                f_find = False
+                for idx, line in enumerate(lines):
+                    if line.strip() == '};':
+                        f_find = True
+                        newlines = lines[:idx] + newlines
+                        if newlines[idx-1].strip() == '}':
+                            newlines[idx-1] = '    },\n'
+                if f_find:
+                    with open(f_integrated_cfg_cpp, 'w') as fout:
+                        fout.writelines(newlines)
+        except:
+            self.show_message('update encode_integrated_test_cfg.cpp error', 'error')
+
+    def update_ult_rc(self, component='encode'):
+        try:
+            if component == 'encode':
+                f_ult_rc = self.workspace + '\\media_driver_codec_ult.rc'
+                with open(f_ult_rc, 'r') as fin:
+                    lines = fin.readlines()
+                s0 = 'IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (31 - len(self.test_name)) + 'TEST_DATA     "' + self.capitalize_word(self.test_name) + 'Reference.xml"\n'
+                for line in lines:
+                    if line.find(s0) != -1:
+                        return
+                while not lines[-1].strip():
+                    lines = lines[:-1]
+                if lines[-1][-1] != '\n':
+                    lines.append('\n')
+                lines.append('IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (31 - len(self.test_name)) + 'TEST_DATA     "' + self.capitalize_word(self.test_name) + 'Reference.xml"\n')
+                lines.append('IDR_' + self.test_name.upper() + '_INPUT' + ' ' * (35 - len(self.test_name)) + 'TEST_DATA     "' + self.capitalize_word(self.test_name) + 'Input.dat"\n')
+                with open(f_ult_rc, 'w') as fout:
+                    fout.writelines(lines)
+        except:
+            self.show_message('update media_driver_codec_ult.rc error', 'error')
+
+    def update_resource_h(self, component='encode'):
+        try:
+            if component == 'encode':
+                f_resource_h = self.workspace + '\\resource.h'
+                with open(f_resource_h, 'r') as fin:
+                    lines = fin.readlines()
+                s0 = '#define IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (33 - len(self.test_name))
+                for line in lines:
+                    if line.find(s0) != -1:
+                        return
+                while not lines[-1].strip():
+                    lines = lines[:-1]
+                if lines:
+                    last_num = int(lines[-1].strip().split(' ')[-1])
+                else:
+                    last_num = 100
+                if lines[-1][-1] != '\n':
+                    lines.append('\n')
+                last_num += 1
+                lines.append('#define IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (33 - len(self.test_name)) + str(last_num) + '\n')
+                last_num += 1
+                lines.append('#define IDR_' + self.test_name.upper() + '_INPUT' + ' ' * (37 - len(self.test_name)) + str(last_num) + '\n')
+                with open(f_resource_h, 'w') as fout:
+                    fout.writelines(lines)
+        except:
+            self.show_message('update resource.h error', 'error')
+
+    def capitalize_word(self, s):
+        if s:
+            return s[0].upper() + s[1:]
+        else:
+            return s
 
 class FormCommandInfo(QWidget):
     def __init__(self, main_window):
@@ -949,7 +1129,7 @@ class FormCommandInfo(QWidget):
         for i in range(table.rowCount()):
             if not table.item(i, 2):
                 continue
-            if table.cellWidget(i, 5).isChecked():
+            if table.cellWidget(i, 5) and table.cellWidget(i, 5).isChecked():
                 command = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]
                 dword = 'dword' + command['dwords'][int(self.row_command_map[i]['dword_idx'])]['NO']
                 field = str(table.item(i, 2).text())
@@ -983,18 +1163,6 @@ class FormCommandInfo(QWidget):
             self.show_message('Save information', 'Save')
         else:
             self.first = False
-            # for i in range(table.rowCount()):
-            #     cmd_name = str(table.item(i, 0))
-            #     if cmd_name not in cmds:
-            #         cmds.add(cmd_name)
-            #         info.append({'name': cmd_name, 'fields': {}})
-            #     if table.cellWidget(i, 3).checkState():
-            #         field_name = str(table.item(i, 1))
-            #         info[-1]['fields'][field_name] = {}
-            #         info[-1]['fields']['defalt_value'] = str(table.item(i, 2))
-            #         info[-1]['fields']['Address'] = str(table.item(i, 4))
-            #         info[-1]['fields']['min_value'] = str(table.item(i, 5))
-            #         info[-1]['fields']['max_value'] = str(table.item(i, 6))
         if self.check() != 0:
             return
         for i in range(table.rowCount()):
@@ -1022,6 +1190,7 @@ class FormCommandInfo(QWidget):
                             field['value'] = str(table.item(i, 4).text())
                             field['min_value'] = str(table.item(i, 7).text())
                             field['max_value'] = str(table.item(i, 8).text())
+        self.main_window.command_info = self.info
 
     @Slot(QTreeWidgetItem, int)
     def update_tree_checkstate(self, item, column):
@@ -1032,56 +1201,6 @@ class FormCommandInfo(QWidget):
             else:
                 dword.setCheckState(0, Qt.CheckState.Unchecked)
 
-
-    @Slot()
-    def save(self):
-        table = self.ui.tableWidgetCmd
-        tree = self.ui.treeWidgetCmd
-            # for i in range(table.rowCount()):
-            #     cmd_name = str(table.item(i, 0))
-            #     if cmd_name not in cmds:
-            #         cmds.add(cmd_name)
-            #         info.append({'name': cmd_name, 'fields': {}})
-            #     if table.cellWidget(i, 3).checkState():
-            #         field_name = str(table.item(i, 1))
-            #         info[-1]['fields'][field_name] = {}
-            #         info[-1]['fields']['defalt_value'] = str(table.item(i, 2))
-            #         info[-1]['fields']['Address'] = str(table.item(i, 4))
-            #         info[-1]['fields']['min_value'] = str(table.item(i, 5))
-            #         info[-1]['fields']['max_value'] = str(table.item(i, 6))
-        # self.show_message('Save command info ', 'Save')
-        if self.check() != 0:
-            return
-        for i in range(table.rowCount()):
-            dword = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]['dwords'][int(self.row_command_map[i]['dword_idx'])]
-            # #print('find_dword')
-            if dword:
-                if not table.item(i, 2):
-                    continue
-                # #print('table.item')
-                field_name = str(table.item(i, 2).text())
-                for field in dword['fields']:
-                    if field['field_name'] == field_name:
-
-                        if table.cellWidget(i, 5).isChecked():
-                            field['CHECK'] = 'Y'
-                        else:
-                            field['CHECK'] = 'N'
-                        field['Address'] = str(table.item(i, 6).text())
-                        if self.mode == 'bin':
-                            field['value'] = hex(int(str(table.item(i, 4).text()), 2))
-                            field['min_value'] = hex(int(str(table.item(i, 7).text()), 2))
-                            field['max_value'] = hex(int(str(table.item(i, 8).text()), 2))
-                        elif self.mode == 'dec':
-                            field['value'] = hex(int(str(table.item(i, 4).text())))
-                            field['min_value'] = hex(int(str(table.item(i, 7).text())))
-                            field['max_value'] = hex(int(str(table.item(i, 8).text())))
-                        else:
-                            field['value'] = str(table.item(i, 4).text())
-                            field['min_value'] = str(table.item(i, 7).text())
-                            field['max_value'] = str(table.item(i, 8).text())
-
-        self.main_window.command_info = self.info
 
     @Slot(QTreeWidgetItem, int)
     def update_tree_checkstate(self, item, column):
@@ -1196,11 +1315,11 @@ class FormCommandInfo(QWidget):
                             index.append(int(i))
                     length = len(index)
                     if int(maximum_value) > length:
-                        self.table.setItem(row, 1, QTableWidgetItem(str(maximum_value-length)))
-                        self.table.item(row, 1).setTextColor(QColor(255,0,0))
+                        self.table.setItem(row, 2, QTableWidgetItem(str(maximum_value-length)))
+                        self.table.item(row, 2).setTextColor(QColor(255,0,0))
                         self.table.insertRow(row+1)
-                        self.table.setItem(row+1, 1, QTableWidgetItem(str(length)))
-                        self.table.item(row+1, 1).setTextColor(QColor(255,0,0))
+                        self.table.setItem(row+1, 2, QTableWidgetItem(str(length)))
+                        self.table.item(row+1, 2).setTextColor(QColor(255,0,0))
                         self.table.setItem(row+1, 0, QTableWidgetItem(new))
                         self.table.item(row+1, 0).setTextColor(QColor(255,0,0))
                         self.cmdlistrow += 1
@@ -1257,6 +1376,7 @@ class Addpath(QWidget):
         self.ui.pushButtonMtoB.clicked.connect(self.MovetoBottom)
         self.ui.pushButtonSave.clicked.connect(self.Save)
         #self.ui.pushButtonClose.clicked.connect(self.Close)
+        
     
 
     def closeEvent(self, event):
@@ -1273,6 +1393,7 @@ class Addpath(QWidget):
     @Slot()
     def AddFolder(self):
         dialog = QFileDialog(self)
+        
         if self.last_dir:
             dir = dialog.getExistingDirectory(self, "Add Search Folder",
                                            self.last_dir) 
@@ -1283,7 +1404,12 @@ class Addpath(QWidget):
             dir = dialog.getExistingDirectory(self, "Add Search Folder",
                                            "/home")
         self.last_dir = dir
-        self.list.addItem(dir)
+        if self.list.count() > 1 and os.path.basename(dir) != 'hw':
+            msgBox = QMessageBox()
+            msgBox.setText("Path should End in hw!")
+            msgBox.exec_()
+        else:
+            self.list.insertItem(0, dir)
 
     @Slot()
     def RemoveFolder(self):
@@ -1342,6 +1468,7 @@ class Addpath(QWidget):
 def item_text_to_dec(s):
     if s.startswith('0x'):
         return int(s, 16)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

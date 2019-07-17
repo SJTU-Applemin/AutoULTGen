@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'Addpath.ui',
 # licensing of 'Addpath.ui' applies.
 #
-# Created: Tue Jul  9 16:29:39 2019
+# Created: Mon Jul 15 10:42:11 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -16,7 +16,7 @@ class Ui_Addpath(object):
         Addpath.resize(807, 516)
         Addpath.setAcceptDrops(False)
         self.listWidget = QtWidgets.QListWidget(Addpath)
-        self.listWidget.setGeometry(QtCore.QRect(190, 70, 561, 381))
+        self.listWidget.setGeometry(QtCore.QRect(190, 90, 561, 361))
         self.listWidget.setObjectName("listWidget")
         self.label = QtWidgets.QLabel(Addpath)
         self.label.setGeometry(QtCore.QRect(210, 50, 531, 21))
@@ -47,22 +47,22 @@ class Ui_Addpath(object):
         font.setPointSize(13)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.widget = QtWidgets.QWidget(Addpath)
-        self.widget.setGeometry(QtCore.QRect(40, 270, 111, 171))
-        self.widget.setObjectName("widget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
+        self.layoutWidget1 = QtWidgets.QWidget(Addpath)
+        self.layoutWidget1.setGeometry(QtCore.QRect(40, 270, 111, 171))
+        self.layoutWidget1.setObjectName("layoutWidget1")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget1)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.pushButtonMtoT = QtWidgets.QPushButton(self.widget)
+        self.pushButtonMtoT = QtWidgets.QPushButton(self.layoutWidget1)
         self.pushButtonMtoT.setObjectName("pushButtonMtoT")
         self.verticalLayout.addWidget(self.pushButtonMtoT)
-        self.pushButtonMU = QtWidgets.QPushButton(self.widget)
+        self.pushButtonMU = QtWidgets.QPushButton(self.layoutWidget1)
         self.pushButtonMU.setObjectName("pushButtonMU")
         self.verticalLayout.addWidget(self.pushButtonMU)
-        self.pushButtonMD = QtWidgets.QPushButton(self.widget)
+        self.pushButtonMD = QtWidgets.QPushButton(self.layoutWidget1)
         self.pushButtonMD.setObjectName("pushButtonMD")
         self.verticalLayout.addWidget(self.pushButtonMD)
-        self.pushButtonMtoB = QtWidgets.QPushButton(self.widget)
+        self.pushButtonMtoB = QtWidgets.QPushButton(self.layoutWidget1)
         self.pushButtonMtoB.setObjectName("pushButtonMtoB")
         self.verticalLayout.addWidget(self.pushButtonMtoB)
         self.pushButtonSave = QtWidgets.QPushButton(Addpath)
@@ -71,13 +71,24 @@ class Ui_Addpath(object):
         font.setPointSize(10)
         self.pushButtonSave.setFont(font)
         self.pushButtonSave.setObjectName("pushButtonSave")
+        self.label_3 = QtWidgets.QLabel(Addpath)
+        self.label_3.setGeometry(QtCore.QRect(210, 70, 531, 21))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setWeight(50)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setStrikeOut(False)
+        font.setBold(False)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
 
         self.retranslateUi(Addpath)
         QtCore.QMetaObject.connectSlotsByName(Addpath)
 
     def retranslateUi(self, Addpath):
         Addpath.setWindowTitle(QtWidgets.QApplication.translate("Addpath", "Add Path", None, -1))
-        self.label.setText(QtWidgets.QApplication.translate("Addpath", "Notice: Search Priority is defined by Folder Order!", None, -1))
+        self.label.setText(QtWidgets.QApplication.translate("Addpath", "Notice: 1.Search Priority is defined by Path Order!", None, -1))
         self.pushButtonAF.setText(QtWidgets.QApplication.translate("Addpath", "Add Folder", None, -1))
         self.pushButtonRemove.setText(QtWidgets.QApplication.translate("Addpath", "Remove", None, -1))
         self.label_2.setText(QtWidgets.QApplication.translate("Addpath", "Media Path", None, -1))
@@ -86,4 +97,5 @@ class Ui_Addpath(object):
         self.pushButtonMD.setText(QtWidgets.QApplication.translate("Addpath", "Move Down", None, -1))
         self.pushButtonMtoB.setText(QtWidgets.QApplication.translate("Addpath", "Move to Bottom", None, -1))
         self.pushButtonSave.setText(QtWidgets.QApplication.translate("Addpath", "Save", None, -1))
+        self.label_3.setText(QtWidgets.QApplication.translate("Addpath", "          2. Path should End in hw", None, -1))
 
