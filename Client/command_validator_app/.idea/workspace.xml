@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c178df91-6769-4c14-b937-48bbafcd4f9a" name="Default Changelist" comment="" />
+    <list default="true" id="c178df91-6769-4c14-b937-48bbafcd4f9a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/command_validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/command_validator.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,17 +86,35 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1631218824">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="428" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="428" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/command_validator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="540" column="61" selection-start-line="540" selection-start-column="61" selection-end-line="540" selection-end-column="61" />
+            <state relative-caret-position="323">
+              <caret line="224" column="48" lean-forward="true" selection-start-line="224" selection-start-column="48" selection-end-line="224" selection-end-column="48" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1561451692519" expanded="true" signature="20131:21159" ph="..." />
+                <marker date="1563476588550" expanded="true" signature="32905:32914" ph="..." />
               </folding>
             </state>
           </provider>
@@ -113,8 +135,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/htoxml/cmdfinder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="435" column="56" selection-start-line="435" selection-start-column="56" selection-end-line="435" selection-end-column="56" />
+            <state relative-caret-position="7208">
+              <caret line="435" column="32" selection-start-line="435" selection-start-column="32" selection-end-line="435" selection-end-column="32" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -124,9 +146,7 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vcstringinfo/Hevc_vdenc/mapringinfo.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-160" />
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -151,25 +171,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmdclassgen.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ui_window2.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>CheckState</find>
-      <find>NO=&quot;1_2&quot;</find>
-      <find>listCmd</find>
-      <find>MI_LOAD_REGISTER_IMM_CMD</find>
-      <find>MI_BATCH_BUFFER_START_CMD</find>
-      <find>VD_PIP</find>
       <find>for</find>
       <find>PictureFields</find>
       <find>file_name</find>
@@ -193,13 +206,20 @@
       <find>command_xml</find>
       <find>txt2df</find>
       <find>MI_STORE_DATA_IMM_CMD</find>
+      <find>guid</find>
+      <find>GUID</find>
+      <find>addHeader</find>
+      <find>update_test_code</find>
+      <find>media</find>
+      <find>base_media</find>
+      <find>media_path</find>
     </findStrings>
     <replaceStrings>
       <replace>dword_info</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -249,6 +269,32 @@
               <item name="command_validator_app" type="b2602c69:ProjectViewProjectNode" />
               <item name="command_validator_app" type="462c0819:PsiDirectoryNode" />
               <item name="vcstringinfo" type="462c0819:PsiDirectoryNode" />
+              <item name="HEVC-VDENC-grits-WP-2125" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="command_validator_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="command_validator_app" type="462c0819:PsiDirectoryNode" />
+              <item name="vcstringinfo" type="462c0819:PsiDirectoryNode" />
+              <item name="HEVC-VDENC-grits-WP-2125" type="462c0819:PsiDirectoryNode" />
+              <item name="DDI_Input" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="command_validator_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="command_validator_app" type="462c0819:PsiDirectoryNode" />
+              <item name="vcstringinfo" type="462c0819:PsiDirectoryNode" />
+              <item name="HEVC-VDENC-grits-WP-2125" type="462c0819:PsiDirectoryNode" />
+              <item name="VcsRingInfo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="command_validator_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="command_validator_app" type="462c0819:PsiDirectoryNode" />
+              <item name="vcstringinfo" type="462c0819:PsiDirectoryNode" />
+              <item name="HEVC-VDENC-Grits001 - 1947" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="command_validator_app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="command_validator_app" type="462c0819:PsiDirectoryNode" />
+              <item name="vcstringinfo" type="462c0819:PsiDirectoryNode" />
               <item name="Hevc_vdenc" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -258,6 +304,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/mqc_code/AutoULTGen/Client/command_validator_app/ui_window2.py" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -395,14 +442,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.90885144" visible="true" weight="0.14015573" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.90832454" visible="true" weight="0.14015573" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.09114858" side_tool="true" visible="true" weight="0.14015573" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.091675445" side_tool="true" visible="true" weight="0.14015573" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -474,29 +521,7 @@
     <entry file="file://$PROJECT_DIR$/vcstringinfo/Hevc_vdenc/mapvecstring.xml" />
     <entry file="file://$PROJECT_DIR$/vcstringinfo/Hevc_vdenc/test3.xml" />
     <entry file="file://$PROJECT_DIR$/vcstringinfo/Hevc_vdenc/test.xml" />
-    <entry file="file://$PROJECT_DIR$/ui_command_info.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webgenxml.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-          <folding>
-            <element signature="e#53#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmdclassgen.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ui_window2.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/cmdclassgen.py" />
     <entry file="file://$PROJECT_DIR$/vcstringinfo/Hevc_vdenc/1-VcsRingInfo_0_0.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -519,8 +544,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/htoxml/cmdfinder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="435" column="56" selection-start-line="435" selection-start-column="56" selection-end-line="435" selection-end-column="56" />
+        <state relative-caret-position="7208">
+          <caret line="435" column="32" selection-start-line="435" selection-start-column="32" selection-end-line="435" selection-end-column="32" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -528,17 +553,39 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vcstringinfo/Hevc_vdenc/mapringinfo.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui_command_info.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-160" />
+        <state relative-caret-position="204">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webgenxml.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding>
+            <element signature="e#53#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui_window2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/command_validator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="540" column="61" selection-start-line="540" selection-start-column="61" selection-end-line="540" selection-end-column="61" />
+        <state relative-caret-position="323">
+          <caret line="224" column="48" lean-forward="true" selection-start-line="224" selection-start-column="48" selection-end-line="224" selection-end-column="48" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1561451692519" expanded="true" signature="20131:21159" ph="..." />
+            <marker date="1563476588550" expanded="true" signature="32905:32914" ph="..." />
           </folding>
         </state>
       </provider>
