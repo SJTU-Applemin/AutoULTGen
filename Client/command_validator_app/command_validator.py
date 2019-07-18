@@ -30,11 +30,12 @@ class MainWindow(QMainWindow):
         self.ui.pushButtonUpdate.clicked.connect(self.addHeader)
 
         self.media_path = '' # split by ';'
-        self.base_media = '' # end in file /source 
+        self.base_media = '' # end in file /source
+        self.media_path2 = '' # end in Source/media
         self.Buf = None 
         self.command_info = []
         self.command_tags = ('DW0_dwlen', 'class', 'def_dwSize', 'index', 'input_dwsize', 'name')
-        self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD', 'arrayname')
+        self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD', 'arrayname', 'unmappedstr')
         self.command_filter = {'MI_NOOP_CMD', 'MI_NOOP'}
         self.platform_list = []
         self.ringinfo_path = ''
@@ -218,10 +219,15 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def update_platform_list(self):
-        self.media_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
+        self.media_path2 = self.ui.lineEditMediaPath.text().replace('/', '\\').strip().split(';')
+        if self.media_path2:
+            self.media_path2 = self.media_path2[0]
+        idx = self.media_path2.find('\\media\\')
+        if idx != -1:
+            self.media_path2 = self.media_path2[:idx+7]
         dir = os.getcwd()
         try:
-            os.chdir(self.media_path)
+            os.chdir(self.media_path2)
             os.chdir('..\\inc\\common')
             with open('igfxfmid.h', 'r') as fin:
                 lines = fin.readlines()
@@ -237,9 +243,13 @@ class MainWindow(QMainWindow):
                 line = lines[idx]
                 if line.find('=') != -1:
                     platform_name = line[:line.find('=')].strip()
+                    if platform_name.startswith('IGFX'):
+                        self.platform_list.append(platform_name)
                 elif line.find(',') != -1:
                     platform_name = line[:line.find(',')].strip()
-                self.platform_list.append(platform_name)
+                    if platform_name.startswith('IGFX'):
+                        self.platform_list.append(platform_name)
+
             self.ui.comboBoxPlatform.clear()
             self.ui.comboBoxPlatform.addItems(self.platform_list)
             print('update platform list according to igfxfmid.h\n')
@@ -392,8 +402,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 table.setItem(i_row, 0, QTableWidgetItem(command['name']))
                 for dword_idx, dword in enumerate(command['dwords']):
                     ##print('dword ' + str(dword_idx) + '\n')
-                    if 'unmappedstr' in dword and dword['unmappedstr']:
-                        continue
+                    #if 'unmappedstr' in dword and dword['unmappedstr']:
+                    #    continue
                     if i_row >= table.rowCount():
                         table.insertRow(i_row)
                     table.setItem(i_row, 1, QTableWidgetItem('dword' + dword['NO']))
@@ -402,6 +412,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                             table.setItem(i_row, 3, QTableWidgetItem(dword['value']))
                         if dword['arrayname']:
                             table.setItem(i_row, 2, QTableWidgetItem(dword['arrayname']))
+                        if dword['unmappedstr']:
+                            table.setItem(i_row, 3, QTableWidgetItem(dword['unmappedstr']))
                         self.form.row_command_map.append(
                             {'frame_idx': idx['frame_idx'], 'command_idx': command['index'], 'dword_idx': dword_idx})
                         i_row += 1
@@ -594,6 +606,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             if i == 'Source':
                 break
         self.base_media = base_media.replace(':', ':\\')
+
         if self.component in ('vp', 'VP'):
             self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
         else:
@@ -811,8 +824,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     for field in dword['fields']:
                         if field['field_name'].startswith('Obj'):
                             for obj_field in field['obj_fields']:
-                                if field['obj_fields'].startswith('Reserve'):
-                                    continue
+                                #if field['obj_fields'].startswith('Reserve'):
+                                #    continue
                                 s_field = '          <' + obj_field['obj_field_name']
                                 for key, value in obj_field.items():
                                     if key != 'obj_field_name':
@@ -820,8 +833,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                 s_field = s_field + '/>\n'
                                 lines.append(s_field)
                             break
-                        # if 'CHECK' in field and field['CHECK'] == 'Y':
-                        if not field['field_name'].startswith('Reserve'):
+                        if 'CHECK' in field and field['CHECK'] == 'Y':
+                        # if not field['field_name'].startswith('Reserve'):
                             s_field = '          <' + field['field_name']
                             for key, value in field.items():
                                 if key != 'field_name':
@@ -877,6 +890,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.ResTileType = self.ui.ResTT_value.text().strip()
         self.ResFormat = self.ui.ResF_value.text().strip()
         self.EncFunc = self.ui.EncFunc_value.text().strip()
+        self.update_test_code()
         # get real Frame Number according to input files
         self.cpfiles()
         
@@ -900,7 +914,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf, self.output_path)
             else:
                 self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf, self.output_path)
-            self.update_test_code()
+
             self.parse_command_file()
             self.read_command_info_from_xml()
             self.ui.tabWidget.setCurrentIndex(0)
@@ -1015,6 +1029,7 @@ FrameNum = {self.FrameNum}
                 newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
                 newlines.append('                                IDR_' + self.test_name.upper() + '_INPUT,\n')
                 newlines.append('                                {"' + self.platform + '"},\n')
+                newlines.append('                                ' + self.GUID + '\n')
                 newlines.append('                            }\n')
                 newlines.append('    }\n')
                 newlines.append('};\n')
@@ -1160,7 +1175,8 @@ class FormCommandInfo(QWidget):
         table = self.ui.tableWidgetCmd
         tree = self.ui.treeWidgetCmd
         if not self.first:
-            self.show_message('Save information', 'Save')
+            # self.show_message('Save information', 'Save')
+            pass
         else:
             self.first = False
         if self.check() != 0:
@@ -1376,7 +1392,6 @@ class Addpath(QWidget):
         self.ui.pushButtonMtoB.clicked.connect(self.MovetoBottom)
         self.ui.pushButtonSave.clicked.connect(self.Save)
         #self.ui.pushButtonClose.clicked.connect(self.Close)
-        
     
 
     def closeEvent(self, event):
@@ -1393,7 +1408,6 @@ class Addpath(QWidget):
     @Slot()
     def AddFolder(self):
         dialog = QFileDialog(self)
-        
         if self.last_dir:
             dir = dialog.getExistingDirectory(self, "Add Search Folder",
                                            self.last_dir) 
