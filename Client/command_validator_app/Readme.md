@@ -9,6 +9,7 @@ We need to install some requirements to run this tool.
 
 Pyside2
 lxml
+pandas
 
 ## Usage
 
@@ -34,7 +35,7 @@ If you want to search specifically, click **Add Folder** button.
 
 <img src="./screenshots/Addpath.png" alt="png" width="600"/>
 
-In this interface you can adjust search priority by folder order, but path need end in hw(if you want
+In this interface you can adjust search priority by folder order, but path need to end in hw(if you want
 to add more than 1 folder). Don't forget to click save button before close this window.
 The first folder will be used to generate base media path: `....\gfx\gfx-driver\Source`. We will use
 base media path to generate your workspace(talk it later). Besides, we will add `...\media\media_embargo\agnostic\gen12\hw`
@@ -81,7 +82,8 @@ listed. If you need to rewrite a testname, this will load old configuration from
 
 - GUID should be str, Width and Height should be int(Add 0x if you prefer to use int16).
 
-As for next 5 comboboxes, **get_enum_member.py** script is written to load their dropdown lists.
+As for next 5 comboboxes, **get_enum_member.py** script is written to load their dropdown lists. 
+**extended_combobox.py** is written to reload default combobox, which can filter item by input text.
 
 - RawTileType, ResTileType attributes load dropdown lists from  
 
@@ -132,7 +134,7 @@ your configuration in a new file (Name rule: TestName+Input.dat) in your workspa
 <img src="./screenshots/aaaainput.png" alt="png" width="250"/>
 <img src="./screenshots/aaaainput2.png" alt="png" width="450"/>
 
-2. Secondly, update... (**Qichen**)
+2. Secondly, update... (**@Qichen**)
 3. Also, start parsing cmd and related value in vcsringinfo files. Pop up commandinfo window 
 when finished. 
 
@@ -191,7 +193,7 @@ Click `Show All` to view the entire CMD validation form in details.
 
 <img src="./screenshots/All.png" alt="png" width="800"/>
 
-**Qichen**
+**@Qichen**
 
 Features:
 1. Check or uncheck a cmd or a dword on the left tree, or a field on the right table.
@@ -204,12 +206,42 @@ Features:
 5. `save` and `generate` the updated configuration xml in your workspace for future reference:
 `....\test\test_data\TestName\TestName_reference.xml` 
 
+Brief introduction of Core Scripts logic
+-------
 
+## header_parser.py
 
+Convert mhw header files to xml. Comments and predefinion would be discarded. Other parts would follow the
+same layer as the header files. Contents that are unable to parse would be save in unparsedtext node.
+<img src="./screenshots/headerparser.png" alt="png" width="900"/>
 
+## cmdfinder.py
 
+After parsing all the mhw header files using **header_parser.py**, now we can locate vcsringinfo cmd in
+mhw and map their dword values. 
+1. Use pandas(Python Data Analysis Library) to extract vcsringinfo infomation to pandas dataframe.
+2. cmd names in vcsringinfo and mhw header files are often different. Like, in ringcmdinfo "CMD_SFC_STATE_OBJECT"
+but in header file "SFC_STATE_CMD". So the match logic is : split the name str into a list, ['CMD', 'SFC', 'STATE', 'OBJECT'].
+Ignore keywords ['CMD', 'COMMAND', 'OBJECT', 'MEDIA', 'STATE'] if they appear in either cmd name list. Equal keywords
+[['_ON_OFF','_CHECK'],['VEB','VEBOX'],['COST','COSTS'],['QMS','QM'],['IMAGE','IMG'],['WEIGHTSOFFSETS','WEIGHTS_OFFSETS']]
+if those pairs appear in either cmd name list. Finally, judge their match result.
+3. If cmd matches, map dword value in corresponding field. If some cmd struct is used in another cmd, we will 
+expand it as a dword.
+<img src="./screenshots/othercmd.png" alt="png" width="600"/>
+<img src="./screenshots/othercmd2.png" alt="png" width="900"/>
+while searching, first search in memory, which means the previous search result, because lots of cmds 
+are duplicates. If found in memory, copy the whole node, update its value and append the node to result;
+If not found, repeat the above search process in all mhw files.
+4. Check if any dword duplicates or losts. Check size error, not found error, and bitfield error(explained before).
+5. Update results if users modify some cmd in cmd list UI.
 
+## command_validator.py
 
+Draw the UI, display cmdfinder results. Our module is based on Pyside2 library. If you would like to change the UI, please refer
+to the pyside2 official guide.
+
+**ui_command_info.py, ui_mainwindow.py, ui_Addpath.py** is generated from xxx.ui files(Use qt creator to edit them) 
+by pyside2-uic commmand. 
 
 Other scripts you may need in the future
 -------
@@ -235,3 +267,8 @@ pretty print XML elemt with indent
 
        <class name="mhw_vdbox_vdenc_g12_X">
            <public>
+
+## webgenxml.py
+
+Extract cmd infomation from bspec, and save into xml.
+
