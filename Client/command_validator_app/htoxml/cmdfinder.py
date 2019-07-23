@@ -64,24 +64,8 @@ class CmdFinder(object):
                             root = tree.getroot()
                             self.Buf.append(copy.deepcopy(root))
         #print(prettify(self.Buf))
-
-    def writexml(self, output_path = '', index = 0):
-        #output xml
-        platform_group = SubElement(self.TestName, 'Platform', {'name': ''})
-        # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
-        for frame_no, ringinfo in self.full_ringinfo.items():
-            frame_group = SubElement(platform_group, 'Frame', {'NO': frame_no})
-            for pair in ringinfo:
-                for ringcmd, value_list in pair.items():
-                    # Initially search in past search memory 
-                    if not self.memory(self.TestName, ringcmd, value_list, frame_group, index):
-                        # cal time
-                        start1 = time.clock()
-                        #if not found cmd in past memory, try to search in the entire context
-                        frame_group = self.mapcmd(ringcmd, value_list, frame_group, index)
-                        #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
-                    self.cmdsizecheck(ringcmd, index) 
-                    index += 1
+        
+    def writexml(self, output_path = ''):
         if output_path:
             with open( os.path.join(output_path ,  "mapringinfo.xml") , "w") as f:
                 f.write(prettify(self.TestName))
@@ -135,7 +119,7 @@ class CmdFinder(object):
         return new_full_ringinfo
 
     def updatexml(self, index = 0):
-        # after modify cmd in UI, update xml according to the new full_ringinf
+        # after modify cmd in UI, update xml according to the new full_ringinfo
         TestName = self.TestName
         # clear
         self.TestName = Element('TestName') 
@@ -143,7 +127,6 @@ class CmdFinder(object):
         self.size_error_cmd = {}
         self.size_right_cmd = {}
 
-        #output xml
         platform_group = SubElement(self.TestName, 'Platform', {'name': ''})
         # full_ringinfo: {'0':[{'MI_LOAD_REGISTER_IMM': ['1108101d', '00000244']},...]} , '0' is frame_no
         for frame_no, ringinfo in self.full_ringinfo.items():
@@ -157,10 +140,6 @@ class CmdFinder(object):
                         #print("MAP Time used:", time.clock() - start1, ",  index = ", index)
                     self.cmdsizecheck(ringcmd, index)
                     index += 1
-
-        with open( os.path.join(self.ringpath ,  "mapringinfo.xml") , "w") as f:
-            f.write(prettify(self.TestName))
-        return prettify(self.TestName)
 
     def cmdsizecheck(self, ringcmd, index):
         #create size_error and size_right cmd index list
@@ -789,7 +768,8 @@ class CmdFinder(object):
 #obj = CmdFinder(source, gen, ringpath)
 #Buf = obj.h2xml()
 #obj.extractfull()
-#obj.writexml()
+#obj.updatexml()
+#obj.writexml() #write to files
 #elapsed = (time.clock() - start)
 #print("Total Time used:",elapsed)   #25s 
 ##----------------------------------------------------------------
@@ -802,6 +782,7 @@ class CmdFinder(object):
 #print(obj.ringcmddic)  #show cmd list
 #obj.undate_full_ringinfo()
 #obj.updatexml()
+#obj.writexml() #write to files
 #elapsed = (time.clock() - start)
 #print("Total Time used:",elapsed)   #13s 
 ##----------------------------------------------------------------
@@ -811,6 +792,7 @@ class CmdFinder(object):
 #start = time.clock()
 #obj = CmdFinder(source, gen, ringpath, Buf)
 #obj.extractfull()
+#obj.updatexml()
 #obj.writexml()
 #elapsed = (time.clock() - start)
 #print("Total Time used:", elapsed)   #18s 
