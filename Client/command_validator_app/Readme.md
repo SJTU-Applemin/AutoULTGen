@@ -153,7 +153,7 @@ Input_dwsize.Exceptions:
 1. If DW0_dwlength doesn't exist, skip it.
 2. If input_dwsize == 0/1, DW0_dwlength == 0
 3. If cmd is `MI_STORE_DATA_IMM` or `MI_FLUSH_DW`, ignore its dwsize error. If `MI_NOOP` is its next cmd,
-append `MI_NOOP value` to its last dword and delete this MI_NOOP
+append `MI_NOOP` value to its last dword and delete this `MI_NOOP`.
 
 DW0_dwlength:
 <img src="./screenshots/dw0_length.png" alt="png" width="800"/>
@@ -271,4 +271,8 @@ pretty print XML elemt with indent
 ## webgenxml.py
 
 Extract cmd infomation from bspec, and save into xml.
+
+## cpp_parser.py
+
+Convert mhw cpp files to xml
 
