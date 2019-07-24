@@ -206,6 +206,23 @@ Features:
 5. `save` and `generate` the updated configuration xml in your workspace for future reference:
 `....\test\test_data\TestName\TestName_reference.xml` 
 
+Package issue
+-------
+PyInstaller can bundle a Python application and all its dependencies into a single package. 
+Users then can run the packaged app without installing a Python interpreter or any modules. Now PyInstaller
+works fine with this tool.
+
+Ref: https://pythonhosted.org/PyInstaller/usage.html
+
+1. After installing PyInstaller successfully, set your current directory to .\Client\command_validator_app\,
+2. run command `pyinstaller command_validator.py`. See carefully if there reports any error, try to fix it.
+For example, if pyinstaller says `ModuleNotFoundError: No module named 'win32com'`, then use `pip install pypiwin32`
+to install the missing module.
+3. If things go smoothly, you could find command_validator.exe in .\dist\command_validator.exe.
+4. PyInstaller also supports to create a one-file bundled executable. 
+Use command `pyinstaller -F --name="command_validator" command_validator.py`. It is not recommended for debugging,
+but might be used for the final version.
+
 Brief introduction of Core Scripts logic
 -------
 
@@ -275,4 +292,3 @@ Extract cmd infomation from bspec, and save into xml.
 ## cpp_parser.py
 
 Convert mhw cpp files to xml
-
