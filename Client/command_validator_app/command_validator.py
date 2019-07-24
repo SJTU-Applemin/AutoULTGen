@@ -5,10 +5,9 @@ import shutil
 import copy
 from functools import partial
 import time
-#from PySide2.QtUiTools import *
 from PySide2.QtCore import QCoreApplication, Slot, Qt
 from PySide2.QtWidgets import *
-from PySide2.QtGui import QColor
+from PySide2.QtGui import QColor, QKeySequence
 from lxml import etree
 #----------
 from ui_command_info import Ui_FormCommandInfo
@@ -17,7 +16,7 @@ from ui_Addpath import Ui_Addpath
 from get_enum_member import GetEnumMember
 from extended_combobox import ExtendedComboBox
 from htoxml.cmdfinder import CmdFinder
-import webgenxml   #not used
+#import webgenxml   #not used, read from bspec
 
 
 class MainWindow(QMainWindow):
@@ -27,7 +26,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.ui.pushButtonGAll.clicked.connect(self.fillinput)
         #self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
-        self.ui.pushButtonUpdate.clicked.connect(self.addHeader)
+        self.ui.pushButtonUpdate.clicked.connect(self.input_goru)
 
         self.media_path = '' # split by ';'
         self.base_media = '' # end in file /source
@@ -65,7 +64,7 @@ class MainWindow(QMainWindow):
         self.ui.FrameNum_input.setReadOnly(True)
         self.ui.lineEditFrame.setReadOnly(True)
         self.ui.lineEditMediaPath.textChanged.connect(self.update_platform_list)
-        self.ui.lineEditRinginfoPath.textChanged.connect(self.read_test_name)
+        #self.ui.lineEditRinginfoPath.textChanged.connect(self.read_test_name)
         self.ui.comboBoxPlatform.currentIndexChanged.connect(self.fillinput_platform)
         self.ui.comboBoxComponent.currentIndexChanged.connect(self.fillinput_component)
 
@@ -75,9 +74,9 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw')
-        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
-        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
+        #self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw')
+        #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
+        #self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
@@ -564,8 +563,11 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         #self.ringinfo_path = self.ringinfo_path.strip()
         #if self.ringinfo_path[-1] != '\\':
         #    self.ringinfo_path = self.ringinfo_path + '\\'
-        self.command_xml = os.path.join(self.ringinfo_path, 'mapringinfo.xml')
-        #main(self.ringinfo_path, self.command_xml, self.media_path)
+
+        ## read xml from file: uncomment this to see the original output
+        #self.command_xml = os.path.join(self.ringinfo_path, 'mapringinfo.xml')
+
+
         #init
         start = time.clock()
         #self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
@@ -576,15 +578,16 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             msgBox = QMessageBox()
             msgBox.setText("Ringinfo path doesn't contain target files!(e.g. 1-VcsRingInfo_0_0.txt)")
             msgBox.exec_()
-        self.obj.writexml(self.output_path)
+        self.obj.updatexml()
+        #self.obj.writexml(self.output_path)
         elapsed = (time.clock() - start)
-        #print("Total Time used:",elapsed)
+        print("Total Time used:",elapsed)
         #
         #print('end parse command file')
         #self.ui.logBrowser.append("Total Time used:"+ str(elapsed) +'\n')
         #self.ui.logBrowser.append('End parse vcs ring info\n')
         #self.ui.logBrowser.append('Save xml in '+ self.ringinfo_path + '\n')
-        self.ui.logBrowser.append('Save original mapringinfo.xml\n')
+        #self.ui.logBrowser.append('Save original mapringinfo.xml\n')
 
     def read_info_from_ui(self):
         if self.ui.lineEditComponent.text():
@@ -631,10 +634,16 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         
 
     def read_command_info_from_xml(self):
-        tree = etree.parse(self.command_xml)
-        root = tree.getroot()[0]
+        # read from xml file 
+        #tree = etree.parse(self.command_xml)
+        #root = tree.getroot()[0]
+        #for frame in tree:
+
+        # read from xml elem
+        tree = self.obj.TestName
         frames = []
-        for frame in root:
+        
+        for frame in tree.findall(".//Frame"):
             ##print(frame.tag)
             commands = []
             # self.test_class_name = root.get('name')
@@ -708,7 +717,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.dw_length_check()
         #self.ui.lineEditFrame.setText(str(len(frames)))
 
-        self.ui.logBrowser.append('Read infomation from mapringinfo.xml\n')
+        #self.ui.logBrowser.append('Read infomation from mapringinfo.xml\n')
         self.form.info = self.command_info
         ##print(self.command_info)
         self.show_command_info()
@@ -875,7 +884,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.fillframenum('Main')
 
     @Slot()
-    def addHeader(self):
+    def input_goru(self):
         # click OK, generate xml header
         #self.read_info_from_ui()
         
@@ -1052,7 +1061,7 @@ FrameNum = {self.FrameNum}
                 f_ult_rc = self.workspace + '\\media_driver_codec_ult.rc'
                 with open(f_ult_rc, 'r') as fin:
                     lines = fin.readlines()
-                s0 = 'IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (31 - len(self.test_name)) + 'TEST_DATA     "' + self.capitalize_word(self.test_name) + 'Reference.xml"\n'
+                s0 = 'IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (31 - len(self.test_name)) + 'TEST_DATA     "' + self.test_name + '/' + self.capitalize_word(self.test_name) + 'Reference.xml"\n'
                 for line in lines:
                     if line.find(s0) != -1:
                         return
@@ -1060,8 +1069,8 @@ FrameNum = {self.FrameNum}
                     lines = lines[:-1]
                 if lines[-1][-1] != '\n':
                     lines.append('\n')
-                lines.append('IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (31 - len(self.test_name)) + 'TEST_DATA     "' + self.capitalize_word(self.test_name) + 'Reference.xml"\n')
-                lines.append('IDR_' + self.test_name.upper() + '_INPUT' + ' ' * (35 - len(self.test_name)) + 'TEST_DATA     "' + self.capitalize_word(self.test_name) + 'Input.dat"\n')
+                lines.append('IDR_' + self.test_name.upper() + '_REFERENCE' + ' ' * (31 - len(self.test_name)) + 'TEST_DATA     "' + self.test_name + '/' + self.capitalize_word(self.test_name) + 'Reference.xml"\n')
+                lines.append('IDR_' + self.test_name.upper() + '_INPUT' + ' ' * (35 - len(self.test_name)) + 'TEST_DATA     "' + self.test_name + '/' + self.capitalize_word(self.test_name) + 'Input.dat"\n')
                 with open(f_ult_rc, 'w') as fout:
                     fout.writelines(lines)
         except:
@@ -1217,15 +1226,6 @@ class FormCommandInfo(QWidget):
             else:
                 dword.setCheckState(0, Qt.CheckState.Unchecked)
 
-
-    @Slot(QTreeWidgetItem, int)
-    def update_tree_checkstate(self, item, column):
-        for i in range(item.childCount()):
-            dword = item.child(i)
-            if item.checkState(0) == Qt.CheckState.Checked:
-                dword.setCheckState(0, Qt.CheckState.Checked)
-            else:
-                dword.setCheckState(0, Qt.CheckState.Unchecked)
 
     @Slot()
     def update_data_mode_hex(self):
@@ -1386,6 +1386,8 @@ class Addpath(QWidget):
 
         self.ui.pushButtonAF.clicked.connect(self.AddFolder)
         self.ui.pushButtonRemove.clicked.connect(self.RemoveFolder)
+        deleteShortcut = QShortcut(QKeySequence(Qt.Key_Delete), self) #add delete shortcut for list widget
+        deleteShortcut.activated.connect(self.RemoveFolder)
         self.ui.pushButtonMtoT.clicked.connect(self.MovetoTop)
         self.ui.pushButtonMU.clicked.connect(self.MoveUp)
         self.ui.pushButtonMD.clicked.connect(self.MoveDown)
