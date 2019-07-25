@@ -74,9 +74,9 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        #self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw')
-        #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
-        #self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
+        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw')
+        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
+        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
@@ -976,6 +976,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         l = [self.inputpath, self.ringinfo_path]
         for i in l:
             dstdir = os.path.join(self.output_path, os.path.basename(i))
+            shutil.rmtree(dstdir, ignore_errors=True)
             if not os.path.exists(dstdir):
                 os.makedirs(dstdir) # create directories, raise an error if it already exists
             for f in os.listdir(i):
