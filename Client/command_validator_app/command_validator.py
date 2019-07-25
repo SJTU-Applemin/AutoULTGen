@@ -976,7 +976,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         l = [self.inputpath, self.ringinfo_path]
         for i in l:
             dstdir = os.path.join(self.output_path, os.path.basename(i))
-            shutil.rmtree(dstdir, ignore_errors=True)
             if not os.path.exists(dstdir):
                 os.makedirs(dstdir) # create directories, raise an error if it already exists
             for f in os.listdir(i):
