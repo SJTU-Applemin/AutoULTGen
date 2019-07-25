@@ -1,6 +1,6 @@
 ﻿import os
 import shutil
-from ult_generator import header_parser
+from Parser.header_parser import HeaderParser
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import (
     Element, SubElement, XML, Comment
@@ -75,10 +75,33 @@ def cpfiles(source, lines=0, header=True, begin_start=None):
     return lines
 
 def clrfiles(source):
+    #clear generated test folder
     for r,d,f in os.walk(source):
         #ult folder is generated additionally for tests, skip them 
         if r.endswith(r'\ult\agnostic\test'):
             shutil.rmtree(r, ignore_errors=True)
+
+def h2xmlfiles(source, gen = 'all'):
+    #convert header to xml
+        parser_list = []
+        for r,d,f in os.walk(source):
+            #modify target file
+            #if r'\ult\agnostic\test' not in r:
+            if r'\ult\agnostic\test' not in r:
+                continue
+            for thing in f:
+                # filter all mhw cmd header file
+                #if thing.startswith('mhw_') and re.search('g\d', thing) and thing.endswith('.h'):
+                if gen != 'all':
+                    if thing.startswith('mhw_') and re.search(f'g{gen}', thing) and thing.endswith('.h'):
+                        parser_list.append(HeaderParser(thing, r))
+                else:
+                    if thing.startswith('mhw_') and thing.endswith('.h'):
+                        parser_list.append(HeaderParser(thing, r))
+
+        for item in parser_list:
+            item.read_file()
+            item.write_xml()
 
 
 #----------------------------------------------------------------
@@ -88,8 +111,8 @@ gen = 12
 source = r'C:\Users\jiny\gfx\gfx-driver\Source\media'
 #----------------------------------------------------------------
 #countlines(source)
-cpfiles(source)
+#cpfiles(source)
 #clrfiles(source)
-
+h2xmlfiles(source, gen)
 
 
