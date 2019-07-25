@@ -1,6 +1,7 @@
 import os
 import shutil
 from htoxml.Parser.header_parser import HeaderParser
+#from Parser.header_parser import HeaderParser #run directly from this file
 import pandas as pd
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import (
@@ -757,13 +758,13 @@ class CmdFinder(object):
 
 
 #----------------------------------------------------------------
-#ringpath = r'C:\projects\github\AutoULTGen\cmd_validation\vcstringinfo\HEVC-VDENC-Grits001 - 1947\VcsRingInfo'
+#ringpath = r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001 - 1947\VcsRingInfo'
 #gen = 12
-#source = [r'C:\Users\jiny\gfx\gfx-driver\Source\media', ...]
-#----------------------------------------------------------------
+#source = [r'C:\Users\jiny\gfx\gfx-driver\Source\media']
+##----------------------------------------------------------------
 
-#----------------------------------------------------------------
-#init
+##----------------------------------------------------------------
+##init
 #start = time.clock()
 #obj = CmdFinder(source, gen, ringpath)
 #Buf = obj.h2xml()

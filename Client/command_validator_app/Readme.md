@@ -3,20 +3,21 @@ COMMAND VALIDATOR Tool
 
 Let's introduce how the command validator app works. 
 
-## Requirements
 
-We need to install some requirements to run this tool. 
+## Start
 
-Pyside2
-lxml
-pandas
+1. Start from exe
+
+Run .\dist\command_validator\command_validator.exe directly.
+
+2. Start from Python
+
+Install prerequisite modules first, including Pyside2, lxml, pandas.
+**command_validator.py** is the main module. It defines all the events of pushbutton, combobox, dialog. 
+Try to start UI from running this module. 
 
 ## Usage
 
-**command_validator.py** is the main module. It defines all the events of pushbutton, combobox, dialog. 
-Try to start UI from running this module.
-
-Within it 3 classes are integrated.
 ### MainWindow
 
 As you can see, the first UI interface contains 2 tab widgets, main and input.
@@ -218,7 +219,7 @@ Ref: https://pythonhosted.org/PyInstaller/usage.html
 2. run command `pyinstaller command_validator.py`. See carefully if there reports any error, try to fix it.
 For example, if pyinstaller says `ModuleNotFoundError: No module named 'win32com'`, then use `pip install pypiwin32`
 to install the missing module.
-3. If things go smoothly, you could find command_validator.exe in .\dist\command_validator.exe.
+3. If things go smoothly, you could run .\dist\command_validator.exe directly.
 4. PyInstaller also supports to create a one-file bundled executable. 
 Use command `pyinstaller -F --name="command_validator" command_validator.py`. It is not recommended for debugging,
 but might be used for the final version.
