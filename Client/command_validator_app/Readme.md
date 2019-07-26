@@ -204,8 +204,6 @@ Click `Show All` to view the entire CMD validation form in details.
 
 <img src="./screenshots/All.png" alt="png" width="800"/>
 
-**@Qichen**
-
 Features:
 1. Check or uncheck a cmd or a dword on the left tree, or a field on the right table.
 2. Double click the value to change it.
