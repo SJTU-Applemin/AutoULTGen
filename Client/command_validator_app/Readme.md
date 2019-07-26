@@ -112,7 +112,7 @@ As for next 5 comboboxes, **get_enum_member.py** script is written to load their
 		#   Format_Buffer      ,
 		#   ...
 		#} MOS_FORMAT, *PMOS_FORMAT;
-		
+
 - EncFunc attribute loads dropdown lists from  
 
 `...\Source\media\media_embargo\windows\common\codec\ddi\d3d9\dxvaencode_lh.h`
@@ -125,7 +125,7 @@ As for next 5 comboboxes, **get_enum_member.py** script is written to load their
 		#    ENCODE_HYBRIDPAK    = 0x0008,
 		#    ENCODE_WIDI         = 0x8000
 		#} ENCODE_FUNC;
-		
+
 - FrameNum is autofilled when you finish editing ddiinputpath in the main widget.
 
 Then, click `Generate` or `Update` button. This step includes several oprations.
@@ -135,9 +135,19 @@ your configuration in a new file (Name rule: TestName+Input.dat) in your workspa
 <img src="./screenshots/aaaainput.png" alt="png" width="250"/>
 <img src="./screenshots/aaaainput2.png" alt="png" width="450"/>
 
-2. Secondly, update... (**@Qichen**)
+2. Secondly, update the following files automatically.  
+
+   ```
+   ...\Source\media\media_embargo\utlt\windows\codec\test\encode_integrated_test.cpp
+   ...\Source\media\media_embargo\utlt\windows\codec\test\encode_integrated_test_cfg.cpp
+   ...\Source\media\media_embargo\utlt\windows\codec\test\test_data\resource.h
+   ...\Source\media\media_embargo\utlt\windows\codec\test\test_data\media_driver_codec_ult.rc
+   ```
+
+   
+
 3. Also, start parsing cmd and related value in vcsringinfo files. Pop up commandinfo window 
-when finished. 
+  when finished. 
 
 ### FormCommandInfo
 
@@ -199,13 +209,14 @@ Click `Show All` to view the entire CMD validation form in details.
 Features:
 1. Check or uncheck a cmd or a dword on the left tree, or a field on the right table.
 2. Double click the value to change it.
-3. Deselect `Hide reserved field` to view the hidden reserved field
+3. The tool will auto save the change in current form when changing the showing command.
+4. Deselect `Hide reserved field` to view the hidden reserved field
 
 <img src="./screenshots/All2.png" alt="png" width="800"/>
 
 4. View the value in hexadecimal, or in decimal, or in binary.
 5. `save` and `generate` the updated configuration xml in your workspace for future reference:
-`....\test\test_data\TestName\TestName_reference.xml` 
+  `....\test\test_data\TestName\TestName_reference.xml` 
 
 Package issue
 -------
