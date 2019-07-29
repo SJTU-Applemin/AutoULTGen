@@ -155,7 +155,7 @@ class CmdFinder(object):
             #{ringcmd:[size right  position index]}
             self.size_right_cmd[ringcmd].append(len(self.size_right_cmd[ringcmd]) + len(self.size_error_cmd[ringcmd]) + 1)
     
-    def setbitfield(self, current_group, fieldname, bit_value, bit_l, bit_h, dw_no, check = ''):
+    def setbitfield(self, current_group,structcmdname, fieldname, bit_value, bit_l, bit_h, dw_no, check = ''):
         #set bitfield attributes
         bitfield_group = SubElement(current_group, fieldname, {'default_value': bit_value, 
                                                                         'min_value': bit_value,
@@ -174,8 +174,17 @@ class CmdFinder(object):
         else:
             bitfield_group.set('Address', 'N')
             bitfield_group.set('CHECK', 'Y')
-        if check:
-            bitfield_group.set('CHECK', check)
+        #if check:
+            #bitfield_group.set('CHECK', check)
+        if 'vdcontrolstatebody' in fieldname.lower():
+            bitfield_group.set('CHECK','N')
+        
+        if 'pak_insert_object' in structcmdname.lower():
+            bitfield_group.set('CHECK','N')
+        if 'mi_noop_cmd' in structcmdname.lower():
+            bitfield_group.set('CHECK','N')
+        if 'surface_state_cmd' in structcmdname.lower():
+            bitfield_group.set('CHECK','N')
         return current_group
 
     def memory(self, Element, ringcmd, value_list, node, index):
@@ -317,10 +326,11 @@ class CmdFinder(object):
                                                                 last_bit_h = int(bit_h)
                                                                 #check bitfield end---
 
-                                                                if structcmd_group.attrib['name'] == 'MI_NOOP_CMD':
-                                                                    current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
-                                                                else:
-                                                                    current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
+                                                                current_group=self.setbitfield(current_group, structcmd.attrib['name'],fieldname, bit_value, bit_l, bit_h, dw_no)
+                                                                #if structcmd_group.attrib['name'] == 'MI_NOOP_CMD':
+                                                                    #current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
+                                                                #else:
+                                                                    #current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
 
                                                                 #complement undefined dword length, for unmapped buffer stream
                                                                 if fieldname == "DwordLength":
@@ -502,10 +512,11 @@ class CmdFinder(object):
                                                                     else:
                                                                         bit_item = []
                                                                     bit_value, bit_l, bit_h = self.findbitval(binv_list, bit_item, dw_no)
-                                                                    if structcmd.attrib['name'] == 'MI_NOOP_CMD':
-                                                                        current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
-                                                                    else:
-                                                                        current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
+                                                                    urrent_group=self.setbitfield(current_group, structcmd.attrib['name'],fieldname, bit_value, bit_l, bit_h, dw_no)
+                                                                    #if structcmd.attrib['name'] == 'MI_NOOP_CMD':
+                                                                        #current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
+                                                                   # else:
+                                                                       # current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
 
 
                                                                     #complement undefined dword length, for unmapped buffer stream
@@ -757,7 +768,7 @@ class CmdFinder(object):
         return True
 
 
-#----------------------------------------------------------------
+##----------------------------------------------------------------
 #ringpath = r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001 - 1947\VcsRingInfo'
 #gen = 12
 #source = [r'C:\Users\jiny\gfx\gfx-driver\Source\media']
