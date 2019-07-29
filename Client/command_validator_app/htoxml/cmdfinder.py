@@ -769,9 +769,9 @@ class CmdFinder(object):
 
 
 ##----------------------------------------------------------------
-#ringpath = r'C:\work\ult\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo'
+#ringpath = r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001 - 1947\VcsRingInfo'
 #gen = 12
-#source = [r'C:\work\gfx\gfx-driver\Source\media']
+#source = [r'C:\Users\jiny\gfx\gfx-driver\Source\media']
 ##----------------------------------------------------------------
 
 ##----------------------------------------------------------------
