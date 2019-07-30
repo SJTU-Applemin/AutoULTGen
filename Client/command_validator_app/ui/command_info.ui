@@ -70,6 +70,16 @@
      </column>
      <column>
       <property name="text">
+       <string>Bitfield_low</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Bitfield_high</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>Default</string>
       </property>
      </column>
@@ -96,16 +106,6 @@
      <column>
       <property name="text">
        <string>Max</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Bitfield_low</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Bitfield_high</string>
       </property>
      </column>
     </widget>
@@ -214,6 +214,9 @@
        <width>321</width>
        <height>691</height>
       </rect>
+     </property>
+     <property name="headerHidden">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>

@@ -1,10 +1,10 @@
 ﻿# -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'command_info.ui',
-# licensing of 'command_info.ui' applies.
+# Form implementation generated from reading ui file '.\command_info.ui',
+# licensing of '.\command_info.ui' applies.
 #
-# Created: Fri Jul  5 16:28:54 2019
-#      by: pyside2-uic  running on PySide2 5.12.3
+# Created: Tue Jul 30 15:08:19 2019
+#      by: pyside2-uic  running on PySide2 5.12.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -79,14 +79,9 @@ class Ui_FormCommandInfo(object):
         self.pushButtonSCL.setGeometry(QtCore.QRect(962, 700, 111, 41))
         self.pushButtonSCL.setObjectName("pushButtonSCL")
         self.treeWidgetCmd = QtWidgets.QTreeWidget(self.All)
-        self.treeWidgetCmd.setGeometry(QtCore.QRect(0, 0, 321, 741))
-        self.treeWidgetCmd.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.treeWidgetCmd.setWordWrap(False)
-        self.treeWidgetCmd.setColumnCount(1)
+        self.treeWidgetCmd.setGeometry(QtCore.QRect(0, 0, 321, 691))
+        self.treeWidgetCmd.setHeaderHidden(True)
         self.treeWidgetCmd.setObjectName("treeWidgetCmd")
-        self.treeWidgetCmd.headerItem().setText(0, "1")
-        self.treeWidgetCmd.header().setVisible(False)
-        self.treeWidgetCmd.header().setCascadingSectionResizes(True)
         self.stackedWidget.addWidget(self.All)
         self.cmdlist = QtWidgets.QWidget()
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -119,19 +114,9 @@ class Ui_FormCommandInfo(object):
         self.pushButtonSA = QtWidgets.QPushButton(self.cmdlist)
         self.pushButtonSA.setGeometry(QtCore.QRect(930, 700, 93, 28))
         self.pushButtonSA.setObjectName("pushButtonSA")
-        self.treeWidgetCmdlist = QtWidgets.QTreeWidget(self.cmdlist)
-        self.treeWidgetCmdlist.setGeometry(QtCore.QRect(0, 0, 321, 741))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.treeWidgetCmdlist.sizePolicy().hasHeightForWidth())
-        self.treeWidgetCmdlist.setSizePolicy(sizePolicy)
-        self.treeWidgetCmdlist.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.treeWidgetCmdlist.setWordWrap(False)
-        self.treeWidgetCmdlist.setColumnCount(1)
-        self.treeWidgetCmdlist.setObjectName("treeWidgetCmdlist")
-        self.treeWidgetCmdlist.headerItem().setText(0, "1")
-        self.treeWidgetCmdlist.header().setVisible(False)
+        self.treeView = QtWidgets.QTreeView(self.cmdlist)
+        self.treeView.setGeometry(QtCore.QRect(0, 0, 321, 681))
+        self.treeView.setObjectName("treeView")
         self.stackedWidget.addWidget(self.cmdlist)
         self.page_5 = QtWidgets.QWidget()
         self.page_5.setAcceptDrops(True)
@@ -139,7 +124,7 @@ class Ui_FormCommandInfo(object):
         self.stackedWidget.addWidget(self.page_5)
 
         self.retranslateUi(FormCommandInfo)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(FormCommandInfo)
 
     def retranslateUi(self, FormCommandInfo):
@@ -147,14 +132,14 @@ class Ui_FormCommandInfo(object):
         self.tableWidgetCmd.horizontalHeaderItem(0).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Command", None, -1))
         self.tableWidgetCmd.horizontalHeaderItem(1).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Dword", None, -1))
         self.tableWidgetCmd.horizontalHeaderItem(2).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Field", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(3).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Default", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(4).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Value", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(5).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Check", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(6).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Address", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(7).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Min", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(8).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Max", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(9).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Bitfield_low", None, -1))
-        self.tableWidgetCmd.horizontalHeaderItem(10).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Bitfield_high", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(3).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Bitfield_low", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(4).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Bitfield_high", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(5).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Default", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(6).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Value", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(7).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Check", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(8).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Address", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(9).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Min", None, -1))
+        self.tableWidgetCmd.horizontalHeaderItem(10).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Max", None, -1))
         self.checkBoxBinary.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Binary", None, -1))
         self.checkBoxDec.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Decimal", None, -1))
         self.checkBoxHex.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Hexadecimal", None, -1))
