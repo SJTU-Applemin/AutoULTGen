@@ -1,10 +1,10 @@
 ﻿# -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Addpath.ui',
-# licensing of 'Addpath.ui' applies.
+# Form implementation generated from reading ui file '.\Addpath.ui',
+# licensing of '.\Addpath.ui' applies.
 #
-# Created: Mon Jul 15 10:42:11 2019
-#      by: pyside2-uic  running on PySide2 5.12.3
+# Created: Mon Jul 29 15:45:07 2019
+#      by: pyside2-uic  running on PySide2 5.12.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -42,7 +42,7 @@ class Ui_Addpath(object):
         self.pushButtonRemove.setObjectName("pushButtonRemove")
         self.verticalLayout_2.addWidget(self.pushButtonRemove)
         self.label_2 = QtWidgets.QLabel(Addpath)
-        self.label_2.setGeometry(QtCore.QRect(390, 20, 121, 21))
+        self.label_2.setGeometry(QtCore.QRect(370, 20, 161, 21))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.label_2.setFont(font)
@@ -91,11 +91,10 @@ class Ui_Addpath(object):
         self.label.setText(QtWidgets.QApplication.translate("Addpath", "Notice: 1.Search Priority is defined by Path Order!", None, -1))
         self.pushButtonAF.setText(QtWidgets.QApplication.translate("Addpath", "Add Folder", None, -1))
         self.pushButtonRemove.setText(QtWidgets.QApplication.translate("Addpath", "Remove", None, -1))
-        self.label_2.setText(QtWidgets.QApplication.translate("Addpath", "Media Path", None, -1))
+        self.label_2.setText(QtWidgets.QApplication.translate("Addpath", "Command Path", None, -1))
         self.pushButtonMtoT.setText(QtWidgets.QApplication.translate("Addpath", "Move to Top", None, -1))
         self.pushButtonMU.setText(QtWidgets.QApplication.translate("Addpath", "Move Up", None, -1))
         self.pushButtonMD.setText(QtWidgets.QApplication.translate("Addpath", "Move Down", None, -1))
         self.pushButtonMtoB.setText(QtWidgets.QApplication.translate("Addpath", "Move to Bottom", None, -1))
         self.pushButtonSave.setText(QtWidgets.QApplication.translate("Addpath", "Save", None, -1))
-        self.label_3.setText(QtWidgets.QApplication.translate("Addpath", "          2. Path should End in hw", None, -1))
-
+        self.label_3.setText(QtWidgets.QApplication.translate("Addpath", "          2. Path (more than 1) should End in hw", None, -1))

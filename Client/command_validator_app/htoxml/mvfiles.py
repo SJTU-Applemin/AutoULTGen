@@ -113,6 +113,6 @@ source = r'C:\Users\jiny\gfx\gfx-driver\Source\media'
 #countlines(source)
 #cpfiles(source)
 #clrfiles(source)
-h2xmlfiles(source, gen)
+h2xmlfiles(source, 12)
 
 
