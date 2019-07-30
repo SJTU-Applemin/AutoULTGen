@@ -885,7 +885,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             lines.append('    </Frame>\n')
         lines.append('  </Platform>\n')
         lines.append('</' + self.test_name + '>\n')
-        file_name = self.test_name + '_reference.xml'
+        file_name = self.test_name + 'Reference.xml'
         with open(self.output_path + '\\' + file_name, 'w') as fout:
             fout.writelines(lines)
         self.ui.logBrowser.append('Generating modified command xml' + self.output_path + '\\' + file_name + '\n')
@@ -958,7 +958,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             os.makedirs(dstdir) # create directories, raise an error if it already exists
             for f in os.listdir(i):
                 full_f = os.path.join(i, f)
-                shutil.copy(full_f, dstdir)
+                if full_f.find('.txt') != -1:
+                    shutil.copy(full_f, dstdir)
 
     @Slot()
     def reject(self):
