@@ -42,8 +42,7 @@ class CmdFinder(object):
         self.specialcmd = ['MI_STORE_DATA_IMM', 'MI_FLUSH_DW'] #specialcmd has different dwsize rules
         self.source_dic = {} # {source1:1, source2:2} record source-element index
         self.Buf = Element('Buf')   ##save all the parsed h2xml info 
-        
-        
+
     def writexml(self, output_path = ''):
         if output_path:
             with open( os.path.join(output_path ,  "mapringinfo.xml") , "w") as f:
