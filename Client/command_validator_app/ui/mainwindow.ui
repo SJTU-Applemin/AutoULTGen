@@ -176,12 +176,12 @@
            </property>
            <item>
             <property name="text">
-             <string>IGFX_TIGER_LAKE_HP</string>
+             <string>IGFX_UNKNOWN</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>IGFX_UNKNOWN</string>
+             <string>IGFX_TIGER_LAKE_HP</string>
             </property>
            </item>
            <item>
