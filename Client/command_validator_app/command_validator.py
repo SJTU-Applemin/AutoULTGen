@@ -958,7 +958,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             os.makedirs(dstdir) # create directories, raise an error if it already exists
             for f in os.listdir(i):
                 full_f = os.path.join(i, f)
-                if full_f.find('.txt') != -1:
+                if full_f.find('.txt') != -1 or full_f.find('.dat') != -1:
                     shutil.copy(full_f, dstdir)
 
     @Slot()
