@@ -301,13 +301,6 @@ class CmdFinder(object):
                                                                 last_bit_h = -1 #used to check bitfield
                                                                 #check bitfield end---
 
-<<<<<<< HEAD
-                                                                current_group=self.setbitfield(current_group, structcmd.attrib['name'],fieldname, bit_value, bit_l, bit_h, dw_no)
-                                                                #if structcmd_group.attrib['name'] == 'MI_NOOP_CMD':
-                                                                    #current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
-                                                                #else:
-                                                                    #current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
-=======
                                                                 if 'name' in elem.attrib:
                                                                     fieldname = elem.attrib['name']
                                                                     if 'bitfield' in elem.attrib :
@@ -321,7 +314,6 @@ class CmdFinder(object):
                                                                         self.bitfield_error_cmd.add(ringcmd)
                                                                     last_bit_h = int(bit_h)
                                                                     #check bitfield end---
->>>>>>> cd3cab431d6ad2da49175f95b0cdaaecd205f007
 
                                                                     current_group=self.setbitfield(current_group, structcmd.attrib['name'], fieldname, bit_value, bit_l, bit_h, dw_no)
 
@@ -486,43 +478,6 @@ class CmdFinder(object):
                                                 for i in range(times):
                                                     for unionorcmd in structcmd.findall("./"):  #select all the direct children
                                         
-<<<<<<< HEAD
-                                                    if unionorcmd.tag == 'union' and 'name' in unionorcmd.attrib and 'DW' in unionorcmd.attrib['name']:
-                                                        dword_group = SubElement(node, 'dword', {'otherCMD': cmd,
-                                                                                                 'class' : Class.attrib['name']})
-                                                        if arraysize:
-                                                            dword_group.set('cmdarraysize', arraysize)
-                                                            dword_group.set('arrayNO', str(i))
-                                                        dw_no = unionorcmd.attrib['name'].strip('DW')
-                                                        dic = self.findval(value_list, dw_no, base_dw_no)
-                                                        dw_no = dic['dw_no_new']
-                                                        dword_group.set('NO' , dw_no)
-                                                        dword_group.set('value', dic['val_str'])
-                                                        #dword_group = SubElement(structcmd_group, 'dword', {'NO' : dw_no,
-                                                        #                                                    'value': val_str})
-                                                        current_group = dword_group
-                                                        for s in unionorcmd.findall('struct'):
-                                                            # 1 dword has several objs
-                                                            if 'name' in s.attrib:
-                                                                obj_group = SubElement(current_group, s.attrib['name'], {'value': val_str})
-                                                                current_group = obj_group
-                                                            for elem in s.findall("./"):
-                                                                if 'name' in elem.attrib:
-                                                                    fieldname = elem.attrib['name']
-                                                                    if 'bitfield' in elem.attrib :
-                                                                        bit_item = elem.attrib['bitfield'].split(',')  #bitfield="0,  5"
-                                                                    else:
-                                                                        bit_item = []
-                                                                    bit_value, bit_l, bit_h = self.findbitval(binv_list, bit_item, dw_no)
-                                                                    urrent_group=self.setbitfield(current_group, structcmd.attrib['name'],fieldname, bit_value, bit_l, bit_h, dw_no)
-                                                                    #if structcmd.attrib['name'] == 'MI_NOOP_CMD':
-                                                                        #current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no, 'N')
-                                                                   # else:
-                                                                       # current_group = self.setbitfield(current_group, fieldname, bit_value, bit_l, bit_h, dw_no)
-
-
-                                                                    #complement undefined dword length, for unmapped buffer stream
-=======
                                                         if unionorcmd.tag == 'union' and 'name' in unionorcmd.attrib and 'DW' in unionorcmd.attrib['name']:
                                                             dword_group = SubElement(node, 'dword', {'otherCMD': cmd,
                                                                                                      'class' : Class.attrib['name']})
@@ -536,7 +491,6 @@ class CmdFinder(object):
                                                             dword_group.set('value', dic['val_str'])
                                                             #dword_group = SubElement(structcmd_group, 'dword', {'NO' : dw_no,
                                                             #                                                    'value': val_str})
->>>>>>> cd3cab431d6ad2da49175f95b0cdaaecd205f007
                                                             current_group = dword_group
                                                             for s in unionorcmd.findall('struct'):
                                                                 # 1 dword has several objs
@@ -819,19 +773,11 @@ class CmdFinder(object):
         return True
 
 
-<<<<<<< HEAD
-##----------------------------------------------------------------
-#ringpath = r'C:\work\ult\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo'
-#gen = 12
-#source = [r'C:\work\gfx\gfx-driver\Source\media']
-##----------------------------------------------------------------
-=======
 #----------------------------------------------------------------
 #ringpath = r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo'
 #gen = 12
 #source = [r'C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw', r'C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw']
 #----------------------------------------------------------------
->>>>>>> cd3cab431d6ad2da49175f95b0cdaaecd205f007
 
 #----------------------------------------------------------------
 ## init

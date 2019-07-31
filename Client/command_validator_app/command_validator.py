@@ -88,7 +88,7 @@ class MainWindow(QMainWindow):
         self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
         self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
         self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
-
+        
     @Slot()
     def checkhw(self, name):
         
