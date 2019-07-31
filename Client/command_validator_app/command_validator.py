@@ -28,10 +28,13 @@ class MainWindow(QMainWindow):
         #self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
         self.ui.pushButtonUpdate.clicked.connect(self.input_goru)
 
-        self.media_path = '' # split by ';'
+        self.media_path = [] # text split by ';'
+        self.pre_media_path = [] # text split by ';', used to save last media_path. Judge if updated. 
+        self.pre_ringinfo_path = ''
         self.base_media = '' # end in file /source
         self.media_path2 = '' # end in Source/media
         self.Buf = None 
+        self.obj = None     #save cmd obj
         self.command_info = []
         self.command_tags = ('DW0_dwlen', 'class', 'def_dwSize', 'index', 'input_dwsize', 'name')
         self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD', 'arrayname', 'unmappedstr')
@@ -264,7 +267,6 @@ class MainWindow(QMainWindow):
         except:
             pass
 
-    @Slot()
     def checkMainPageInput(self):
         msgBox = QMessageBox()
         if not self.ui.lineEditTestName.text() :
@@ -296,11 +298,9 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def fillinput(self):
-
+        blank = []
         if False == self.checkMainPageInput():
             return
-
-        blank = []
         if not self.ui.lineEditRinginfoPath.text():
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Ringinfo')
@@ -547,20 +547,14 @@ FrameNum = ([a-zA-Z0-9_\-]*)
 
     @Slot()
     def show_command_info(self):
-        # self.form.ui = Form()
-        # self.form.ui.setupUi(self.form)
+        self.form.ui.tableWidgetCmd.clearContents()
         self.form.setWindowTitle(self.test_name)
         tree = self.form.ui.treeWidgetCmd
+        tree.clear()
         header = self.form.ui.treeWidgetCmd.header()
         header.setSectionResizeMode(QHeaderView.ResizeToContents)
         header.setStretchLastSection(False)
-        
-        tree.itemDoubleClicked.connect(self.form.save)
-        tree.itemDoubleClicked.connect(self.show_command_table)
-        tree.itemClicked.connect(self.form.save)
-        tree.itemClicked.connect(self.show_command_table)
-        tree.itemChanged.connect(self.form.update_tree_checkstate)
-        # tree.itemChanged.connect(self.show_command_table)
+
         test = QTreeWidgetItem(tree)
         test.setText(0, self.test_name)
         for frame_idx in range(len(self.command_info)):
@@ -611,34 +605,27 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.ui.logBrowser.append('Begin parse vcs ring info\n')
         self.ui.logBrowser.append('It may take about 30 seconds to finish parsing.\n')
         QCoreApplication.processEvents()
-        #self.ringinfo_path = self.ringinfo_path.strip()
-        #if self.ringinfo_path[-1] != '\\':
-        #    self.ringinfo_path = self.ringinfo_path + '\\'
 
-        ## read xml from file: uncomment this to see the original output
-        #self.command_xml = os.path.join(self.ringinfo_path, 'mapringinfo.xml')
-
-
-        #init
+        # build CMDFinder obj
+        if not self.obj:
+            self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
         start = time.clock()
-        #self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path)
-        if not self.Buf:
-            self.Buf = self.obj.h2xml()
-        self.obj.extractfull()
-        if not self.obj.Frame_Num:
-            msgBox = QMessageBox()
-            msgBox.setText("Ringinfo path doesn't contain target files!(e.g. 1-VcsRingInfo_0_0.txt)")
-            msgBox.exec_()
+        #Judge if it is update media path case
+        if self.pre_media_path and self.pre_media_path != self.media_path: #sequence matters!
+            self.obj.source = self.media_path 
+        if not self.pre_ringinfo_path or self.pre_ringinfo_path != self.ringinfo_path: #extract vcsringinfo at the first time or redo this step if path changes
+            self.obj.extractfull()
+
+        self.pre_media_path = self.media_path ##save current media path to history
+        self.pre_ringinfo_path = self.ringinfo_path ##save current ringinfo path to history
+
+        self.Buf = self.obj.h2xml()
+        
         self.obj.updatexml()
         #self.obj.writexml(self.output_path)
         elapsed = (time.clock() - start)
         print("Total Time used:",elapsed)
-        #
-        #print('end parse command file')
-        #self.ui.logBrowser.append("Total Time used:"+ str(elapsed) +'\n')
-        #self.ui.logBrowser.append('End parse vcs ring info\n')
-        #self.ui.logBrowser.append('Save xml in '+ self.ringinfo_path + '\n')
-        #self.ui.logBrowser.append('Save original mapringinfo.xml\n')
+
 
     def read_info_from_ui(self):
         if self.ui.lineEditComponent.text():
@@ -675,6 +662,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         if not self.pathlist.findItems(base_folder, Qt.MatchExactly):
             self.pathlist.addItem(base_folder)
             self.ui.lineEditMediaPath.setText(self.ui.lineEditMediaPath.text() + ';' + base_folder)
+            self.media_path = self.ui.lineEditMediaPath.text().split(';')
 
         # create single folder for each testname
         if not os.path.exists(self.output_path):
@@ -909,7 +897,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             lines.append('    </Frame>\n')
         lines.append('  </Platform>\n')
         lines.append('</' + self.test_name + '>\n')
-        file_name = self.test_name + '_reference.xml'
+        file_name = self.test_name + 'Reference.xml'
         with open(self.output_path + '\\' + file_name, 'w') as fout:
             fout.writelines(lines)
         self.ui.logBrowser.append('Generating modified command xml' + self.output_path + '\\' + file_name + '\n')
@@ -956,7 +944,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.update_test_code()
         # get real Frame Number according to input files
         self.cpfiles()
-
+        
         if not (self.Component and self.GUID and self.Width and self.Height and self.inputpath and self.RawTileType and self.RawFormat and self.ResTileType and 
                 self.ResFormat and self.EncFunc):
             msgBox = QMessageBox()
@@ -966,34 +954,23 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             # combine input files and parameters
             self.combine()
             self.ui.logBrowser.append("Generate input file: %s\n" %self.inputfilename)
-            #pop out message box
-            #msgBox = QMessageBox()
-            #msgBox.setText("The input file has been generated.")
-            #msgBox.exec_()
-
-
-            # build CMDFinder obj
-            if self.Buf:
-                self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf, self.output_path)
-            else:
-                self.obj = CmdFinder(self.media_path, 12, self.ringinfo_path, self.Buf, self.output_path)
-
             self.parse_command_file()
             self.read_command_info_from_xml()
             self.ui.tabWidget.setCurrentIndex(0)
             self.form.showcmdlist()
-
+        
+    
     @Slot()
     def cpfiles(self):
         l = [self.inputpath, self.ringinfo_path]
         for i in l:
             dstdir = os.path.join(self.output_path, os.path.basename(i))
+            #delete former folder first
             shutil.rmtree(dstdir, ignore_errors=True)
-            if not os.path.exists(dstdir):
-                os.makedirs(dstdir) # create directories, raise an error if it already exists
+            os.makedirs(dstdir) # create directories, raise an error if it already exists
             for f in os.listdir(i):
                 full_f = os.path.join(i, f)
-                if full_f.find('.txt') != -1:
+                if full_f.find('.txt') != -1 or full_f.find('.dat') != -1:
                     shutil.copy(full_f, dstdir)
 
     @Slot()
@@ -1028,7 +1005,7 @@ FrameNum = {self.FrameNum}
              
             for f in os.listdir(self.inputpath):
                 pattern = re.search('^(\d)-0_(\d)?.*DDIEnc_(.*)Params_._Frame', f)
-
+                
                 if pattern:
                     length = len(pattern.groups())
                     FrameNo = str(int(pattern.group(1))-self.FrameNumdiff)
@@ -1191,6 +1168,12 @@ class FormCommandInfo(QWidget):
         self.ui.pushButtonSA.clicked.connect(lambda : self.ui.stackedWidget.setCurrentIndex(0))  #show cmd name list
         self.ui.pushButtonSU.clicked.connect(self.updateinfo)
         self.ui.tableWidgetCmdlist.cellDoubleClicked.connect(self.modifycmd)
+
+        self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.save)
+        self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.main_window.show_command_table)
+        self.ui.treeWidgetCmd.itemClicked.connect(self.save)
+        self.ui.treeWidgetCmd.itemClicked.connect(self.main_window.show_command_table)
+        self.ui.treeWidgetCmd.itemChanged.connect(self.update_tree_checkstate)
         
 
     def show_message(self, inf, title):
@@ -1337,7 +1320,7 @@ class FormCommandInfo(QWidget):
             if cmd in self.main_window.obj.bitfield_error_cmd:
                 self.table.setItem(row, 3, QTableWidgetItem('Bitfield Error'))
             elif self.main_window.obj.size_error_cmd[cmd]:
-                print(self.main_window.obj.size_error)
+                #print(self.main_window.obj.size_error)
                 warning = 'Size Error in position: '
                 for i in self.main_window.obj.size_error_cmd[cmd]:
                     warning += str(i) + ','
@@ -1373,7 +1356,7 @@ class FormCommandInfo(QWidget):
             #            index = 'all'
             #if column == 1:
             new, ok = QInputDialog.getText(self.table,  "Modify", "CMD Name", QLineEdit.Normal, self.table.item(row, 0).text())
-            if ok:
+            if new != cmdname and ok:
                 input_index, ok = QInputDialog.getText(self.table,  "Modify", "\tScope(1-%s)\n(e.g. 1-4,6)" %maximum_value, QLineEdit.Normal, 'Apply to All')
                 if input_index != 'Apply to All':
                     index = []
@@ -1416,8 +1399,7 @@ class FormCommandInfo(QWidget):
         self.main_window.obj.undate_full_ringinfo()
         self.main_window.obj.updatexml()
         self.main_window.ui.logBrowser.append('Update xml\n')
-        self.ui.tableWidgetCmd.clearContents()
-        self.ui.treeWidgetCmd.clear()
+
         self.main_window.ui.logBrowser.append('Reload...\n')
         #pop out message box
         msgBox = QMessageBox()
@@ -1474,13 +1456,15 @@ class Addpath(QWidget):
         else:
             dir = dialog.getExistingDirectory(self, "Add Search Folder",
                                            "/home")
-        self.last_dir = dir
-        if self.list.count() > 1 and os.path.basename(dir) != 'hw':
-            msgBox = QMessageBox()
-            msgBox.setText("Path should End in hw!")
-            msgBox.exec_()
-        else:
-            self.list.insertItem(0, dir)
+        
+        if dir:
+            self.last_dir = dir
+            if self.list.count() > 1 and os.path.basename(dir) != 'hw':
+                msgBox = QMessageBox()
+                msgBox.setText("Path should End in hw!")
+                msgBox.exec_()
+            else:
+                self.list.insertItem(0, dir)
 
     @Slot()
     def RemoveFolder(self):

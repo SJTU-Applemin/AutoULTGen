@@ -30,7 +30,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Main">
        <attribute name="title">
@@ -176,12 +176,12 @@
            </property>
            <item>
             <property name="text">
-             <string>IGFX_TIGER_LAKE_HP</string>
+             <string>IGFX_UNKNOWN</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>IGFX_UNKNOWN</string>
+             <string>IGFX_TIGER_LAKE_HP</string>
             </property>
            </item>
            <item>
@@ -654,7 +654,7 @@
          <string>Update</string>
         </property>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -696,14 +696,14 @@
             </font>
            </property>
            <property name="text">
-            <string>ResFormat</string>
+            <string>OutputFormat</string>
            </property>
           </widget>
          </item>
          <item row="10" column="1">
           <widget class="QLineEdit" name="FrameNum_input">
            <property name="text">
-            <string>                                       </string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -750,7 +750,7 @@
             </font>
            </property>
            <property name="text">
-            <string>ResTileType</string>
+            <string>OutputTileType</string>
            </property>
           </widget>
          </item>
@@ -792,7 +792,7 @@
          <item row="10" column="2">
           <widget class="QLabel" name="label_14">
            <property name="text">
-            <string>          </string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -818,7 +818,7 @@
             </font>
            </property>
            <property name="text">
-            <string>RawTileType</string>
+            <string>InputTileType</string>
            </property>
           </widget>
          </item>
@@ -868,7 +868,7 @@
             </font>
            </property>
            <property name="text">
-            <string>RawFormat</string>
+            <string>InputFormat</string>
            </property>
           </widget>
          </item>
