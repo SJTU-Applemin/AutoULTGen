@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         self.command_info = []
         self.command_tags = ('DW0_dwlen', 'class', 'def_dwSize', 'index', 'input_dwsize', 'name')
         self.dword_tags = ('NO', 'value', 'class', 'cmdarraysize', 'otherCMD', 'arrayname', 'unmappedstr')
-        self.command_filter = {'MI_NOOP_CMD', 'MI_NOOP'}
+        #self.command_filter = {'MI_NOOP_CMD', 'MI_NOOP'}
         self.platform_list = []
         self.ringinfo_path = ''
         self.output_path = ''
@@ -74,9 +74,9 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\agnostic\gen12\hw')
-        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
-        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
+        self.ui.lineEditMediaPath.setText(r'C:\work\gfx\gfx-driver\Source\media')
+        self.ui.lineEditDDIInputPath.setText(r'C:\work\ult\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\DDI_Input')
+        self.ui.lineEditRinginfoPath.setText(r'C:\work\ult\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
@@ -573,19 +573,31 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 ##print('command idx:' + str(command_idx))
                 cmd = QTreeWidgetItem(frame)
                 cmd.setText(0, command['name'])
-                if command['name'] in self.command_filter:
-                    cmd.setCheckState(0, Qt.CheckState.Unchecked)
-                else:
-                    cmd.setCheckState(0, Qt.CheckState.Checked)
+
+                cmd.setCheckState(0,Qt.CheckState.Unchecked)
+                #if command['name'] in self.command_filter:
+                    #cmd.setCheckState(0, Qt.CheckState.Unchecked)
+                #else:
+                   #cmd.setCheckState(0, Qt.CheckState.Checked)
                 cmd.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx})
                 for dword_idx in range(len(command['dwords'])):
                     dword = QTreeWidgetItem(cmd)
                     #print('dword_idx' + str(dword_idx))
                     dword.setText(0, 'dword' + command['dwords'][dword_idx]['NO'])
-                    if command['name'] in self.command_filter:
-                        dword.setCheckState(0, Qt.CheckState.Unchecked)
-                    else:
-                        dword.setCheckState(0, Qt.CheckState.Checked)
+                    if len(command['dwords'][dword_idx]['fields'])==0:
+                        dword.setCheckState(0,Qt.CheckState.Unchecked)
+                    for field in command['dwords'][dword_idx]['fields']:
+                        if field['CHECK']=='Y':
+                            cmd.setCheckState(0,Qt.CheckState.Checked)
+                            dword.setCheckState(0,Qt.CheckState.Checked)
+                        else:
+                            dword.setCheckState(0, Qt.CheckState.Unchecked)
+                        continue
+
+                   # if command['name'] in self.command_filter:
+                      #  dword.setCheckState(0, Qt.CheckState.Unchecked)
+                   # else:
+                    #    dword.setCheckState(0, Qt.CheckState.Checked)
                     dword.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx, 'dword_idx': dword_idx})
                     for field_obj in command['dwords'][dword_idx]['fields']:
                         if 'field_name' in field_obj:
@@ -690,10 +702,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 info = {'dwords': []}
                 for command_tag in self.command_tags:
                     info[command_tag] = command.get(command_tag)
-                if info['name'] in self.command_filter:
-                    info['check'] = 'N'
-                else:
-                    info['check'] = 'Y'
+                #if info['name'] in self.command_filter:
+                    #info['check'] = 'N'
+                #else:
+                    #info['check'] = 'Y'
                 # f_other_cmd = False
 
                 for dword in command:
