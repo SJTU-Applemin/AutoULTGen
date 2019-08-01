@@ -9,6 +9,7 @@ class Generator(object):
         """
         self.file_header = 'sample_header.txt'
         self.basic_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
+        self.media_ext_type = {'MOS_FORMAT'}
 
     @staticmethod
     def write_file(filename, lines):
