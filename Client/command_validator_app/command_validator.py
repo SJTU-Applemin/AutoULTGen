@@ -47,7 +47,8 @@ class MainWindow(QMainWindow):
         self.platform = ''
         self.frame_num = 0
         self.row_num = 0
-        self.workspace = ''
+        self.GUID = ''
+        self.pre_component1 = ''
         self.form = FormCommandInfo(self)
         self.Addpath = Addpath(self)
         self.pathlist = self.Addpath.ui.listWidget
@@ -66,20 +67,23 @@ class MainWindow(QMainWindow):
         self.ui.tabWidget.setCurrentIndex(0)
         self.ui.FrameNum_input.setReadOnly(True)
         self.ui.lineEditFrame.setReadOnly(True)
+        self.ui.InputPathText.setReadOnly(True)
+        self.ui.Component_input.setReadOnly(True)
         self.ui.lineEditMediaPath.textChanged.connect(self.update_platform_list)
         #self.ui.lineEditRinginfoPath.textChanged.connect(self.read_test_name)
         self.ui.comboBoxPlatform.currentIndexChanged.connect(self.fillinput_platform)
         self.ui.comboBoxComponent.currentIndexChanged.connect(self.fillinput_component)
 
+        self.ui.GUID_input.editingFinished.connect(self.checkGUID)
         self.ui.lineEditRinginfoPath.editingFinished.connect(partial(self.fillframenum,'Main'))
         self.ui.lineEditDDIInputPath.editingFinished.connect(partial(self.fillframenum,'Input'))
         self.ui.Height_input.editingFinished.connect(partial(self.checkhw, 'Height'))
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        self.ui.lineEditMediaPath.setText(r'C:\work\gfx\gfx-driver\Source\media')
-        self.ui.lineEditDDIInputPath.setText(r'C:\work\ult\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\DDI_Input')
-        self.ui.lineEditRinginfoPath.setText(r'C:\work\ult\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-Grits001-2125\VcsRingInfo')
+        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
+        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
+        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
@@ -88,10 +92,9 @@ class MainWindow(QMainWindow):
         self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
         self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
         self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
-        
+
     @Slot()
     def checkhw(self, name):
-        
         if name == 'Height':
             try:
                 text = self.ui.Height_input.text()
@@ -116,7 +119,12 @@ class MainWindow(QMainWindow):
                 msgBox.setText("%s should be int!" %name)
                 msgBox.exec_()
 
-
+    @Slot()
+    def checkGUID(self):
+        self.GUID = self.ui.GUID_input.text()
+        if not self.read_test_cfg_cpp('GUID'):
+            
+            self.ui.GUID_input.setText(self.pre_GUID)
 
     @Slot()
     def read_test_name(self):
@@ -319,8 +327,8 @@ class MainWindow(QMainWindow):
             str = ', '.join(blank)
             msgBox.setText("Please fill %s Path!"% str)
             msgBox.exec_()
-        else:
-            self.read_info_from_ui()
+        elif self.read_info_from_ui():
+
             self.fillcombobox()
             self.checkinputexist()
 
@@ -363,9 +371,25 @@ EncFunc = ([a-zA-Z0-9_\-]*)
 FrameNum = ([a-zA-Z0-9_\-]*)
 ''', ''.join(lines))
             if pattern and len(pattern.groups()) == 15:
-                self.ui.Component_input.setText(pattern.group(1))
-                if pattern.group(1) != self.ui.lineEditComponent.text():
-                    self.ui.Component_input.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
+                if self.ui.lineEditComponent.text() != pattern.group(1):
+                    msgBox = QMessageBox()
+                    msgBox.setWindowTitle('Testname Error')
+                    msgBox.setInformativeText('Current Component %s is different from previous configuration: %s\n' %(self.ui.lineEditComponent.text(), pattern.group(1)))
+                    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    msgBox.setDefaultButton(QMessageBox.Cancel)
+                    buttonY = msgBox.button(QMessageBox.Ok)
+                    buttonY.setText('Rewrite')
+                    buttonN = msgBox.button(QMessageBox.Cancel)
+                    buttonN.setText('Discard')
+                    msgBox.exec_()
+                    self.activateWindow()
+                    if msgBox.clickedButton() == buttonN:
+                        self.ui.comboBoxComponent.setCurrentText(pattern.group(1))
+                        return
+                    if msgBox.clickedButton() == buttonY:
+                        self.ui.Component_input.setText(self.ui.lineEditComponent.text())
+                else:
+                    self.ui.Component_input.setText(pattern.group(1))
                 self.ui.GUID_input.setText(pattern.group(2))
                 self.ui.Width_input.setText(pattern.group(3))
                 self.ui.Height_input.setText(pattern.group(4))
@@ -447,11 +471,11 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     table.setItem(i_row, 1, QTableWidgetItem('dword' + dword['NO']))
                     if not dword['fields']:
                         if dword['value']:
-                            table.setItem(i_row, 3, QTableWidgetItem(dword['value']))
+                            table.setItem(i_row, 5, QTableWidgetItem(dword['value']))
                         if dword['arrayname']:
                             table.setItem(i_row, 2, QTableWidgetItem(dword['arrayname']))
                         if dword['unmappedstr']:
-                            table.setItem(i_row, 3, QTableWidgetItem(dword['unmappedstr']))
+                            table.setItem(i_row, 5, QTableWidgetItem(dword['unmappedstr']))
                         self.form.row_command_map.append(
                             {'frame_idx': idx['frame_idx'], 'command_idx': command['index'], 'dword_idx': dword_idx})
                         i_row += 1
@@ -473,31 +497,30 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                 if (not obj_field['obj_field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
                                     checkBox.setCheckState(Qt.CheckState.Checked)
                                 # checkBox.stateChanged.connect(self.check_box_change)
-                                table.setCellWidget(i_row, 5, checkBox)
+                                table.setCellWidget(i_row, 7, checkBox)
                                 if self.form.mode == 'bin':
-                                    table.setItem(i_row, 3, QTableWidgetItem(bin(int(obj_field['default_value'], 16))))
-                                    table.setItem(i_row, 4, QTableWidgetItem(bin(int(obj_field['value'], 16))))
-                                    table.setItem(i_row, 7, QTableWidgetItem(bin(int(obj_field['min_value'], 16))))
-                                    table.setItem(i_row, 8, QTableWidgetItem(bin(int(obj_field['max_value'], 16))))
+                                    table.setItem(i_row, 5, QTableWidgetItem(bin(int(obj_field['default_value'], 16))))
+                                    table.setItem(i_row, 6, QTableWidgetItem(bin(int(obj_field['value'], 16))))
+                                    table.setItem(i_row, 9, QTableWidgetItem(bin(int(obj_field['min_value'], 16))))
+                                    table.setItem(i_row, 10, QTableWidgetItem(bin(int(obj_field['max_value'], 16))))
                                 elif self.form.mode == 'dec':
-                                    table.setItem(i_row, 3, QTableWidgetItem(str(int(obj_field['default_value'], 16))))
-                                    table.setItem(i_row, 4, QTableWidgetItem(str(int(obj_field['value'], 16))))
-                                    table.setItem(i_row, 7, QTableWidgetItem(str(int(obj_field['min_value'], 16))))
-                                    table.setItem(i_row, 8, QTableWidgetItem(str(int(obj_field['max_value'], 16))))
+                                    table.setItem(i_row, 5, QTableWidgetItem(str(int(obj_field['default_value'], 16))))
+                                    table.setItem(i_row, 6, QTableWidgetItem(str(int(obj_field['value'], 16))))
+                                    table.setItem(i_row, 9, QTableWidgetItem(str(int(obj_field['min_value'], 16))))
+                                    table.setItem(i_row, 10, QTableWidgetItem(str(int(obj_field['max_value'], 16))))
                                 else:
-                                    table.setItem(i_row, 3, QTableWidgetItem(obj_field['default_value']))
-                                    table.setItem(i_row, 4, QTableWidgetItem(obj_field['value']))
-                                    table.setItem(i_row, 7, QTableWidgetItem(obj_field['min_value']))
-                                    table.setItem(i_row, 8, QTableWidgetItem(obj_field['max_value']))
+                                    table.setItem(i_row, 5, QTableWidgetItem(obj_field['default_value']))
+                                    table.setItem(i_row, 6, QTableWidgetItem(obj_field['value']))
+                                    table.setItem(i_row, 9, QTableWidgetItem(obj_field['min_value']))
+                                    table.setItem(i_row, 10, QTableWidgetItem(obj_field['max_value']))
                                 if 'Address' in field:
-                                    table.setItem(i_row, 6, QTableWidgetItem(obj_field['Address']))
+                                    table.setItem(i_row, 8, QTableWidgetItem(obj_field['Address']))
                                 else:
-                                    table.setItem(i_row, 6, QTableWidgetItem('N'))
+                                    table.setItem(i_row, 8, QTableWidgetItem('N'))
+                                table.setItem(i_row, 3, QTableWidgetItem(obj_field['bitfield_l']))
+                                table.setItem(i_row, 4, QTableWidgetItem(obj_field['bitfield_h']))
                                 table.item(i_row, 3).setFlags(Qt.NoItemFlags)
-                                table.setItem(i_row, 9, QTableWidgetItem(obj_field['bitfield_l']))
-                                table.setItem(i_row, 10, QTableWidgetItem(obj_field['bitfield_h']))
-                                table.item(i_row, 9).setFlags(Qt.NoItemFlags)
-                                table.item(i_row, 10).setFlags(Qt.NoItemFlags)
+                                table.item(i_row, 4).setFlags(Qt.NoItemFlags)
                                 self.form.row_command_map.append(
                                     {'frame_idx': idx['frame_idx'], 'command_idx': command['index'],
                                      'dword_idx': dword_idx})
@@ -514,31 +537,31 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                         if (not field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field['CHECK'] == 'Y':
                             checkBox.setCheckState(Qt.CheckState.Checked)
                         # checkBox.stateChanged.connect(self.check_box_change)
-                        table.setCellWidget(i_row, 5, checkBox)
+                        table.setCellWidget(i_row, 7, checkBox)
                         if self.form.mode == 'bin':
-                            table.setItem(i_row, 3, QTableWidgetItem(bin(int(field['default_value'], 16))))
-                            table.setItem(i_row, 4, QTableWidgetItem(bin(int(field['value'], 16))))
-                            table.setItem(i_row, 7, QTableWidgetItem(bin(int(field['min_value'], 16))))
-                            table.setItem(i_row, 8, QTableWidgetItem(bin(int(field['max_value'], 16))))
+                            table.setItem(i_row, 5, QTableWidgetItem(bin(int(field['default_value'], 16))))
+                            table.setItem(i_row, 6, QTableWidgetItem(bin(int(field['value'], 16))))
+                            table.setItem(i_row, 9, QTableWidgetItem(bin(int(field['min_value'], 16))))
+                            table.setItem(i_row, 10, QTableWidgetItem(bin(int(field['max_value'], 16))))
                         elif self.form.mode == 'dec':
-                            table.setItem(i_row, 3, QTableWidgetItem(str(int(field['default_value'], 16))))
-                            table.setItem(i_row, 4, QTableWidgetItem(str(int(field['value'], 16))))
-                            table.setItem(i_row, 7, QTableWidgetItem(str(int(field['min_value'], 16))))
-                            table.setItem(i_row, 8, QTableWidgetItem(str(int(field['max_value'], 16))))
+                            table.setItem(i_row, 5, QTableWidgetItem(str(int(field['default_value'], 16))))
+                            table.setItem(i_row, 6, QTableWidgetItem(str(int(field['value'], 16))))
+                            table.setItem(i_row, 9, QTableWidgetItem(str(int(field['min_value'], 16))))
+                            table.setItem(i_row, 10, QTableWidgetItem(str(int(field['max_value'], 16))))
                         else:
-                            table.setItem(i_row, 3, QTableWidgetItem(field['default_value']))
-                            table.setItem(i_row, 4, QTableWidgetItem(field['value']))
-                            table.setItem(i_row, 7, QTableWidgetItem(field['min_value']))
-                            table.setItem(i_row, 8, QTableWidgetItem(field['max_value']))
-                        table.item(i_row, 3).setFlags(Qt.NoItemFlags)
+                            table.setItem(i_row, 5, QTableWidgetItem(field['default_value']))
+                            table.setItem(i_row, 6, QTableWidgetItem(field['value']))
+                            table.setItem(i_row, 9, QTableWidgetItem(field['min_value']))
+                            table.setItem(i_row, 10, QTableWidgetItem(field['max_value']))
+                        table.item(i_row, 5).setFlags(Qt.NoItemFlags)
                         if 'Address' in field:
-                            table.setItem(i_row, 6, QTableWidgetItem(field['Address']))
+                            table.setItem(i_row, 8, QTableWidgetItem(field['Address']))
                         else:
-                            table.setItem(i_row, 6, QTableWidgetItem('N'))
-                        table.setItem(i_row, 9, QTableWidgetItem(field['bitfield_l']))
-                        table.item(i_row, 9).setFlags(Qt.NoItemFlags)
-                        table.setItem(i_row, 10, QTableWidgetItem(field['bitfield_h']))
-                        table.item(i_row, 10).setFlags(Qt.NoItemFlags)
+                            table.setItem(i_row, 8, QTableWidgetItem('N'))
+                        table.setItem(i_row, 3, QTableWidgetItem(field['bitfield_l']))
+                        table.item(i_row, 3).setFlags(Qt.NoItemFlags)
+                        table.setItem(i_row, 4, QTableWidgetItem(field['bitfield_h']))
+                        table.item(i_row, 4).setFlags(Qt.NoItemFlags)
                         self.form.row_command_map.append({'frame_idx': idx['frame_idx'],'command_idx': command['index'], 'dword_idx': dword_idx})
                         i_row += 1
 
@@ -548,6 +571,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
     @Slot()
     def show_command_info(self):
         self.form.ui.tableWidgetCmd.clearContents()
+        self.form.ui.tableWidgetCmd.setRowCount(0)
         self.form.setWindowTitle(self.test_name)
         tree = self.form.ui.treeWidgetCmd
         tree.clear()
@@ -567,12 +591,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 ##print('command idx:' + str(command_idx))
                 cmd = QTreeWidgetItem(frame)
                 cmd.setText(0, command['name'])
-
-                cmd.setCheckState(0,Qt.CheckState.Unchecked)
                 #if command['name'] in self.command_filter:
-                    #cmd.setCheckState(0, Qt.CheckState.Unchecked)
+                #    cmd.setCheckState(0, Qt.CheckState.Unchecked)
                 #else:
-                   #cmd.setCheckState(0, Qt.CheckState.Checked)
+                #    cmd.setCheckState(0, Qt.CheckState.Checked)
                 cmd.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx})
                 for dword_idx in range(len(command['dwords'])):
                     dword = QTreeWidgetItem(cmd)
@@ -581,16 +603,16 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     if len(command['dwords'][dword_idx]['fields'])==0:
                         dword.setCheckState(0,Qt.CheckState.Unchecked)
                     for field in command['dwords'][dword_idx]['fields']:
-                        if field['CHECK']=='Y':
+                        if 'CHECK' in field and field['CHECK']=='Y':
                             cmd.setCheckState(0,Qt.CheckState.Checked)
                             dword.setCheckState(0,Qt.CheckState.Checked)
                         else:
                             dword.setCheckState(0, Qt.CheckState.Unchecked)
                         continue
 
-                   # if command['name'] in self.command_filter:
-                      #  dword.setCheckState(0, Qt.CheckState.Unchecked)
-                   # else:
+                    #if command['name'] in self.command_filter:
+                    #    dword.setCheckState(0, Qt.CheckState.Unchecked)
+                    #else:
                     #    dword.setCheckState(0, Qt.CheckState.Checked)
                     dword.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx, 'dword_idx': dword_idx})
                     for field_obj in command['dwords'][dword_idx]['fields']:
@@ -667,8 +689,15 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         # create single folder for each testname
         if not os.path.exists(self.output_path):
             os.makedirs(self.output_path)
+        else:
+            ## check if platform is same with one testname
+            # load previous info first
+            if not self.read_test_cfg_cpp('platform'):
+                self.ui.comboBoxPlatform.setCurrentText(self.pre_platform)
+                return False
         self.ui.logBrowser.append('All the following output will be saved in workspace:\n%s\n'  %self.output_path)
         self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
+        return True
 
         
 
@@ -691,9 +720,9 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 for command_tag in self.command_tags:
                     info[command_tag] = command.get(command_tag)
                 #if info['name'] in self.command_filter:
-                    #info['check'] = 'N'
+                #    info['check'] = 'N'
                 #else:
-                    #info['check'] = 'Y'
+                #    info['check'] = 'Y'
                 # f_other_cmd = False
 
                 for dword in command:
@@ -955,8 +984,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.combine()
             self.ui.logBrowser.append("Generate input file: %s\n" %self.inputfilename)
             self.parse_command_file()
-            self.read_command_info_from_xml()
-            self.ui.tabWidget.setCurrentIndex(0)
+            self.read_command_info_from_xml()            
             self.form.showcmdlist()
         
     
@@ -986,7 +1014,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             #wfd.write('<Header Component=%s  GUID=%s Width=%s Height=%s OutputFormat=%s>\n' % (self.Component, self.GUID, self.Width, self.Height, self.OutputFormat))
             wfd.write(f'''<Header>
 Component = {self.Component}
-GUID = DXVA2_Intel_LowpowerEncode_HEVC_Main
+GUID = {self.GUID}
 Width = {self.Width}
 Height = {self.Height}
 #{self.ui.comboBoxRawTT.currentText()}
@@ -1059,31 +1087,37 @@ FrameNum = {self.FrameNum}
     def update_integrated_test_cfg_cpp(self, component='encode'):
         try:
             if component == 'encode':
-                f_integrated_cfg_cpp = self.workspace[:-9] + 'encode_integrated_test_cfg.cpp'
+                f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
                 with open(f_integrated_cfg_cpp, 'r') as fin:
                     lines = fin.readlines()
                 s0 = '    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n'
-                for line in lines:
-                    if line.find(s0) != -1:
-                        return
+                
                 newlines = []
                 newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
                 newlines.append('                                IDR_' + self.test_name.upper() + '_INPUT,\n')
                 newlines.append('                                {"' + self.platform + '"},\n')
                 newlines.append('                                ' + self.GUID + '\n')
                 newlines.append('                            }\n')
-                newlines.append('    }\n')
-                newlines.append('};\n')
-                f_find = False
+                newlines.append('    },\n')
+                
+
                 for idx, line in enumerate(lines):
+                    if line.find(s0) != -1:
+                    ###update existed testname
+                        newlines = lines[:idx] + newlines + lines[idx+6:]
+                        break
+
                     if line.strip() == '};':
-                        f_find = True
-                        newlines = lines[:idx] + newlines
-                        if newlines[idx-1].strip() == '}':
-                            newlines[idx-1] = '    },\n'
-                if f_find:
-                    with open(f_integrated_cfg_cpp, 'w') as fout:
-                        fout.writelines(newlines)
+                        if lines[idx-1].strip() == '}':
+                            lines[idx-1] = '    },\n'
+                        newlines = lines[:idx] + newlines + [line]
+                        break
+
+                if newlines[-2].strip() == '},':
+                    newlines[-2] = '    }\n'
+
+                with open(f_integrated_cfg_cpp, 'w') as fout:
+                    fout.writelines(newlines)
         except:
             self.show_message('update encode_integrated_test_cfg.cpp error', 'error')
 
@@ -1141,6 +1175,49 @@ FrameNum = {self.FrameNum}
         else:
             return s
 
+    def read_test_cfg_cpp(self, name, component='encode'):
+        if component == 'encode':
+            f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
+            with open(f_integrated_cfg_cpp, 'r') as fin:
+                lines = fin.readlines()
+            s0 = '    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n'
+                
+            idx = [idx for idx, line in enumerate(lines) if line.find(s0) != -1]
+            if idx:
+                self.pre_platform = re.match('{"(.*)"}', lines[idx[0]+2].strip()).group(1)
+                self.pre_GUID = lines[idx[0]+3].strip()
+                fg = []
+                if self.pre_platform != self.platform:
+                    fg.append(0)
+                if self.GUID and self.GUID != self.pre_GUID:
+                    fg.append(1)
+
+                if fg:
+                    text = ''
+                    if 1 in fg and name == 'GUID':
+                        text = 'Current GUID %s is different from previous configuration: %s\n' %(self.GUID, self.pre_GUID)
+                    elif 0 in fg and name == 'platform':
+                        text = 'Current platform %s is different from previous configuration: %s\n' %(self.platform, self.pre_platform)
+                    fg = [] #clear
+                    if text:
+                        msgBox = QMessageBox()
+                        msgBox.setWindowTitle('Testname Error')
+                        msgBox.setInformativeText(text)
+                        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                        msgBox.setDefaultButton(QMessageBox.Cancel)
+                        buttonY = msgBox.button(QMessageBox.Ok)
+                        buttonY.setText('Rewrite')
+                        buttonN = msgBox.button(QMessageBox.Cancel)
+                        buttonN.setText('Discard')
+                        msgBox.exec_()
+                        self.activateWindow()
+                        if msgBox.clickedButton() == buttonY:
+                            return True
+                        elif msgBox.clickedButton() == buttonN:
+                            return False
+     
+        return True
+
 class FormCommandInfo(QWidget):
     def __init__(self, main_window):
         super(FormCommandInfo, self).__init__()
@@ -1148,7 +1225,7 @@ class FormCommandInfo(QWidget):
         self.ui.setupUi(self)
         self.info = []
         self.main_window = main_window
-        self.ui.pushButtonSave.clicked.connect(self.save)
+        self.ui.pushButtonGen.clicked.connect(self.save)
         self.ui.pushButtonGen.clicked.connect(self.main_window.generate_xml)
         self.current_frame = 0
         self.current_command = ''
@@ -1161,9 +1238,14 @@ class FormCommandInfo(QWidget):
         self.ui.checkBoxReserved.stateChanged.connect(self.update_reserve_show)
         self.current_item = None
         self.modifylist = []
+        #used for loading cmdlist history
+        self.pre_testname = ''
+        self.pre_platform = ''
+        self.pre_platform1 = ''
+        self.pre_component = ''
+        self.pre_ringinfopath = ''
         #
         self.ui.stackedWidget.setCurrentIndex(1)   #set the all infomation page as default page
-        self.ui.pushButtonSCL.clicked.connect(lambda : self.ui.stackedWidget.setCurrentIndex(1))  #show cmd name list
         self.ui.pushButtonSCL.clicked.connect(self.showcmdlist)  #show cmd name list
         self.ui.pushButtonSA.clicked.connect(lambda : self.ui.stackedWidget.setCurrentIndex(0))  #show cmd name list
         self.ui.pushButtonSU.clicked.connect(self.updateinfo)
@@ -1171,9 +1253,10 @@ class FormCommandInfo(QWidget):
 
         self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.save)
         self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.main_window.show_command_table)
+        self.ui.treeWidgetCmd.itemChanged.connect(self.update_tree_checkstate)
         self.ui.treeWidgetCmd.itemClicked.connect(self.save)
         self.ui.treeWidgetCmd.itemClicked.connect(self.main_window.show_command_table)
-        self.ui.treeWidgetCmd.itemChanged.connect(self.update_tree_checkstate)
+        
         
 
     def show_message(self, inf, title):
@@ -1191,14 +1274,14 @@ class FormCommandInfo(QWidget):
         for i in range(table.rowCount()):
             if not table.item(i, 2):
                 continue
-            if table.cellWidget(i, 5) and table.cellWidget(i, 5).isChecked():
+            if table.cellWidget(i, 7) and table.cellWidget(i, 7).isChecked():
                 command = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]
                 dword = 'dword' + command['dwords'][int(self.row_command_map[i]['dword_idx'])]['NO']
                 field = str(table.item(i, 2).text())
-                value = str(table.item(i, 4).text())
+                value = str(table.item(i, 6).text())
 
-                min_value = str(table.item(i, 7).text())
-                max_value = str(table.item(i, 8).text())
+                min_value = str(table.item(i, 9).text())
+                max_value = str(table.item(i, 10).text())
                 # value = item_text_to_dec(value)
                 # min_value = item_text_to_dec(min_value)
                 # max_value = item_text_to_dec(max_value)
@@ -1236,23 +1319,23 @@ class FormCommandInfo(QWidget):
                 field_name = str(table.item(i, 2).text())
                 for field in dword['fields']:
                     if field['field_name'] == field_name:
-                        field['value'] = str(table.item(i, 4).text())
-                        if table.cellWidget(i, 5).isChecked():
+                        field['value'] = str(table.item(i, 6).text())
+                        if table.cellWidget(i, 7).isChecked():
                             field['CHECK'] = 'Y'
                         else:
                             field['CHECK'] = 'N'
                         if self.mode == 'bin':
-                            field['value'] = hex(int(str(table.item(i, 4).text()), 2))
-                            field['min_value'] = hex(int(str(table.item(i, 7).text()), 2))
-                            field['max_value'] = hex(int(str(table.item(i, 8).text()), 2))
+                            field['value'] = hex(int(str(table.item(i, 6).text()), 2))
+                            field['min_value'] = hex(int(str(table.item(i, 9).text()), 2))
+                            field['max_value'] = hex(int(str(table.item(i, 10).text()), 2))
                         elif self.mode == 'dec':
-                            field['value'] = hex(int(str(table.item(i, 4).text())))
-                            field['min_value'] = hex(int(str(table.item(i, 7).text())))
-                            field['max_value'] = hex(int(str(table.item(i, 8).text())))
+                            field['value'] = hex(int(str(table.item(i, 6).text())))
+                            field['min_value'] = hex(int(str(table.item(i, 9).text())))
+                            field['max_value'] = hex(int(str(table.item(i, 10).text())))
                         else:
-                            field['value'] = str(table.item(i, 4).text())
-                            field['min_value'] = str(table.item(i, 7).text())
-                            field['max_value'] = str(table.item(i, 8).text())
+                            field['value'] = str(table.item(i, 6).text())
+                            field['min_value'] = str(table.item(i, 9).text())
+                            field['max_value'] = str(table.item(i, 10).text())
         self.main_window.command_info = self.info
 
     @Slot(QTreeWidgetItem, int)
@@ -1263,6 +1346,10 @@ class FormCommandInfo(QWidget):
                 dword.setCheckState(0, Qt.CheckState.Checked)
             else:
                 dword.setCheckState(0, Qt.CheckState.Unchecked)
+        #if item.checkState(column) == Qt.CheckState.Checked:
+        #    print('Item Checked')
+        #elif item.checkState(column) == Qt.CheckState.Unchecked:
+        #    print('Item Unchecked')
 
 
     @Slot()
@@ -1301,6 +1388,14 @@ class FormCommandInfo(QWidget):
     def showcmdlist(self):
         #print(self.main_window.obj.size_error_cmd)
         #print(self.main_window.obj.size_error)
+
+        #not update case or modifycmd case
+        self.ui.stackedWidget.setCurrentIndex(1)
+        if self.main_window.ui.lineEditTestName == self.pre_testname and self.main_window.ui.lineEditPlatform == self.pre_platform1 and \
+           self.main_window.ui.lineEditRinginfoPath == self.pre_ringinfopath and self.main_window.ui.lineEditComponent == self.pre_component and \
+           not self.modifylist:
+            return
+
         self.ui.tableWidgetCmdlist.clearContents()
         self.ui.tableWidgetCmdlist.setRowCount(0)
         self.table = self.ui.tableWidgetCmdlist
@@ -1330,8 +1425,11 @@ class FormCommandInfo(QWidget):
             if [t for t in self.modifylist if t[1] == cmd]:
                 self.table.item(row, 0).setBackground(QColor(255, 242, 0))
             row += 1
-        
 
+        self.pre_platform1 = self.main_window.ui.lineEditPlatform.text()
+        self.pre_testname = self.main_window.ui.lineEditTestName.text()
+        self.pre_ringinfopath = self.main_window.ui.lineEditRinginfoPath.text()
+        self.pre_component = self.main_window.ui.lineEditComponent.text()
         self.cmdlistrow = row
         self.table.resizeColumnsToContents()
         self.table.resizeRowsToContents()
@@ -1386,7 +1484,6 @@ class FormCommandInfo(QWidget):
                     self.table.item(row, 0).setTextColor(QColor(255,0,0))
             
             if new and index:
-
                 self.modifylist.append((cmdname, new, index))
                 #print(self.main_window.obj.ringcmddic)
                 #self.main_window.obj.modifyringcmd(cmdname, new, index)
