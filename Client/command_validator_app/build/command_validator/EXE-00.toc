@@ -57,7 +57,7 @@
  [],
  False,
  False,
- 1564453636,
+ 1564730151,
  [('run.exe',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\site-packages\\pyinstaller-3.5-py3.6.egg\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
