@@ -29,6 +29,8 @@ As you can see, the first UI interface contains 2 tab widgets, main and input.
 For each TextEdit field, users should satisfy certain requirements.
 1. TestName 
 - input testname like `encodeHevcCQ`
+We only allow one platform, one component and one GUID for one TestName. If you set an existed testname with conflicting information. A messagebox would pop out to remind you.
+
 2. Command Path
 - It should be the folder you store all the mhw_xxx.h files that you want to use.
 For general search, you can choose `....\gfx\gfx-driver\Source\media` as your command path.
@@ -268,7 +270,7 @@ Draw the UI, display cmdfinder results. Our module is based on Pyside2 library. 
 to the pyside2 official guide.
 
 **ui_command_info.py, ui_mainwindow.py, ui_Addpath.py** is generated from xxx.ui files(Use qt creator to edit them) 
-by pyside2-uic commmand. 
+by pyside2-uic commmand. (`pyside2-uic command_info.ui > ui_command_info.py`) 
 
 Other scripts you may need in the future
 -------
