@@ -20,8 +20,8 @@ class TestGenerator(Generator):
             self.test_class_name = 'Test' + self.info.class_name
             self.lines_h = []
             self.lines_cpp = []
-            self.includes_h = []
-            self.includes_cpp = []
+            self.includes_h = [self.info.name]
+            self.includes_cpp = [self.test_filename_h]
             self.conditions = conditions
         else:
             print('Use HeadParser Class to initialize!')
@@ -61,7 +61,7 @@ class TestGenerator(Generator):
                 s = s + ') : ' + info.class_name + '('
                 for p in i['parameters']:
                     name = p['name']
-                    if name.startswith('*'):
+                    if name.startswith('*') or name.startswith('&'):
                         name = name[1:]
                     s = s + name + ', '
                 if s.endswith(', '):
@@ -237,7 +237,20 @@ class TestGenerator(Generator):
                     expect_return_type = '0'
                 s = s + '), ' + expect_return_type + ');\n'
                 lines.append(s)
-        self.add_conditions(lines, method_info, class_name, info)
+        #TODO, to add specific processing for this kind of format
+        if method_info['return_type'] in self.media_ext_type or method_info['return_type'] == 'void':
+            s = '            ' + info.class_name + '::' + method_info['method_name'] + '('
+            for p in method_info['parameters']:
+                name = p['name']
+                if name.startswith('&') or name.startswith('*'):
+                    name = name[1:]
+                    f_expect_return_type = 'MOS_STATUS_NULL_POINTER'
+                s = s + name + ', '
+            if s[-2:] == ', ':
+                s = s[0:-2]
+            s = s + '); '
+            lines.append(s)
+        #self.add_conditions(lines, method_info, class_name, info)
         lines.append('\n')
         lines.append('            return MOS_STATUS_SUCCESS;\n')
         lines.append('        }\n')

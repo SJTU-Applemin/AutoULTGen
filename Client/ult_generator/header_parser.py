@@ -1,3 +1,4 @@
+import os
 class HeaderParser(object):
     """
 
@@ -50,18 +51,24 @@ class HeaderParser(object):
             self.name = name
         if path:
             self.path = path
+
         with open(self.path + self.name, 'r') as fin:
             self.lines = fin.readlines()
 
     @staticmethod
     def get_namespace(line):
-        namespace = line[10:]
+        idx = len('namespace ')
+        namespace = line[idx:]
         if namespace and namespace[-1] == '{':
             namespace = namespace[:-1]
+        while namespace[-1] == ' ':
+            namespace = namespace[:-1]
+
         return namespace
 
     @staticmethod
     def get_class(line):
+        #key word 'class' has 5 characters
         idx1 = 6
         idx2 = line.find(':')
         super_class = ''
@@ -114,17 +121,18 @@ class HeaderParser(object):
                     tmp[t+1] = tmp[t] + tmp[t+1]
             tmp = list(filter(lambda x: x not in self.keywords, tmp))
             if len(tmp) == 2:
-                if tmp[0][-1] == '&':
-                    tmp[0] = tmp[0][:-1]
-                    tmp[1] = '&' + tmp[1]
+                #if tmp[0][-1] == '&':
+                #    tmp[0] = tmp[0][:-1]
+                #    tmp[1] = '&' + tmp[1]
                 para = {'type': tmp[0].strip(), 'name': tmp[1].strip()}
-                if para['type'][-1] == '*':
+                if ((para['type'][-1] == '*') or (para['type'][-1] == '&')):
+                    para['name'] = para['type'][-1] + para['name']
                     para['type'] = para['type'][:-1]
-                    para['name'] = '*' + para['name']
                 method_info['parameters'].append(para)
-        if method_info['method_name'].startswith('*'):
+        if method_info['method_name'].startswith('*') or method_info['method_name'].startswith('&'):
+            method_info['return_type'] = method_info['return_type'] + method_info['method_name'][1:]
             method_info['method_name'] = method_info['method_name'][1:]
-            method_info['return_type'] = method_info['return_type'] + '*'
+
         return method_info
 
     def parse_file_info(self):
@@ -164,8 +172,8 @@ class HeaderParser(object):
                 self.methods[-1].append(line)
                 if line_clr[-1] == ';':
                     f_method = False
-                else:
-                    f_method = True
+                #else:
+                #   f_method = True
                 continue
             if f_struct:
                 if line_clr.find('}') != -1:
@@ -188,6 +196,7 @@ class HeaderParser(object):
             if line_clr.startswith('private:'):
                 method_type = 'private'
                 continue
+            #Todo, add more semantic analysis
             if line_clr.find('(') != -1 and line_clr.find('=') == -1:
                 self.methods.append([line])
                 if not(line_clr[-1] == ';' or line_clr[-1] == '}'):
