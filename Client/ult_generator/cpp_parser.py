@@ -1,4 +1,5 @@
 import re
+import os
 import ult_generator.tree as tree
 
 class CppParser(object):
@@ -17,6 +18,7 @@ class CppParser(object):
         self.lines = []
         self.header_info = info
         self.conditions = {}
+        self.includes = set()
 
     def read_file(self, name=None, path=None):
         if name:
@@ -25,6 +27,15 @@ class CppParser(object):
             self.path = path
         with open(self.path + self.name, 'r') as fin:
             self.lines = fin.readlines()
+
+        for line in self.lines:
+            line_clr = line.strip()
+            idx = line_clr.find('#include')
+            if idx != -1:
+                line_clr = line_clr[len('#include '):]
+                line_clr = line_clr[line_clr.find('"') + 1 : line_clr.rfind('"')]
+                self.includes.add(line_clr)
+
 
     @staticmethod
     def find_function(lines, function_info, class_name):

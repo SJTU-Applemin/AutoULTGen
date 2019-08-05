@@ -129,6 +129,7 @@ class TestCaseGenerator(Generator):
         """
         self.add_file_header(self.lines_cpp)
         self.add_brief_intro_cpp(self.lines_cpp, self.test_case_filename_cpp, self.test_case_class_name)
+        self.add_precompiled_header(self.lines_cpp)
         self.add_includes_cpp(self.lines_cpp, self.includes_cpp)
         self.add_body_cpp(self.lines_cpp, self.info)
         self.write_file(self.test_case_filename_cpp, self.lines_cpp)
