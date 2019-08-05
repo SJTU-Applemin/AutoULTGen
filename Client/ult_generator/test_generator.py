@@ -1,27 +1,30 @@
 from ult_generator.generator import Generator
 from ult_generator.header_parser import HeaderParser
-
+from ult_generator.cpp_parser import CppParser
 
 class TestGenerator(Generator):
     """
 
     """
 
-    def __init__(self, head_parser, conditions):
+    def __init__(self, head_parser, cpp_parser, conditions):
         """
 
         :param info:
         """
         Generator.__init__(self)
-        if isinstance(head_parser, HeaderParser):
+        if isinstance(head_parser, HeaderParser) and isinstance(cpp_parser, CppParser):
             self.info = head_parser
+            self.cppinfo = cpp_parser
             self.test_filename_h = 'test_' + self.info.name
             self.test_filename_cpp = 'test_' + self.info.name[:-2] + '.cpp'
             self.test_class_name = 'Test' + self.info.class_name
             self.lines_h = []
             self.lines_cpp = []
             self.includes_h = [self.info.name]
-            self.includes_cpp = [self.test_filename_h]
+            self.includes_cpp = set()
+            self.includes_cpp.add(self.test_filename_h)
+            self.includes_cpp |= self.cppinfo.includes
             self.conditions = conditions
         else:
             print('Use HeadParser Class to initialize!')
@@ -101,6 +104,7 @@ class TestGenerator(Generator):
         self.add_body_h(self.lines_h, self.info)
         self.write_file(self.test_filename_h, self.lines_h)
 
+
     def add_arg_init(self, lines, name, p_type):
         """
 
@@ -116,9 +120,23 @@ class TestGenerator(Generator):
         elif p_type == 'void':
             lines.append('            ' + p_type + ' ' + name + ' = nullptr;\n')
         else:
-            lines.append('            ' + p_type + ' ' + name + ';\n')
-            if name.startswith('*'):
-                name = name[1:]
+            if self.is_media_ext_pointer(p_type):
+                p_type = self.find_pointer_struct_name(p_type)
+                lines.append('            ' + p_type + ' ')
+                if(name[0] == 'p'):
+                    name = name[1].lower() + name[2:]
+                else:
+                    name = name[0].lower() + name[1:]
+            else:
+                lines.append('            ' + p_type + ' ')
+                if name.startswith('*p'):
+                    name = name[1].lower() + name[2:]
+                else:
+                    name = name[0].lower() + name[1:]
+            lines.append(name + ';\n')
+
+            #if name.startswith('*'):
+            #    name = name[1:]
             lines.append('            memset(&' + name + ', 0, sizeof(' + name + '));\n')
         return lines
 
@@ -219,8 +237,14 @@ class TestGenerator(Generator):
             f_expect_return_type = 'MOS_STATUS_SUCCESS'
             for p in method_info['parameters']:
                 name = p['name']
-                if name.startswith('&') or name.startswith('*'):
-                    name = name[1:]
+                type = p['type']
+                if self.is_media_ext_pointer(type):
+                    if(name[0] == 'p'):
+                        name = '&'+ name[1].lower() + name[2:]
+                    else:
+                        name = '&' + name[0].lower() + name[1:]
+                elif name.startswith('&') or name.startswith('*'):
+                    name = name[1].lower() + name[2:]
                     f_expect_return_type = 'MOS_STATUS_NULL_POINTER'
                 s = s + name + ', '
             if s[-2:] == ', ':
@@ -242,8 +266,14 @@ class TestGenerator(Generator):
             s = '            ' + info.class_name + '::' + method_info['method_name'] + '('
             for p in method_info['parameters']:
                 name = p['name']
-                if name.startswith('&') or name.startswith('*'):
-                    name = name[1:]
+                type = p['type']
+                if self.is_media_ext_pointer(type):
+                    if(name[0] == 'p'):
+                        name = '&'+ name[1].lower() + name[2:]
+                    else:
+                        name = '&' + name[0].lower() + name[1:]
+                elif name.startswith('&') or name.startswith('*'):
+                    name = name[1].lower() + name[2:]
                     f_expect_return_type = 'MOS_STATUS_NULL_POINTER'
                 s = s + name + ', '
             if s[-2:] == ', ':
@@ -276,6 +306,7 @@ class TestGenerator(Generator):
         """
         self.add_file_header(self.lines_cpp)
         self.add_brief_intro_cpp(self.lines_cpp, self.test_filename_cpp, self.test_class_name)
+        self.add_precompiled_header(self.lines_cpp)
         # print(self.includes_cpp)
         self.add_includes_cpp(self.lines_cpp, self.includes_cpp)
         self.add_body_cpp(self.lines_cpp, self.info)

@@ -66,6 +66,22 @@ class Generator(object):
     def add_method_annotation(lines, method_name):
         pass
 
+    @staticmethod
+    def is_media_ext_pointer(typename):
+        if typename.startswith('PVPHAL_') or typename.startswith('PMHW_') or typename.startswith('PMOS_'):
+            return True
+        return False
+
+    @staticmethod
+    def find_pointer_struct_name(typename):
+        if typename == "PVPHAL_VEBOX_RENDER_DATA":
+            return 'VP_VEBOX_RENDER_DATA'
+        return typename[1:]
+
+    @staticmethod
+    def add_precompiled_header(lines):
+        lines.append('#include \"stdafx.h\"\n' + '#include \"gtest/gtest.h\"\n')
+
     def add_body_h(self, lines, info):
         """
 
