@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file '.\command_info.ui',
 # licensing of '.\command_info.ui' applies.
 #
-# Created: Tue Jul 30 15:08:19 2019
+# Created: Mon Aug  5 08:58:32 2019
 #      by: pyside2-uic  running on PySide2 5.12.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -69,19 +69,17 @@ class Ui_FormCommandInfo(object):
         self.checkBoxReserved.setGeometry(QtCore.QRect(380, 710, 161, 17))
         self.checkBoxReserved.setChecked(True)
         self.checkBoxReserved.setObjectName("checkBoxReserved")
-        self.pushButtonSave = QtWidgets.QPushButton(self.All)
-        self.pushButtonSave.setGeometry(QtCore.QRect(1090, 700, 121, 41))
-        self.pushButtonSave.setObjectName("pushButtonSave")
         self.pushButtonGen = QtWidgets.QPushButton(self.All)
-        self.pushButtonGen.setGeometry(QtCore.QRect(1230, 700, 121, 41))
+        self.pushButtonGen.setGeometry(QtCore.QRect(1250, 700, 121, 41))
         self.pushButtonGen.setObjectName("pushButtonGen")
         self.pushButtonSCL = QtWidgets.QPushButton(self.All)
-        self.pushButtonSCL.setGeometry(QtCore.QRect(962, 700, 111, 41))
+        self.pushButtonSCL.setGeometry(QtCore.QRect(1100, 700, 111, 41))
         self.pushButtonSCL.setObjectName("pushButtonSCL")
         self.treeWidgetCmd = QtWidgets.QTreeWidget(self.All)
         self.treeWidgetCmd.setGeometry(QtCore.QRect(0, 0, 321, 691))
         self.treeWidgetCmd.setHeaderHidden(True)
         self.treeWidgetCmd.setObjectName("treeWidgetCmd")
+        self.treeWidgetCmd.headerItem().setText(0, "1")
         self.stackedWidget.addWidget(self.All)
         self.cmdlist = QtWidgets.QWidget()
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -144,7 +142,6 @@ class Ui_FormCommandInfo(object):
         self.checkBoxDec.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Decimal", None, -1))
         self.checkBoxHex.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Hexadecimal", None, -1))
         self.checkBoxReserved.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Hide reserved field", None, -1))
-        self.pushButtonSave.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Save", None, -1))
         self.pushButtonGen.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Generate", None, -1))
         self.pushButtonSCL.setText(QtWidgets.QApplication.translate("FormCommandInfo", "Show CMD List", None, -1))
         self.tableWidgetCmdlist.horizontalHeaderItem(0).setText(QtWidgets.QApplication.translate("FormCommandInfo", "Command", None, -1))
