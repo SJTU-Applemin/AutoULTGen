@@ -81,9 +81,9 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        #self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
-        #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
-        #self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
+        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
+        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
+        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
@@ -591,6 +591,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 ##print('command idx:' + str(command_idx))
                 cmd = QTreeWidgetItem(frame)
                 cmd.setText(0, command['name'])
+                cmd.setCheckState(0,Qt.CheckState.Unchecked)
                 #if command['name'] in self.command_filter:
                 #    cmd.setCheckState(0, Qt.CheckState.Unchecked)
                 #else:
@@ -1090,19 +1091,18 @@ FrameNum = {self.FrameNum}
                 f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
                 with open(f_integrated_cfg_cpp, 'r') as fin:
                     lines = fin.readlines()
-                s0 = '    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n'
                 
                 newlines = []
-                newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
-                newlines.append('                                IDR_' + self.test_name.upper() + '_INPUT,\n')
-                newlines.append('                                {"' + self.platform + '"},\n')
-                newlines.append('                                ' + self.GUID + '\n')
-                newlines.append('                            }\n')
+                newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (30 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
+                newlines.append('                                          IDR_' + self.test_name.upper() + '_INPUT,\n')
+                newlines.append('                                          {"' + self.platform + '"},\n')
+                newlines.append('                                          ' + self.GUID + '\n')
+                newlines.append('                                      }\n')
                 newlines.append('    },\n')
                 
 
                 for idx, line in enumerate(lines):
-                    if line.find(s0) != -1:
+                    if re.search(f'\s*{{"{self.capitalize_word(self.test_name)}",\s*' , line):
                     ###update existed testname
                         newlines = lines[:idx] + newlines + lines[idx+6:]
                         break
@@ -1180,9 +1180,8 @@ FrameNum = {self.FrameNum}
             f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
             with open(f_integrated_cfg_cpp, 'r') as fin:
                 lines = fin.readlines()
-            s0 = '    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (20 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n'
                 
-            idx = [idx for idx, line in enumerate(lines) if line.find(s0) != -1]
+            idx = [idx for idx, line in enumerate(lines) if re.search(f'\s*{{"{self.capitalize_word(self.test_name)}",\s*' , line)]
             if idx:
                 self.pre_platform = re.match('{"(.*)"}', lines[idx[0]+2].strip()).group(1)
                 self.pre_GUID = lines[idx[0]+3].strip()
@@ -1268,7 +1267,7 @@ class FormCommandInfo(QWidget):
         msgBox.setInformativeText(inf)
         msgBox.exec_()
 
-    def check(self):
+    def check():
         s = ''
         table = self.ui.tableWidgetCmd
         for i in range(table.rowCount()):
@@ -1309,7 +1308,7 @@ class FormCommandInfo(QWidget):
             pass
         else:
             self.first = False
-        if self.check() != 0:
+        if self.check(self.mode) != 0:
             return
         for i in range(table.rowCount()):
             dword = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]['dwords'][int(self.row_command_map[i]['dword_idx'])]
