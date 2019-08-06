@@ -10,6 +10,7 @@ from ult_generator import header_parser
 from ult_generator import test_generator
 from ult_generator import test_case_generator
 from ult_generator import xml_generator
+from ult_generator import cpp_parser
 import re
 import os
 
@@ -68,12 +69,6 @@ def find_super_class_file(class_name, includes, media_path):
     else:
         return None
 
-def show_message(title, info):
-    msgbox = QtGui.QMessageBox()
-    msgbox.setWindowTitle("Error")
-    msgBox.setText("invalid media driver path!")
-    msgBox.exec_()
-
 def main(input_file='input.txt'):
     """
 
@@ -94,6 +89,7 @@ def main(input_file='input.txt'):
             idx = line.rfind('\\')
             file_name = line[idx+1:]
             file_path = line[:idx+1]
+            cpp_file_name = file_name[:(file_name.find('.h'))] + '.cpp'
             if not media_path:
                 idx = file_path.find('\\gfx-driver\\Source\\media')
                 if idx != -1:
@@ -138,7 +134,11 @@ def main(input_file='input.txt'):
                     if not f_override:
                         parser_list[0].methods_info.append(m)
                 # parser_list[0].methods_info.extend(i.methods_info)
-            test = test_generator.TestGenerator(parser_list[0], None)
+
+            cpp_parser_list = [cpp_parser.CppParser(cpp_file_name, file_path)]
+            cpp_parser_list[0].read_file()
+
+            test = test_generator.TestGenerator(parser_list[0], cpp_parser_list[0], None)
             test_case = test_case_generator.TestCaseGenerator(parser_list[0])
             xml_filename = parser_list[0].name[:-2] + '_header.xml'
 
