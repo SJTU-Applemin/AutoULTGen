@@ -81,9 +81,9 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        #self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
-        #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
-        #self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
+        self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
+        self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
+        self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
@@ -118,6 +118,7 @@ class MainWindow(QMainWindow):
                 msgBox = QMessageBox()
                 msgBox.setText("%s should be int!" %name)
                 msgBox.exec_()
+                self.ui.Width_input.clear()
 
     @Slot()
     def checkGUID(self):
@@ -1093,11 +1094,11 @@ FrameNum = {self.FrameNum}
                     lines = fin.readlines()
                 
                 newlines = []
-                newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (30 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
-                newlines.append('                                          IDR_' + self.test_name.upper() + '_INPUT,\n')
-                newlines.append('                                          {"' + self.platform + '"},\n')
-                newlines.append('                                          ' + self.GUID + '\n')
-                newlines.append('                                      }\n')
+                newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (50 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
+                newlines.append(' '*62 + 'IDR_' + self.test_name.upper() + '_INPUT,\n')
+                newlines.append(' '*62 + '{"' + self.platform + '"},\n')
+                newlines.append(' '*62 + self.GUID + '\n')
+                newlines.append(' '*58 + '}\n')
                 newlines.append('    },\n')
                 
 
@@ -1267,7 +1268,7 @@ class FormCommandInfo(QWidget):
         msgBox.setInformativeText(inf)
         msgBox.exec_()
 
-    def check():
+    def check(self):
         s = ''
         table = self.ui.tableWidgetCmd
         for i in range(table.rowCount()):
@@ -1276,14 +1277,10 @@ class FormCommandInfo(QWidget):
             if table.cellWidget(i, 7) and table.cellWidget(i, 7).isChecked():
                 command = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]
                 dword = 'dword' + command['dwords'][int(self.row_command_map[i]['dword_idx'])]['NO']
-                field = str(table.item(i, 2).text())
-                value = str(table.item(i, 6).text())
-
-                min_value = str(table.item(i, 9).text())
-                max_value = str(table.item(i, 10).text())
-                # value = item_text_to_dec(value)
-                # min_value = item_text_to_dec(min_value)
-                # max_value = item_text_to_dec(max_value)
+                field = table.item(i, 2).text()
+                value = item_text_to_dec(table.item(i, 6).text(), self.mode)
+                min_value = item_text_to_dec(table.item(i, 9).text(), self.mode)
+                max_value = item_text_to_dec(table.item(i, 10).text(), self.mode)
                 if max_value < min_value:
                     s = s + 'Command ' + command['name'] + ' ' + dword + ' max value smaller than min value\n\n'
                     # s = s + 'Row' + str(i) + ' max value smaller than min value\n\n'
@@ -1308,7 +1305,7 @@ class FormCommandInfo(QWidget):
             pass
         else:
             self.first = False
-        if self.check(self.mode) != 0:
+        if self.check() != 0:
             return
         for i in range(table.rowCount()):
             dword = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]['dwords'][int(self.row_command_map[i]['dword_idx'])]
@@ -1616,9 +1613,13 @@ class Addpath(QWidget):
     def Close(self):
         pass
 
-def item_text_to_dec(s):
-    if s.startswith('0x'):
+def item_text_to_dec(s, mode = 'hex'):
+    if mode == 'hex':
         return int(s, 16)
+    if mode == 'bin':
+        return int(s,2)
+    if mode == 'dec':
+        return int(s)
 
 
 if __name__ == '__main__':
