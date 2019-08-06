@@ -67,8 +67,17 @@ class TestCaseGenerator(Generator):
             lines.append('        //!\n')
             lines.append('        void PrepareEncodeParams(EncoderParams &encodeParams);\n')
             lines.append('\n')
-
-        lines.append('        ' + self.test_class_name + '        *m_test = nullptr;\n')
+        linestr = self.str_radjust('        ' + self.test_class_name, 50)
+        lines.append(linestr + '*m_test = nullptr;\n')
+        for method in info.methods_info:
+            if method['return_type'] == 'Constructor':
+                for param in method['parameters']:
+                    name = param['name']
+                    if name.startswith('*') or name.startswith('&'):
+                        name = name[1:]
+                    linestr = self.str_radjust('        ' + param['type'], 50)
+                    lines.append(linestr + '    m_' + name + ';\n')
+                break
         lines.append('\n')
         lines.append('    };\n')
         lines.append('}\n')
@@ -85,6 +94,10 @@ class TestCaseGenerator(Generator):
         self.add_includes_h(self.lines_h, self.test_case_filename_h[:-2], self.includes_h)
         self.add_body_h(self.lines_h, self.info)
         self.write_file(self.test_case_filename_h, self.lines_h)
+
+    def add_setup_body(self, lines, info):
+
+
 
     def add_body_cpp(self, lines, info):
         """
