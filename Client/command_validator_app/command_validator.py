@@ -895,10 +895,15 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 # lines.append('      <CMD index="' + str(cmd_idx) + '" name="' + cmd['name'] + '" class="' + cmd['class'] + '">\n ')
                 for dword_idx, dword in enumerate(cmd['dwords']):
                     s_dword = '        <dword'
+                    # if all field uncheck, dwrod uncheck
+                    if all(field['CHECK'] == 'N' for field in dword['fields'] if 'CHECK' in field):
+                        dword['check'] = 'N'
+
                     for key, value in dword.items():
                         if key != 'fields' and value:
                             s_dword = s_dword + ' ' + key + '="' + str(value) + '"'
                     s_dword = s_dword + '>\n'
+
                     lines.append(s_dword)
 
                     for field in dword['fields']:
@@ -1251,11 +1256,12 @@ class FormCommandInfo(QWidget):
         self.ui.pushButtonSU.clicked.connect(self.updateinfo)
         self.ui.tableWidgetCmdlist.cellDoubleClicked.connect(self.modifycmd)
 
-        self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.save)
         self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.main_window.show_command_table)
         self.ui.treeWidgetCmd.itemChanged.connect(self.update_tree_checkstate)
-        self.ui.treeWidgetCmd.itemClicked.connect(self.save)
+        self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.save)
+        
         self.ui.treeWidgetCmd.itemClicked.connect(self.main_window.show_command_table)
+        self.ui.treeWidgetCmd.itemClicked.connect(self.save)
         
         
 
@@ -1296,12 +1302,13 @@ class FormCommandInfo(QWidget):
             return 0
 
     def item_text_to_dec(self, s):
-        if self.mode == 'hex':
-            return int(s, 16)
-        if self.mode == 'bin':
-            return int(s,2)
-        if self.mode == 'dec':
-            return int(s)
+        if s:
+            if self.mode == 'hex':
+                return int(s, 16)
+            if self.mode == 'bin':
+                return int(s,2)
+            if self.mode == 'dec':
+                return int(s)
 
     @Slot()
     def save(self):
