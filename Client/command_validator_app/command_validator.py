@@ -495,8 +495,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                     table.insertRow(i_row)
                                 table.setItem(i_row, 2, QTableWidgetItem(obj_field['obj_field_name']))
                                 checkBox = QCheckBox()
-                                if (not obj_field['obj_field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                                if (not obj_field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                                    field['CHECK'] == 'Y'
                                     checkBox.setCheckState(Qt.CheckState.Checked)
+                                if (not obj_field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked):
+                                    field['CHECK'] == 'N'
+                                    checkBox.setCheckState(Qt.CheckState.Unchecked)
                                 # checkBox.stateChanged.connect(self.check_box_change)
                                 table.setCellWidget(i_row, 7, checkBox)
                                 if self.form.mode == 'bin':
@@ -535,8 +539,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                             table.insertRow(i_row)
                         table.setItem(i_row, 2, QTableWidgetItem(field['field_name']))
                         checkBox = QCheckBox()
-                        if (not field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field['CHECK'] == 'Y':
+                        if (not field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                            field['CHECK'] == 'Y'
                             checkBox.setCheckState(Qt.CheckState.Checked)
+                        if (not field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked):
+                            field['CHECK'] == 'N'
+                            checkBox.setCheckState(Qt.CheckState.Unchecked)
                         # checkBox.stateChanged.connect(self.check_box_change)
                         table.setCellWidget(i_row, 7, checkBox)
                         if self.form.mode == 'bin':
@@ -588,8 +596,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             frame.setText(0, 'frame' + str(frame_idx))
             frame.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': 'all'})
             for command_idx, command in enumerate(self.command_info[frame_idx]):
-                # #print(command_idx)
-                ##print('command idx:' + str(command_idx))
                 cmd = QTreeWidgetItem(frame)
                 cmd.setText(0, command['name'])
                 cmd.setCheckState(0,Qt.CheckState.Unchecked)
@@ -784,35 +790,27 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             #     command['index'] = command_idx
             frames.append(commands)
         self.command_info = frames
-        self.dw_length_check()
-        #self.ui.lineEditFrame.setText(str(len(frames)))
+        #self.dw_length_check()  #finish this part in cmdlist
 
-        #self.ui.logBrowser.append('Read infomation from mapringinfo.xml\n')
         self.form.info = self.command_info
-        ##print(self.command_info)
         self.show_command_info()
-        # self.update_cmd_list()
 
 
     def dw_length_check(self):
         s = ''
         for frame_idx, frame in enumerate(self.command_info):
             for command_idx, command in enumerate(frame):
-                # DW0_dwlen = item_text_to_dec(command['input_dwsize'])
                 input_dwsize = 0
                 if 'input_dwsize' in command and command['input_dwsize']:
-                    input_dwsize = item_text_to_dec(command['input_dwsize'])
+                    input_dwsize = int(command['input_dwsize'])
                 if 'def_dwsize' in command and command['def_dwSize']:
-                    def_dwsize = item_text_to_dec(command['def_dwSize'])
+                    def_dwsize = int(command['def_dwSize'])
                 if command['dwords']:
                     last_dword_no = command['dwords'][-1]['NO']
                     if last_dword_no.find('_') != -1:
                         idx = last_dword_no.rfind('_')
                         last_dword_no = last_dword_no[idx + 1:]
                     last_dword_no = int(last_dword_no)
-                    # #print(last_dword_no)
-                    # #print(input_dwsize)
-                    ##print(command['input_dwsize'])
                     if last_dword_no and input_dwsize and last_dword_no > input_dwsize:
                         s = 'frame ' + str(frame_idx) + ' command ' + str(command_idx) + ' ' + command['name'] + 'wrong dword length. \n'
                         s = s + 'Suggest ' + str(hex(last_dword_no)) + ' intstead\n\n'
@@ -1176,6 +1174,8 @@ FrameNum = {self.FrameNum}
         else:
             return s
 
+
+
     def read_test_cfg_cpp(self, name, component='encode'):
         if component == 'encode':
             f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
@@ -1278,9 +1278,9 @@ class FormCommandInfo(QWidget):
                 command = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]
                 dword = 'dword' + command['dwords'][int(self.row_command_map[i]['dword_idx'])]['NO']
                 field = table.item(i, 2).text()
-                value = item_text_to_dec(table.item(i, 6).text(), self.mode)
-                min_value = item_text_to_dec(table.item(i, 9).text(), self.mode)
-                max_value = item_text_to_dec(table.item(i, 10).text(), self.mode)
+                value = self.item_text_to_dec(table.item(i, 6).text())
+                min_value = self.item_text_to_dec(table.item(i, 9).text())
+                max_value = self.item_text_to_dec(table.item(i, 10).text())
                 if max_value < min_value:
                     s = s + 'Command ' + command['name'] + ' ' + dword + ' max value smaller than min value\n\n'
                     # s = s + 'Row' + str(i) + ' max value smaller than min value\n\n'
@@ -1295,6 +1295,13 @@ class FormCommandInfo(QWidget):
         else:
             return 0
 
+    def item_text_to_dec(self, s):
+        if self.mode == 'hex':
+            return int(s, 16)
+        if self.mode == 'bin':
+            return int(s,2)
+        if self.mode == 'dec':
+            return int(s)
 
     @Slot()
     def save(self):
@@ -1613,13 +1620,7 @@ class Addpath(QWidget):
     def Close(self):
         pass
 
-def item_text_to_dec(s, mode = 'hex'):
-    if mode == 'hex':
-        return int(s, 16)
-    if mode == 'bin':
-        return int(s,2)
-    if mode == 'dec':
-        return int(s)
+
 
 
 if __name__ == '__main__':
