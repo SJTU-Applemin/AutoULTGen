@@ -81,6 +81,12 @@ class Generator(object):
     @staticmethod
     def add_precompiled_header(lines):
         lines.append('#include \"stdafx.h\"\n' + '#include \"gtest/gtest.h\"\n')
+        return lines
+
+    @staticmethod
+    def str_radjust(str, to_width):
+        str += " "*(to_width-len(str))
+        return str
 
     def add_body_h(self, lines, info):
         """
