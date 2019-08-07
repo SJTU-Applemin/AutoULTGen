@@ -289,6 +289,10 @@ copy a batch of files to a batch of target locations
 
 clear files created in the previous opration
 
+### h2xml
+
+see mapringinfo.xml output, which is entire command form content.
+
 ## ElementTree_pretty.py
 
 pretty print XML elemt with indent
