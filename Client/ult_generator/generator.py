@@ -9,6 +9,7 @@ class Generator(object):
         """
         self.file_header = 'sample_header.txt'
         self.basic_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
+        self.basic_pointer_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
         #media_ext_type should not include the PMXXXXX
         self.media_ext_type = {'MOS_FORMAT', 'MOS_INTERFACE', 'MHW_SFC_INTERFACE', 'VpAllocator', 'VPMediaMemComp'}
 
@@ -69,6 +70,12 @@ class Generator(object):
 
     @staticmethod
     def is_media_ext_pointer(typename):
+        if typename.startswith('PVPHAL_') or typename.startswith('PMHW_') or typename.startswith('PMOS_'):
+            return True
+        return False
+
+    @staticmethod
+    def is_media_ext_class(typename):
         if typename.startswith('PVPHAL_') or typename.startswith('PMHW_') or typename.startswith('PMOS_'):
             return True
         return False
