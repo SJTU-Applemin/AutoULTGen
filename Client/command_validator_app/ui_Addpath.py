@@ -84,7 +84,7 @@ class Ui_Addpath(object):
         font.setPointSize(10)
         self.pushButtonSave.setFont(font)
         self.pushButtonSave.setObjectName("pushButtonSave")
-        self.verticalLayout_3.addWidget(self.pushButtonSave)
+        self.verticalLayout_3.addWidget(self.pushButtonSave,alignment=QtCore.Qt.AlignHCenter)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
 

@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file '.\command_info.ui',
 # licensing of '.\command_info.ui' applies.
 #
-# Created: Thu Aug  8 13:26:58 2019
+# Created: Thu Aug  8 14:33:10 2019
 #      by: pyside2-uic  running on PySide2 5.12.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -68,7 +68,7 @@ class Ui_FormCommandInfo(object):
         self.tableWidgetCmd.verticalHeader().setCascadingSectionResizes(True)
         self.horizontalLayout_3.addWidget(self.tableWidgetCmd)
         self.horizontalLayout_3.setStretch(0, 1)
-        self.horizontalLayout_3.setStretch(1, 7)
+        self.horizontalLayout_3.setStretch(1, 4)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -140,10 +140,10 @@ class Ui_FormCommandInfo(object):
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.pushButtonSU = QtWidgets.QPushButton(self.cmdlist)
         self.pushButtonSU.setObjectName("pushButtonSU")
-        self.horizontalLayout_4.addWidget(self.pushButtonSU)
+        self.horizontalLayout_4.addWidget(self.pushButtonSU, alignment=QtCore.Qt.AlignHCenter)
         self.pushButtonSA = QtWidgets.QPushButton(self.cmdlist)
         self.pushButtonSA.setObjectName("pushButtonSA")
-        self.horizontalLayout_4.addWidget(self.pushButtonSA)
+        self.horizontalLayout_4.addWidget(self.pushButtonSA, alignment=QtCore.Qt.AlignHCenter)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
         self.gridLayout_4.addLayout(self.verticalLayout_3, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.cmdlist)
