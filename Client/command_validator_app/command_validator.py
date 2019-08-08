@@ -81,17 +81,17 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        #self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
+        #self.ui.lineEditMediaPath.setText(r'C:\Users\sunling\gfx\gfx-driver\Source\media;C:\Users\sunling\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
         #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
         #self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
-        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
-        self.ui.comboBoxResF = ExtendedComboBox(self.ui.comboBoxResF)
-        self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
-        self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
-        self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
+#        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+#        self.ui.comboBoxResF = ExtendedComboBox(self.ui.comboBoxResF)
+#        self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
+#        self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
+#        self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
 
     @Slot()
     def checkhw(self, name):
