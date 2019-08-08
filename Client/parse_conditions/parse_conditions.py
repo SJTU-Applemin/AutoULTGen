@@ -113,8 +113,8 @@ def filter_bool_type(para_dic, line_clr_dic):
 
 
 def main():
-    work_dir = [r'C:\\projects\\github\\AutoULTGen\\parse_conditions']
-    file_name = 'encode_scalability_singlepipe.cpp'
+    work_dir = [r'C:\\projects\\VPG\gfx-driver\\Source\\media\\media_embargo\\media_driver_next\\agnostic\\common\\vp\\hal']
+    file_name = 'vp_render_sfc_base.cpp'
     test_name = 'test.cpp'
     line_dic = {}
     for dir in work_dir:
