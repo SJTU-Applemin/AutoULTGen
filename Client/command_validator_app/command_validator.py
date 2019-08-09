@@ -79,6 +79,7 @@ class MainWindow(QMainWindow):
         self.ui.lineEditDDIInputPath.editingFinished.connect(partial(self.fillframenum,'Input'))
         self.ui.Height_input.editingFinished.connect(partial(self.checkhw, 'Height'))
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
+        self.ui.lineEditTestName.editingFinished.connect(self.checkTestName)
 
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
         #self.ui.lineEditMediaPath.setText(r'C:\Users\sunling\gfx\gfx-driver\Source\media;C:\Users\sunling\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
@@ -118,6 +119,28 @@ class MainWindow(QMainWindow):
                 msgBox = QMessageBox()
                 msgBox.setText("%s should be int!" %name)
                 msgBox.exec_()
+       
+    @Slot()
+    def checkTestName(self, showMsg = True):
+        # remove white space at start and end
+        text = self.ui.lineEditTestName.text().strip()
+        # pure white space should not be detected as input
+        if not text:
+            return
+        # test name should only contain _, number, letter
+        words = text.split('_')
+        for word in words:
+            # ignore \n
+            if not word:
+                continue
+            if word.isalpha() or word.isalnum():
+                continue
+            if showMsg:
+                msgBox = QMessageBox()
+                msgBox.setText("Test Name contains invalid character!")
+                msgBox.exec_()
+            return False
+        return True
 
     @Slot()
     def checkGUID(self):
@@ -277,7 +300,7 @@ class MainWindow(QMainWindow):
 
     def checkMainPageInput(self):
         msgBox = QMessageBox()
-        if not self.ui.lineEditTestName.text() :
+        if not self.ui.lineEditTestName.text().strip() or not self.checkTestName(showMsg = False):
             msgBox.setText("Please input a valid Test Name!")
             msgBox.exec_()
             return False
@@ -661,7 +684,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.platform = self.ui.lineEditPlatform.text()
         else:
             self.platform = self.ui.comboBoxPlatform.currentText()
-        self.test_name = self.ui.lineEditTestName.text()
+        self.test_name = self.ui.lineEditTestName.text().strip()
         #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
         self.media_path = self.ui.lineEditMediaPath.text().split(';')
         path = os.path.normpath(self.media_path[0])
