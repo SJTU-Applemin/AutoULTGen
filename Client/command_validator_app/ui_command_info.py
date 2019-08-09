@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file '.\command_info.ui',
 # licensing of '.\command_info.ui' applies.
 #
-# Created: Thu Aug  8 14:33:10 2019
+# Created: Fri Aug  9 15:56:00 2019
 #      by: pyside2-uic  running on PySide2 5.12.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -67,8 +67,8 @@ class Ui_FormCommandInfo(object):
         self.tableWidgetCmd.horizontalHeader().setCascadingSectionResizes(True)
         self.tableWidgetCmd.verticalHeader().setCascadingSectionResizes(True)
         self.horizontalLayout_3.addWidget(self.tableWidgetCmd)
-        self.horizontalLayout_3.setStretch(0, 1)
-        self.horizontalLayout_3.setStretch(1, 4)
+        self.horizontalLayout_3.setStretch(0, 2)
+        self.horizontalLayout_3.setStretch(1, 9)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -135,6 +135,8 @@ class Ui_FormCommandInfo(object):
         self.tableWidgetCmdlist.horizontalHeader().setCascadingSectionResizes(True)
         self.tableWidgetCmdlist.verticalHeader().setCascadingSectionResizes(True)
         self.horizontalLayout_5.addWidget(self.tableWidgetCmdlist)
+        self.horizontalLayout_5.setStretch(0, 2)
+        self.horizontalLayout_5.setStretch(1, 9)
         self.verticalLayout_3.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -154,7 +156,7 @@ class Ui_FormCommandInfo(object):
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(FormCommandInfo)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(FormCommandInfo)
 
     def retranslateUi(self, FormCommandInfo):
