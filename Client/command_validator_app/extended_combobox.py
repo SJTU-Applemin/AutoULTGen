@@ -10,12 +10,14 @@ class ExtendedComboBox(QComboBox):
         #self.setFocusPolicy(Qt.StrongFocus)
         #self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
 
-        self.setStyleSheet(''' 
-QComboBox { min-width: 300px}
-QComboBox QAbstractItemView::item { min-width: 200px;}"
-''')
-
+        
+        
+#        self.setStyleSheet(''' 
+#QComboBox { min-width: 1px}
+#QComboBox QAbstractItemView::item { min-width: 200px;}"
+#''')
         self.setEditable(True)
+        self.setVisible(True)
 
         # add a filter model to filter matching items
         self.pFilterModel = QSortFilterProxyModel(self)

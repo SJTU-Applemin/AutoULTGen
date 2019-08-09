@@ -9,6 +9,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PySide2 import QtCore, QtGui, QtWidgets
+from extended_combobox import ExtendedComboBox
 
 class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
@@ -385,6 +386,8 @@ class Ui_mainWindow(object):
         sizePolicy.setHeightForWidth(self.comboBoxResTT.sizePolicy().hasHeightForWidth())
         self.comboBoxResTT.setSizePolicy(sizePolicy)
         self.comboBoxResTT.setObjectName("comboBoxResTT")
+        self.comboBoxResTT.setVisible(False)
+        self.comboBoxResTT = ExtendedComboBox(self.comboBoxResTT)
         self.gridLayout_2.addWidget(self.comboBoxResTT, 7, 1, 1, 1)
         self.FrameNum_input = QtWidgets.QLineEdit(self.Input)
         self.FrameNum_input.setText("")
@@ -424,6 +427,8 @@ class Ui_mainWindow(object):
         sizePolicy.setHeightForWidth(self.comboBoxRawF.sizePolicy().hasHeightForWidth())
         self.comboBoxRawF.setSizePolicy(sizePolicy)
         self.comboBoxRawF.setObjectName("comboBoxRawF")
+        self.comboBoxRawF.setVisible(False)
+        self.comboBoxRawF = ExtendedComboBox(self.comboBoxRawF)
         self.gridLayout_2.addWidget(self.comboBoxRawF, 6, 1, 1, 1)
         self.Component = QtWidgets.QLabel(self.Input)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -454,6 +459,8 @@ class Ui_mainWindow(object):
         sizePolicy.setHeightForWidth(self.comboBoxEncFunc.sizePolicy().hasHeightForWidth())
         self.comboBoxEncFunc.setSizePolicy(sizePolicy)
         self.comboBoxEncFunc.setObjectName("comboBoxEncFunc")
+        self.comboBoxEncFunc.setVisible(False)
+        self.comboBoxEncFunc = ExtendedComboBox(self.comboBoxEncFunc)
         self.gridLayout_2.addWidget(self.comboBoxEncFunc, 9, 1, 1, 1)
         self.EncFunc = QtWidgets.QLabel(self.Input)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -488,6 +495,8 @@ class Ui_mainWindow(object):
         sizePolicy.setHeightForWidth(self.comboBoxResF.sizePolicy().hasHeightForWidth())
         self.comboBoxResF.setSizePolicy(sizePolicy)
         self.comboBoxResF.setObjectName("comboBoxResF")
+        self.comboBoxResF.setVisible(False)
+        self.comboBoxResF = ExtendedComboBox(self.comboBoxResF)
         self.gridLayout_2.addWidget(self.comboBoxResF, 8, 1, 1, 1)
         self.RawFormat = QtWidgets.QLabel(self.Input)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
@@ -507,6 +516,8 @@ class Ui_mainWindow(object):
         sizePolicy.setHeightForWidth(self.comboBoxRawTT.sizePolicy().hasHeightForWidth())
         self.comboBoxRawTT.setSizePolicy(sizePolicy)
         self.comboBoxRawTT.setObjectName("comboBoxRawTT")
+        self.comboBoxRawTT.setVisible(False)
+        self.comboBoxRawTT= ExtendedComboBox(self.comboBoxRawTT)
         self.gridLayout_2.addWidget(self.comboBoxRawTT, 5, 1, 1, 1)
         self.Component_input = QtWidgets.QLineEdit(self.Input)
         self.Component_input.setReadOnly(False)
