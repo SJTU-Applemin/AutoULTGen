@@ -435,6 +435,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
 
 
+    def delete_items_in_combobox(self, combobox):
+        for i in range(combobox.count()):
+            combobox.removeItem(0)
+
     def fillcombobox(self):
 
         self.ui.comboBoxEncFunc.currentTextChanged.connect(partial(self.selectbox,'EncFunc'))
@@ -446,6 +450,13 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.input_combo_obj = GetEnumMember(self.base_media)
         self.input_combo_obj.read_files()
         #self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+        
+        self.delete_items_in_combobox(self.ui.comboBoxEncFunc)
+        self.delete_items_in_combobox(self.ui.comboBoxResF)
+        self.delete_items_in_combobox(self.ui.comboBoxResTT)
+        self.delete_items_in_combobox(self.ui.comboBoxRawF)
+        self.delete_items_in_combobox(self.ui.comboBoxRawTT)
+
         self.ui.comboBoxEncFunc.addItems([''] + list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()))
         self.ui.comboBoxResF.addItems([''] + list(self.input_combo_obj.output['_MOS_FORMAT'].keys()))
         self.ui.comboBoxResTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
