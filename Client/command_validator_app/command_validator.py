@@ -198,7 +198,7 @@ class MainWindow(QMainWindow):
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
 
     @Slot()
-    def fillframenum(self, name):
+    def fillframenum(self, name, flag = True):
         if name == 'Input' and self.ui.lineEditDDIInputPath.text():
             Frameset = set()
             for f in os.listdir(self.ui.lineEditDDIInputPath.text()):
@@ -225,7 +225,7 @@ class MainWindow(QMainWindow):
             numset = set(frame_no_list)
             self.ui.lineEditFrame.setText(str(len(numset)))
 
-        if self.ui.lineEditFrame.text().strip() and self.ui.FrameNum_input.text().strip() and self.ui.lineEditFrame.text() != self.ui.FrameNum_input.text():
+        if flag and self.ui.lineEditFrame.text().strip() and self.ui.FrameNum_input.text().strip() and self.ui.lineEditFrame.text() != self.ui.FrameNum_input.text():
             print(self.ui.lineEditFrame.text())
             print(self.ui.FrameNum_input.text())
             msgBox = QMessageBox()
@@ -307,18 +307,20 @@ class MainWindow(QMainWindow):
     @Slot()
     def fillinput(self):
         blank = []
+        flag = True
         if False == self.checkMainPageInput():
             return
         if not self.ui.lineEditRinginfoPath.text():
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Ringinfo')
         else:
+            flag = False
             self.fillframenum('Main')
         if not self.ui.lineEditDDIInputPath.text():
             self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('DDIInput')
         else:
-            self.fillframenum('Input')
+            self.fillframenum('Input',flag)
         if not self.ui.lineEditMediaPath.text():
             self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Media')
