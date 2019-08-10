@@ -102,6 +102,7 @@ def main(input_file='input.txt'):
             parser_list[0].read_file()
             parser_list[0].parse_file_info()
             parser_list[0].print_info()
+
             while True:
                 root_path = os.getcwd()
                 if not parser_list[-1].super_class:

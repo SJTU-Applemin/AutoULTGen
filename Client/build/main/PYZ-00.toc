@@ -11,17 +11,29 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\ntpath.py',
    'PYMODULE'),
-  ('fnmatch',
+  ('stringprep',
    'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\fnmatch.py',
+   'Studio\\Shared\\Python36_64\\lib\\stringprep.py',
    'PYMODULE'),
   ('_compat_pickle',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\_compat_pickle.py',
    'PYMODULE'),
+  ('pickle',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\pickle.py',
+   'PYMODULE'),
+  ('tracemalloc',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\tracemalloc.py',
+   'PYMODULE'),
   ('__future__',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\__future__.py',
+   'PYMODULE'),
+  ('argparse',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\argparse.py',
    'PYMODULE'),
   ('difflib',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -187,6 +199,10 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\tempfile.py',
    'PYMODULE'),
+  ('subprocess',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\subprocess.py',
+   'PYMODULE'),
   ('tty',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\tty.py',
@@ -198,6 +214,10 @@
   ('pydoc_data.topics',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\pydoc_data\\topics.py',
+   'PYMODULE'),
+  ('textwrap',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\textwrap.py',
    'PYMODULE'),
   ('html.entities',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -242,6 +262,10 @@
   ('uu',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\uu.py',
+   'PYMODULE'),
+  ('quopri',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\quopri.py',
    'PYMODULE'),
   ('email.feedparser',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -290,6 +314,10 @@
   ('email.charset',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\email\\charset.py',
+   'PYMODULE'),
+  ('base64',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\base64.py',
    'PYMODULE'),
   ('email._encoded_words',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -343,9 +371,17 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\email\\message.py',
    'PYMODULE'),
+  ('bz2',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\bz2.py',
+   'PYMODULE'),
   ('lzma',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\lzma.py',
+   'PYMODULE'),
+  ('_compression',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\_compression.py',
    'PYMODULE'),
   ('gzip',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -355,6 +391,10 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\tarfile.py',
    'PYMODULE'),
+  ('dummy_threading',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\dummy_threading.py',
+   'PYMODULE'),
   ('py_compile',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\py_compile.py',
@@ -362,6 +402,10 @@
   ('zipfile',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\zipfile.py',
+   'PYMODULE'),
+  ('selectors',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\selectors.py',
    'PYMODULE'),
   ('socket',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -374,6 +418,18 @@
   ('pydoc',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\pydoc.py',
+   'PYMODULE'),
+  ('struct',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\struct.py',
+   'PYMODULE'),
+  ('gettext',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\gettext.py',
+   'PYMODULE'),
+  ('getopt',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\getopt.py',
    'PYMODULE'),
   ('pdb',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -391,9 +447,25 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\string.py',
    'PYMODULE'),
+  ('_threading_local',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\_threading_local.py',
+   'PYMODULE'),
+  ('threading',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\threading.py',
+   'PYMODULE'),
   ('logging',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\logging\\__init__.py',
+   'PYMODULE'),
+  ('pprint',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\pprint.py',
+   'PYMODULE'),
+  ('contextlib',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\contextlib.py',
    'PYMODULE'),
   ('unittest.case',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -402,66 +474,6 @@
   ('unittest.suite',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\unittest\\suite.py',
-   'PYMODULE'),
-  ('unittest.loader',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\unittest\\loader.py',
-   'PYMODULE'),
-  ('unittest.runner',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\unittest\\runner.py',
-   'PYMODULE'),
-  ('unittest.main',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\unittest\\main.py',
-   'PYMODULE'),
-  ('unittest.signals',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\unittest\\signals.py',
-   'PYMODULE'),
-  ('unittest',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\unittest\\__init__.py',
-   'PYMODULE'),
-  ('doctest',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\doctest.py',
-   'PYMODULE'),
-  ('textwrap',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\textwrap.py',
-   'PYMODULE'),
-  ('argparse',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\argparse.py',
-   'PYMODULE'),
-  ('pprint',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\pprint.py',
-   'PYMODULE'),
-  ('pickle',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\pickle.py',
-   'PYMODULE'),
-  ('tracemalloc',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\tracemalloc.py',
-   'PYMODULE'),
-  ('stringprep',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\stringprep.py',
-   'PYMODULE'),
-  ('base64',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\base64.py',
-   'PYMODULE'),
-  ('_compression',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\_compression.py',
-   'PYMODULE'),
-  ('bz2',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\bz2.py',
    'PYMODULE'),
   ('stat',
    'C:\\Program Files (x86)\\Microsoft Visual '
@@ -475,53 +487,47 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\posixpath.py',
    'PYMODULE'),
+  ('fnmatch',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\fnmatch.py',
+   'PYMODULE'),
+  ('unittest.loader',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\unittest\\loader.py',
+   'PYMODULE'),
+  ('unittest.runner',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\unittest\\runner.py',
+   'PYMODULE'),
+  ('unittest.main',
+   'C:\\Program Files (x86)\\Microsoft Visual '
+   'Studio\\Shared\\Python36_64\\lib\\unittest\\main.py',
+   'PYMODULE'),
   ('signal',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\signal.py',
    'PYMODULE'),
-  ('contextlib',
+  ('unittest.signals',
    'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\contextlib.py',
+   'Studio\\Shared\\Python36_64\\lib\\unittest\\signals.py',
    'PYMODULE'),
-  ('_threading_local',
+  ('unittest',
    'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\_threading_local.py',
+   'Studio\\Shared\\Python36_64\\lib\\unittest\\__init__.py',
    'PYMODULE'),
-  ('threading',
+  ('doctest',
    'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\threading.py',
-   'PYMODULE'),
-  ('selectors',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\selectors.py',
-   'PYMODULE'),
-  ('dummy_threading',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\dummy_threading.py',
-   'PYMODULE'),
-  ('subprocess',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\subprocess.py',
-   'PYMODULE'),
-  ('struct',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\struct.py',
-   'PYMODULE'),
-  ('gettext',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\gettext.py',
-   'PYMODULE'),
-  ('getopt',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\getopt.py',
-   'PYMODULE'),
-  ('quopri',
-   'C:\\Program Files (x86)\\Microsoft Visual '
-   'Studio\\Shared\\Python36_64\\lib\\quopri.py',
+   'Studio\\Shared\\Python36_64\\lib\\doctest.py',
    'PYMODULE'),
   ('_dummy_thread',
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\_dummy_thread.py',
+   'PYMODULE'),
+  ('ult_generator.cpp_parser',
+   'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\cpp_parser.py',
+   'PYMODULE'),
+  ('ult_generator.tree',
+   'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\tree.py',
    'PYMODULE'),
   ('ult_generator.xml_generator',
    'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\xml_generator.py',
@@ -558,14 +564,11 @@
    'C:\\Program Files (x86)\\Microsoft Visual '
    'Studio\\Shared\\Python36_64\\lib\\xml\\dom\\__init__.py',
    'PYMODULE'),
-  ('ult_generator.test_case_generator',
-   'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\test_case_generator.py',
+  ('ult_generator.test_generator',
+   'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\test_generator.py',
    'PYMODULE'),
   ('ult_generator.generator',
    'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\generator.py',
-   'PYMODULE'),
-  ('ult_generator.test_generator',
-   'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\test_generator.py',
    'PYMODULE'),
   ('ult_generator.header_parser',
    'C:\\projects\\github\\AutoULTGen\\Client\\ult_generator\\header_parser.py',
