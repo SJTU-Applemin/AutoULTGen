@@ -88,7 +88,7 @@ listed. If you need to rewrite a testname, this will load old configuration from
 As for next 5 comboboxes, **get_enum_member.py** script is written to load their dropdown lists. 
 **extended_combobox.py** is written to reload default combobox, which can filter item by input text.
 
-- RawTileType, ResTileType attributes load dropdown lists from  
+- InputTileType, OutputTileType attributes load dropdown lists from  
 
 `...\Source\media\media_driver\agnostic\common\os\mos_resource_defs.h`
 
@@ -102,7 +102,7 @@ As for next 5 comboboxes, **get_enum_member.py** script is written to load their
 		#    MOS_TILE_INVALID
 		#} MOS_TILE_TYPE;
 
-- RawFormat, ResFormat attributes also load dropdown lists from  
+- InputFormat, OutputFormat attributes also load dropdown lists from  
 
 `...\Source\media\media_driver\agnostic\common\os\mos_resource_defs.h`
 
@@ -288,6 +288,10 @@ copy a batch of files to a batch of target locations
 ### clrfiles
 
 clear files created in the previous opration
+
+### h2xml
+
+see mapringinfo.xml output, which is entire command form content.
 
 ## ElementTree_pretty.py
 

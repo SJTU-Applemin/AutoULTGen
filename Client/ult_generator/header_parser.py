@@ -121,9 +121,6 @@ class HeaderParser(object):
                     tmp[t+1] = tmp[t] + tmp[t+1]
             tmp = list(filter(lambda x: x not in self.keywords, tmp))
             if len(tmp) == 2:
-                #if tmp[0][-1] == '&':
-                #    tmp[0] = tmp[0][:-1]
-                #    tmp[1] = '&' + tmp[1]
                 para = {'type': tmp[0].strip(), 'name': tmp[1].strip()}
                 if ((para['type'][-1] == '*') or (para['type'][-1] == '&')):
                     para['name'] = para['type'][-1] + para['name']

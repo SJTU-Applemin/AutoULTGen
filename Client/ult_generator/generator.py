@@ -9,7 +9,9 @@ class Generator(object):
         """
         self.file_header = 'sample_header.txt'
         self.basic_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
-        self.media_ext_type = {'MOS_FORMAT'}
+        self.basic_pointer_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
+        #media_ext_type should not include the PMXXXXX
+        self.media_ext_type = {'MOS_FORMAT', 'MOS_INTERFACE', 'MHW_SFC_INTERFACE', 'VpAllocator', 'VPMediaMemComp'}
 
     @staticmethod
     def write_file(filename, lines):
@@ -73,6 +75,12 @@ class Generator(object):
         return False
 
     @staticmethod
+    def is_media_ext_class(typename):
+        if typename.startswith('PVPHAL_') or typename.startswith('PMHW_') or typename.startswith('PMOS_'):
+            return True
+        return False
+
+    @staticmethod
     def find_pointer_struct_name(typename):
         if typename == "PVPHAL_VEBOX_RENDER_DATA":
             return 'VP_VEBOX_RENDER_DATA'
@@ -81,6 +89,12 @@ class Generator(object):
     @staticmethod
     def add_precompiled_header(lines):
         lines.append('#include \"stdafx.h\"\n' + '#include \"gtest/gtest.h\"\n')
+        return lines
+
+    @staticmethod
+    def str_radjust(str, to_width):
+        str += " "*(to_width-len(str))
+        return str
 
     def add_body_h(self, lines, info):
         """

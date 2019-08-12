@@ -342,6 +342,7 @@ imports:
  &#8226;   <a href="#tty">tty</a>
  &#8226;   <a href="#types">types</a>
  &#8226;   <a href="#ult_generator">ult_generator</a>
+ &#8226;   <a href="#ult_generator.cpp_parser">ult_generator.cpp_parser</a>
  &#8226;   <a href="#ult_generator.header_parser">ult_generator.header_parser</a>
  &#8226;   <a href="#ult_generator.test_case_generator">ult_generator.test_case_generator</a>
  &#8226;   <a href="#ult_generator.test_generator">ult_generator.test_generator</a>
@@ -6195,6 +6196,7 @@ imported by:
  &#8226;   <a href="#subprocess">subprocess</a>
  &#8226;   <a href="#tarfile">tarfile</a>
  &#8226;   <a href="#tempfile">tempfile</a>
+ &#8226;   <a href="#ult_generator.cpp_parser">ult_generator.cpp_parser</a>
  &#8226;   <a href="#ult_generator.header_parser">ult_generator.header_parser</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
  &#8226;   <a href="#unittest.main">unittest.main</a>
@@ -6665,6 +6667,7 @@ imported by:
  &#8226;   <a href="#textwrap">textwrap</a>
  &#8226;   <a href="#token">token</a>
  &#8226;   <a href="#tokenize">tokenize</a>
+ &#8226;   <a href="#ult_generator.cpp_parser">ult_generator.cpp_parser</a>
  &#8226;   <a href="#unittest.case">unittest.case</a>
  &#8226;   <a href="#unittest.loader">unittest.loader</a>
  &#8226;   <a href="#urllib.parse">urllib.parse</a>
@@ -7534,11 +7537,33 @@ imports:
   <div class="import">
 imported by:
     <a href="#main.py">main.py</a>
+ &#8226;   <a href="#ult_generator.cpp_parser">ult_generator.cpp_parser</a>
  &#8226;   <a href="#ult_generator.generator">ult_generator.generator</a>
  &#8226;   <a href="#ult_generator.header_parser">ult_generator.header_parser</a>
  &#8226;   <a href="#ult_generator.test_case_generator">ult_generator.test_case_generator</a>
  &#8226;   <a href="#ult_generator.test_generator">ult_generator.test_generator</a>
+ &#8226;   <a href="#ult_generator.tree">ult_generator.tree</a>
  &#8226;   <a href="#ult_generator.xml_generator">ult_generator.xml_generator</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="ult_generator.cpp_parser"></a>
+  <a target="code" href="///C:/projects/github/AutoULTGen/Client/ult_generator/cpp_parser.py" type="text/plain"><tt>ult_generator.cpp_parser</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#os">os</a>
+ &#8226;   <a href="#re">re</a>
+ &#8226;   <a href="#ult_generator">ult_generator</a>
+ &#8226;   <a href="#ult_generator.tree">ult_generator.tree</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#main.py">main.py</a>
+ &#8226;   <a href="#ult_generator.test_generator">ult_generator.test_generator</a>
 
   </div>
 
@@ -7554,8 +7579,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#ult_generator.test_case_generator">ult_generator.test_case_generator</a>
- &#8226;   <a href="#ult_generator.test_generator">ult_generator.test_generator</a>
+    <a href="#ult_generator.test_generator">ult_generator.test_generator</a>
 
   </div>
 
@@ -7574,7 +7598,6 @@ imports:
 imported by:
     <a href="#main.py">main.py</a>
  &#8226;   <a href="#ult_generator">ult_generator</a>
- &#8226;   <a href="#ult_generator.test_case_generator">ult_generator.test_case_generator</a>
  &#8226;   <a href="#ult_generator.test_generator">ult_generator.test_generator</a>
  &#8226;   <a href="#ult_generator.xml_generator">ult_generator.xml_generator</a>
 
@@ -7585,11 +7608,9 @@ imported by:
 <div class="node">
   <a name="ult_generator.test_case_generator"></a>
   <a target="code" href="///C:/projects/github/AutoULTGen/Client/ult_generator/test_case_generator.py" type="text/plain"><tt>ult_generator.test_case_generator</tt></a>
-<span class="moduletype">SourceModule</span>  <div class="import">
+<span class="moduletype">InvalidSourceModule</span>  <div class="import">
 imports:
     <a href="#ult_generator">ult_generator</a>
- &#8226;   <a href="#ult_generator.generator">ult_generator.generator</a>
- &#8226;   <a href="#ult_generator.header_parser">ult_generator.header_parser</a>
 
   </div>
   <div class="import">
@@ -7607,6 +7628,7 @@ imported by:
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
     <a href="#ult_generator">ult_generator</a>
+ &#8226;   <a href="#ult_generator.cpp_parser">ult_generator.cpp_parser</a>
  &#8226;   <a href="#ult_generator.generator">ult_generator.generator</a>
  &#8226;   <a href="#ult_generator.header_parser">ult_generator.header_parser</a>
 
@@ -7615,6 +7637,22 @@ imports:
 imported by:
     <a href="#main.py">main.py</a>
  &#8226;   <a href="#ult_generator">ult_generator</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="ult_generator.tree"></a>
+  <a target="code" href="///C:/projects/github/AutoULTGen/Client/ult_generator/tree.py" type="text/plain"><tt>ult_generator.tree</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#ult_generator">ult_generator</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#ult_generator.cpp_parser">ult_generator.cpp_parser</a>
 
   </div>
 
