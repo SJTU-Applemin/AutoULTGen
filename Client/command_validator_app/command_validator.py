@@ -5,9 +5,9 @@ import shutil
 import copy
 from functools import partial
 import time
-from PySide2.QtCore import QCoreApplication, Slot, Qt
+from PySide2.QtCore import QCoreApplication, Slot, Qt, QRegExp
 from PySide2.QtWidgets import *
-from PySide2.QtGui import QColor, QKeySequence
+from PySide2.QtGui import QColor, QKeySequence, QValidator, QRegExpValidator
 from lxml import etree
 #----------
 from ui_command_info import Ui_FormCommandInfo
@@ -81,6 +81,7 @@ class MainWindow(QMainWindow):
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
         self.ui.lineEditTestName.editingFinished.connect(self.checkTestName)
 
+        
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
         #self.ui.lineEditMediaPath.setText(r'C:\Users\sunling\gfx\gfx-driver\Source\media;C:\Users\sunling\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
         #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
@@ -119,9 +120,11 @@ class MainWindow(QMainWindow):
                 msgBox = QMessageBox()
                 msgBox.setText("%s should be int!" %name)
                 msgBox.exec_()
+                self.ui.Width_input.clear()
+               
        
     @Slot()
-    def checkTestName(self, showMsg = True):
+    def checkTestName(self):
         # remove white space at start and end
         text = self.ui.lineEditTestName.text().strip()
         # pure white space should not be detected as input
@@ -133,14 +136,119 @@ class MainWindow(QMainWindow):
             # ignore \n
             if not word:
                 continue
-            if word.isalpha() or word.isalnum():
+            elif word.isalpha() or word.isalnum():
                 continue
-            if showMsg:
+            else:
                 msgBox = QMessageBox()
                 msgBox.setText("Test Name contains invalid character!")
                 msgBox.exec_()
-            return False
-        return True
+                self.ui.lineEditTestName.clear()
+
+    @Slot()
+    def checkComboBoxEnvFunc(self):
+        value = self.ui.comboBoxEncFunc.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()):
+                if value == self.input_combo_obj.output['tagENCODE_FUNC'][key]:
+                    self.ui.comboBoxEncFunc.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxEncFunc.setCurrentText("")
+
+    @Slot()
+    def checkComboBoxResF(self):
+        value = self.ui.comboBoxResF.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+                if value == self.input_combo_obj.output['_MOS_FORMAT'][key]:
+                    self.ui.comboBoxResF.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxResF.setCurrentText("")
+
+    @Slot()
+    def checkComboBoxResTT(self):
+        value = self.ui.comboBoxResTT.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+                if value == self.input_combo_obj.output['_MOS_TILE_TYPE'][key]:
+                    self.ui.comboBoxResTT.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxResTT.setCurrentText("")
+
+    @Slot()
+    def checkComboBoxRawF(self):
+        value = self.ui.comboBoxRawF.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+                if value == self.input_combo_obj.output['_MOS_FORMAT'][key]:
+                    self.ui.comboBoxRawF.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxRawF.setCurrentText("")
+       
+    @Slot()
+    def checkComboBoxRawTT(self):
+        value = self.ui.comboBoxRawTT.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+                if value == self.input_combo_obj.output['_MOS_TILE_TYPE'][key]:
+                    self.ui.comboBoxRawTT.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxRawTT.setCurrentText("")
+        
 
     @Slot()
     def checkGUID(self):
@@ -300,7 +408,7 @@ class MainWindow(QMainWindow):
 
     def checkMainPageInput(self):
         msgBox = QMessageBox()
-        if not self.ui.lineEditTestName.text().strip() or not self.checkTestName(showMsg = False):
+        if not self.ui.lineEditTestName.text().strip():
             msgBox.setText("Please input a valid Test Name!")
             msgBox.exec_()
             return False
@@ -450,6 +558,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.input_combo_obj = GetEnumMember(self.base_media)
         self.input_combo_obj.read_files()
         #self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+
+        self.ui.comboBoxEncFunc.lineEdit().editingFinished.connect(self.checkComboBoxEnvFunc)
+        self.ui.comboBoxResF.lineEdit().editingFinished.connect(self.checkComboBoxResF)
+        self.ui.comboBoxResTT.lineEdit().editingFinished.connect(self.checkComboBoxResTT)
+        self.ui.comboBoxRawF.lineEdit().editingFinished.connect(self.checkComboBoxRawF)
+        self.ui.comboBoxRawTT.lineEdit().editingFinished.connect(self.checkComboBoxRawTT)
         
         self.delete_items_in_combobox(self.ui.comboBoxEncFunc)
         self.delete_items_in_combobox(self.ui.comboBoxResF)
@@ -530,8 +644,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                     table.insertRow(i_row)
                                 table.setItem(i_row, 2, QTableWidgetItem(obj_field['obj_field_name']))
                                 checkBox = QCheckBox()
-                                if (not obj_field['obj_field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                                if (not obj_field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                                    field['CHECK'] == 'Y'
                                     checkBox.setCheckState(Qt.CheckState.Checked)
+                                if (not obj_field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked):
+                                    field['CHECK'] == 'N'
+                                    checkBox.setCheckState(Qt.CheckState.Unchecked)
                                 # checkBox.stateChanged.connect(self.check_box_change)
                                 table.setCellWidget(i_row, 7, checkBox)
                                 if self.form.mode == 'bin':
@@ -570,8 +688,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                             table.insertRow(i_row)
                         table.setItem(i_row, 2, QTableWidgetItem(field['field_name']))
                         checkBox = QCheckBox()
-                        if (not field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field['CHECK'] == 'Y':
+                        if (not field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                            field['CHECK'] == 'Y'
                             checkBox.setCheckState(Qt.CheckState.Checked)
+                        if (not field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked):
+                            field['CHECK'] == 'N'
+                            checkBox.setCheckState(Qt.CheckState.Unchecked)
                         # checkBox.stateChanged.connect(self.check_box_change)
                         table.setCellWidget(i_row, 7, checkBox)
                         if self.form.mode == 'bin':
@@ -623,8 +745,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             frame.setText(0, 'frame' + str(frame_idx))
             frame.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': 'all'})
             for command_idx, command in enumerate(self.command_info[frame_idx]):
-                # #print(command_idx)
-                ##print('command idx:' + str(command_idx))
                 cmd = QTreeWidgetItem(frame)
                 cmd.setText(0, command['name'])
                 cmd.setCheckState(0,Qt.CheckState.Unchecked)
@@ -819,35 +939,27 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             #     command['index'] = command_idx
             frames.append(commands)
         self.command_info = frames
-        self.dw_length_check()
-        #self.ui.lineEditFrame.setText(str(len(frames)))
+        #self.dw_length_check()  #finish this part in cmdlist
 
-        #self.ui.logBrowser.append('Read infomation from mapringinfo.xml\n')
         self.form.info = self.command_info
-        ##print(self.command_info)
         self.show_command_info()
-        # self.update_cmd_list()
 
 
     def dw_length_check(self):
         s = ''
         for frame_idx, frame in enumerate(self.command_info):
             for command_idx, command in enumerate(frame):
-                # DW0_dwlen = item_text_to_dec(command['input_dwsize'])
                 input_dwsize = 0
                 if 'input_dwsize' in command and command['input_dwsize']:
-                    input_dwsize = item_text_to_dec(command['input_dwsize'])
+                    input_dwsize = int(command['input_dwsize'])
                 if 'def_dwsize' in command and command['def_dwSize']:
-                    def_dwsize = item_text_to_dec(command['def_dwSize'])
+                    def_dwsize = int(command['def_dwSize'])
                 if command['dwords']:
                     last_dword_no = command['dwords'][-1]['NO']
                     if last_dword_no.find('_') != -1:
                         idx = last_dword_no.rfind('_')
                         last_dword_no = last_dword_no[idx + 1:]
                     last_dword_no = int(last_dword_no)
-                    # #print(last_dword_no)
-                    # #print(input_dwsize)
-                    ##print(command['input_dwsize'])
                     if last_dword_no and input_dwsize and last_dword_no > input_dwsize:
                         s = 'frame ' + str(frame_idx) + ' command ' + str(command_idx) + ' ' + command['name'] + 'wrong dword length. \n'
                         s = s + 'Suggest ' + str(hex(last_dword_no)) + ' intstead\n\n'
@@ -932,10 +1044,15 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 # lines.append('      <CMD index="' + str(cmd_idx) + '" name="' + cmd['name'] + '" class="' + cmd['class'] + '">\n ')
                 for dword_idx, dword in enumerate(cmd['dwords']):
                     s_dword = '        <dword'
+                    # if all field uncheck, dwrod uncheck
+                    if all(field['CHECK'] == 'N' for field in dword['fields'] if 'CHECK' in field):
+                        dword['check'] = 'N'
+
                     for key, value in dword.items():
                         if key != 'fields' and value:
                             s_dword = s_dword + ' ' + key + '="' + str(value) + '"'
                     s_dword = s_dword + '>\n'
+
                     lines.append(s_dword)
 
                     for field in dword['fields']:
@@ -1129,11 +1246,11 @@ FrameNum = {self.FrameNum}
                     lines = fin.readlines()
                 
                 newlines = []
-                newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (30 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
-                newlines.append('                                          IDR_' + self.test_name.upper() + '_INPUT,\n')
-                newlines.append('                                          {"' + self.platform + '"},\n')
-                newlines.append('                                          ' + self.GUID + '\n')
-                newlines.append('                                      }\n')
+                newlines.append('    {"' + self.capitalize_word(self.test_name) + '",' + ' ' * (50 - len(self.test_name)) + '{   IDR_' + self.test_name.upper() + '_REFERENCE,\n')
+                newlines.append(' '*62 + 'IDR_' + self.test_name.upper() + '_INPUT,\n')
+                newlines.append(' '*62 + '{"' + self.platform + '"},\n')
+                newlines.append(' '*62 + self.GUID + '\n')
+                newlines.append(' '*58 + '}\n')
                 newlines.append('    },\n')
                 
 
@@ -1211,6 +1328,8 @@ FrameNum = {self.FrameNum}
         else:
             return s
 
+
+
     def read_test_cfg_cpp(self, name, component='encode'):
         if component == 'encode':
             f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
@@ -1286,11 +1405,12 @@ class FormCommandInfo(QWidget):
         self.ui.pushButtonSU.clicked.connect(self.updateinfo)
         self.ui.tableWidgetCmdlist.cellDoubleClicked.connect(self.modifycmd)
 
-        self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.save)
         self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.main_window.show_command_table)
         self.ui.treeWidgetCmd.itemChanged.connect(self.update_tree_checkstate)
-        self.ui.treeWidgetCmd.itemClicked.connect(self.save)
+        self.ui.treeWidgetCmd.itemDoubleClicked.connect(self.save)
+        
         self.ui.treeWidgetCmd.itemClicked.connect(self.main_window.show_command_table)
+        self.ui.treeWidgetCmd.itemClicked.connect(self.save)
         
         
 
@@ -1303,7 +1423,7 @@ class FormCommandInfo(QWidget):
         msgBox.setInformativeText(inf)
         msgBox.exec_()
 
-    def check():
+    def check(self):
         s = ''
         table = self.ui.tableWidgetCmd
         for i in range(table.rowCount()):
@@ -1312,14 +1432,10 @@ class FormCommandInfo(QWidget):
             if table.cellWidget(i, 7) and table.cellWidget(i, 7).isChecked():
                 command = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]
                 dword = 'dword' + command['dwords'][int(self.row_command_map[i]['dword_idx'])]['NO']
-                field = str(table.item(i, 2).text())
-                value = str(table.item(i, 6).text())
-
-                min_value = str(table.item(i, 9).text())
-                max_value = str(table.item(i, 10).text())
-                # value = item_text_to_dec(value)
-                # min_value = item_text_to_dec(min_value)
-                # max_value = item_text_to_dec(max_value)
+                field = table.item(i, 2).text()
+                value = self.item_text_to_dec(table.item(i, 6).text())
+                min_value = self.item_text_to_dec(table.item(i, 9).text())
+                max_value = self.item_text_to_dec(table.item(i, 10).text())
                 if max_value < min_value:
                     s = s + 'Command ' + command['name'] + ' ' + dword + ' max value smaller than min value\n\n'
                     # s = s + 'Row' + str(i) + ' max value smaller than min value\n\n'
@@ -1334,6 +1450,14 @@ class FormCommandInfo(QWidget):
         else:
             return 0
 
+    def item_text_to_dec(self, s):
+        if s:
+            if self.mode == 'hex':
+                return int(s, 16)
+            if self.mode == 'bin':
+                return int(s,2)
+            if self.mode == 'dec':
+                return int(s)
 
     @Slot()
     def save(self):
@@ -1344,7 +1468,7 @@ class FormCommandInfo(QWidget):
             pass
         else:
             self.first = False
-        if self.check(self.mode) != 0:
+        if self.check() != 0:
             return
         for i in range(table.rowCount()):
             dword = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]['dwords'][int(self.row_command_map[i]['dword_idx'])]
@@ -1652,9 +1776,7 @@ class Addpath(QWidget):
     def Close(self):
         pass
 
-def item_text_to_dec(s):
-    if s.startswith('0x'):
-        return int(s, 16)
+
 
 
 if __name__ == '__main__':
