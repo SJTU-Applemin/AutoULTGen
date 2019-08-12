@@ -5,9 +5,9 @@ import shutil
 import copy
 from functools import partial
 import time
-from PySide2.QtCore import QCoreApplication, Slot, Qt
+from PySide2.QtCore import QCoreApplication, Slot, Qt, QRegExp
 from PySide2.QtWidgets import *
-from PySide2.QtGui import QColor, QKeySequence
+from PySide2.QtGui import QColor, QKeySequence, QValidator, QRegExpValidator
 from lxml import etree
 #----------
 from ui_command_info import Ui_FormCommandInfo
@@ -79,19 +79,21 @@ class MainWindow(QMainWindow):
         self.ui.lineEditDDIInputPath.editingFinished.connect(partial(self.fillframenum,'Input'))
         self.ui.Height_input.editingFinished.connect(partial(self.checkhw, 'Height'))
         self.ui.Width_input.editingFinished.connect(partial(self.checkhw, 'Width'))
+        self.ui.lineEditTestName.editingFinished.connect(self.checkTestName)
 
+        
         #self.ui.lineEditTestName.setText('encodeHevcCQP')
-        #self.ui.lineEditMediaPath.setText(r'C:\Users\jiny\gfx\gfx-driver\Source\media;C:\Users\jiny\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
+        #self.ui.lineEditMediaPath.setText(r'C:\Users\sunling\gfx\gfx-driver\Source\media;C:\Users\sunling\gfx\gfx-driver\Source\media\media_embargo\ult\agnostic\test\gen12_tglhp\hw;C:\projects\hevctest\Source\media\media_embargo\agnostic\gen12_tglhp\hw')
         #self.ui.lineEditDDIInputPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\DDI_Input')
         #self.ui.lineEditRinginfoPath.setText(r'C:\projects\github\AutoULTGen\Client\command_validator_app\vcstringinfo\HEVC-VDENC-grits-WP-2125\VcsRingInfo')
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
         self.ui.lineEditPlatform.setText(self.ui.comboBoxPlatform.currentText())
 
-        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
-        self.ui.comboBoxResF = ExtendedComboBox(self.ui.comboBoxResF)
-        self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
-        self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
-        self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
+#        self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+#        self.ui.comboBoxResF = ExtendedComboBox(self.ui.comboBoxResF)
+#        self.ui.comboBoxResTT = ExtendedComboBox(self.ui.comboBoxResTT)
+#        self.ui.comboBoxRawF = ExtendedComboBox(self.ui.comboBoxRawF)
+#        self.ui.comboBoxRawTT = ExtendedComboBox(self.ui.comboBoxRawTT)
 
     @Slot()
     def checkhw(self, name):
@@ -119,6 +121,134 @@ class MainWindow(QMainWindow):
                 msgBox.setText("%s should be int!" %name)
                 msgBox.exec_()
                 self.ui.Width_input.clear()
+               
+       
+    @Slot()
+    def checkTestName(self):
+        # remove white space at start and end
+        text = self.ui.lineEditTestName.text().strip()
+        # pure white space should not be detected as input
+        if not text:
+            return
+        # test name should only contain _, number, letter
+        words = text.split('_')
+        for word in words:
+            # ignore \n
+            if not word:
+                continue
+            elif word.isalpha() or word.isalnum():
+                continue
+            else:
+                msgBox = QMessageBox()
+                msgBox.setText("Test Name contains invalid character!")
+                msgBox.exec_()
+                self.ui.lineEditTestName.clear()
+
+    @Slot()
+    def checkComboBoxEnvFunc(self):
+        value = self.ui.comboBoxEncFunc.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()):
+                if value == self.input_combo_obj.output['tagENCODE_FUNC'][key]:
+                    self.ui.comboBoxEncFunc.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxEncFunc.setCurrentText("")
+
+    @Slot()
+    def checkComboBoxResF(self):
+        value = self.ui.comboBoxResF.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+                if value == self.input_combo_obj.output['_MOS_FORMAT'][key]:
+                    self.ui.comboBoxResF.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxResF.setCurrentText("")
+
+    @Slot()
+    def checkComboBoxResTT(self):
+        value = self.ui.comboBoxResTT.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+                if value == self.input_combo_obj.output['_MOS_TILE_TYPE'][key]:
+                    self.ui.comboBoxResTT.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxResTT.setCurrentText("")
+
+    @Slot()
+    def checkComboBoxRawF(self):
+        value = self.ui.comboBoxRawF.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+                if value == self.input_combo_obj.output['_MOS_FORMAT'][key]:
+                    self.ui.comboBoxRawF.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_FORMAT'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxRawF.setCurrentText("")
+       
+    @Slot()
+    def checkComboBoxRawTT(self):
+        value = self.ui.comboBoxRawTT.currentText().strip()
+        if len(value) == 0:
+            return
+        valid = True
+        if value.isdigit():
+            value = int(value)
+            for key in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+                if value == self.input_combo_obj.output['_MOS_TILE_TYPE'][key]:
+                    self.ui.comboBoxRawTT.setCurrentText(key)
+                    return
+            valid = False
+        elif value not in list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()):
+            valid = False
+        if not valid:
+            msgBox = QMessageBox()
+            msgBox.setText("Incorrect Type or Value!")
+            msgBox.exec_()
+            self.ui.comboBoxRawTT.setCurrentText("")
+        
 
     @Slot()
     def checkGUID(self):
@@ -199,7 +329,7 @@ class MainWindow(QMainWindow):
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 255, 255);}')
 
     @Slot()
-    def fillframenum(self, name):
+    def fillframenum(self, name, flag = True):
         if name == 'Input' and self.ui.lineEditDDIInputPath.text():
             Frameset = set()
             for f in os.listdir(self.ui.lineEditDDIInputPath.text()):
@@ -226,7 +356,7 @@ class MainWindow(QMainWindow):
             numset = set(frame_no_list)
             self.ui.lineEditFrame.setText(str(len(numset)))
 
-        if self.ui.lineEditFrame.text().strip() and self.ui.FrameNum_input.text().strip() and self.ui.lineEditFrame.text() != self.ui.FrameNum_input.text():
+        if flag and self.ui.lineEditFrame.text().strip() and self.ui.FrameNum_input.text().strip() and self.ui.lineEditFrame.text() != self.ui.FrameNum_input.text():
             print(self.ui.lineEditFrame.text())
             print(self.ui.FrameNum_input.text())
             msgBox = QMessageBox()
@@ -278,7 +408,7 @@ class MainWindow(QMainWindow):
 
     def checkMainPageInput(self):
         msgBox = QMessageBox()
-        if not self.ui.lineEditTestName.text() :
+        if not self.ui.lineEditTestName.text().strip():
             msgBox.setText("Please input a valid Test Name!")
             msgBox.exec_()
             return False
@@ -308,18 +438,20 @@ class MainWindow(QMainWindow):
     @Slot()
     def fillinput(self):
         blank = []
+        flag = True
         if False == self.checkMainPageInput():
             return
         if not self.ui.lineEditRinginfoPath.text():
             self.ui.lineEditRinginfoPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Ringinfo')
         else:
+            flag = False
             self.fillframenum('Main')
         if not self.ui.lineEditDDIInputPath.text():
             self.ui.lineEditDDIInputPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('DDIInput')
         else:
-            self.fillframenum('Input')
+            self.fillframenum('Input',flag)
         if not self.ui.lineEditMediaPath.text():
             self.ui.lineEditMediaPath.setStyleSheet('QLineEdit {background-color: rgb(255, 242, 0);}')
             blank.append('Media')
@@ -411,6 +543,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.ui.lineEditComponent.setText(self.ui.comboBoxComponent.currentText())
 
 
+    def delete_items_in_combobox(self, combobox):
+        for i in range(combobox.count()):
+            combobox.removeItem(0)
+
     def fillcombobox(self):
 
         self.ui.comboBoxEncFunc.currentTextChanged.connect(partial(self.selectbox,'EncFunc'))
@@ -422,6 +558,19 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         self.input_combo_obj = GetEnumMember(self.base_media)
         self.input_combo_obj.read_files()
         #self.ui.comboBoxEncFunc = ExtendedComboBox(self.ui.comboBoxEncFunc)
+
+        self.ui.comboBoxEncFunc.lineEdit().editingFinished.connect(self.checkComboBoxEnvFunc)
+        self.ui.comboBoxResF.lineEdit().editingFinished.connect(self.checkComboBoxResF)
+        self.ui.comboBoxResTT.lineEdit().editingFinished.connect(self.checkComboBoxResTT)
+        self.ui.comboBoxRawF.lineEdit().editingFinished.connect(self.checkComboBoxRawF)
+        self.ui.comboBoxRawTT.lineEdit().editingFinished.connect(self.checkComboBoxRawTT)
+        
+        self.delete_items_in_combobox(self.ui.comboBoxEncFunc)
+        self.delete_items_in_combobox(self.ui.comboBoxResF)
+        self.delete_items_in_combobox(self.ui.comboBoxResTT)
+        self.delete_items_in_combobox(self.ui.comboBoxRawF)
+        self.delete_items_in_combobox(self.ui.comboBoxRawTT)
+
         self.ui.comboBoxEncFunc.addItems([''] + list(self.input_combo_obj.output['tagENCODE_FUNC'].keys()))
         self.ui.comboBoxResF.addItems([''] + list(self.input_combo_obj.output['_MOS_FORMAT'].keys()))
         self.ui.comboBoxResTT.addItems([''] + list(self.input_combo_obj.output['_MOS_TILE_TYPE'].keys()))
@@ -666,7 +815,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.platform = self.ui.lineEditPlatform.text()
         else:
             self.platform = self.ui.comboBoxPlatform.currentText()
-        self.test_name = self.ui.lineEditTestName.text()
+        self.test_name = self.ui.lineEditTestName.text().strip()
         #self.source_path = self.ui.lineEditMediaPath.text().replace('/', '\\').strip()
         self.media_path = self.ui.lineEditMediaPath.text().split(';')
         path = os.path.normpath(self.media_path[0])
