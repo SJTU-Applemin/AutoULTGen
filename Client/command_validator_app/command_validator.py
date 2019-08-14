@@ -644,12 +644,15 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                     table.insertRow(i_row)
                                 table.setItem(i_row, 2, QTableWidgetItem(obj_field['obj_field_name']))
                                 checkBox = QCheckBox()
-                                if (not obj_field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
-                                    field['CHECK'] == 'Y'
+                                
+                                if ('field_name' in obj_field) and (not obj_field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field['CHECK'] == 'Y':
                                     checkBox.setCheckState(Qt.CheckState.Checked)
-                                if (not obj_field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked):
-                                    field['CHECK'] == 'N'
-                                    checkBox.setCheckState(Qt.CheckState.Unchecked)
+                                if ('obj_field_name' in obj_field) and (not obj_field['obj_field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and obj_field['CHECK'] == 'Y':
+                                    checkBox.setCheckState(Qt.CheckState.Checked)
+                                #if ('field_name' in obj_field) and (not obj_field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked) and field['CHECK'] == 'N':
+                                #    checkBox.setCheckState(Qt.CheckState.Unchecked)
+                                #if ('obj_field_name' in obj_field) and (not obj_field['obj_field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked) and field['CHECK'] == 'N':
+                                #    checkBox.setCheckState(Qt.CheckState.Unchecked)
                                 # checkBox.stateChanged.connect(self.check_box_change)
                                 table.setCellWidget(i_row, 7, checkBox)
                                 if self.form.mode == 'bin':
@@ -758,8 +761,18 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     #print('dword_idx' + str(dword_idx))
                     dword.setText(0, 'dword' + command['dwords'][dword_idx]['NO'])
                     if len(command['dwords'][dword_idx]['fields'])==0:
-                        dword.setCheckState(0,Qt.CheckState.Unchecked)
+                        dword.setCheckState(0,Qt.CheckState.Unchecked)   
                     for field in command['dwords'][dword_idx]['fields']:
+                        # field in MI_BATCH_BUFFER_START_CMD command may have a different structure  
+                        if command['name'] == "MI_BATCH_BUFFER_START_CMD" and 'obj_fields' in field:
+                            checkState = Qt.CheckState.Unchecked
+                            for obj_field in field["obj_fields"]:
+                                if 'CHECK' in obj_field and obj_field['CHECK'] == 'Y':
+                                    checkState = Qt.CheckState.Checked
+                                    break
+                            cmd.setCheckState(0,checkState)
+                            dword.setCheckState(0,checkState)
+                            continue
                         if 'CHECK' in field and field['CHECK']=='Y':
                             cmd.setCheckState(0,Qt.CheckState.Checked)
                             dword.setCheckState(0,Qt.CheckState.Checked)
@@ -1045,7 +1058,15 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 for dword_idx, dword in enumerate(cmd['dwords']):
                     s_dword = '        <dword'
                     # if all field uncheck, dwrod uncheck
-                    if all(field['CHECK'] == 'N' for field in dword['fields'] if 'CHECK' in field):
+                    if cmd['name'] == "MI_BATCH_BUFFER_START_CMD" and len(dword['fields']) > 0 and "obj_fields" in dword['fields'][0]:
+                        flag = False
+                        for field in dword['fields']:
+                            if any(obj_field['CHECK'] == 'Y' for obj_field in field["obj_fields"] if 'CHECK' in obj_field):
+                                flag = True
+                                break
+                        if not flag:
+                            dword['check'] = 'N'
+                    elif all(field['CHECK'] == 'N' for field in dword['fields'] if 'CHECK' in field):
                         dword['check'] = 'N'
 
                     for key, value in dword.items():
