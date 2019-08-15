@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
         self.form = FormCommandInfo(self)
         self.Addpath = Addpath(self)
         self.pathlist = self.Addpath.ui.listWidget
+        self.update_cmd_check_state = True
         #
         self.last_dir = ''
         self.ui.SelectMediaPath.clicked.connect(self.showAddpath)
@@ -1133,7 +1134,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
     def input_goru(self):
         # click OK, generate xml header
         #self.read_info_from_ui()
-        
+        self.update_cmd_check_state = False
         self.Component = self.ui.Component_input.text().strip()
         self.GUID = self.ui.GUID_input.text().strip()
         self.Width = self.ui.Width_input.text().strip()
@@ -1161,7 +1162,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.parse_command_file()
             self.read_command_info_from_xml()            
             self.form.showcmdlist()
-        
+        self.update_cmd_check_state = True
     
     @Slot()
     def cpfiles(self):
@@ -1520,17 +1521,81 @@ class FormCommandInfo(QWidget):
 
     @Slot(QTreeWidgetItem, int)
     def update_tree_checkstate(self, item, column):
+        if not self.main_window.update_cmd_check_state:
+            return
+        # get frame index
+        treeRoot = self.main_window.form.ui.treeWidgetCmd
+        frame_item = item.parent()
+        while not frame_item.text(0).startswith("frame"):
+            frame_item = frame_item.parent()
+        frame_idx = int(frame_item.text(0)[5:])
+        # MI_BATCH_BUFFER_START_CMD can only be unchecked if no cmd in its unit is checked
+        if item.text(0) == 'MI_BATCH_BUFFER_START_CMD' and item.checkState(0) == Qt.CheckState.Unchecked:
+            if not self.uncheck_MI_BATCH_BUFFER_START_CMD(item, frame_idx):
+                item.setCheckState(0, Qt.CheckState.Checked)
+                return
         for i in range(item.childCount()):
             dword = item.child(i)
             if item.checkState(0) == Qt.CheckState.Checked:
                 dword.setCheckState(0, Qt.CheckState.Checked)
             else:
                 dword.setCheckState(0, Qt.CheckState.Unchecked)
+        # check MI_BATCH_BUFFER_START_CMD of this unit if not checked
+        if item.checkState(0) == Qt.CheckState.Checked:
+            self.check_MI_BATCH_BUFFER_START_CMD(item, frame_idx)
+        #self.update_cmd_checkstate(item, state)
         #if item.checkState(column) == Qt.CheckState.Checked:
         #    print('Item Checked')
         #elif item.checkState(column) == Qt.CheckState.Unchecked:
         #    print('Item Unchecked')
 
+
+    def uncheck_MI_BATCH_BUFFER_START_CMD(self, item, frame_idx):
+    #  if any command in unit start with item(MI_BATCH_BUFFER_START_CMD) is checked, item should be checked
+        treeRoot = self.main_window.form.ui.treeWidgetCmd
+        frame = treeRoot.topLevelItem(0).child(frame_idx)
+        command_idx = frame.indexOfChild(item)
+        require_endcmd_num = 1
+        for i in range(command_idx+1, frame.childCount()):
+            if frame.child(i).checkState(0) == Qt.CheckState.Checked:
+                return False
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_END_CMD':
+                require_endcmd_num -= 1
+                if require_endcmd_num == 0:
+                    return True
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_START_CMD':
+                require_endcmd_num += 1
+        return True
+
+    def check_MI_BATCH_BUFFER_START_CMD(self, item, frame_idx):
+        treeRoot = self.main_window.form.ui.treeWidgetCmd
+        frame = treeRoot.topLevelItem(0).child(frame_idx)
+        # get command index when user tick a command
+        item_point = item
+        command_idx = frame.indexOfChild(item_point)
+        # git command index when user tick a dword
+        while command_idx < 0:
+            item_point = item_point.parent()
+            command_idx = frame.indexOfChild(item_point)
+        # ignore the last MI_BATCH_BUFFER_END_CMD
+        require_startcmd_num = -1
+        ignore_startcmd_num = 0
+        for i in range(command_idx,frame.childCount()):
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_END_CMD':
+                require_startcmd_num += 1
+        for i in reversed(range(command_idx)):
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_END_CMD':
+                ignore_startcmd_num += 1
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_START_CMD':
+                if ignore_startcmd_num > 0:
+                    ignore_startcmd_num -= 1
+                else:
+                    require_startcmd_num -= 1
+                    if frame.child(i).checkState(0) == Qt.CheckState.Unchecked:
+                        frame.child(i).setCheckState(0, Qt.CheckState.Checked)
+                        self.update_cmd_checkstate(frame.child(i),Qt.CheckState.Checked)
+                    if require_startcmd_num == 0:
+                        break
 
     @Slot()
     def update_data_mode_hex(self):
