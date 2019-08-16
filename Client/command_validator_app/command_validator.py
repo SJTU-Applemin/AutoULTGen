@@ -752,13 +752,16 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 cmd = QTreeWidgetItem(frame)
                 cmd.setText(0, command['name'])
                 cmd.setCheckState(0,Qt.CheckState.Unchecked)
+                self.command_info[frame_idx][command_idx]['check'] = 'N'
                 #if command['name'] in self.command_filter:
                 #    cmd.setCheckState(0, Qt.CheckState.Unchecked)
                 #else:
                 #    cmd.setCheckState(0, Qt.CheckState.Checked)
                 cmd.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx})
-                if command_idx == 49:
-                    print("here")
+                # 'CMD_HCP_VP9_RDOQ_STATE' has no dword
+                if len(command['dwords']) == 0:
+                    cmd.setCheckState(0, Qt.CheckState.Checked)
+                    self.command_info[frame_idx][command_idx]['check'] = 'Y'
                 for dword_idx in range(len(command['dwords'])):
                     dword = QTreeWidgetItem(cmd)
                     #print('dword_idx' + str(dword_idx))
@@ -779,11 +782,13 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                     field_item.setCheckState(0, Qt.CheckState.Checked)
                                     dword.setCheckState(0, Qt.CheckState.Checked)
                                     cmd.setCheckState(0, Qt.CheckState.Checked)
+                                    self.command_info[frame_idx][command_idx]['check'] = 'Y'
                                 else:
                                     obj_field_item.setCheckState(0, Qt.CheckState.Unchecked)
                             continue
                         if 'CHECK' in field and field['CHECK']=='Y':
                             cmd.setCheckState(0,Qt.CheckState.Checked)
+                            self.command_info[frame_idx][command_idx]['check'] = 'Y'
                             dword.setCheckState(0,Qt.CheckState.Checked)
                         else:
                             dword.setCheckState(0, Qt.CheckState.Unchecked)
@@ -905,7 +910,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 #else:
                 #    info['check'] = 'Y'
                 # f_other_cmd = False
-
                 for dword in command:
                     # dword_t = {}
                     # dword_t['value'] = dword.get('value')
@@ -1089,26 +1093,27 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     s_dword = s_dword + '>\n'
                     lines.append(s_dword)
 
-                    for field in dword['fields']:
-                        if field['field_name'].startswith('Obj'):
-                            for obj_field in field['obj_fields']:
-                                #if field['obj_fields'].startswith('Reserve'):
-                                #    continue
-                                s_field = '          <' + obj_field['obj_field_name']
-                                for key, value in obj_field.items():
-                                    if key != 'obj_field_name':
+                    if 'check' in dword and dword['check'] == 'Y':
+                        for field in dword['fields']:
+                            if field['field_name'].startswith('Obj'):
+                                for obj_field in field['obj_fields']:
+                                    #if field['obj_fields'].startswith('Reserve'):
+                                    #    continue
+                                    s_field = '          <' + obj_field['obj_field_name']
+                                    for key, value in obj_field.items():
+                                        if key != 'obj_field_name':
+                                            s_field = s_field + ' ' + key + '="' + str(value) + '"'
+                                    s_field = s_field + '/>\n'
+                                    lines.append(s_field)
+                                continue
+                            if 'CHECK' in field and field['CHECK'] == 'Y':
+                            # if not field['field_name'].startswith('Reserve'):
+                                s_field = '          <' + field['field_name']
+                                for key, value in field.items():
+                                    if key != 'field_name':
                                         s_field = s_field + ' ' + key + '="' + str(value) + '"'
                                 s_field = s_field + '/>\n'
                                 lines.append(s_field)
-                            break
-                        if 'CHECK' in field and field['CHECK'] == 'Y':
-                        # if not field['field_name'].startswith('Reserve'):
-                            s_field = '          <' + field['field_name']
-                            for key, value in field.items():
-                                if key != 'field_name':
-                                    s_field = s_field + ' ' + key + '="' + str(value) + '"'
-                            s_field = s_field + '/>\n'
-                            lines.append(s_field)
                     lines.append('        </dword>\n')
                 lines.append('      </CMD>\n')
             lines.append('    </Frame>\n')
@@ -1518,7 +1523,17 @@ class FormCommandInfo(QWidget):
         #        else:
         #            fields.append(field)
         #dword_index = -1
-        dword_check_states = [False] * (int(self.row_command_map[-1]['dword_idx'])+1)
+        cmd_item = tree.topLevelItem(0).child(frame_idx).child(command_idx)
+        if cmd_item.checkState(0) == Qt.CheckState.Checked:
+            self.info[frame_idx][command_idx]['check'] = 'Y'
+        else:
+            self.info[frame_idx][command_idx]['check'] = 'N'
+        dword_check_states = []
+        for i in range(cmd_item.childCount()):
+            if cmd_item.child(i).checkState(0) == Qt.CheckState.Checked:
+                dword_check_states.append('Y')
+            else:
+                dword_check_states.append('N')
         for i in range(table.rowCount()):
             #dword_index += 1
             #dword = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]['dwords'][int(self.row_command_map[i]['dword_idx'])]
@@ -1545,7 +1560,7 @@ class FormCommandInfo(QWidget):
                     target_field['value'] = str(table.item(i, 6).text())
                     if table.cellWidget(i, 7).isChecked():
                         target_field['CHECK'] = 'Y'
-                        dword_check_states[dword_index] = True
+                        dword_check_states[dword_index] = 'Y'
                     else:
                         target_field['CHECK'] = 'N'
                     if self.mode == 'bin':
@@ -1560,12 +1575,9 @@ class FormCommandInfo(QWidget):
                         target_field['value'] = str(table.item(i, 6).text())
                         target_field['min_value'] = str(table.item(i, 9).text())
                         target_field['max_value'] = str(table.item(i, 10).text())
-            # update dword check state
-            if (i+1) >= len(self.row_command_map) or int(self.row_command_map[i+1]['dword_idx']) != dword_index:
-                if dword_check_states[dword_index]:
-                    dword['check'] = 'Y'
-                else:
-                    dword['check'] = 'N'
+        # update dword check state
+        for dword_idx, dword in enumerate(self.info[frame_idx][command_idx]['dwords']):
+            dword['check'] = dword_check_states[dword_idx]
         self.main_window.command_info = self.info
 
     @Slot(QTreeWidgetItem, int)
