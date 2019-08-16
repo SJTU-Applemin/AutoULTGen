@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
         self.form = FormCommandInfo(self)
         self.Addpath = Addpath(self)
         self.pathlist = self.Addpath.ui.listWidget
+        self.update_cmd_check_state = True
         #
         self.last_dir = ''
         self.ui.SelectMediaPath.clicked.connect(self.showAddpath)
@@ -644,12 +645,15 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                     table.insertRow(i_row)
                                 table.setItem(i_row, 2, QTableWidgetItem(obj_field['obj_field_name']))
                                 checkBox = QCheckBox()
-                                if (not obj_field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
-                                    field['CHECK'] == 'Y'
+                                
+                                if ('field_name' in obj_field) and (not obj_field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
                                     checkBox.setCheckState(Qt.CheckState.Checked)
-                                if (not obj_field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked):
-                                    field['CHECK'] == 'N'
-                                    checkBox.setCheckState(Qt.CheckState.Unchecked)
+                                if ('obj_field_name' in obj_field) and (not obj_field['obj_field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                                    checkBox.setCheckState(Qt.CheckState.Checked)
+                                #if ('field_name' in obj_field) and (not obj_field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked) and field['CHECK'] == 'N':
+                                #    checkBox.setCheckState(Qt.CheckState.Unchecked)
+                                #if ('obj_field_name' in obj_field) and (not obj_field['obj_field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked) and field['CHECK'] == 'N':
+                                #    checkBox.setCheckState(Qt.CheckState.Unchecked)
                                 # checkBox.stateChanged.connect(self.check_box_change)
                                 table.setCellWidget(i_row, 7, checkBox)
                                 if self.form.mode == 'bin':
@@ -753,13 +757,31 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 #else:
                 #    cmd.setCheckState(0, Qt.CheckState.Checked)
                 cmd.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx})
+                if command_idx == 49:
+                    print("here")
                 for dword_idx in range(len(command['dwords'])):
                     dword = QTreeWidgetItem(cmd)
                     #print('dword_idx' + str(dword_idx))
                     dword.setText(0, 'dword' + command['dwords'][dword_idx]['NO'])
                     if len(command['dwords'][dword_idx]['fields'])==0:
-                        dword.setCheckState(0,Qt.CheckState.Unchecked)
+                        dword.setCheckState(0,Qt.CheckState.Unchecked)   
                     for field in command['dwords'][dword_idx]['fields']:
+                        # field in MI_BATCH_BUFFER_START_CMD command may have a different structure  
+                        if command['name'] == "MI_BATCH_BUFFER_START_CMD" and 'obj_fields' in field:
+                            #checkState = Qt.CheckState.Unchecked
+                            field_item = QTreeWidgetItem(dword)
+                            field_item.setText(0, field['field_name'])
+                            for obj_field in field["obj_fields"]:
+                                obj_field_item = QTreeWidgetItem(field_item)
+                                obj_field_item.setText(0, obj_field['obj_field_name'])
+                                if obj_field['CHECK'] == 'Y':
+                                    obj_field_item.setCheckState(0, Qt.CheckState.Checked)
+                                    field_item.setCheckState(0, Qt.CheckState.Checked)
+                                    dword.setCheckState(0, Qt.CheckState.Checked)
+                                    cmd.setCheckState(0, Qt.CheckState.Checked)
+                                else:
+                                    obj_field_item.setCheckState(0, Qt.CheckState.Unchecked)
+                            continue
                         if 'CHECK' in field and field['CHECK']=='Y':
                             cmd.setCheckState(0,Qt.CheckState.Checked)
                             dword.setCheckState(0,Qt.CheckState.Checked)
@@ -771,6 +793,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     #    dword.setCheckState(0, Qt.CheckState.Unchecked)
                     #else:
                     #    dword.setCheckState(0, Qt.CheckState.Checked)
+                    if command['name'] == "MI_BATCH_BUFFER_START_CMD" and 'obj_fields' in field:
+                        continue
                     dword.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx, 'dword_idx': dword_idx})
                     for field_obj in command['dwords'][dword_idx]['fields']:
                         if 'field_name' in field_obj:
@@ -940,7 +964,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             frames.append(commands)
         self.command_info = frames
         #self.dw_length_check()  #finish this part in cmdlist
-
+        
         self.form.info = self.command_info
         self.show_command_info()
 
@@ -974,7 +998,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         msgBox.exec_()
 
     def split_dword(self):
-        for frame_idx, frame in enumerate(self.command_info):
+        command_info_cp = copy.deepcopy(self.command_info)
+        for frame_idx, frame in enumerate(command_info_cp):
             for cmd_idx, cmd in enumerate(frame):
                 for dword_idx, dword in enumerate(cmd['dwords']):
                     if dword['NO'].find('_') != -1:
@@ -1018,6 +1043,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                 next_dword['fields'][0]['min_value'] = next_dword['fields'][0]['default_value']
                                 next_dword['fields'][0]['max_value'] = next_dword['fields'][0]['default_value']
                         cmd['dwords'].insert(dword_idx+1, next_dword)
+        return command_info_cp
 
     @Slot()
     def generate_xml(self):
@@ -1026,11 +1052,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         if self.platform == "IGFX_UNKNOWN":
             self.show_message('Fail to generate the reference. \nPlease check the Platform setting in the main page.', '')
             return
-        self.split_dword()
+        
+        command_info_cp = self.split_dword()
         lines = ['<?xml version="1.0"?>\n']
         lines.append('<' + self.test_name + '>\n')
         lines.append('  <Platform name="' + self.platform + '">\n')
-        for frame_idx, frame in enumerate(self.command_info):
+        for frame_idx, frame in enumerate(command_info_cp):
             # #print('frame' + str(frame_idx))
             lines.append('    <Frame NO="' + str(frame_idx) + '">\n')
             for cmd_idx, cmd in enumerate(frame):
@@ -1045,14 +1072,21 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 for dword_idx, dword in enumerate(cmd['dwords']):
                     s_dword = '        <dword'
                     # if all field uncheck, dwrod uncheck
-                    if all(field['CHECK'] == 'N' for field in dword['fields'] if 'CHECK' in field):
-                        dword['check'] = 'N'
+                    #if cmd['name'] == "MI_BATCH_BUFFER_START_CMD" and len(dword['fields']) > 0 and "obj_fields" in dword['fields'][0]:
+                    #    #flag = False
+                        #for field in dword['fields']:
+                        #    if any(obj_field['CHECK'] == 'Y' for obj_field in field["obj_fields"] if 'CHECK' in obj_field):
+                        #        flag = True
+                        #        break
+                        #if not flag:
+                        #    dword['check'] = 'N'
+                    #elif all(field['CHECK'] == 'N' for field in dword['fields'] if 'CHECK' in field):
+                    #    dword['check'] = 'N'
 
                     for key, value in dword.items():
                         if key != 'fields' and value:
                             s_dword = s_dword + ' ' + key + '="' + str(value) + '"'
                     s_dword = s_dword + '>\n'
-
                     lines.append(s_dword)
 
                     for field in dword['fields']:
@@ -1085,6 +1119,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             fout.writelines(lines)
         self.ui.logBrowser.append('Generating modified command xml' + self.output_path + '\\' + file_name + '\n')
         self.show_message('Generating modified command xml' + self.output_path + '\\' + file_name + '\n', '')
+        
 
     @Slot()
     def selectpath(self, name):
@@ -1112,7 +1147,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
     def input_goru(self):
         # click OK, generate xml header
         #self.read_info_from_ui()
-        
+        self.update_cmd_check_state = False
         self.Component = self.ui.Component_input.text().strip()
         self.GUID = self.ui.GUID_input.text().strip()
         self.Width = self.ui.Width_input.text().strip()
@@ -1140,7 +1175,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.parse_command_file()
             self.read_command_info_from_xml()            
             self.form.showcmdlist()
-        
+        self.update_cmd_check_state = True
     
     @Slot()
     def cpfiles(self):
@@ -1470,46 +1505,145 @@ class FormCommandInfo(QWidget):
             self.first = False
         if self.check() != 0:
             return
+        if len(self.row_command_map) == 0 or 'frame_idx' not in self.row_command_map[0] or 'command_idx' not in self.row_command_map[0]:
+            return
+        frame_idx = int(self.row_command_map[0]['frame_idx'])
+        command_idx = int(self.row_command_map[0]['command_idx'])
+        #dwords = self.info[frame_idx][command_idx]['dwords']
+        #fields = []
+        #for dword in dwords:
+        #    for field in dword['fields']:
+        #        if 'obj_fields' in field:
+        #            fields.extend(field['obj_fields'])
+        #        else:
+        #            fields.append(field)
+        #dword_index = -1
+        dword_check_states = [False] * (int(self.row_command_map[-1]['dword_idx'])+1)
         for i in range(table.rowCount()):
-            dword = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]['dwords'][int(self.row_command_map[i]['dword_idx'])]
-            if dword:
-                if not table.item(i, 2):
-                    continue
-                field_name = str(table.item(i, 2).text())
+            #dword_index += 1
+            #dword = self.info[int(self.row_command_map[i]['frame_idx'])][int(self.row_command_map[i]['command_idx'])]['dwords'][int(self.row_command_map[i]['dword_idx'])]
+            #if dword:
+            if not table.item(i, 2):
+                continue
+            field_name = str(table.item(i, 2).text())
+            dword_index = int(self.row_command_map[i]['dword_idx'])
+            if dword_index < len(self.info[frame_idx][command_idx]['dwords']):
+                dword = self.info[frame_idx][command_idx]['dwords'][dword_index]
+                target_field = None
                 for field in dword['fields']:
-                    if field['field_name'] == field_name:
-                        field['value'] = str(table.item(i, 6).text())
-                        if table.cellWidget(i, 7).isChecked():
-                            field['CHECK'] = 'Y'
-                        else:
-                            field['CHECK'] = 'N'
-                        if self.mode == 'bin':
-                            field['value'] = hex(int(str(table.item(i, 6).text()), 2))
-                            field['min_value'] = hex(int(str(table.item(i, 9).text()), 2))
-                            field['max_value'] = hex(int(str(table.item(i, 10).text()), 2))
-                        elif self.mode == 'dec':
-                            field['value'] = hex(int(str(table.item(i, 6).text())))
-                            field['min_value'] = hex(int(str(table.item(i, 9).text())))
-                            field['max_value'] = hex(int(str(table.item(i, 10).text())))
-                        else:
-                            field['value'] = str(table.item(i, 6).text())
-                            field['min_value'] = str(table.item(i, 9).text())
-                            field['max_value'] = str(table.item(i, 10).text())
+                    if 'obj_fields' in field:
+                        for obj_field in field['obj_fields']:
+                            if obj_field['obj_field_name'] == field_name:
+                                target_field = obj_field
+                                break
+                        if target_field != None:
+                            break
+                    if field_name == field['field_name']:
+                        target_field = field
+                        break
+                if target_field != None:
+                    target_field['value'] = str(table.item(i, 6).text())
+                    if table.cellWidget(i, 7).isChecked():
+                        target_field['CHECK'] = 'Y'
+                        dword_check_states[dword_index] = True
+                    else:
+                        target_field['CHECK'] = 'N'
+                    if self.mode == 'bin':
+                        target_field['value'] = hex(int(str(table.item(i, 6).text()), 2))
+                        target_field['min_value'] = hex(int(str(table.item(i, 9).text()), 2))
+                        target_field['max_value'] = hex(int(str(table.item(i, 10).text()), 2))
+                    elif self.mode == 'dec':
+                        target_field['value'] = hex(int(str(table.item(i, 6).text())))
+                        target_field['min_value'] = hex(int(str(table.item(i, 9).text())))
+                        target_field['max_value'] = hex(int(str(table.item(i, 10).text())))
+                    else:
+                        target_field['value'] = str(table.item(i, 6).text())
+                        target_field['min_value'] = str(table.item(i, 9).text())
+                        target_field['max_value'] = str(table.item(i, 10).text())
+            # update dword check state
+            if (i+1) >= len(self.row_command_map) or int(self.row_command_map[i+1]['dword_idx']) != dword_index:
+                if dword_check_states[dword_index]:
+                    dword['check'] = 'Y'
+                else:
+                    dword['check'] = 'N'
         self.main_window.command_info = self.info
 
     @Slot(QTreeWidgetItem, int)
     def update_tree_checkstate(self, item, column):
+        if not self.main_window.update_cmd_check_state:
+            return
+        # get frame index
+        treeRoot = self.main_window.form.ui.treeWidgetCmd
+        frame_item = item.parent()
+        while not frame_item.text(0).startswith("frame"):
+            frame_item = frame_item.parent()
+        frame_idx = int(frame_item.text(0)[5:])
+        # MI_BATCH_BUFFER_START_CMD can only be unchecked if no cmd in its unit is checked
+        if item.text(0) == 'MI_BATCH_BUFFER_START_CMD' and item.checkState(0) == Qt.CheckState.Unchecked:
+            if not self.uncheck_MI_BATCH_BUFFER_START_CMD(item, frame_idx):
+                item.setCheckState(0, Qt.CheckState.Checked)
+                return
         for i in range(item.childCount()):
             dword = item.child(i)
             if item.checkState(0) == Qt.CheckState.Checked:
                 dword.setCheckState(0, Qt.CheckState.Checked)
             else:
                 dword.setCheckState(0, Qt.CheckState.Unchecked)
+        # check MI_BATCH_BUFFER_START_CMD of this unit if not checked
+        if item.checkState(0) == Qt.CheckState.Checked:
+            self.check_MI_BATCH_BUFFER_START_CMD(item, frame_idx)
+
         #if item.checkState(column) == Qt.CheckState.Checked:
         #    print('Item Checked')
         #elif item.checkState(column) == Qt.CheckState.Unchecked:
         #    print('Item Unchecked')
 
+
+    def uncheck_MI_BATCH_BUFFER_START_CMD(self, item, frame_idx):
+    #  if any command in unit start with item(MI_BATCH_BUFFER_START_CMD) is checked, item should be checked
+        treeRoot = self.main_window.form.ui.treeWidgetCmd
+        frame = treeRoot.topLevelItem(0).child(frame_idx)
+        command_idx = frame.indexOfChild(item)
+        require_endcmd_num = 1
+        for i in range(command_idx+1, frame.childCount()):
+            if frame.child(i).checkState(0) == Qt.CheckState.Checked:
+                return False
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_END_CMD':
+                require_endcmd_num -= 1
+                if require_endcmd_num == 0:
+                    return True
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_START_CMD':
+                require_endcmd_num += 1
+        return True
+
+    def check_MI_BATCH_BUFFER_START_CMD(self, item, frame_idx):
+        treeRoot = self.main_window.form.ui.treeWidgetCmd
+        frame = treeRoot.topLevelItem(0).child(frame_idx)
+        # get command index when user tick a command
+        item_point = item
+        command_idx = frame.indexOfChild(item_point)
+        # git command index when user tick a dword
+        while command_idx < 0:
+            item_point = item_point.parent()
+            command_idx = frame.indexOfChild(item_point)
+        # ignore the last MI_BATCH_BUFFER_END_CMD
+        require_startcmd_num = -1
+        ignore_startcmd_num = 0
+        for i in range(command_idx,frame.childCount()):
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_END_CMD':
+                require_startcmd_num += 1
+        for i in reversed(range(command_idx)):
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_END_CMD':
+                ignore_startcmd_num += 1
+            if frame.child(i).text(0) == 'MI_BATCH_BUFFER_START_CMD':
+                if ignore_startcmd_num > 0:
+                    ignore_startcmd_num -= 1
+                else:
+                    require_startcmd_num -= 1
+                    if frame.child(i).checkState(0) == Qt.CheckState.Unchecked:
+                        frame.child(i).setCheckState(0, Qt.CheckState.Checked)
+                    if require_startcmd_num == 0:
+                        break
 
     @Slot()
     def update_data_mode_hex(self):
