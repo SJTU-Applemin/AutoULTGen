@@ -114,14 +114,9 @@ def main(input_file=r'C:\work\ult\AutoULTGen\Client\trace_typename\input_2.txt')
             includes=parser_list[0].includes
 
             parsed_includes=set()
-            
-            
 
             while(types):
                 all_includes=includes
-                #print('{:>10} |{:>10} | {:<20}'.format('COUNT', 'TOTAL', 'FILE'))
-
-                #parsed_includes=set()
                 if(not parsed_includes.issubset(all_includes)):
                     print("error occured, the parsed_includes has member not in all_includes")
                     return None
