@@ -633,7 +633,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
 
                     dword_item = command_item.child(dword_idx)
 
-                    for field in dword['fields']:
+                    for field_idx, field in enumerate(dword['fields']):
                         if field['field_name'].startswith('Obj'):
                             if i_row >= table.rowCount():
                                 table.insertRow(i_row)
@@ -692,10 +692,11 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                             table.insertRow(i_row)
                         table.setItem(i_row, 2, QTableWidgetItem(field['field_name']))
                         checkBox = QCheckBox()
-                        if (not field['field_name'].startswith('Reserved')) and command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked:
+                        field_item = dword_item.child(field_idx)
+                        if command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field_item.checkState(0) == Qt.CheckState.Checked:
                             field['CHECK'] == 'Y'
                             checkBox.setCheckState(Qt.CheckState.Checked)
-                        if (not field['field_name'].startswith('Reserved')) and (command_item.checkState(0) == Qt.CheckState.Unchecked or dword_item.checkState(0) == Qt.CheckState.Unchecked):
+                        else:
                             field['CHECK'] == 'N'
                             checkBox.setCheckState(Qt.CheckState.Unchecked)
                         # checkBox.stateChanged.connect(self.check_box_change)
@@ -790,8 +791,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                             cmd.setCheckState(0,Qt.CheckState.Checked)
                             self.command_info[frame_idx][command_idx]['check'] = 'Y'
                             dword.setCheckState(0,Qt.CheckState.Checked)
-                        else:
-                            dword.setCheckState(0, Qt.CheckState.Unchecked)
                         continue
 
                     #if command['name'] in self.command_filter:
@@ -805,6 +804,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                         if 'field_name' in field_obj:
                             field = QTreeWidgetItem(dword)
                             field.setText(0, field_obj['field_name'])
+                            if 'CHECK' in field_obj and field_obj['CHECK'] == 'Y':
+                                field.setCheckState(0, Qt.CheckState.Checked)
+                            else:
+                                field.setCheckState(0, Qt.CheckState.Unchecked)
         self.form.show()
         self.form.activateWindow()
 
@@ -959,6 +962,11 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                 field_info[key] = value
                             if 'default_value' in field_info:
                                 field_info['value'] = field_info['default_value']
+                            if 'field_name' in field_info:
+                                name = field_info['field_name']
+                                field_info['CHECK'] = 'Y'
+                                if name in ('BaseAddressIndexToMemoryObjectControlStateMocsTables', 'MemoryObjectControlState') or name.endswith('CacheSelect') or name.startswith('Reserved'):
+                                    field_info['CHECK'] = 'N'
                         dword_info['fields'].append(field_info)
                     info['dwords'].append(dword_info)
                 # if not f_other_cmd:
