@@ -843,6 +843,11 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.component = self.ui.lineEditComponent.text()
         else:
             self.component = self.ui.comboBoxComponent.currentText()
+        if self.ui.lineEditComponent.text() != 'Encode':
+            msgBox = QMessageBox()
+            msgBox.setText("Only support Encode!")
+            msgBox.exec_()
+            return False
         if self.ui.lineEditPlatform.text():
             self.platform = self.ui.lineEditPlatform.text()
         else:
