@@ -9,6 +9,7 @@ from PySide2.QtCore import QCoreApplication, Slot, Qt, QRegExp
 from PySide2.QtWidgets import *
 from PySide2.QtGui import QColor, QKeySequence, QValidator, QRegExpValidator
 from lxml import etree
+import xml.etree.ElementTree as ET
 #----------
 from ui_command_info import Ui_FormCommandInfo
 from ui_mainwindow import Ui_mainWindow
@@ -613,6 +614,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 if i_row >= table.rowCount():
                     table.insertRow(i_row)
                 table.setItem(i_row, 0, QTableWidgetItem(command['name']))
+                # CMD_HCP_VP9_RDOQ_STATE has no dwords
+                if len(command['dwords']) == 0:
+                    if command_item.checkState(0) == Qt.CheckState.Checked:
+                        command['check'] = 'Y'
+                    else:
+                        command['check'] = 'N'
                 for dword_idx, dword in enumerate(command['dwords']):
                     ##print('dword ' + str(dword_idx) + '\n')
                     #if 'unmappedstr' in dword and dword['unmappedstr']:
@@ -761,8 +768,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 cmd.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': command_idx})
                 # 'CMD_HCP_VP9_RDOQ_STATE' has no dword
                 if len(command['dwords']) == 0:
-                    cmd.setCheckState(0, Qt.CheckState.Checked)
-                    self.command_info[frame_idx][command_idx]['check'] = 'Y'
+                    if self.command_info[frame_idx][command_idx]['check'] == 'Y':
+                        cmd.setCheckState(0, Qt.CheckState.Checked)
+                    else:
+                        cmd.setCheckState(0, Qt.CheckState.Unchecked)
+                    #cmd.setCheckState(0, Qt.CheckState.Checked)
+                    #self.command_info[frame_idx][command_idx]['check'] = 'Y'
                 for dword_idx in range(len(command['dwords'])):
                     dword = QTreeWidgetItem(cmd)
                     #print('dword_idx' + str(dword_idx))
@@ -895,7 +906,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
 
         
 
-    def read_command_info_from_xml(self):
+    def read_command_info_from_xml(self, show = True):
         # read from xml file 
         #tree = etree.parse(self.command_xml)
         #root = tree.getroot()[0]
@@ -911,6 +922,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             # self.test_class_name = root.get('name')
             for command in frame:
                 info = {'dwords': []}
+                if command.attrib['name'] in ('MI_NOOP_CMD', 'HCP_PAK_INSERT_OBJECT_CMD') or command.attrib['name'].endswith('_SURFACE_STATE_CMD'):
+                    info['check'] = 'N'
+                else:
+                    info['check'] = 'Y'
                 for command_tag in self.command_tags:
                     info[command_tag] = command.get(command_tag)
                 #if info['name'] in self.command_filter:
@@ -944,10 +959,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     for dword_tag in self.dword_tags:
                         dword_info[dword_tag] = dword.get(dword_tag)
 
-                    if dword_info['NO'] == '0':
+                    if info['check'] == 'Y':
                         dword_info['check'] = 'Y'
                     else:
-                        dword_info['check'] = 'Y'
+                        dword_info['check'] = 'N'
                     # if dword_info['otherCMD']:
                     #     f_other_cmd = True
 
@@ -970,6 +985,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                             if 'field_name' in field_info:
                                 name = field_info['field_name']
                                 field_info['CHECK'] = 'Y'
+                                if info['check'] == 'N':
+                                    field_info['CHECK'] = 'N'
                                 if name in ('BaseAddressIndexToMemoryObjectControlStateMocsTables', 'MemoryObjectControlState') or name.endswith('CacheSelect') or name.startswith('Reserved'):
                                     field_info['CHECK'] = 'N'
                         dword_info['fields'].append(field_info)
@@ -983,7 +1000,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         #self.dw_length_check()  #finish this part in cmdlist
         
         self.form.info = self.command_info
-        self.show_command_info()
+        if show:
+            self.show_command_info()
 
 
     def dw_length_check(self):
@@ -1120,7 +1138,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                     lines.append(s_field)
                                 continue
                             if 'CHECK' in field and field['CHECK'] == 'Y':
-                            # if not field['field_name'].startswith('Reserve'):
+                            #if not field['field_name'].startswith('Reserve'):
                                 s_field = '          <' + field['field_name']
                                 for key, value in field.items():
                                     if key != 'field_name':
@@ -1191,10 +1209,99 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.combine()
             self.ui.logBrowser.append("Generate input file: %s\n" %self.inputfilename)
             self.parse_command_file()
-            self.read_command_info_from_xml()            
+            self.read_command_info_from_xml(False)        
+            if self.sameTest:
+                if self.sameCommandList():
+                    self.loadCheckState()
+            self.show_command_info()
             self.form.showcmdlist()
         self.update_cmd_check_state = True
     
+    # RETURN TRUE if current command_info has same frame and same command with previous command_info loaded from generated xml
+    def sameCommandList(self):
+        testname = self.ui.lineEditTestName.text()
+        fileFullName = self.output_path + '\\' + testname + 'Reference.xml'
+        if not os.path.exists(fileFullName):
+            return False
+        tree = ET.parse(fileFullName) 
+        root = tree.getroot()       
+        frames = root.findall(".//Frame")
+        if len(self.command_info) != len(frames):
+            return False
+        for frame_idx, frame in enumerate(frames):
+            # check cmd number
+            if len(self.command_info[frame_idx]) != len(frame):
+                return False
+            # check cmd name
+            for cmd_idx, cmd in enumerate(frame):
+                if cmd.attrib['name'] != self.command_info[frame_idx][cmd_idx]['name']:
+                    return False
+        return True
+
+    def loadCheckState(self):
+        testname = self.ui.lineEditTestName.text()
+        fileFullName = self.output_path + '\\' + testname + 'Reference.xml'
+        if not os.path.exists(fileFullName):
+            return
+        tree = ET.parse(fileFullName) 
+        root = tree.getroot()       
+        pre_frames = root.findall(".//Frame")
+        for frame_idx, frame in enumerate(self.command_info):
+            pre_frame = pre_frames[frame_idx]
+            pre_commands = pre_frame.findall("CMD")
+            for cmd_idx, command in enumerate(frame):
+                check = True
+                command['check'] = pre_commands[cmd_idx].attrib['check']
+                if command['check'] == 'N':
+                    check = False
+                pre_dwords = pre_commands[cmd_idx].findall("dword")
+                pre_dwords_index = 0
+                for dword_idx, dword in enumerate(command['dwords']):
+                    if not check:
+                        dword['check'] = 'N'
+                    else:
+                        dword['check'] = pre_dwords[pre_dwords_index].attrib['check']
+                        # when dword['NO'] is a single number or latter number, add index
+                        if dword['NO'] == pre_dwords[pre_dwords_index].attrib['NO'] or dword['NO'].endswith(pre_dwords[pre_dwords_index].attrib['NO']):
+                            pre_dwords_index += 1
+                        if dword['check'] == 'N':
+                            check = False
+                    pre_fields = list(pre_dwords[dword_idx])
+                    pre_fields_index = 0
+                    for field_idx, field in enumerate(dword['fields']):
+                        if command['name'] == 'MI_BATCH_BUFFER_START_CMD' and 'obj_fields' in field:
+                            for obj_field_idx, obj_field in enumerate(field['obj_fields']):
+                                if not check:
+                                    obj_field['CHECK'] = 'N'
+                                    continue
+                                if pre_fields[pre_fields_index].tag != obj_field['obj_field_name']:
+                                    continue
+                                obj_field['CHECK'] = pre_fields[pre_fields_index].attrib['CHECK']
+                            continue
+                        if not check:
+                            field['CHECK'] = 'N'
+                        else:
+                            if pre_fields_index >= len(pre_fields):
+                                break
+                            if pre_fields[pre_fields_index].tag != field['field_name']:
+                                continue
+                            field['CHECK'] = pre_fields[pre_fields_index].attrib['CHECK']
+                            pre_fields_index += 1
+
+
+        #for frame_idx, frame in enumerate(frames):
+        #    for cmd_idx, cmd in enumerate(frame):
+        #        self.command_info[frame_idx][cmd_idx]['CHECK'] = cmd.attrib['check']
+        #        check = True
+        #        if cmd.attrib['check'] = 'N':
+        #            check =
+
+        #        for dword_idx, dword in enumerate(cmd):
+        #            self.command_info[frame_idx][cmd_idx]['dwords'][dword_idx]['CHECK'] = dword.attrib['check']
+        #            for field_idx, field in enumerate(dword):
+        #                self.command_info[frame_idx][cmd_idx]['dwords'][dword_idx]['fields'][field_idx] = field.attrib['check']
+        #return True
+
     @Slot()
     def cpfiles(self):
         l = [self.inputpath, self.ringinfo_path]
@@ -1390,6 +1497,8 @@ FrameNum = {self.FrameNum}
                 lines = fin.readlines()
                 
             idx = [idx for idx, line in enumerate(lines) if re.search(f'\s*{{"{self.capitalize_word(self.test_name)}",\s*' , line)]
+            # self.sameTest records whether previous test exist with same testname,guid,platform,frame,command_list
+            self.sameTest = False
             if idx:
                 self.pre_platform = re.match('{"(.*)"}', lines[idx[0]+2].strip()).group(1)
                 self.pre_GUID = lines[idx[0]+3].strip()
@@ -1398,6 +1507,9 @@ FrameNum = {self.FrameNum}
                     fg.append(0)
                 if self.GUID and self.GUID != self.pre_GUID:
                     fg.append(1)
+                
+                if not fg:
+                    self.sameTest = True
 
                 if fg:
                     text = ''
