@@ -1210,7 +1210,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.read_command_info_from_xml(False)        
             if self.sameTest:
                 if self.sameCommandList():
-                    self.loadCheckState()
+                    msgBox = QMessageBox()
+                    msgBox.setText("Do you want to reload previous check state?")
+                    msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+                    ret = msgBox.exec();
+                    if ret == QMessageBox.Yes:
+                        self.loadCheckState()
             self.show_command_info()
             self.form.showcmdlist()
         self.update_cmd_check_state = True
