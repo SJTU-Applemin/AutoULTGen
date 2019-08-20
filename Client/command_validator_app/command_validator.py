@@ -760,7 +760,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 cmd = QTreeWidgetItem(frame)
                 cmd.setText(0, command['name'])
                 cmd.setCheckState(0,Qt.CheckState.Unchecked)
-                self.command_info[frame_idx][command_idx]['check'] = 'N'
+                #self.command_info[frame_idx][command_idx]['check'] = 'N'
                 #if command['name'] in self.command_filter:
                 #    cmd.setCheckState(0, Qt.CheckState.Unchecked)
                 #else:
@@ -770,8 +770,6 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 if len(command['dwords']) == 0:
                     if self.command_info[frame_idx][command_idx]['check'] == 'Y':
                         cmd.setCheckState(0, Qt.CheckState.Checked)
-                    else:
-                        cmd.setCheckState(0, Qt.CheckState.Unchecked)
                     #cmd.setCheckState(0, Qt.CheckState.Checked)
                     #self.command_info[frame_idx][command_idx]['check'] = 'Y'
                 for dword_idx in range(len(command['dwords'])):
@@ -1735,6 +1733,23 @@ class FormCommandInfo(QWidget):
         #elif item.checkState(column) == Qt.CheckState.Unchecked:
         #    print('Item Unchecked')
 
+    def revertCommandCheckState(self, frame_idx, cmd_idx):
+        command = self.main_window.command_info[frame_idx][cmd_idx]
+        if command['check'] == 'N':
+            newState = 'Y'
+        else:
+            newState = 'N'
+        command['check'] = newState
+        for dword in command['dwords']:
+            dword['check'] = newState
+            for field in dword['fields']:
+                if 'obj_fields' in field:
+                    for obj_field in field['obj_fields']:
+                        obj_field['CHECK'] = newState
+                else:
+                    field['CHECK'] = newState
+
+        
 
     def uncheck_MI_BATCH_BUFFER_START_CMD(self, item, frame_idx):
     #  if any command in unit start with item(MI_BATCH_BUFFER_START_CMD) is checked, item should be checked
@@ -1779,6 +1794,7 @@ class FormCommandInfo(QWidget):
                     require_startcmd_num -= 1
                     if frame.child(i).checkState(0) == Qt.CheckState.Unchecked:
                         frame.child(i).setCheckState(0, Qt.CheckState.Checked)
+                        self.revertCommandCheckState(frame_idx, i)
                     if require_startcmd_num == 0:
                         break
 
