@@ -615,11 +615,11 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                     table.insertRow(i_row)
                 table.setItem(i_row, 0, QTableWidgetItem(command['name']))
                 # CMD_HCP_VP9_RDOQ_STATE has no dwords
-                if len(command['dwords']) == 0:
-                    if command_item.checkState(0) == Qt.CheckState.Checked:
-                        command['check'] = 'Y'
-                    else:
-                        command['check'] = 'N'
+                #if len(command['dwords']) == 0:
+                #    if command_item.checkState(0) == Qt.CheckState.Checked:
+                #        command['check'] = 'Y'
+                #    else:
+                #        command['check'] = 'N'
                 for dword_idx, dword in enumerate(command['dwords']):
                     ##print('dword ' + str(dword_idx) + '\n')
                     #if 'unmappedstr' in dword and dword['unmappedstr']:
@@ -701,10 +701,10 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                         checkBox = QCheckBox()
                         field_item = dword_item.child(field_idx)
                         if command_item.checkState(0) == Qt.CheckState.Checked and dword_item.checkState(0) == Qt.CheckState.Checked and field_item.checkState(0) == Qt.CheckState.Checked:
-                            field['CHECK'] == 'Y'
+                            #field['CHECK'] == 'Y'
                             checkBox.setCheckState(Qt.CheckState.Checked)
                         else:
-                            field['CHECK'] == 'N'
+                            #field['CHECK'] == 'N'
                             checkBox.setCheckState(Qt.CheckState.Unchecked)
                         # checkBox.stateChanged.connect(self.check_box_change)
                         table.setCellWidget(i_row, 7, checkBox)
@@ -1718,11 +1718,43 @@ class FormCommandInfo(QWidget):
         while not frame_item.text(0).startswith("frame"):
             frame_item = frame_item.parent()
         frame_idx = int(frame_item.text(0)[5:])
+        
         # MI_BATCH_BUFFER_START_CMD can only be unchecked if no cmd in its unit is checked
         if item.text(0) == 'MI_BATCH_BUFFER_START_CMD' and item.checkState(0) == Qt.CheckState.Unchecked:
             if not self.uncheck_MI_BATCH_BUFFER_START_CMD(item, frame_idx):
                 item.setCheckState(0, Qt.CheckState.Checked)
                 return
+
+        if item.checkState(0) == Qt.CheckState.Checked:
+            state = 'Y'
+        else:
+            state = 'N'
+        # change state in self.main_window.command_info
+        command_idx = frame_item.indexOfChild(item)
+        if command_idx >= 0:
+            # if changed item is a command
+            self.changeCommandCheckState(state, frame_idx, command_idx, recursive = False)
+        else:
+            command_idx = frame_item.indexOfChild(item.parent())
+            if command_idx >= 0:
+                # if changed item is a dword
+                dword_idx = item.parent().indexOfChild(item)
+                self.changeCommandCheckState(state, frame_idx, command_idx, dword_idx = dword_idx, recursive = False)
+            else:
+                command_idx = frame_item.indexOfChild(item.parent().parent())
+                if command_idx >= 0:
+                    # if changed item is a field
+                    dword_idx = frame_item.child(command_idx).indexOfChild(item.parent())
+                    field_idx = item.parent().indexOfChild(item)
+                    self.changeCommandCheckState(state, frame_idx, command_idx, dword_idx = dword_idx, field_idx = field_idx, recursive = False)
+                else:
+                    # if changed item is a obj_field
+                    command_idx = frame_item.indexOfChild(item.parent().parent().parent())
+                    dword_idx = frame_item.child(command_idx).indexOfChild(item.parent().parent())
+                    obj_idx = frame_item.child(command_idx).child(dword_idx).indexOfChild(item.parent())
+                    obj_field_idx = item.parent().indexOfChild(item)
+                    self.changeCommandCheckState(state, frame_idx, command_idx, dword_idx = dword_idx, field_idx = obj_idx, obj_field_idx = obj_field_idx, recursive = False)
+        
         for i in range(item.childCount()):
             dword = item.child(i)
             if item.checkState(0) == Qt.CheckState.Checked:
@@ -1738,21 +1770,37 @@ class FormCommandInfo(QWidget):
         #elif item.checkState(column) == Qt.CheckState.Unchecked:
         #    print('Item Unchecked')
 
-    def revertCommandCheckState(self, frame_idx, cmd_idx):
+    def changeCommandCheckState(self, state, frame_idx, cmd_idx, dword_idx = -1, field_idx = -1, obj_field_idx = -1, recursive = True):
         command = self.main_window.command_info[frame_idx][cmd_idx]
-        if command['check'] == 'N':
-            newState = 'Y'
+        command['check'] = state
+        if dword_idx != -1:
+            command['dwords'][dword_idx]['check'] = state
+        if field_idx != -1:
+            if obj_field_idx != -1:
+                command['dwords'][dword_idx]['fields'][field_idx]['obj_fields'][obj_field_idx]['CHECK'] = state
+            else:
+                command['dwords'][dword_idx]['fields'][field_idx]['CHECK'] = state
+        if not recursive:
+            return
+        if dword_idx != -1:
+            dwords = [command['dwords'][dword_idx]]
         else:
-            newState = 'N'
-        command['check'] = newState
-        for dword in command['dwords']:
-            dword['check'] = newState
-            for field in dword['fields']:
+            dwords = command['dwords']
+        for dword in dwords:
+            dword['check'] = state
+            if field_idx != -1:
+                fields = [dword['fields'][field_idx]]
+            else:
+                fields = dword['fields']
+            for field in fields:
                 if 'obj_fields' in field:
+                    if obj_field_idx != -1:
+                        field['obj_fields'][obj_field_idx]['CHECK'] = state
+                        return
                     for obj_field in field['obj_fields']:
-                        obj_field['CHECK'] = newState
+                        obj_field['CHECK'] = state
                 else:
-                    field['CHECK'] = newState
+                    field['CHECK'] = state
 
         
 
@@ -1799,7 +1847,7 @@ class FormCommandInfo(QWidget):
                     require_startcmd_num -= 1
                     if frame.child(i).checkState(0) == Qt.CheckState.Unchecked:
                         frame.child(i).setCheckState(0, Qt.CheckState.Checked)
-                        self.revertCommandCheckState(frame_idx, i)
+                        self.changeCommandCheckState('Y', frame_idx, i)
                     if require_startcmd_num == 0:
                         break
 
