@@ -489,7 +489,8 @@ class MainWindow(QMainWindow):
         with open(cppFileFullName, 'r') as f:
             lines = f.read()
         try:
-            startIndex = lines.find('"' + self.test_name.title() + '",')
+            parse_test_name = self.test_name[0].upper() + self.test_name[1:]
+            startIndex = lines.find('"' + parse_test_name + '",')
             lines = lines[startIndex:]
             if startIndex < 0:
                 msgBox.setText("Test not find!")
@@ -537,7 +538,8 @@ class MainWindow(QMainWindow):
             lines = f.readlines()
         try:
             for line_idx, line in enumerate(lines):
-                if line.find("TEST_CASE_DEFINE(MediaEncodeItTest, " + self.test_name.title() + ")") >= 0:
+                parse_test_name = self.test_name[0].upper() + self.test_name[1:]
+                if line.find("TEST_CASE_DEFINE(MediaEncodeItTest, " + parse_test_name + ")") >= 0:
                     del lines[line_idx]
                     break
         except:
@@ -553,7 +555,8 @@ class MainWindow(QMainWindow):
             lines = f.readlines()
         try:
             for line_idx, line in enumerate(lines):
-                if line.lstrip().startswith('{"' + self.test_name.title()):
+                parse_test_name = self.test_name[0].upper() + self.test_name[1:]
+                if line.lstrip().startswith('{"' + parse_test_name):
                     testLineStartIndex = line_idx
                     break
             deletedLines = lines[:testLineStartIndex] + lines[testLineStartIndex+6:]
