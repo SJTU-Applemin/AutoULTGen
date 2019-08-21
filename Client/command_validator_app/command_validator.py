@@ -26,6 +26,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_mainWindow()
         self.ui.setupUi(self)
         self.ui.pushButtonGAll.clicked.connect(self.fillinput)
+        self.ui.pushButtonDC.clicked.connect(self.deleteCase)
         #self.ui.pushButtonGAll.clicked.connect(lambda : self.ui.tabWidget.setCurrentIndex(1))
         self.ui.pushButtonUpdate.clicked.connect(self.input_goru)
 
@@ -436,6 +437,180 @@ class MainWindow(QMainWindow):
             return False
 
         return True
+    
+    def checkDeleteCase(self):
+        #TODO
+        #CHECK input is not empty
+        msgBox = QMessageBox()
+        if not self.ui.lineEditTestName.text().strip():
+            msgBox.setText("Please input a valid Test Name!")
+            msgBox.exec_()
+            return False
+        if not self.ui.lineEditMediaPath.text():
+            msgBox.setText("Please input a valid Command Path!")
+            msgBox.exec_()
+            return False
+        if self.ui.lineEditPlatform.text() == "IGFX_UNKNOWN":
+            msgBox.setText("Please input a valid Platform!")
+            msgBox.exec_()
+            return False
+        if not self.ui.lineEditComponent.text():
+            msgBox.setText("Please input a valid Component!")
+            msgBox.exec_()
+            return False
+        # Get Testname, platform, component
+        self.test_name = self.ui.lineEditTestName.text().strip()
+        self.platform = self.ui.lineEditPlatform.text()
+        self.component = self.ui.comboBoxComponent.currentText()
+        #If component is not encode, return false
+        if self.component != 'Encode':
+            msgBox.setText("Only Encode is supported!")
+            msgBox.exec_()
+            return False
+        # Get Workspace
+        self.media_path = self.ui.lineEditMediaPath.text().split(';')
+        path = os.path.normpath(self.media_path[0])
+        path_list = path.split(os.sep)
+        base_media = path_list[0]
+        for i in path_list[1:]:
+            base_media = os.path.join(base_media, i)
+            if i == 'Source':
+                break
+        self.base_media = base_media.replace(':', ':\\')
+        if self.component in ('vp', 'VP'):
+            self.rootdir = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test')
+            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
+        else:
+            self.rootdir = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test')
+            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+        #Find whether its in component_xxx.cpp, if not return false
+        cppFileName = self.component.lower() + "_integrated_test_cfg.cpp"
+        cppFileFullName = os.path.join(self.rootdir, cppFileName)
+        with open(cppFileFullName, 'r') as f:
+            lines = f.read()
+        try:
+            startIndex = lines.find('"' + self.test_name.title() + '",')
+            lines = lines[startIndex:]
+            if startIndex < 0:
+                msgBox.setText("Test not find!")
+                msgBox.exec_()
+                return False
+            #Check in cpp file whether platform is same, if not return false
+            platformStartIndex = lines.find('{"')
+            platformStartIndex += 2
+            platformEndIndex = lines.find('"}', platformStartIndex)
+            cppPlatform = lines[platformStartIndex:platformEndIndex].strip()
+            if cppPlatform != self.platform:
+                msgBox.setText("Test with same name and component but different platform!")
+                msgBox.exec_()
+                return False
+            # get IDR_ENCODEHEVCCQP_REFERENCE
+            referenceStartIndex = lines.find("{")
+            referenceStartIndex += 1
+            referenceEndIndex = lines.find(",", referenceStartIndex)
+            self.cppReference = lines[referenceStartIndex:referenceEndIndex].strip()
+            commentIndex = self.cppReference.find("/*")
+            if commentIndex >= 0:
+                self.cppReference = lines[:commentIndex].strip()
+            # get IDR_ENCODEHEVCCQP_INPUT
+            inputStartIndex = referenceEndIndex + 1
+            inputEndIndex = lines.find(',', inputStartIndex)
+            self.cppInput = lines[inputStartIndex:inputEndIndex].strip()
+            commentIndex = self.cppInput.find("/*")
+            if commentIndex >= 0:
+                self.cppInput = lines[:commentIndex].strip()
+            #Else find same case, return true
+        except:
+            print("cpp file parse error")
+            return False
+        return True
+
+    @Slot()
+    def deleteCase(self):
+        if not self.checkDeleteCase():
+            return
+
+        # DELETE lines in encode_integrated_test.cpp
+        cppFileName = self.component.lower() + "_integrated_test.cpp"
+        cppFileFullName = os.path.join(self.rootdir, cppFileName)
+        with open(cppFileFullName, 'r') as f:
+            lines = f.readlines()
+        try:
+            for line_idx, line in enumerate(lines):
+                if line.find("TEST_CASE_DEFINE(MediaEncodeItTest, " + self.test_name.title() + ")") >= 0:
+                    del lines[line_idx]
+                    break
+        except:
+            print("cpp file parse error")
+            return
+        with open(cppFileFullName, 'w') as f:
+            f.writelines(lines)
+
+        # DELETE lines in encode_integrated_test_cfg.cpp
+        cppFileName = self.component.lower() + "_integrated_test_cfg.cpp"
+        cppFileFullName = os.path.join(self.rootdir, cppFileName)
+        with open(cppFileFullName, 'r') as f:
+            lines = f.readlines()
+        try:
+            for line_idx, line in enumerate(lines):
+                if line.lstrip().startswith('{"' + self.test_name.title()):
+                    testLineStartIndex = line_idx
+                    break
+            deletedLines = lines[:testLineStartIndex] + lines[testLineStartIndex+6:]
+            commaIndex = deletedLines[testLineStartIndex-1].find(',')
+            if commaIndex >= 0:
+                deletedLines[testLineStartIndex - 1] = deletedLines[testLineStartIndex - 1][:commaIndex] + deletedLines[testLineStartIndex - 1][commaIndex+1:]
+        except:
+            print("cpp file parse error")
+            return
+        with open(cppFileFullName, 'w') as f:
+            f.writelines(deletedLines)
+
+        # DELETE lines in media_driver_codec_ult.rc
+        ultFileName = "media_driver_codec_ult.rc"
+        ultFileFullName = os.path.join(self.workspace, ultFileName)
+        with open(ultFileFullName, 'r') as f:
+            lines = f.readlines()
+        try:
+            for line_idx, line in enumerate(lines):
+                if line.find(self.test_name.upper()) >= 0:
+                    del lines[line_idx]
+                    del lines[line_idx]
+                    break
+        except:
+            print("rc file parse error")
+            return
+        with open(ultFileFullName, 'w') as f:
+            f.writelines(lines)
+
+        # DELETE lines in resource.h
+        resourceFileName = "resource.h"
+        resourceFileFullName = os.path.join(self.workspace, resourceFileName)
+        with open(resourceFileFullName, 'r') as f:
+            lines = f.readlines()
+        try:
+            for line_idx, line in enumerate(lines):
+                if line.find(self.test_name.upper()) >= 0:
+                    del lines[line_idx]
+                    del lines[line_idx]
+                    break
+        except:
+            print("resource file parse error")
+            return
+        with open(resourceFileFullName, 'w') as f:
+            f.writelines(lines)
+
+        # DELETE FOLDER test_data\test_name
+        try:
+            test_folder = os.path.join(self.workspace, self.test_name)
+            shutil.rmtree(test_folder)
+        except:
+            print("remove test folder error")
+            return
+
+        msgBox = QMessageBox()
+        msgBox.setText("Test " + self.test_name + " deleted successfully!")
+        msgBox.exec_()
 
     @Slot()
     def fillinput(self):
