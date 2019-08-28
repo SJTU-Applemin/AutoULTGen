@@ -936,7 +936,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             frame.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': 'all'})
             for command_idx, command in enumerate(self.command_info[frame_idx]):
                 cmd = QTreeWidgetItem(frame)
-                cmd.setText(0, command['name'])
+                cmd.setText(0, str(command_idx) + ":" + command['name'])
                 cmd.setCheckState(0,Qt.CheckState.Unchecked)
                 #self.command_info[frame_idx][command_idx]['check'] = 'N'
                 #if command['name'] in self.command_filter:
@@ -1256,6 +1256,7 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                         cmd['dwords'].insert(dword_idx+1, next_dword)
         return command_info_cp
 
+
     @Slot()
     def generate_xml(self):
         if not self.command_info:
@@ -1306,15 +1307,16 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                                 for obj_field in field['obj_fields']:
                                     #if field['obj_fields'].startswith('Reserve'):
                                     #    continue
-                                    s_field = '          <' + obj_field['obj_field_name']
-                                    for key, value in obj_field.items():
-                                        if key != 'obj_field_name':
-                                            s_field = s_field + ' ' + key + '="' + str(value) + '"'
-                                    s_field = s_field + '/>\n'
-                                    lines.append(s_field)
+                                    if not obj_field['obj_field_name'].startswith('Reserved'):
+                                        s_field = '          <' + obj_field['obj_field_name']
+                                        for key, value in obj_field.items():
+                                            if key != 'obj_field_name':
+                                                s_field = s_field + ' ' + key + '="' + str(value) + '"'
+                                        s_field = s_field + '/>\n'
+                                        lines.append(s_field)
                                 continue
-                            if 'CHECK' in field and field['CHECK'] == 'Y':
-                            #if not field['field_name'].startswith('Reserve'):
+                            #if 'CHECK' in field and field['CHECK'] == 'Y':
+                            if not field['field_name'].startswith('Reserved'):
                                 s_field = '          <' + field['field_name']
                                 for key, value in field.items():
                                     if key != 'field_name':
