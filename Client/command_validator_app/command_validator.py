@@ -55,6 +55,7 @@ class MainWindow(QMainWindow):
         self.Addpath = Addpath(self)
         self.pathlist = self.Addpath.ui.listWidget
         self.update_cmd_check_state = True
+        self.supportComponent = ['Decode', 'Encode', 'VP']
         #
         self.last_dir = ''
         self.ui.SelectMediaPath.clicked.connect(self.showAddpath)
@@ -463,8 +464,8 @@ class MainWindow(QMainWindow):
         self.platform = self.ui.lineEditPlatform.text()
         self.component = self.ui.comboBoxComponent.currentText()
         #If component is not encode, return false
-        if self.component != 'Encode':
-            msgBox.setText("Only Encode is supported!")
+        if self.component not in self.supportComponent:
+            msgBox.setText("Only Encode, decode, vp are supported!")
             msgBox.exec_()
             return False
         # Get Workspace
@@ -477,12 +478,14 @@ class MainWindow(QMainWindow):
             if i == 'Source':
                 break
         self.base_media = base_media.replace(':', ':\\')
-        if self.component in ('vp', 'VP'):
-            self.rootdir = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test')
-            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
-        else:
-            self.rootdir = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test')
-            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+        #if self.component in ('vp', 'VP'):
+        #    self.rootdir = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test')
+        #    self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
+        #else:
+        #    self.rootdir = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test')
+        #    self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+        self.rootdir = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test')
+        self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
         #Find whether its in component_xxx.cpp, if not return false
         cppFileName = self.component.lower() + "_integrated_test_cfg.cpp"
         cppFileFullName = os.path.join(self.rootdir, cppFileName)
@@ -539,7 +542,7 @@ class MainWindow(QMainWindow):
         try:
             for line_idx, line in enumerate(lines):
                 parse_test_name = self.test_name[0].upper() + self.test_name[1:]
-                if line.find("TEST_CASE_DEFINE(MediaEncodeItTest, " + parse_test_name + ")") >= 0:
+                if line.find("TEST_CASE_DEFINE(Media" + self.component + "ItTest, " + parse_test_name + ")") >= 0:
                     del lines[line_idx]
                     break
         except:
@@ -1031,9 +1034,9 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             self.component = self.ui.lineEditComponent.text()
         else:
             self.component = self.ui.comboBoxComponent.currentText()
-        if self.ui.lineEditComponent.text() != 'Encode':
+        if self.ui.lineEditComponent.text() not in self.supportComponent:
             msgBox = QMessageBox()
-            msgBox.setText("Only support Encode!")
+            msgBox.setText("Only support Encode, Decode and vp!")
             msgBox.exec_()
             return False
         if self.ui.lineEditPlatform.text():
@@ -1052,11 +1055,11 @@ FrameNum = ([a-zA-Z0-9_\-]*)
                 break
         self.base_media = base_media.replace(':', ':\\')
 
-        if self.component in ('vp', 'VP'):
-            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
-        else:
-            self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
-        
+        #if self.component in ('vp', 'VP'):
+        #    self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\vp\test\test_data')
+        #else:
+        #    self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
+        self.workspace = os.path.join(self.base_media, r'media\media_embargo\media_driver_next\ult\windows\codec\test\test_data')
         self.output_path = os.path.join(self.workspace, self.test_name)
         # in case user left this folder, with '_x.h' header file
         base_folder = os.path.join(self.base_media, r'media\media_embargo\agnostic\gen12\hw')
@@ -1074,8 +1077,12 @@ FrameNum = ([a-zA-Z0-9_\-]*)
         else:
             ## check if platform is same with one testname
             # load previous info first
+            
             if not self.read_test_cfg_cpp('platform'):
-                self.ui.comboBoxPlatform.setCurrentText(self.pre_platform)
+                try:
+                    self.ui.comboBoxPlatform.setCurrentText(self.pre_platform)
+                except:
+                    pass
                 return False
         self.ui.logBrowser.append('All the following output will be saved in workspace:\n%s\n'  %self.output_path)
         self.ringinfo_path = self.ui.lineEditRinginfoPath.text()
@@ -1556,15 +1563,16 @@ FrameNum = {self.FrameNum}
         self.update_ult_rc()
         self.update_resource_h()
 
-    def update_integrated_test_cpp(self, component='encode'):
+    def update_integrated_test_cpp(self):
         try:
-            if component == 'encode':
-                f_integrated_cpp = self.workspace[:-9] + 'encode_integrated_test.cpp'
+            component = self.component.lower()
+            if component == 'encode' or component == 'decode' or component == 'vp':
+                f_integrated_cpp = self.workspace[:-9] + component + '_integrated_test.cpp'
                 with open(f_integrated_cpp, 'r') as fin:
                     lines = fin.readlines()
 
                 f_find = False
-                new_line = 'TEST_CASE_DEFINE(MediaEncodeItTest, ' + self.capitalize_word(self.test_name) + ')\n'
+                new_line = 'TEST_CASE_DEFINE(Media' + self.component + 'ItTest, ' + self.capitalize_word(self.test_name) + ')\n'
                 for line in lines:
                     if line.find(new_line) != -1:
                         return
@@ -1580,12 +1588,13 @@ FrameNum = {self.FrameNum}
                 with open(f_integrated_cpp, 'w') as fout:
                     fout.writelines(lines)
         except:
-            self.show_message('update encode_integrated_test.cpp error', 'error')
+            self.show_message('update ' + component + '_integrated_test.cpp error', 'error')
 
-    def update_integrated_test_cfg_cpp(self, component='encode'):
+    def update_integrated_test_cfg_cpp(self):
         try:
-            if component == 'encode':
-                f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
+            component = self.component.lower()
+            if component == 'encode' or component == 'decode' or component == 'vp':
+                f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), component + '_integrated_test_cfg.cpp')
                 with open(f_integrated_cfg_cpp, 'r') as fin:
                     lines = fin.readlines()
                 
@@ -1616,11 +1625,12 @@ FrameNum = {self.FrameNum}
                 with open(f_integrated_cfg_cpp, 'w') as fout:
                     fout.writelines(newlines)
         except:
-            self.show_message('update encode_integrated_test_cfg.cpp error', 'error')
+            self.show_message('update ' + component + '_integrated_test_cfg.cpp error', 'error')
 
-    def update_ult_rc(self, component='encode'):
+    def update_ult_rc(self):
         try:
-            if component == 'encode':
+            component = self.component.lower()
+            if component == 'encode' or component == 'decode' or component == 'vp':
                 f_ult_rc = self.workspace + '\\media_driver_codec_ult.rc'
                 with open(f_ult_rc, 'r') as fin:
                     lines = fin.readlines()
@@ -1639,9 +1649,10 @@ FrameNum = {self.FrameNum}
         except:
             self.show_message('update media_driver_codec_ult.rc error', 'error')
 
-    def update_resource_h(self, component='encode'):
+    def update_resource_h(self):
         try:
-            if component == 'encode':
+            component = self.component.lower()
+            if component == 'encode' or component == 'decode' or component == 'vp':
                 f_resource_h = self.workspace + '\\resource.h'
                 with open(f_resource_h, 'r') as fin:
                     lines = fin.readlines()
@@ -1674,9 +1685,10 @@ FrameNum = {self.FrameNum}
 
 
 
-    def read_test_cfg_cpp(self, name, component='encode'):
-        if component == 'encode':
-            f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), 'encode_integrated_test_cfg.cpp')
+    def read_test_cfg_cpp(self, name):
+        component = self.component.lower()
+        if component == 'encode' or component == 'decode' or component == 'vp':
+            f_integrated_cfg_cpp = os.path.join(os.path.dirname(self.workspace), component + '_integrated_test_cfg.cpp')
             with open(f_integrated_cfg_cpp, 'r') as fin:
                 lines = fin.readlines()
                 
@@ -1718,7 +1730,13 @@ FrameNum = {self.FrameNum}
                             return True
                         elif msgBox.clickedButton() == buttonN:
                             return False
-     
+            else:
+                for item in os.listdir(self.workspace):
+                    if os.path.isdir(os.path.join(self.workspace, item)) and item == self.test_name:
+                        msgBox = QMessageBox()
+                        msgBox.setText("Same test name with different component already exists! Delete it or change test name!")
+                        msgBox.exec_()
+                        return False
         return True
 
 class FormCommandInfo(QWidget):
