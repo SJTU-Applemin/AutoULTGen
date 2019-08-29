@@ -936,7 +936,8 @@ FrameNum = ([a-zA-Z0-9_\-]*)
             frame.setData(2, 1, {'frame_idx': frame_idx, 'cmd_idx': 'all'})
             for command_idx, command in enumerate(self.command_info[frame_idx]):
                 cmd = QTreeWidgetItem(frame)
-                cmd.setText(0, str(command_idx) + ":" + command['name'])
+                #cmd.setText(0, str(command_idx) + ":" + command['name'])
+                cmd.setText(0, command['name'])
                 cmd.setCheckState(0,Qt.CheckState.Unchecked)
                 #self.command_info[frame_idx][command_idx]['check'] = 'N'
                 #if command['name'] in self.command_filter:
