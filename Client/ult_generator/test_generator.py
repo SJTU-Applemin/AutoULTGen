@@ -1,27 +1,30 @@
 from ult_generator.generator import Generator
 from ult_generator.header_parser import HeaderParser
-
+from ult_generator.cpp_parser import CppParser
 
 class TestGenerator(Generator):
     """
 
     """
 
-    def __init__(self, head_parser, conditions):
+    def __init__(self, head_parser, cpp_parser, conditions):
         """
 
         :param info:
         """
         Generator.__init__(self)
-        if isinstance(head_parser, HeaderParser):
+        if isinstance(head_parser, HeaderParser) and isinstance(cpp_parser, CppParser):
             self.info = head_parser
+            self.cppinfo = cpp_parser
             self.test_filename_h = 'test_' + self.info.name
             self.test_filename_cpp = 'test_' + self.info.name[:-2] + '.cpp'
             self.test_class_name = 'Test' + self.info.class_name
             self.lines_h = []
             self.lines_cpp = []
-            self.includes_h = []
-            self.includes_cpp = []
+            self.includes_h = [self.info.name]
+            self.includes_cpp = set()
+            self.includes_cpp.add(self.test_filename_h)
+            self.includes_cpp |= self.cppinfo.includes
             self.conditions = conditions
         else:
             print('Use HeadParser Class to initialize!')
@@ -61,7 +64,7 @@ class TestGenerator(Generator):
                 s = s + ') : ' + info.class_name + '('
                 for p in i['parameters']:
                     name = p['name']
-                    if name.startswith('*'):
+                    if name.startswith('*') or name.startswith('&'):
                         name = name[1:]
                     s = s + name + ', '
                 if s.endswith(', '):
@@ -101,7 +104,8 @@ class TestGenerator(Generator):
         self.add_body_h(self.lines_h, self.info)
         self.write_file(self.test_filename_h, self.lines_h)
 
-    def add_arg_init(self, lines, name, p_type):
+
+    def add_arg_init(self, lines, name, p_type, varslist, method_test_expression):
         """
 
         :param lines:
@@ -109,18 +113,42 @@ class TestGenerator(Generator):
         :param p_type:
         :return:
         """
+        space12Str = ' ' * 12
+        orign_name = name
+        origin_type = p_type
+        bPointer = False
         if name.startswith('&'):
             name = name[1:]
-        if p_type in self.basic_type:
-            lines.append('            ' + p_type + ' ' + name + ' = 0;\n')
-        elif p_type == 'void':
-            lines.append('            ' + p_type + ' ' + name + ' = nullptr;\n')
-        else:
-            lines.append('            ' + p_type + ' ' + name + ';\n')
-            if name.startswith('*'):
+        if name.startswith('*'):
+            bPoniter = True
+            name = name[1:]
+            if name.startswith('p'):
                 name = name[1:]
-            lines.append('            memset(&' + name + ', 0, sizeof(' + name + '));\n')
-        return lines
+
+        if p_type in self.basic_type:
+                lines.append('            ' + p_type + ' ' + name + ' = 0;\n\n')
+        elif p_type == 'void':
+            lines.append('            ' + p_type + ' ' + name + ' = nullptr;\n\n')
+        else:
+            if self.is_media_ext_pointer(p_type):
+                p_type = self.find_pointer_struct_name(p_type)
+                lines.append('            ' + p_type + ' ')
+                bPointer = True;
+                if(name[0] == 'p'):
+                    name = name[1].lower() + name[2:]
+                else:
+                    name = name[0].lower() + name[1:]
+            else:
+                lines.append('            ' + p_type + ' ')
+                name = name[0].lower() + name[1:]
+            lines.append(name + ';\n')
+            lines.append(space12Str + 'memset(&' + name + ', 0, sizeof(' + name + '));\n\n')
+        varslist.append({'typeInMethod': origin_type, 'nameInMethod': orign_name, 'bPointerInMethod':bPointer, 'nameInTestMethod' : name, 'typeInTestMethod' : p_type})
+        if bPointer:
+            method_test_expression = method_test_expression + '&' + name + ', '
+        else:
+            method_test_expression = method_test_expression + name + ', '
+        return method_test_expression
 
     def add_conditions(self, lines, method_info, class_name, info):
         if method_info['method_name'] not in self.conditions:
@@ -181,14 +209,7 @@ class TestGenerator(Generator):
                         elif method_info['return_type'] in self.basic_type:
                             expect_return_type = '0'
                         s = s + '), ' + expect_return_type + ');\n'
-                        for p in method_info['parameters']:
-                            name = p['name']
-                            type = p['type']
-                            # if name.startswith('&') or name.startswith('*'):
-                            #     name = name[1:]
-                            # if p['type'] in self.basic_type:
-                            #     self.add_arg_init(lines, name, type)
-                            # lines.append('\n')
+
                         lines.append(s)
                         lines.append('\n')
 
@@ -202,27 +223,50 @@ class TestGenerator(Generator):
         :param info:
         :return:
         """
+        space12Str = ' ' * 12
+
         if method_info['method_name'] == '' or method_info['return_type'] == 'Constructor':
             return
         lines.append('        MOS_STATUS ' + class_name + '::' + method_info['method_name'] + 'Test()\n')
         lines.append('        {\n')
+        varslist = []
+        method_test_expression = info.class_name + '::' + method_info['method_name'] + '('
         for p in method_info['parameters']:
-            name = p['name']
-            type = p['type']
-            # if name.startswith('&') or name.startswith('*'):
-            #     name = name[1:]
-            self.add_arg_init(lines, name, type)
-            lines.append('\n')
+            method_test_expression = self.add_arg_init(lines, p['name'], p['type'], varslist, method_test_expression)
+
+        method_test_expression = method_test_expression[:-2] + ')'
+        #add input params null poniter check 
+        nullptr_check_str = space12Str +'EXPECT_EQ('+ info.class_name + '::' + method_info['method_name'] + '('
+        iexpression = space12Str +'EXPECT_EQ( '+ method_test_expression + ', MOS_STATUS_NULL_POINTER);\n'
+
+        for ivar in varslist:
+            if ivar['bPointerInMethod'] == True:
+                iexpression = method_test_expression.replace('&' + ivar['nameInTestMethod'], 'nullptr')
+                if method_info['return_type'] == 'void':
+                    iexpression = space12Str + iexpression + ';\n\n'
+                elif method_info['return_type'] == 'bool' or method_info['return_type'] == 'BOOL':
+                    iexpression = space12Str +'EXPECT_EQ( ' + iexpression + ', false);\n\n'
+                elif method_info['return_type'] == 'MOS_STATUS':
+                    iexpression = space12Str +'EXPECT_EQ( ' + iexpression + ', MOS_STATUS_NULL_POINTER);\n\n'
+                else:
+                    iexpression = space12Str + iexpression + '; \n\n'
+                lines.append(iexpression)
 
         if method_info['return_type'] == 'MOS_STATUS' or method_info['return_type'] in self.basic_type:
             s = '            EXPECT_EQ(' + info.class_name + '::' + method_info['method_name'] + '('
             f_expect_return_type = 'MOS_STATUS_SUCCESS'
             for p in method_info['parameters']:
-                name = p['name']
-                if name.startswith('&') or name.startswith('*'):
-                    name = name[1:]
+                pname = p['name']
+                ptype = p['type']
+                if self.is_media_ext_pointer(ptype):
+                    if(pname[0] == 'p'):
+                        pname = '&'+ pname[1].lower() + pname[2:]
+                    else:
+                        pname = '&' + pname[0].lower() + pname[1:]
+                elif pname.startswith('&') or pname.startswith('*'):
+                    pname = pname[1].lower() + pname[2:]
                     f_expect_return_type = 'MOS_STATUS_NULL_POINTER'
-                s = s + name + ', '
+                s = s + pname + ', '
             if s[-2:] == ', ':
                 s = s[0:-2]
             if method_info['return_type'] != 'void':
@@ -237,7 +281,26 @@ class TestGenerator(Generator):
                     expect_return_type = '0'
                 s = s + '), ' + expect_return_type + ');\n'
                 lines.append(s)
-        self.add_conditions(lines, method_info, class_name, info)
+        #TODO, to add specific processing for this kind of format
+        if method_info['return_type'] in self.media_ext_type or method_info['return_type'] == 'void':
+            s = '            ' + info.class_name + '::' + method_info['method_name'] + '('
+            for p in method_info['parameters']:
+                pname = p['name']
+                ptype = p['type']
+                if self.is_media_ext_pointer(ptype):
+                    if(pname[0] == 'p'):
+                        pname = '&'+ pname[1].lower() + pname[2:]
+                    else:
+                        pname = '&' + pname[0].lower() + pname[1:]
+                elif pname.startswith('&') or pname.startswith('*'):
+                    pname = pname[1].lower() + pname[2:]
+                    f_expect_return_type = 'MOS_STATUS_NULL_POINTER'
+                s = s + pname + ', '
+            if s[-2:] == ', ':
+                s = s[0:-2]
+            s = s + '); '
+            lines.append(s)
+#        self.add_conditions(lines, method_info, class_name, info)
         lines.append('\n')
         lines.append('            return MOS_STATUS_SUCCESS;\n')
         lines.append('        }\n')
@@ -263,6 +326,7 @@ class TestGenerator(Generator):
         """
         self.add_file_header(self.lines_cpp)
         self.add_brief_intro_cpp(self.lines_cpp, self.test_filename_cpp, self.test_class_name)
+        self.add_precompiled_header(self.lines_cpp)
         # print(self.includes_cpp)
         self.add_includes_cpp(self.lines_cpp, self.includes_cpp)
         self.add_body_cpp(self.lines_cpp, self.info)

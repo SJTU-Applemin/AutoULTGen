@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1447</width>
+    <width>1463</width>
     <height>759</height>
    </rect>
   </property>
@@ -16,308 +16,258 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QStackedWidget" name="stackedWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1451</width>
-     <height>751</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="All">
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <widget class="QTableWidget" name="tableWidgetCmd">
-     <property name="geometry">
-      <rect>
-       <x>321</x>
-       <y>0</y>
-       <width>1131</width>
-       <height>691</height>
-      </rect>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>0</number>
      </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
-     </property>
-     <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string>Command</string>
+     <widget class="QWidget" name="All">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Dword</string>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,10">
+           <item>
+            <widget class="QTreeWidget" name="treeWidgetCmd">
+             <property name="headerHidden">
+              <bool>true</bool>
+             </property>
+             <column>
+              <property name="text">
+               <string notr="true">1</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tableWidgetCmd">
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Command</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Dword</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Field</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Bitfield_low</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Bitfield_high</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Default</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Value</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Check</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Address</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Min</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Max</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="5,1,1">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QCheckBox" name="checkBoxReserved">
+               <property name="text">
+                <string>Hide reserved field</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QCheckBox" name="checkBoxHex">
+               <property name="text">
+                <string>Hexadecimal</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QCheckBox" name="checkBoxDec">
+               <property name="text">
+                <string>Decimal</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QCheckBox" name="checkBoxBinary">
+               <property name="text">
+                <string>Binary</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item alignment="Qt::AlignRight">
+            <widget class="QPushButton" name="pushButtonSCL">
+             <property name="text">
+              <string>Show CMD List</string>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignRight">
+            <widget class="QPushButton" name="pushButtonGen">
+             <property name="text">
+              <string>Generate</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="cmdlist">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Field</string>
+      <property name="minimumSize">
+       <size>
+        <width>1451</width>
+        <height>0</height>
+       </size>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Default</string>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="3,10">
+           <item>
+            <widget class="QTreeView" name="treeView"/>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tableWidgetCmdlist">
+             <property name="maximumSize">
+              <size>
+               <width>2751</width>
+               <height>3691</height>
+              </size>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Command</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Class</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>HitCount</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Error</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QPushButton" name="pushButtonSU">
+             <property name="text">
+              <string>Save Changes &amp;&amp; Update</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonSA">
+             <property name="text">
+              <string>Show All</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_5">
+      <property name="acceptDrops">
+       <bool>true</bool>
       </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Value</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Check</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Address</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Min</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Max</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Bitfield_low</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Bitfield_high</string>
-      </property>
-     </column>
+     </widget>
     </widget>
-    <widget class="QCheckBox" name="checkBoxBinary">
-     <property name="geometry">
-      <rect>
-       <x>690</x>
-       <y>710</y>
-       <width>70</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Binary</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBoxDec">
-     <property name="geometry">
-      <rect>
-       <x>610</x>
-       <y>710</y>
-       <width>71</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Decimal</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBoxHex">
-     <property name="geometry">
-      <rect>
-       <x>520</x>
-       <y>710</y>
-       <width>81</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Hexadecimal</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBoxReserved">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>710</y>
-       <width>161</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Hide reserved field</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButtonSave">
-     <property name="geometry">
-      <rect>
-       <x>1090</x>
-       <y>700</y>
-       <width>121</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Save</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButtonGen">
-     <property name="geometry">
-      <rect>
-       <x>1230</x>
-       <y>700</y>
-       <width>121</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Generate</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButtonSCL">
-     <property name="geometry">
-      <rect>
-       <x>962</x>
-       <y>700</y>
-       <width>111</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Show CMD List</string>
-     </property>
-    </widget>
-    <widget class="QTreeWidget" name="treeWidgetCmd">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>321</width>
-       <height>691</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="cmdlist">
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>1451</width>
-      <height>0</height>
-     </size>
-    </property>
-    <widget class="QTableWidget" name="tableWidgetCmdlist">
-     <property name="geometry">
-      <rect>
-       <x>321</x>
-       <y>0</y>
-       <width>1001</width>
-       <height>681</height>
-      </rect>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>2751</width>
-       <height>3691</height>
-      </size>
-     </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
-     </property>
-     <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="verticalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <column>
-      <property name="text">
-       <string>Command</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Class</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>HitCount</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Error</string>
-      </property>
-     </column>
-    </widget>
-    <widget class="QPushButton" name="pushButtonSU">
-     <property name="geometry">
-      <rect>
-       <x>750</x>
-       <y>700</y>
-       <width>151</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Save Changes &amp;&amp; Update</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButtonSA">
-     <property name="geometry">
-      <rect>
-       <x>930</x>
-       <y>700</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Show All</string>
-     </property>
-    </widget>
-    <widget class="QTreeView" name="treeView">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>321</width>
-       <height>681</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="page_5">
-    <property name="acceptDrops">
-     <bool>true</bool>
-    </property>
-   </widget>
-  </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

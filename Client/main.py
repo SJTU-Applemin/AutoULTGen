@@ -1,10 +1,18 @@
+import sys
+import os
+import re
+import shutil
+import copy
+from functools import partial
+import time
+
 from ult_generator import header_parser
 from ult_generator import test_generator
 from ult_generator import test_case_generator
 from ult_generator import xml_generator
+from ult_generator import cpp_parser
 import re
 import os
-
 
 # PLATFORMS = {'G12': 'gen12', 'common':'common'}
 # COMPONENTS = {'encode'}
@@ -61,8 +69,7 @@ def find_super_class_file(class_name, includes, media_path):
     else:
         return None
 
-
-def main(input_file='input.txt', media_path='../../../Source/media/media_embargo/media_driver_next/'):
+def main(input_file='input.txt'):
     """
 
     :param input_file:
@@ -70,18 +77,32 @@ def main(input_file='input.txt', media_path='../../../Source/media/media_embargo
     :return:
     """
     with open(input_file, 'r') as fin:
+        media_path = ''
         for line in fin:
             line = line.strip()
             if not line:
                 continue
-            idx = line.rfind('/')
+            idx = line.find('MediaPath:')
+            if idx != -1:
+                media_path = line[idx+11:]
+
+            idx = line.rfind('\\')
             file_name = line[idx+1:]
             file_path = line[:idx+1]
+            cpp_file_name = file_name[:(file_name.find('.h'))] + '.cpp'
+            if not media_path:
+                idx = file_path.find('\\gfx-driver\\Source\\media')
+                if idx != -1:
+                    media_path = line[:idx+1]+'gfx-driver\\Source\\media'
+                else:
+                    print('Error, Please input a correct media path such as MediaPath: xxxx')
+
             parser_list = [header_parser.HeaderParser(file_name, file_path)]
-            # print(os.getcwd())
+            print(os.getcwd())
             parser_list[0].read_file()
             parser_list[0].parse_file_info()
-            # parser_list[0].print_info()
+            parser_list[0].print_info()
+
             while True:
                 root_path = os.getcwd()
                 if not parser_list[-1].super_class:
@@ -114,16 +135,36 @@ def main(input_file='input.txt', media_path='../../../Source/media/media_embargo
                     if not f_override:
                         parser_list[0].methods_info.append(m)
                 # parser_list[0].methods_info.extend(i.methods_info)
-            test = test_generator.TestGenerator(parser_list[0])
+
+            cpp_parser_list = [cpp_parser.CppParser(cpp_file_name, file_path)]
+            cpp_parser_list[0].read_file()
+
+            test = test_generator.TestGenerator(parser_list[0], cpp_parser_list[0], None)
             test_case = test_case_generator.TestCaseGenerator(parser_list[0])
             xml_filename = parser_list[0].name[:-2] + '_header.xml'
 
             if os.path.exists(xml_filename):
                 includes = xml_generator.read_header_xml(parser_list[0])
-                test.includes_h = includes['test_h']
-                test.includes_cpp = includes['test_cpp']
-                test_case.includes_h = includes['test_case_h']
-                test_case.includes_cpp = includes['test_case_cpp']
+                if len(includes['test_h']) != 0 :
+                    tmpList = list(set(includes['test_h']).difference(set(test.includes_h)))
+                    if len(tmpList) != 0:
+                        test.includes_h.append(tempList)
+
+                if len(includes['test_cpp']) != 0:
+                   tmpList = list(set(includes['test_cpp']).difference(set(test.includes_cpp)))
+                   if len(tmpList) != 0:
+                       test.includes_cpp.append(tempList)
+
+                if len(includes['test_case_h']) != 0:
+                    tmpList = list(set(includes['test_case_h']).difference(set(test_case.includes_h)))
+                    if len(tmpList) != 0:
+                       test_case.includes_h.append(tempList)
+
+                if len(includes['test_case_cpp']) != 0:
+                    tmpList = list(set(includes['test_case_cpp']).difference(set(test_case.includes_cpp)))
+                    if len(tmpList) != 0:
+                       test_case.includes_cpp.append(tempList)
+
             else:
                 includes = {'test_h': test.includes_h, 'test_cpp': test.includes_cpp,
                             'test_case_h': test_case.includes_h, 'test_case_cpp': test_case.includes_cpp}

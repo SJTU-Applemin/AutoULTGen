@@ -14,7 +14,7 @@ class GetEnumMember(object):
     #    ENCODE_WIDI         = 0x8000
     #} ENCODE_FUNC;
 
-    #attrib: RawFormat, ResFormat
+    #attrib: InputFormat, OutputFormat
     #file : ...\Source\media\media_driver\agnostic\common\os\mos_resource_defs.h
     #typedef enum _MOS_FORMAT
     #{
@@ -25,7 +25,7 @@ class GetEnumMember(object):
     #   ...
     #} MOS_FORMAT, *PMOS_FORMAT;
     
-    #attrib: RawTileType, ResTileType
+    #attrib: InputTileType, OutputTileType
     #file : ...\Source\media\media_driver\agnostic\common\os\mos_resource_defs.h
     #typedef enum _MOS_TILE_TYPE
     #{
