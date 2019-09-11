@@ -69,7 +69,7 @@ def find_super_class_file(class_name, includes, media_path):
     else:
         return None
 
-def main(input_file='input.txt'):
+def main(input_file=os.getcwd()+r'\Client\input.txt'):
     """
 
     :param input_file:
@@ -133,7 +133,8 @@ def main(input_file='input.txt'):
                             f_override = True
                             break
                     if not f_override:
-                        parser_list[0].methods_info.append(m)
+                        parser_list[0].method
+                        s_info.append(m)
                 # parser_list[0].methods_info.extend(i.methods_info)
 
             cpp_parser_list = [cpp_parser.CppParser(cpp_file_name, file_path)]
@@ -148,22 +149,25 @@ def main(input_file='input.txt'):
                 if len(includes['test_h']) != 0 :
                     tmpList = list(set(includes['test_h']).difference(set(test.includes_h)))
                     if len(tmpList) != 0:
-                        test.includes_h.append(tempList)
+                        test.includes_h.extend(tempList)
 
                 if len(includes['test_cpp']) != 0:
                    tmpList = list(set(includes['test_cpp']).difference(set(test.includes_cpp)))
+                   #tmpList = set(includes['test_cpp']).difference(set(test.includes_cpp))
                    if len(tmpList) != 0:
-                       test.includes_cpp.append(tempList)
+                       for tmp in tmpList:
+                           test.includes_cpp.add(tmp)
+                       #test.includes_cpp.add(tmpList)
 
                 if len(includes['test_case_h']) != 0:
                     tmpList = list(set(includes['test_case_h']).difference(set(test_case.includes_h)))
                     if len(tmpList) != 0:
-                       test_case.includes_h.append(tempList)
+                       test_case.includes_h.extend(tmpList)
 
                 if len(includes['test_case_cpp']) != 0:
                     tmpList = list(set(includes['test_case_cpp']).difference(set(test_case.includes_cpp)))
                     if len(tmpList) != 0:
-                       test_case.includes_cpp.append(tempList)
+                       test_case.includes_cpp.extend(tempList)
 
             else:
                 includes = {'test_h': test.includes_h, 'test_cpp': test.includes_cpp,

@@ -12,14 +12,14 @@ def generate_header_xml(info, includes):
         lines = []
         lines.append('<?xml version="1.0" encoding="utf8"?>\n')
         lines.append('<' + info.name + '>\n')
-        lines.append('  <test_' + info.name + '>\n')
+        lines.append('  <' + info.name[:-2] + '_test.h>\n')
         for i in includes['test_h']:
             lines.append('    <Header file="' + i + '"/>\n')
         #lines.append('    <Header file=""/>\n')
         for i in includes['test_cpp']:
             lines.append('    <Source file="' + i + '"/>\n')
         #lines.append('    <Source file=""/>\n')
-        lines.append('  </test_' + info.name + '>\n')
+        lines.append('  </' + info.name[:-2] + '_test.h>\n')
 
         lines.append('  <' + info.name[:-2] + '_test_case.h>\n')
         for i in includes['test_case_h']:
@@ -50,7 +50,7 @@ def read_header_xml(info):
     DOMTree = xml.dom.minidom.parse(info.name[:-2] + '_header.xml')
     collection = DOMTree.documentElement
 
-    tmp = collection.getElementsByTagName('test_' + info.name)[0]
+    tmp = collection.getElementsByTagName( info.name[:-2] +'_test.h' )[0]
     headers = tmp.getElementsByTagName('Header')
     for tag in headers:
         if tag.getAttribute('file').endswith('.h'):

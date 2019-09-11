@@ -1,4 +1,5 @@
 import os
+import re
 class HeaderParser(object):
     """
 
@@ -19,6 +20,7 @@ class HeaderParser(object):
         self.constructor = []
         self.destructor = []
         self.includes = set()
+        self.system_includes = set()
         self.namespace = ''
         self.super_class = ''
         self.basic_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
@@ -58,7 +60,7 @@ class HeaderParser(object):
     @staticmethod
     def get_namespace(line):
         idx = len('namespace ')
-        namespace = line[idx:]
+        namespace = line[idx:].strip()
         if namespace and namespace[-1] == '{':
             namespace = namespace[:-1]
         while namespace[-1] == ' ':
@@ -90,7 +92,8 @@ class HeaderParser(object):
             'return_type': '',
             'method_name': '',
             'parameters': [],
-            'virtual': False
+            'override': False,
+            'pure_virtual': False
         }
         s = lines[0].strip()
 
@@ -99,8 +102,8 @@ class HeaderParser(object):
                 s = s + ' ' + i.strip()
 
         if s.startswith('virtual'):
-            method_info['virtual'] = True
-            s = s[8:].strip()
+            method_info['override'] = True
+            s = s[len('virtual '):].strip()
 
         idx0 = s.find(' ')
         if s[:idx0].find('(') == -1:
@@ -132,6 +135,122 @@ class HeaderParser(object):
 
         return method_info
 
+    def parse_define(self, line_index):
+        curlines = self.lines[line_index:]
+        skip_line_count = 0
+        for iline in curlines:
+            iline = iline.strip()
+            if iline.endswith('\\') == False:
+                break
+            skip_line_count += 1
+        return skip_line_count
+
+    def parse_struct(self, line_index, left_brace_count, right_brace_count):
+        if left_brace_count != 0 and left_brace_count == right_brace_count:
+            return 0
+        curlines = self.lines[line_index:]
+        skip_line_count = 0
+        for iline in curlines:
+            skip_line_count += 1
+            iline = iline.strip()
+            if not iline:
+                continue
+            left_brace_count += iline.count('{')
+            right_brace_count += iline.count('}')
+            if left_brace_count == right_brace_count:
+                return skip_line_count
+        print('parse_struct failed!!!!!!, Line: ' + line_index + '/n')
+        return 0
+
+    def parse_comments(self, line_index, lines):
+        skip_count = 0
+        curlines = lines[line_index:]
+        curline = curlines[0]
+        if curline.find('//') != -1:
+            idx = curline.find('//')
+            curline = curline[:idx]
+            return 0, curline
+
+        if curline.find('/*') != -1:
+            comment_satrt_count = curline.count('/*')
+            comment_end_count =  curline.count('*/')
+            if comment_satrt_count == comment_end_count:
+                return 0, re.sub('[/][*].*?[*][/]','', curline)
+            iline_index = 0
+            for iline in curlines[1:]:
+                comment_satrt_count += iline.count('/*')
+                comment_end_count += iline.count('*/')
+                iline_index += 1
+                if comment_satrt_count == comment_end_count:
+                    return iline_index, iline[:iline.rfind('*/')]
+            print('comments error!!!!!!, Line: ' + line_index + '/n')
+        return skip_count, curline
+
+    def parse_class(self, line_index, left_brace_count, right_brace_count):
+        if left_brace_count != 0 and left_brace_count == right_brace_count:
+            print('parse_class error????? Line: ' + line_index + '/n')
+            return 0
+        curlines = self.lines[line_index:]
+        skip_line_count = 0
+        iline_index = 0
+        f_ignore = False
+        f_method = False
+        method_type = 'private'
+        imethod = ''
+        semicolon_count = 0
+        for iline in curlines:
+            iline_index += 1
+            if skip_line_count != 0:
+                skip_line_count -= 1
+                continue
+            iline = iline.strip()
+            if not iline:
+                continue
+
+            skip_line_count, line_clr = self.parse_comments(iline_index -1, curlines)
+            line_clr = line_clr.strip()
+            if not line_clr:
+                continue
+            #in case there is { or } in the comments
+            left_brace_count += line_clr.count('{')
+            right_brace_count += line_clr.count('}')
+            if line_clr.startswith('public:'):
+                method_type = 'public'
+                continue
+            if line_clr.startswith('protected:'):
+                method_type = 'protected'
+                continue
+            if line_clr.startswith('private:'):
+                method_type = 'private'
+                continue
+            if left_brace_count != 0 and left_brace_count == right_brace_count:
+                line_clr = line_clr[:line_clr.find('};')]
+                line_clr = line_clr.strip()
+                if not line_clr:
+                    return iline_index
+            # memeber functions/ variables
+            imethod += line_clr
+            #Find a complete variable/method declaration
+            bpurevirtualfunc = False
+            if line_clr.endswith(';'):
+                pure_virtual_pattern =  r'^virtual .*[(].*[)] *= *0 *;'
+                if re.match(pure_virtual_pattern, line_clr):
+                    bpurevirtualfunc = True
+                bFind = True
+
+            f_method = True
+            
+            if line_clr.find('(') != -1 and line_clr.find('=') == -1:
+                self.methods.append([iline])
+                if not(line_clr[-1] == ';' or line_clr[-1] == '}'):
+                    f_method = True
+                continue
+
+            if left_brace_count != 0 and left_brace_count == right_brace_count:
+                return iline_index
+        print('parse_struct failed!!!!!!, Line: ' + line_index + '/n')
+        return 0
+
     def parse_file_info(self):
         """
 
@@ -140,59 +259,63 @@ class HeaderParser(object):
         if not self.lines:
             print('Please read file first\n')
             return
-
-        f_ignore = False
-        method_type = 'private'
         f_method = False
-        f_struct = False
-
+        line_index = 0
+        skip_line_count = 0
         for line in self.lines:
+            line_index += 1
             line_clr = line.strip()
-            if f_ignore:
-                idx = line_clr.find('*/')
-                if idx == -1:
-                    continue
-                else:
-                    f_ignore = False
-                    line_clr = line_clr[idx+2:]
-            if line_clr.startswith('/*'):
-                f_ignore = True
-                continue                   # continue may ignore the content and cause some problem
-            if line_clr.find('//') != -1:
-                idx = line_clr.find('//')
-                line_clr = line_clr[:idx]
-            if not line_clr:
+            if skip_line_count != 0:
+                skip_line_count -= 1
+                continue
+            skip_line_count, line_clr = self.parse_comments(line_index -1, self.lines)
+            if not line_clr or line_clr == '{' or line_clr == '}':
                 continue
             if line_clr.startswith('#include'):
-                self.includes.add(line_clr[10:-1])
+                line_clr = line_clr[len('#include'):].strip()
+                if line_clr.find('<') != -1 :
+                    line_clr = line_clr.strip('<')
+                    line_clr = line_clr.strip('>')
+                    self.system_includes.add(filename)
+                    continue
+                line_clr = line_clr.strip('"')
+                self.includes.add(line_clr)
+                continue
+            if line_clr.startswith('#define'):
+                if line_clr.endswith('\\'):
+                    skip_line_count = self.parse_define(line_index)
+                continue
+            # such as #ifdef
+            if line_clr.startswith('#'):
+                continue
             if f_method:
                 self.methods[-1].append(line)
                 if line_clr[-1] == ';':
                     f_method = False
-                #else:
-                #   f_method = True
-                continue
-            if f_struct:
-                if line_clr.find('}') != -1:
-                    f_struct = False
                 continue
             if line_clr.startswith('namespace'):
                 self.namespace = self.get_namespace(line_clr)
                 continue
+            if line_clr.startswith('typedef '):
+                 if line_clr.endswith(';'):
+                     continue
+                 line_clr = line_clr.strip('typedef ')
+                 line_clr = line_clr.strip()
+
             if line_clr.startswith('class'):
+                # class A;
+                if line_clr.endswith(';') == True:
+                    continue
                 self.class_name, self.super_class = self.get_class(line_clr)
+                skip_line_count = self.parse_class(line_index, line_clr.count('{'), line_clr.count('}'))
                 continue
             if line_clr.startswith('struct'):
-                f_struct = True
-            if line_clr.startswith('public:'):
-                method_type = 'public'
-                continue                   # continue may ignore the content and cause some problem
-            if line_clr.startswith('protected:'):
-                method_type = 'protected'
+                #struct A;
+                if line_clr.endswith(';') == True:
+                    continue
+                skip_line_count = self.parse_struct(line_index, line_clr.count('{'), line_clr.count('}'))
                 continue
-            if line_clr.startswith('private:'):
-                method_type = 'private'
-                continue
+
             #Todo, add more semantic analysis
             if line_clr.find('(') != -1 and line_clr.find('=') == -1:
                 self.methods.append([line])

@@ -1,6 +1,6 @@
 from ult_generator.generator import Generator
 from ult_generator.header_parser import HeaderParser
-
+from trace_typename.trace_typename import *
 
 class TestCaseGenerator(Generator):
     """
@@ -16,10 +16,10 @@ class TestCaseGenerator(Generator):
             self.test_case_class_name = self.info.class_name + 'TestCase'
             self.test_class_name = 'Test' + self.info.class_name
             if self.info.namespace == 'vp':
-                self.includes_h = ['TestFixture.h', 'test_' + self.info.name, 'media_interfaces_mhw.h', 'vp_mem_compression.h']
+                self.includes_h = ['TestFixture.h', self.info.name.split('.')[0] + '_test.h', 'media_interfaces_mhw.h', 'vp_mem_compression.h']
             else:
                 self.includes_h = ['memory_leak_detector.h', 'mock_platform.h', 'encode_test_fixture.h',
-                                'test_' + self.info.name]
+                                self.info.name.split('.')[0] + '_test.h']
             self.includes_cpp = [self.test_case_filename_h]
             self.lines_h = []
             self.lines_cpp = []
@@ -31,6 +31,24 @@ class TestCaseGenerator(Generator):
                 self.class_member_variables += ['VPMediaMemComp *', 'PVpAllocator', 'MhwInterfaces *']
         else:
             print('Use HeadParser Class to initialize!')
+
+    def test_obj_constructor_breakdown(self, lines, info):
+        for param in self.get_consturctor_method_parameters(info):
+            iname = param['name']
+            itype = param['type']
+            bpointer = False
+            #Todo, search the include file to find the Pxxx
+            if((itype in self.media_ext_type) and iname.startswith('*')):
+                itype = 'P'+ itype
+                iname = 'm_' + iname[1:]
+                bpointer = True;
+            elif iname.startswith('*'):
+                iname = iname[0] + 'm_' + iname[1:]
+                bpointer = False
+            elif iname.startswith('&'):
+                iname = 'm_' + iname[1:]
+            else:
+                iname = 'm_'+ iname
 
     def add_body_h(self, lines, info):
         """
@@ -327,7 +345,7 @@ class TestCaseGenerator(Generator):
             lines.append('    }\n')
         lines.append('\n\n')
         for method in info.methods_info:
-            if method['method_name'] == '' or method['virtual']:
+            if method['method_name'] == '':
                 continue
             lines.append('    TEST_F(' + self.test_case_class_name + ', ' + method['method_name'] + ')\n')
             lines.append('    {\n')

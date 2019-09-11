@@ -1,3 +1,4 @@
+import os
 class Generator(object):
     """
 
@@ -7,7 +8,7 @@ class Generator(object):
         """
 
         """
-        self.file_header = 'sample_header.txt'
+        self.file_header = os.getcwd()+r'\Client\sample_header.txt'
         self.basic_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
         self.basic_pointer_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
         #media_ext_type should not include the PMXXXXX

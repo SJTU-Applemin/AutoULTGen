@@ -1,3 +1,4 @@
+import os
 from ult_generator.generator import Generator
 from ult_generator.header_parser import HeaderParser
 from ult_generator.cpp_parser import CppParser
@@ -16,9 +17,9 @@ class TestGenerator(Generator):
         if isinstance(head_parser, HeaderParser) and isinstance(cpp_parser, CppParser):
             self.info = head_parser
             self.cppinfo = cpp_parser
-            self.test_filename_h = 'test_' + self.info.name
-            self.test_filename_cpp = 'test_' + self.info.name[:-2] + '.cpp'
-            self.test_class_name = 'Test' + self.info.class_name
+            self.test_filename_h = self.info.name[:-2] + '_test.h'
+            self.test_filename_cpp = self.info.name[:-2] + '_test.cpp'
+            self.test_class_name = self.info.class_name + 'TEST'
             self.lines_h = []
             self.lines_cpp = []
             self.includes_h = [self.info.name]
@@ -80,7 +81,7 @@ class TestGenerator(Generator):
                 lines.append('\n')
 
         lines.append('    private:\n')
-        with open('dependency_class.txt', 'r') as fin:
+        with open(os.getcwd()+r'\Client\dependency_class.txt', 'r') as fin:
             for line in fin:
                 class_name = line.strip().split(' ')[0]
                 # pattern = "[A-Z]"
