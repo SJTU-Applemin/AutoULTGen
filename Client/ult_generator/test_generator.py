@@ -19,7 +19,8 @@ class TestGenerator(Generator):
             self.cppinfo = cpp_parser
             self.test_filename_h = self.info.name[:-2] + '_test.h'
             self.test_filename_cpp = self.info.name[:-2] + '_test.cpp'
-            self.test_class_name = self.info.class_name + 'TEST'
+            self.test_class_name = ''
+            #self.test_class_name = self.info.class_name + 'TEST'
             self.lines_h = []
             self.lines_cpp = []
             self.includes_h = [self.info.name]
@@ -46,52 +47,57 @@ class TestGenerator(Generator):
         :param info:
         :return:
         """
-        lines.append('namespace ' + info.namespace + '\n')
-        lines.append('{\n')
-        lines.append('    class ' + self.test_class_name + ' : public ' + info.class_name + '\n')
-        lines.append('    {\n\n')
-        lines.append('    public:\n\n')
-        lines.append('\n')
-        lines.append('        virtual ~' + self.test_class_name + '() {};\n')
-        lines.append('\n')
+        for cur_class in self.info.classes:
+            self.test_class_name = cur_class['class_name']
+            lines.append('namespace ' + info.namespace + '\n')
+            lines.append('{\n')
+            lines.append('    class ' + self.test_class_name + ' : public ' + info.class_name + '\n')
+            lines.append('    {\n\n')
+            lines.append('    public:\n\n')
+            lines.append('\n')
+            lines.append('        virtual ~' + self.test_class_name + '() {};\n')
+            lines.append('\n')
 
-        for i in info.methods_info:
-            if i['return_type'] == 'Constructor' and not i['method_name'].startswith('~'):
-                s = '        ' + self.test_class_name + '('
-                for p in i['parameters']:
-                    s = s + p['type'] + ' ' + p['name'] + ', '
-                if s.endswith(', '):
-                    s = s[:-2]
-                s = s + ') : ' + info.class_name + '('
-                for p in i['parameters']:
-                    name = p['name']
-                    if name.startswith('*') or name.startswith('&'):
-                        name = name[1:]
-                    s = s + name + ', '
-                if s.endswith(', '):
-                    s = s[:-2]
-                s = s + '){};\n'
-                lines.append(s)
+            for i in cur_class['methods_info']:
+            #for i in info.methods_info:
+                if i['return_type'] == 'Constructor' and not i['method_name'].startswith('~'):
+                    s = '        ' + self.test_class_name + '('
+                    for p in i['parameters']:
+                        s = s + p['type'] + ' ' + p['name'] + ', '
+                    if s.endswith(', '):
+                        s = s[:-2]
+                    #s = s + ') : ' + info.class_name + '('
+                    s = s + ') : ' + cur_class['class_name'] + '('
+                    for p in i['parameters']:
+                        name = p['name']
+                        if name.startswith('*') or name.startswith('&'):
+                            name = name[1:]
+                        s = s + name + ', '
+                    if s.endswith(', '):
+                        s = s[:-2]
+                    s = s + '){};\n'
+                    lines.append(s)
 
-        for i in info.methods_info:
-            if i['method_name'] and i['return_type'] != 'Constructor':
-                self.add_method_annotation(lines, i['method_name'])
-                line = '        MOS_STATUS ' + i['method_name'] + 'Test();\n'
-                lines.append(line)
-                lines.append('\n')
+            for i in cur_class['methods_info']:
+            #for i in info.methods_info:
+                if i['method_name'] and i['return_type'] != 'Constructor':
+                    self.add_method_annotation(lines, i['method_name'])
+                    line = '        MOS_STATUS ' + i['method_name'] + 'Test();\n'
+                    lines.append(line)
+                    lines.append('\n')
 
-        lines.append('    private:\n')
-        with open(os.getcwd()+r'\Client\dependency_class.txt', 'r') as fin:
-            for line in fin:
-                class_name = line.strip().split(' ')[0]
-                # pattern = "[A-Z]"
-                # variable_name = re.sub(pattern, lambda x: "_" + x.group(0), class_name).lower()
-                variable_name = class_name[0].lower() + class_name[1:]
-                lines.append('        ' + class_name + ' *m_' + variable_name + ';\n')
-        lines.append('\n')
-        lines.append('    };\n')
-        lines.append('}\n')
-        lines.append('#endif\n')
+            lines.append('    private:\n')
+            with open(os.getcwd()+r'\Client\dependency_class.txt', 'r') as fin:
+                for line in fin:
+                    class_name = line.strip().split(' ')[0]
+                    # pattern = "[A-Z]"
+                    # variable_name = re.sub(pattern, lambda x: "_" + x.group(0), class_name).lower()
+                    variable_name = class_name[0].lower() + class_name[1:]
+                    lines.append('        ' + class_name + ' *m_' + variable_name + ';\n')
+            lines.append('\n')
+            lines.append('    };\n')
+            lines.append('}\n')
+            lines.append('#endif\n')
 
     def generate_h(self):
         """
