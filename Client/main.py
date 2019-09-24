@@ -103,39 +103,69 @@ def main(input_file=os.getcwd()+r'\Client\input.txt'):
             parser_list[0].parse_file_info()
             parser_list[0].print_info()
 
-            while True:
-                root_path = os.getcwd()
-                if not parser_list[-1].super_class:
-                    break
-                print(parser_list[-1].super_class)
-                s = find_super_class_file(parser_list[-1].super_class, parser_list[-1].includes, media_path)
+            #while True:
+            root_path = os.getcwd()
+            for cur_class in parser_list[-1].classes:
+                if not cur_class['super_class']:
+                    continue#break
+                print(cur_class['super_class'])
+                s = find_super_class_file(cur_class['super_class'],parser_list[-1].includes, media_path)
                 print(s)
                 os.chdir(root_path)
                 if s:
-                    idx = s.rfind('/')
-                    file_name = s[idx + 1:]
-                    file_path = s[:idx + 1]
-                    parser_list.append(header_parser.HeaderParser(file_name, file_path))
+                    idx = s.rfind('\\')
+                    cur_file_name = s[idx + 1:]
+                    cur_file_path = s[:idx + 1]
+                    parser_list.append(header_parser.HeaderParser(cur_file_name, cur_file_path))
                     parser_list[-1].read_file()
                     parser_list[-1].parse_file_info()
                 else:
                     break
+                #if not parser_list[-1].super_class:
+                #    break
+                #print(parser_list[-1].super_class)
+                #s = find_super_class_file(parser_list[-1].super_class, parser_list[-1].includes, media_path)
+                #print(s)
+                #os.chdir(root_path)
+                #if s:
+                #    idx = s.rfind('/')
+                #    file_name = s[idx + 1:]
+                #    file_path = s[:idx + 1]
+                #    parser_list.append(header_parser.HeaderParser(file_name, file_path))
+                #    parser_list[-1].read_file()
+                #    parser_list[-1].parse_file_info()
+                #else:
+                #    break
             print('------------------------')
-            for i in parser_list[1:]:
-                # print(i.name)
-                # print(i.methods_info)
-                for m in i.methods_info:
-                    f_override = False
-                    if m['method_name'].startswith('~'):
-                        continue
-                    for j in parser_list[0].methods_info:
-                        if m['method_name'] == j['method_name']:
-                            f_override = True
-                            break
-                    if not f_override:
-                        parser_list[0].method
-                        s_info.append(m)
-                # parser_list[0].methods_info.extend(i.methods_info)
+            for super_list in parser_list[1:]:
+                for sp_class in super_list.classes:
+                    for sp_m in sp_class['methods_info']:
+                        if sp_m['method_name'].startswith('~'):
+                            continue
+                        for cur_class in parser_list[0].classes:
+                            f_override = False
+                            for cur_m in cur_class['methods_info']:
+                                if cur_m['method_name'] == sp_m['method_name']:
+                                    f_override = True
+                                    cur_m['override'] = True
+                                    break
+                            if not f_override:
+                                cur_class['methods_info'].append(sp_m)
+            #for i in parser_list[1:]:
+            #    # print(i.name)
+            #    # print(i.methods_info)
+            #    for m in i.methods_info:
+            #        f_override = False
+            #        if m['method_name'].startswith('~'):
+            #            continue
+            #        for j in parser_list[0].methods_info:
+            #            if m['method_name'] == j['method_name']:
+            #                f_override = True
+            #                break
+            #        if not f_override:
+            #            parser_list[0].method
+            #            s_info.append(m)
+            #    # parser_list[0].methods_info.extend(i.methods_info)
 
             cpp_parser_list = [cpp_parser.CppParser(cpp_file_name, file_path)]
             cpp_parser_list[0].read_file()

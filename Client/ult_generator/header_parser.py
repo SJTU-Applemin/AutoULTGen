@@ -1,5 +1,6 @@
 import os
 import re
+import copy
 class HeaderParser(object):
     """
 
@@ -13,16 +14,23 @@ class HeaderParser(object):
         """
         self.name = name
         self.path = path
+        self.includes = set()
+        self.system_includes = set()
+        self.namespace = ''
         self.lines = []
+
+        self.cur_class={'class_name':'','super_class':'','constructor':[],
+                        'destructor':[],'methods':[],'methods_info':[]}
+        self.classes=[]
+        
+
         self.class_name = ''
         self.methods = []
         self.methods_info = []
         self.constructor = []
         self.destructor = []
-        self.includes = set()
-        self.system_includes = set()
-        self.namespace = ''
         self.super_class = ''
+
         self.basic_type = {'int', 'bool', 'dword', 'uint8_t', 'uint16_t', 'uint32_t', 'uint64_t', 'char'}
         self.keywords = {'static', 'constexpr', 'const', 'unsigned', '*', '&'}
         self.vars = []
@@ -30,15 +38,18 @@ class HeaderParser(object):
     def print_info(self):
         print('--------------' + self.name + '-----------------')
         #print(self.path)
-        print('Class Name:       ' + self.class_name)
-        print('Namespace:        ' + self.namespace)
-        print('Super Class:      ' + self.super_class + '\n')
-        print('Methods Info:')
-        for i in self.methods_info:
-            print('\nMethod Name:      ' + i['method_name'])
-            print('Return Type:      ' + i['return_type'])
-            for j in i['parameters']:
-                print('Type: ' + j['type'] + '        Name: ' + j['name'])
+        for cur_class in self.classes:
+            print('Class Name:       ' + cur_class['class_name'])
+            print('Namespace:        ' + self.namespace)
+            print('Super Class:      ' + cur_class['super_class'] + '\n')
+            print('Methods Info:')
+            for i in cur_class['methods_info']:
+                print('\nMethod Name:      ' + i['method_name'])
+                print('Return Type:      ' + i['return_type'])
+                for j in i['parameters']:
+                    print('Type: ' + j['type'] + '        Name: ' + j['name'])
+            print('\n\n')
+
         print('\nVar Info:\n')
         print(self.vars)
         for i in self.vars:
@@ -242,6 +253,7 @@ class HeaderParser(object):
             
             if line_clr.find('(') != -1 and line_clr.find('=') == -1:
                 self.methods.append([iline])
+                self.classes[-1]['methods'].append([iline])
                 if not(line_clr[-1] == ';' or line_clr[-1] == '}'):
                     f_method = True
                 continue
@@ -271,12 +283,14 @@ class HeaderParser(object):
             skip_line_count, line_clr = self.parse_comments(line_index -1, self.lines)
             if not line_clr or line_clr == '{' or line_clr == '}':
                 continue
+
+
             if line_clr.startswith('#include'):
                 line_clr = line_clr[len('#include'):].strip()
                 if line_clr.find('<') != -1 :
                     line_clr = line_clr.strip('<')
                     line_clr = line_clr.strip('>')
-                    self.system_includes.add(filename)
+                    self.system_includes.add(line_clr)
                     continue
                 line_clr = line_clr.strip('"')
                 self.includes.add(line_clr)
@@ -307,8 +321,18 @@ class HeaderParser(object):
                 if line_clr.endswith(';') == True:
                     continue
                 self.class_name, self.super_class = self.get_class(line_clr)
+                self.cur_class['class_name'] = self.class_name
+                self.cur_class['super_class'] = self.super_class
+                self.classes.append(copy.deepcopy(self.cur_class))
                 skip_line_count = self.parse_class(line_index, line_clr.count('{'), line_clr.count('}'))
+
+                for i in self.methods:
+                    self.methods_info.append(self.parse_method_info(i))
+                    self.classes[-1]['methods_info'].append(self.parse_method_info(i))
+                self.methods=[]
+
                 continue
+
             if line_clr.startswith('struct'):
                 #struct A;
                 if line_clr.endswith(';') == True:
@@ -336,4 +360,4 @@ class HeaderParser(object):
 
         for i in self.methods:
             self.methods_info.append(self.parse_method_info(i))
-
+            self.classes[-1]['methods_info'].append(self.parse_method_info(i))
